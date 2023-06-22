@@ -1,0 +1,25 @@
+{
+    "language": "en",
+    "login": {
+        "title": "Login",
+        "username": "Username",
+        "password": "Password",
+        "login": "Login",
+        "forgot": "Forgot password?",
+        "error": {
+            "title": "Error",
+            "message": "Invalid username or password"
+        }
+    },
+    "register": {
+        "title": "Register",
+        "username": "Username",
+        "password": "Password",
+        "confirm": "Confirm password",
+        "register": "Register",
+        "error": {
+            "title": "Error",
+            "message": "Invalid username or password"
+        }
+    }
+}

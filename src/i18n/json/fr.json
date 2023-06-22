@@ -1,0 +1,25 @@
+{
+    "language": "fr",
+    "login": {
+        "title": "Connexion",
+        "username": "Nom d'utilisateur",
+        "password": "Mot de passe",
+        "login": "Connexion",
+        "forgot": "Mot de passe oublié ?",
+        "error": {
+            "title": "Erreur",
+            "message": "Nom d'utilisateur ou mot de passe incorrect"
+        }
+    },
+    "register": {
+        "title": "Inscription",
+        "username": "Nom d'utilisateur",
+        "password": "Mot de passe",
+        "confirm": "Confirmer le mot de passe",
+        "register": "Inscription",
+        "error": {
+            "title": "Erreur",
+            "message": "Nom d'utilisateur déjà utilisé"
+        }
+    }
+}

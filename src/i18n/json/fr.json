@@ -1,14 +1,19 @@
 {
     "language": "fr",
     "login": {
-        "title": "Connexion",
+        "title": "Bienvenue !",
         "username": "Nom d'utilisateur",
         "password": "Mot de passe",
-        "login": "Connexion",
+        "button": "Connexion",
         "forgot": "Mot de passe oublié ?",
+        "google": "Google",
+        "facebook": "Facebook",
+        "noAccount": "Pas encore de compte ?",
+        "register": "Inscrivez-vous",
         "error": {
             "title": "Erreur",
-            "message": "Nom d'utilisateur ou mot de passe incorrect"
+            "message": "Nom d'utilisateur ou mot de passe incorrect",
+            "button": "OK"
         }
     },
     "register": {
@@ -16,7 +21,7 @@
         "username": "Nom d'utilisateur",
         "password": "Mot de passe",
         "confirm": "Confirmer le mot de passe",
-        "register": "Inscription",
+        "button": "Inscription",
         "error": {
             "title": "Erreur",
             "message": "Nom d'utilisateur déjà utilisé"

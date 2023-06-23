@@ -5,17 +5,15 @@ import { useTranslation } from 'react-i18next';
 import { register } from '../../styles/styles';
 
 function Register({ navigation }) {
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
+    const [confirmPassword, setConfirmPassword] = React.useState('');
+
     const { t, i18n } = useTranslation();
 
     return (
         <View style={register.container}>
-            <Text>Register</Text>
-            <Button
-                title={t('register:login')}
-                onPress={
-                    () => navigation.navigate('Login')
-                }
-            />
+            
         </View>
     )
 };

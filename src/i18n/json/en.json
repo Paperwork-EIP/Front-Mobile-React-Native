@@ -13,6 +13,8 @@
         "error": {
             "title": "Error",
             "message": "Invalid username or password",
+            "empty": "Please fill all the fields",
+            "somethingWrong": "Something went wrong, please try again later",
             "button": "OK"
         }
     },

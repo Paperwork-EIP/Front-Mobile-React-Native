@@ -13,6 +13,8 @@
         "error": {
             "title": "Erreur",
             "message": "Nom d'utilisateur ou mot de passe incorrect",
+            "empty": "Veuillez remplir tous les champs",
+            "somethingWrong": "Une erreur est survenue, veuillez réessayer plus tard",
             "button": "OK"
         }
     },

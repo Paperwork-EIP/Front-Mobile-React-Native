@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
 
 const login = StyleSheet.create({
     container: {
-        flex: 1,
         width: '100%',
         height: '100%',
         backgroundColor: '#fff',
@@ -24,6 +23,8 @@ const login = StyleSheet.create({
     },
     form: {
         width: '100%',
+        height: '100%',
+        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -34,7 +35,8 @@ const login = StyleSheet.create({
     },
     logo: {
         width: 100,
-        height: 100
+        height: 100,
+        marginBottom: 50
     },
     title: {
         fontSize: 20,
@@ -50,7 +52,7 @@ const login = StyleSheet.create({
         marginBottom: 12,
         paddingVertical: 10,
         paddingHorizontal: 15,
-        borderRadius: 15
+        borderRadius: 15,
     },
     button: {
         width: '90%',
@@ -69,6 +71,32 @@ const login = StyleSheet.create({
             color: 'white',
             fontSize: 16,
             fontWeight: 'bold'
+        }
+    },
+    passwordContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        width: '90%',
+        backgroundColor: '#f2f2f2',
+        marginBottom: 12,
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        borderRadius: 15,
+
+        input: {
+            width: '85%',
+            color: 'gray',
+            borderWidth: 0,
+        },
+
+        hidePasswordButton: {
+            color: 'gray',
+
+            image: {
+                width: 20,
+                height: 20,
+            }
         }
     },
     forgotButton: {
@@ -144,7 +172,7 @@ const login = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        marginVertical: 30,
+        marginVertical: 20,
 
         text: {
             color: '#777888',
@@ -164,7 +192,6 @@ const login = StyleSheet.create({
         height: 100,
         backgroundColor: 'transparent',
         borderWidth: 0,
-        marginBottom: 12,
         paddingVertical: 10,
         paddingHorizontal: 15
     }

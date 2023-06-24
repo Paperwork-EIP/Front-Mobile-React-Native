@@ -1,0 +1,32 @@
+{
+    "language": "en",
+    "login": {
+        "title": "Welcome !",
+        "username": "Username",
+        "password": "Password",
+        "button": "Login",
+        "forgot": "Forgot password ?",
+        "google": "Google",
+        "facebook": "Facebook",
+        "noAccount": "Don't have an account ?",
+        "register": "Sign Up",
+        "error": {
+            "title": "Error",
+            "message": "Invalid username or password",
+            "empty": "Please fill all the fields",
+            "somethingWrong": "Something went wrong, please try again later",
+            "button": "OK"
+        }
+    },
+    "register": {
+        "title": "Register",
+        "username": "Username",
+        "password": "Password",
+        "confirm": "Confirm password",
+        "button": "Register",
+        "error": {
+            "title": "Error",
+            "message": "Invalid username or password"
+        }
+    }
+}

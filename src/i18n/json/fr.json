@@ -12,21 +12,29 @@
         "register": "Inscrivez-vous",
         "error": {
             "title": "Erreur",
-            "message": "Nom d'utilisateur ou mot de passe incorrect",
+            "message": "Email ou mot de passe incorrect",
             "empty": "Veuillez remplir tous les champs",
             "somethingWrong": "Une erreur est survenue, veuillez réessayer plus tard",
             "button": "OK"
         }
     },
     "register": {
-        "title": "Inscription",
+        "title": "Rejoignez-nous !",
         "username": "Nom d'utilisateur",
         "password": "Mot de passe",
         "confirm": "Confirmer le mot de passe",
-        "button": "Inscription",
+        "button": "Créer un compte",
+        "google": "Google",
+        "facebook": "Facebook",
+        "alreadyHaveAccount": "Déjà un compte ?",
+        "login": "Connectez-vous",
         "error": {
             "title": "Erreur",
-            "message": "Nom d'utilisateur déjà utilisé"
+            "message": "Nom d'utilisateur, email ou mot de passe incorrect",
+            "accountAlreadyExists": "Un compte existe déjà avec cet email ou ce nom d'utilisateur",
+            "empty": "Veuillez remplir tous les champs",
+            "somethingWrong": "Une erreur est survenue, veuillez réessayer plus tard",
+            "button": "OK"
         }
     }
 }

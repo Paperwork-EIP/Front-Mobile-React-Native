@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert, SafeAreaView, ScrollView, View, Image, Input, TextInput, Text, TouchableOpacity, Switch } from "react-native";
+import { Alert, SafeAreaView, ScrollView, View, Image, TextInput, Text, TouchableOpacity, Switch } from "react-native";
 import { useTranslation } from 'react-i18next';
 import { Picker } from "@react-native-picker/picker";
 import { REACT_APP_BASE_URL } from "@env";
@@ -21,12 +21,28 @@ function Login({ navigation }) {
         i18n.changeLanguage(language);
     };
 
+    function redirectToRegister() {
+        navigation.navigate('Register');
+    }
+
+    function redirectToForgotPassword() {
+        navigation.navigate('ForgotPassword');
+    }
+
     function handleEmailChange(text) {
         setEmail(text);
     }
 
     function handlePasswordChange(text) {
         setPassword(text);
+    }
+
+    function connectWithGoogle() {
+        console.log("Connect with Google");
+    }
+
+    function connectWithFacebook() {
+        console.log("Connect with Facebook");
     }
 
     function handleSubmit() {
@@ -37,12 +53,12 @@ function Login({ navigation }) {
             }
             ).then(function (response) {
                 if (response.status === 200) {
-                    // cookies.set('loginToken', { loginToken: response.data.jwt, email: email }, {
-                    //     path: '/',
-                    //     secure: true,
-                    //     sameSite: 'none'
-                    // });
-                    // console.log(cookies.get('loginToken'));
+                    cookies.set('loginToken', { loginToken: response.data.jwt, email: email }, {
+                        path: '/',
+                        secure: true,
+                        sameSite: 'none'
+                    });
+                    console.log(cookies.get('loginToken'));
                     // navigation.navigate('Home');
                 } else {
                     Alert.alert(
@@ -56,7 +72,7 @@ function Login({ navigation }) {
             }
             ).catch(function (error) {
                 Alert.alert(
-                    t('login.error.message'),
+                    t('login.error.title'),
                     error.message,
                     [
                         { text: t('login.error.button') }
@@ -162,7 +178,7 @@ function Login({ navigation }) {
                             onChangeText={handlePasswordChange}
                             value={password}
                             secureTextEntry={hidePassword}
-                            placeholder="*******************"
+                            placeholder={t('login.password')}
                         />
                         <HidePasswordButton
                             icon={hidePassword ? 'hide_password' : 'show_password'}
@@ -175,24 +191,24 @@ function Login({ navigation }) {
                     />
                     <ForgotPasswordButton
                         title={t('login.forgot')}
-                        onPress={handleSubmit}
+                        onPress={redirectToForgotPassword}
                     />
                 </View>
                 <View style={login.buttons}>
                     <GoogleButton
                         title={t('login.google')}
-                        onPress={handleSubmit}
+                        onPress={connectWithGoogle}
                     />
                     <FacebookButton
                         title={t('login.facebook')}
-                        onPress={handleSubmit}
+                        onPress={connectWithFacebook}
                     />
                 </View>
                 <View style={login.center}>
                     <NoAccountButton
                         title={t('login.noAccount')}
                         registerText={t('login.register')}
-                        onPress={handleSubmit}
+                        onPress={redirectToRegister}
                     />
                 </View>
                 <View style={login.center}>

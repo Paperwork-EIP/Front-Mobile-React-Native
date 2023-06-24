@@ -12,21 +12,29 @@
         "register": "Sign Up",
         "error": {
             "title": "Error",
-            "message": "Invalid username or password",
+            "message": "Invalid email or password",
             "empty": "Please fill all the fields",
             "somethingWrong": "Something went wrong, please try again later",
             "button": "OK"
         }
     },
     "register": {
-        "title": "Register",
+        "title": "Join us !",
         "username": "Username",
         "password": "Password",
         "confirm": "Confirm password",
-        "button": "Register",
+        "button": "Create your account",
+        "google": "Google",
+        "facebook": "Facebook",
+        "alreadyHaveAccount": "Already have an account ?",
+        "login": "Login",
         "error": {
             "title": "Error",
-            "message": "Invalid username or password"
+            "message": "Invalid username, email or password",
+            "accountAlreadyExists": "This account already exists",
+            "empty": "Please fill all the fields",
+            "somethingWrong": "Something went wrong, please try again later",
+            "button": "OK"
         }
     }
 }

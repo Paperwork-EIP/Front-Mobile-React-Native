@@ -1,10 +1,14 @@
 import React from "react";
-import { Alert, SafeAreaView, ScrollView, View, Image, TextInput, Text, TouchableOpacity, Switch } from "react-native";
+import { Alert, SafeAreaView, ScrollView, View, Image, TextInput, Text } from "react-native";
 import { useTranslation } from 'react-i18next';
 import { Picker } from "@react-native-picker/picker";
 import { REACT_APP_BASE_URL } from "@env";
 
 import axios from "axios";
+import HidePasswordButton from "../components/HidePasswordButton";
+import OAuthButton from "../components/OAuthButton";
+import ClickTextButtonWithDescription from "../components/ClickTextButtonWithDescription";
+import LongHorizontalButton from "../components/LongHorizontalButton";
 
 import { register } from "../../styles/styles";
 
@@ -104,59 +108,6 @@ function Register({ navigation }) {
         }
     }
 
-    function RegisterButton({ onPress, title }) {
-        return (
-            <TouchableOpacity
-                style={register.button}
-                onPress={onPress}>
-                <Text style={register.button.text}>{title}</Text>
-            </TouchableOpacity>
-        );
-    }
-
-    function HidePasswordButton({ onPress, icon }) {
-        return (
-            <TouchableOpacity
-                style={register.passwordContainer.hidePasswordButton}
-                onPress={onPress}>
-                <Image source={icon === 'show_password' ? require('../../assets/images/show_password.png') : require('../../assets/images/hide_password.png')} style={register.passwordContainer.hidePasswordButton.image} />
-            </TouchableOpacity>
-        );
-    }
-
-    function GoogleButton({ onPress, title }) {
-        return (
-            <TouchableOpacity
-                style={register.googleButton}
-                onPress={onPress}>
-                <Image source={require('../../assets/images/google-logo.png')} style={register.googleButton.image} />
-                <Text style={register.googleButton.text}>{title}</Text>
-            </TouchableOpacity>
-        );
-    }
-
-    function FacebookButton({ onPress, title }) {
-        return (
-            <TouchableOpacity
-                style={register.facebookButton}
-                onPress={onPress}>
-                <Image source={require('../../assets/images/facebook-logo.png')} style={register.facebookButton.image} />
-                <Text style={register.facebookButton.text}>{title}</Text>
-            </TouchableOpacity>
-        );
-    }
-
-    function NoAccountButton({ onPress, title, registerText }) {
-        return (
-            <TouchableOpacity
-                style={register.noAccountButton}
-                onPress={onPress}>
-                <Text style={register.noAccountButton.text}>{title}</Text>
-                <Text style={register.noAccountButton.register}>{registerText}</Text>
-            </TouchableOpacity>
-        );
-    }
-
     return (
         <SafeAreaView style={register.container}>
             <View style={register.center}>
@@ -208,26 +159,39 @@ function Register({ navigation }) {
                             onPress={() => setHideConfirmPassword(!hideConfirmPassword)}
                         />
                     </View>
-                    <RegisterButton
+                    <LongHorizontalButton
                         title={t('register.button')}
                         onPress={handleSubmit}
+                        styleButton={register.button}
+                        styleText={register.button.text}
                     />
                 </View>
                 <View style={register.buttons}>
-                    <GoogleButton
+                    <OAuthButton
                         title={t('register.google')}
                         onPress={connectWithGoogle}
+                        source={require('../../assets/images/google-logo.png')}
+                        styleButton={register.googleButton}
+                        styleImage={register.googleButton.image}
+                        styleText={register.googleButton.text}
                     />
-                    <FacebookButton
+                    <OAuthButton
                         title={t('register.facebook')}
                         onPress={connectWithFacebook}
+                        source={require('../../assets/images/facebook-logo.png')}
+                        styleButton={register.facebookButton}
+                        styleImage={register.facebookButton.image}
+                        styleText={register.facebookButton.text}
                     />
                 </View>
                 <View style={register.center}>
-                    <NoAccountButton
+                    <ClickTextButtonWithDescription
                         title={t('register.alreadyHaveAccount')}
-                        registerText={t('register.login')}
+                        descriptionText={t('register.login')}
                         onPress={redirectToLogin}
+                        styleButton={register.noAccountButton}
+                        styleTitle={register.noAccountButton.text}
+                        styleDescriptionText={register.noAccountButton.register}
                     />
                 </View>
                 <View style={register.center}>

@@ -1,11 +1,15 @@
 import React from "react";
-import { Alert, SafeAreaView, ScrollView, View, Image, TextInput, Text, TouchableOpacity, Switch } from "react-native";
+import { Alert, SafeAreaView, ScrollView, View, Image, TextInput, Text } from "react-native";
 import { useTranslation } from 'react-i18next';
 import { Picker } from "@react-native-picker/picker";
 import { REACT_APP_BASE_URL } from "@env";
 
 import axios from "axios";
 import Cookies from 'universal-cookie';
+import HidePasswordButton from "../components/HidePasswordButton";
+import OAuthButton from "../components/OAuthButton";
+import ClickTextButtonWithDescription from "../components/ClickTextButtonWithDescription";
+import LongHorizontalButton from "../components/LongHorizontalButton";
 
 import { login } from "../../styles/styles";
 
@@ -91,69 +95,6 @@ function Login({ navigation }) {
         }
     }
 
-    function HidePasswordButton({ onPress, icon }) {
-        return (
-            <TouchableOpacity
-                style={login.passwordContainer.hidePasswordButton}
-                onPress={onPress}>
-                <Image source={icon === 'show_password' ? require('../../assets/images/show_password.png') : require('../../assets/images/hide_password.png')} style={login.passwordContainer.hidePasswordButton.image} />
-            </TouchableOpacity>
-        );
-    }
-
-    function LoginButton({ onPress, title }) {
-        return (
-            <TouchableOpacity
-                style={login.button}
-                onPress={onPress}>
-                <Text style={login.button.text}>{title}</Text>
-            </TouchableOpacity>
-        );
-    }
-
-    function ForgotPasswordButton({ onPress, title }) {
-        return (
-            <TouchableOpacity
-                style={login.forgotButton}
-                onPress={onPress}>
-                <Text style={login.forgotButton.text}>{title}</Text>
-            </TouchableOpacity>
-        );
-    }
-
-    function GoogleButton({ onPress, title }) {
-        return (
-            <TouchableOpacity
-                style={login.googleButton}
-                onPress={onPress}>
-                <Image source={require('../../assets/images/google-logo.png')} style={login.googleButton.image} />
-                <Text style={login.googleButton.text}>{title}</Text>
-            </TouchableOpacity>
-        );
-    }
-
-    function FacebookButton({ onPress, title }) {
-        return (
-            <TouchableOpacity
-                style={login.facebookButton}
-                onPress={onPress}>
-                <Image source={require('../../assets/images/facebook-logo.png')} style={login.facebookButton.image} />
-                <Text style={login.facebookButton.text}>{title}</Text>
-            </TouchableOpacity>
-        );
-    }
-
-    function NoAccountButton({ onPress, title, registerText }) {
-        return (
-            <TouchableOpacity
-                style={login.noAccountButton}
-                onPress={onPress}>
-                <Text style={login.noAccountButton.text}>{title}</Text>
-                <Text style={login.noAccountButton.register}>{registerText}</Text>
-            </TouchableOpacity>
-        );
-    }
-
     return (
         <SafeAreaView style={login.container}>
             <View style={login.center}>
@@ -185,30 +126,45 @@ function Login({ navigation }) {
                             onPress={() => setHidePassword(!hidePassword)}
                         />
                     </View>
-                    <LoginButton
+                    <LongHorizontalButton
                         title={t('login.button')}
                         onPress={handleSubmit}
+                        styleButton={login.button}
+                        styleText={login.button.text}
                     />
-                    <ForgotPasswordButton
+                    <LongHorizontalButton
                         title={t('login.forgot')}
                         onPress={redirectToForgotPassword}
+                        styleButton={login.forgotButton}
+                        styleText={login.forgotButton.text}
                     />
                 </View>
                 <View style={login.buttons}>
-                    <GoogleButton
+                    <OAuthButton
                         title={t('login.google')}
                         onPress={connectWithGoogle}
+                        source={require('../../assets/images/google-logo.png')}
+                        styleButton={login.googleButton}
+                        styleImage={login.googleButton.image}
+                        styleText={login.googleButton.text}
                     />
-                    <FacebookButton
+                    <OAuthButton
                         title={t('login.facebook')}
                         onPress={connectWithFacebook}
+                        source={require('../../assets/images/facebook-logo.png')}
+                        styleButton={login.facebookButton}
+                        styleImage={login.facebookButton.image}
+                        styleText={login.facebookButton.text}
                     />
                 </View>
                 <View style={login.center}>
-                    <NoAccountButton
+                    <ClickTextButtonWithDescription
                         title={t('login.noAccount')}
-                        registerText={t('login.register')}
+                        descriptionText={t('login.register')}
                         onPress={redirectToRegister}
+                        styleButton={login.noAccountButton}
+                        styleTitle={login.noAccountButton.text}
+                        styleDescriptionText={login.noAccountButton.register}
                     />
                 </View>
                 <View style={login.center}>

@@ -125,6 +125,7 @@ function Register({ navigation }) {
                         value={username}
                         placeholder={t('register.username')}
                         inputMode="text"
+                        testID="usernameInput"
                     />
                     <TextInput
                         style={register.input}
@@ -132,6 +133,7 @@ function Register({ navigation }) {
                         value={email}
                         placeholder="Email"
                         inputMode="email"
+                        testID="emailInput"
                     />
                     <View style={register.passwordContainer} >
                         <TextInput
@@ -140,10 +142,12 @@ function Register({ navigation }) {
                             value={password}
                             secureTextEntry={hidePassword}
                             placeholder={t('register.password')}
+                            testID="passwordInput"
                         />
                         <HidePasswordButton
                             icon={hidePassword ? 'hide_password' : 'show_password'}
                             onPress={() => setHidePassword(!hidePassword)}
+                            testID="hidePasswordButton"
                         />
                     </View>
                     <View style={register.passwordContainer} >
@@ -153,10 +157,12 @@ function Register({ navigation }) {
                             value={confirmPassword}
                             secureTextEntry={hideConfirmPassword}
                             placeholder={t('register.confirm')}
+                            testID="confirmPasswordInput"
                         />
                         <HidePasswordButton
                             icon={hideConfirmPassword ? 'hide_password' : 'show_password'}
                             onPress={() => setHideConfirmPassword(!hideConfirmPassword)}
+                            testID="hideConfirmPasswordButton"
                         />
                     </View>
                     <LongHorizontalButton
@@ -164,6 +170,7 @@ function Register({ navigation }) {
                         onPress={handleSubmit}
                         styleButton={register.button}
                         styleText={register.button.text}
+                        testID="registerButton"
                     />
                 </View>
                 <View style={register.buttons}>
@@ -174,6 +181,7 @@ function Register({ navigation }) {
                         styleButton={register.googleButton}
                         styleImage={register.googleButton.image}
                         styleText={register.googleButton.text}
+                        testID="googleButton"
                     />
                     <OAuthButton
                         title={t('register.facebook')}
@@ -182,6 +190,7 @@ function Register({ navigation }) {
                         styleButton={register.facebookButton}
                         styleImage={register.facebookButton.image}
                         styleText={register.facebookButton.text}
+                        testID="facebookButton"
                     />
                 </View>
                 <View style={register.center}>
@@ -192,6 +201,7 @@ function Register({ navigation }) {
                         styleButton={register.noAccountButton}
                         styleTitle={register.noAccountButton.text}
                         styleDescriptionText={register.noAccountButton.register}
+                        testID="alreadyHaveAccountButton"
                     />
                 </View>
                 <View style={register.center}>
@@ -199,6 +209,7 @@ function Register({ navigation }) {
                         selectedValue={i18n.language}
                         style={register.picker}
                         onValueChange={changeLanguage}
+                        testID="languagePicker"
                     >
                         <Picker.Item label="English" value="en" />
                         <Picker.Item label="Français" value="fr" />

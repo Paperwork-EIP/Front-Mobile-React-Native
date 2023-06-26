@@ -63,7 +63,7 @@ function Login({ navigation }) {
                         sameSite: 'none'
                     });
                     console.log(cookies.get('loginToken'));
-                    // navigation.navigate('Home');
+                    navigation.navigate('Home');
                 } else {
                     Alert.alert(
                         t('login.error.title'),
@@ -112,6 +112,7 @@ function Login({ navigation }) {
                         value={email}
                         placeholder="Email"
                         inputMode="email"
+                        testID="emailInput"
                     />
                     <View style={login.passwordContainer} >
                         <TextInput
@@ -120,10 +121,12 @@ function Login({ navigation }) {
                             value={password}
                             secureTextEntry={hidePassword}
                             placeholder={t('login.password')}
+                            testID="passwordInput"
                         />
                         <HidePasswordButton
                             icon={hidePassword ? 'hide_password' : 'show_password'}
                             onPress={() => setHidePassword(!hidePassword)}
+                            testID="hidePasswordButton"
                         />
                     </View>
                     <LongHorizontalButton
@@ -131,12 +134,14 @@ function Login({ navigation }) {
                         onPress={handleSubmit}
                         styleButton={login.button}
                         styleText={login.button.text}
+                        testID="loginButton"
                     />
                     <LongHorizontalButton
                         title={t('login.forgot')}
                         onPress={redirectToForgotPassword}
                         styleButton={login.forgotButton}
                         styleText={login.forgotButton.text}
+                        testID="forgotPasswordButton"
                     />
                 </View>
                 <View style={login.buttons}>
@@ -147,6 +152,7 @@ function Login({ navigation }) {
                         styleButton={login.googleButton}
                         styleImage={login.googleButton.image}
                         styleText={login.googleButton.text}
+                        testID="googleButton"
                     />
                     <OAuthButton
                         title={t('login.facebook')}
@@ -155,6 +161,7 @@ function Login({ navigation }) {
                         styleButton={login.facebookButton}
                         styleImage={login.facebookButton.image}
                         styleText={login.facebookButton.text}
+                        testID="facebookButton"
                     />
                 </View>
                 <View style={login.center}>
@@ -165,6 +172,7 @@ function Login({ navigation }) {
                         styleButton={login.noAccountButton}
                         styleTitle={login.noAccountButton.text}
                         styleDescriptionText={login.noAccountButton.register}
+                        testID="registerButton"
                     />
                 </View>
                 <View style={login.center}>
@@ -172,6 +180,7 @@ function Login({ navigation }) {
                         selectedValue={i18n.language}
                         style={login.picker}
                         onValueChange={changeLanguage}
+                        testID="languagePicker"
                     >
                         <Picker.Item label="English" value="en" />
                         <Picker.Item label="Français" value="fr" />

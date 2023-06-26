@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
 
 const login = StyleSheet.create({
     container: {
+        flex: 1,
         width: '100%',
         height: '100%',
         backgroundColor: '#fff',
@@ -35,8 +36,7 @@ const login = StyleSheet.create({
     },
     logo: {
         width: 100,
-        height: 100,
-        marginBottom: 50
+        height: 100
     },
     title: {
         fontSize: 20,
@@ -199,6 +199,7 @@ const login = StyleSheet.create({
 
 const register = StyleSheet.create({
     container: {
+        flex: 1,
         width: '100%',
         height: '100%',
         backgroundColor: '#fff',
@@ -223,8 +224,7 @@ const register = StyleSheet.create({
     },
     logo: {
         width: 100,
-        height: 100,
-        marginBottom: 50
+        height: 100
     },
     title: {
         fontSize: 20,

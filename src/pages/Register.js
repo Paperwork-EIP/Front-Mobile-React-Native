@@ -1,5 +1,6 @@
 import React from "react";
-import { Alert, SafeAreaView, ScrollView, View, Image, TextInput, Text } from "react-native";
+import SafeAreaView from 'react-native-safe-area-view';
+import { Alert, ScrollView, View, Image, TextInput, Text } from "react-native";
 import { useTranslation } from 'react-i18next';
 import { Picker } from "@react-native-picker/picker";
 import { REACT_APP_BASE_URL } from "@env";

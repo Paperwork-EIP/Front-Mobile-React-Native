@@ -1,5 +1,4 @@
 import React from "react";
-import SafeAreaView from 'react-native-safe-area-view';
 import { Alert, ScrollView, View, Image, TextInput, Text } from "react-native";
 import { useTranslation } from 'react-i18next';
 import { Picker } from "@react-native-picker/picker";
@@ -97,7 +96,7 @@ function Login({ navigation }) {
     }
 
     return (
-        <SafeAreaView style={login.container}>
+        <View style={login.container}>
             <View style={login.center}>
                 <Image
                     source={require('../../assets/logo.png')}
@@ -188,7 +187,7 @@ function Login({ navigation }) {
                     </Picker>
                 </View>
             </ScrollView>
-        </SafeAreaView >
+        </View >
     );
 };
 

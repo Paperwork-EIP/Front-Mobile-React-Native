@@ -1,17 +1,7 @@
 import { StyleSheet } from 'react-native';
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
-
 const login = StyleSheet.create({
     container: {
-        flex: 1,
         width: '100%',
         height: '100%',
         backgroundColor: '#fff',
@@ -19,7 +9,8 @@ const login = StyleSheet.create({
         justifyContent: 'center',
         paddingTop: 50
     },
-    scrollview: {
+    content: {
+        flex: 2,
         width: '100%',
     },
     form: {
@@ -103,7 +94,7 @@ const login = StyleSheet.create({
         backgroundColor: 'transparent',
         alignContent: 'center',
         justifyContent: 'center',
-        marginVertical: 30,
+        marginTop: 20,
 
         text: {
             color: '#FC6976',
@@ -115,14 +106,13 @@ const login = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'space-evenly',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        marginBottom: 20,
     },
     googleButton: {
         width: '40%',
         borderWidth: 1,
         borderColor: '#29C9B3',
-        marginTop: 15,
-        marginBottom: 20,
         paddingVertical: 10,
         paddingHorizontal: 15,
         borderRadius: 15,
@@ -145,8 +135,6 @@ const login = StyleSheet.create({
         width: '40%',
         borderWidth: 1,
         borderColor: '#29C9B3',
-        marginTop: 15,
-        marginBottom: 20,
         paddingVertical: 10,
         paddingHorizontal: 15,
         borderRadius: 15,
@@ -199,7 +187,6 @@ const login = StyleSheet.create({
 
 const register = StyleSheet.create({
     container: {
-        flex: 1,
         width: '100%',
         height: '100%',
         backgroundColor: '#fff',
@@ -207,13 +194,14 @@ const register = StyleSheet.create({
         justifyContent: 'center',
         paddingTop: 50
     },
-    scrollview: {
+    content: {
         width: '100%',
+        flex: 2
     },
     form: {
+        flex: 1,
         width: '100%',
         height: '100%',
-        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -291,7 +279,7 @@ const register = StyleSheet.create({
         backgroundColor: 'transparent',
         alignContent: 'center',
         justifyContent: 'center',
-        marginVertical: 30,
+        marginTop: 20,
 
         text: {
             color: '#FC6976',
@@ -303,14 +291,13 @@ const register = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'space-evenly',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        marginBottom: 20,
     },
     googleButton: {
         width: '40%',
         borderWidth: 1,
         borderColor: '#29C9B3',
-        marginTop: 15,
-        marginBottom: 20,
         paddingVertical: 10,
         paddingHorizontal: 15,
         borderRadius: 15,
@@ -333,8 +320,6 @@ const register = StyleSheet.create({
         width: '40%',
         borderWidth: 1,
         borderColor: '#29C9B3',
-        marginTop: 15,
-        marginBottom: 20,
         paddingVertical: 10,
         paddingHorizontal: 15,
         borderRadius: 15,
@@ -385,4 +370,4 @@ const register = StyleSheet.create({
     }
 });
 
-export { styles, login, register };
+export { login, register };

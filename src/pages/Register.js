@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert, View, Image, TextInput, Text } from "react-native";
+import { Alert, View, Image, TextInput, Text, ScrollView } from "react-native";
 import { useTranslation } from 'react-i18next';
 import { Picker } from "@react-native-picker/picker";
 import { REACT_APP_BASE_URL } from "@env";
@@ -116,7 +116,7 @@ function Register({ navigation }) {
                     style={register.logo}
                 />
             </View>
-            <View style={register.content}>
+            <ScrollView style={register.content}>
                 <View style={register.form}>
                     <Text style={register.title} >{t('register.title')}</Text>
                     <TextInput
@@ -215,7 +215,7 @@ function Register({ navigation }) {
                         <Picker.Item label="Français" value="fr" />
                     </Picker>
                 </View>
-            </View>
+            </ScrollView>
         </View >
     );
 };

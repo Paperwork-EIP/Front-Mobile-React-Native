@@ -10,7 +10,6 @@ const login = StyleSheet.create({
         paddingTop: 50
     },
     content: {
-        flex: 2,
         width: '100%',
     },
     form: {
@@ -107,7 +106,7 @@ const login = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-evenly',
         flexDirection: 'row',
-        marginBottom: 20,
+        marginVertical: 20,
     },
     googleButton: {
         width: '40%',
@@ -292,7 +291,7 @@ const register = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-evenly',
         flexDirection: 'row',
-        marginBottom: 20,
+        marginVertical: 20,
     },
     googleButton: {
         width: '40%',

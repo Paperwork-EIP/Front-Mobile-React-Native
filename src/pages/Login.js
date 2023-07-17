@@ -12,7 +12,7 @@ import OAuthButton from "../components/OAuthButton";
 import ClickTextButtonWithDescription from "../components/ClickTextButtonWithDescription";
 import LongHorizontalButton from "../components/LongHorizontalButton";
 
-import { login } from "../../styles/styles";
+import { login } from "../../styles/login";
 
 function Login({ navigation }) {
     const { t, i18n } = useTranslation();
@@ -76,7 +76,7 @@ function Login({ navigation }) {
                         sameSite: 'none'
                     });
                     console.log(cookies.get('loginToken'));
-                    navigation.navigate('Home');
+                    navigation.navigate('Calendar');
                 } else {
                     Alert.alert(
                         t('login.error.title'),

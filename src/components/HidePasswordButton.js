@@ -1,7 +1,7 @@
 import React from "react";
 import { Image, TouchableOpacity } from "react-native";
 
-import { login } from "../../styles/styles";
+import { login } from "../../styles/login";
 
 function HidePasswordButton({ onPress, icon, testID }) {
     return (

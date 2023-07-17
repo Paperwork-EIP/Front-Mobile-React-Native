@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@babel/preset-env": "^7.22.5",
+    "@expo/webpack-config": "^18.0.1",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-picker/picker": "2.4.8",
     "@react-navigation/native": "^6.1.6",
@@ -27,6 +28,7 @@
     "expo-status-bar": "~1.4.4",
     "i18next": "^23.2.2",
     "react": "18.2.0",
+    "react-dom": "18.2.0",
     "react-i18next": "^13.0.0",
     "react-native": "0.71.8",
     "react-native-dotenv": "^3.4.9",
@@ -34,10 +36,9 @@
     "react-native-reanimated": "~2.14.4",
     "react-native-screens": "~3.20.0",
     "react-native-vector-icons": "^9.2.0",
-    "universal-cookie": "^4.0.4",
     "react-native-web": "~0.18.10",
-    "react-dom": "18.2.0",
-    "@expo/webpack-config": "^18.0.1"
+    "react-native-webview": "11.26.0",
+    "universal-cookie": "^4.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

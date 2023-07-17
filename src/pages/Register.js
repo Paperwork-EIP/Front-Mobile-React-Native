@@ -1,5 +1,6 @@
 import React from "react";
-import { Alert, View, Image, TextInput, Text, ScrollView } from "react-native";
+import { Alert, View, Image, TextInput, Text } from "react-native";
+import { WebView } from 'react-native-webview';
 import { useTranslation } from 'react-i18next';
 import { Picker } from "@react-native-picker/picker";
 import { REACT_APP_BASE_URL } from "@env";
@@ -47,11 +48,23 @@ function Register({ navigation }) {
     }
 
     function connectWithGoogle() {
-        console.log("Connect with Google");
+        axios.get(`${REACT_APP_BASE_URL}/oauth/google/urlLogin`).then(res => {
+            console.log(res.data);
+            <WebView
+                source={{ uri: res.data }}
+                style={{ marginTop: 20 }}
+            />
+        })
     }
 
     function connectWithFacebook() {
-        console.log("Connect with Facebook");
+        axios.get(`${REACT_APP_BASE_URL}/oauth/facebook/url`).then(res => {
+            console.log(res.data);
+            <WebView
+                source={{ uri: res.data }}
+                style={{ marginTop: 20 }}
+            />
+        })
     }
 
     function handleSubmit() {
@@ -116,7 +129,7 @@ function Register({ navigation }) {
                     style={register.logo}
                 />
             </View>
-            <ScrollView style={register.content}>
+            <View style={register.content}>
                 <View style={register.form}>
                     <Text style={register.title} >{t('register.title')}</Text>
                     <TextInput
@@ -215,7 +228,7 @@ function Register({ navigation }) {
                         <Picker.Item label="Français" value="fr" />
                     </Picker>
                 </View>
-            </ScrollView>
+            </View>
         </View >
     );
 };

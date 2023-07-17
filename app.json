@@ -22,7 +22,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.anonymous.paperworkmobile"
+      "package": "com.anonymous.paperworkmobile",
+      "softwareKeyboardLayoutMode":"pan"
     },
     "web": {
       "favicon": "./assets/favicon.png"

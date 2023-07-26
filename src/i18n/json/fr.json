@@ -36,5 +36,44 @@
             "somethingWrong": "Une erreur est survenue, veuillez réessayer plus tard",
             "button": "OK"
         }
+    },
+    "calendar": {
+        "days": {
+            "monday": "Lundi",
+            "tuesday": "Mardi",
+            "wednesday": "Mercredi",
+            "thursday": "Jeudi",
+            "friday": "Vendredi",
+            "saturday": "Samedi",
+            "sunday": "Dimanche",
+            "short": {
+                "monday": "Lun",
+                "tuesday": "Mar",
+                "wednesday": "Mer",
+                "thursday": "Jeu",
+                "friday": "Ven",
+                "saturday": "Sam",
+                "sunday": "Dim"
+            }
+        },
+        "months": {
+            "january": "Janvier",
+            "february": "Février",
+            "march": "Mars",
+            "april": "Avril",
+            "may": "Mai",
+            "june": "Juin",
+            "july": "Juillet",
+            "august": "Août",
+            "september": "Septembre",
+            "october": "Octobre",
+            "november": "Novembre",
+            "december": "Décembre"
+        },
+        "error": {
+            "title": "Erreur",
+            "message": "Une erreur est survenue, veuillez réessayer plus tard",
+            "button": "OK"
+        }
     }
 }

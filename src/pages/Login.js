@@ -1,12 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Alert, View, Image, TextInput, Text } from "react-native";
-import { WebView } from 'react-native-webview';
 import { useTranslation } from 'react-i18next';
 import { Picker } from "@react-native-picker/picker";
 import { REACT_APP_BASE_URL } from "@env";
-
 import axios from "axios";
-import Cookies from 'universal-cookie';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import HidePasswordButton from "../components/HidePasswordButton";
 import OAuthButton from "../components/OAuthButton";
 import ClickTextButtonWithDescription from "../components/ClickTextButtonWithDescription";
@@ -16,11 +15,11 @@ import { login } from "../../styles/login";
 
 function Login({ navigation }) {
     const { t, i18n } = useTranslation();
-    const cookies = new Cookies();
 
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [hidePassword, setHidePassword] = React.useState(true);
+    const [token, setToken] = React.useState('');
 
     function changeLanguage(language) {
         i18n.changeLanguage(language);
@@ -45,38 +44,52 @@ function Login({ navigation }) {
     function connectWithGoogle() {
         axios.get(`${REACT_APP_BASE_URL}/oauth/google/urlLogin`).then(res => {
             console.log(res.data);
-            <WebView
-                source={{ uri: res.data }}
-                style={{ marginTop: 20 }}
-            />
         })
     }
 
     function connectWithFacebook() {
         axios.get(`${REACT_APP_BASE_URL}/oauth/facebook/url`).then(res => {
             console.log(res.data);
-            <WebView
-                source={{ uri: res.data }}
-                style={{ marginTop: 20 }}
-            />
         })
     }
 
-    function handleSubmit() {
+    function redirectToConnectedPage() {
+        navigation.navigate('Calendar');
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'Calendar' }],
+        });
+    }
+
+    async function getToken() {
+        try {
+            let loginToken = await AsyncStorage.getItem('loginToken');
+            if (loginToken) {
+                setToken(loginToken);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function storeToken(token) {
+        try {
+            await AsyncStorage.setItem('loginToken', token);
+            redirectToConnectedPage();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function handleSubmit() {
         if (email && password) {
             axios.post(REACT_APP_BASE_URL + '/user/login', {
                 email: email,
                 password: password
             }
-            ).then(function (response) {
+            ).then(async function (response) {
                 if (response.status === 200) {
-                    cookies.set('loginToken', { loginToken: response.data.jwt, email: email }, {
-                        path: '/',
-                        secure: true,
-                        sameSite: 'none'
-                    });
-                    console.log(cookies.get('loginToken'));
-                    navigation.navigate('Calendar');
+                    await storeToken(response.data.jwt);
                 } else {
                     Alert.alert(
                         t('login.error.title'),
@@ -88,9 +101,10 @@ function Login({ navigation }) {
                 }
             }
             ).catch(function (error) {
+                console.log(error);
                 Alert.alert(
                     t('login.error.title'),
-                    error.message,
+                    t('login.error.message'),
                     [
                         { text: t('login.error.button') }
                     ]
@@ -107,6 +121,14 @@ function Login({ navigation }) {
             );
         }
     }
+
+    useEffect(() => {
+        getToken();
+        console.log("token = " + token);
+        if (token) {
+            redirectToConnectedPage();
+        }
+    });
 
     return (
         <View style={login.container}>

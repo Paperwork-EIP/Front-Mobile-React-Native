@@ -23,7 +23,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.anonymous.paperworkmobile",
-      "softwareKeyboardLayoutMode":"pan"
+      "softwareKeyboardLayoutMode": "pan"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -32,6 +32,12 @@
       "eas": {
         "projectId": "96e73a0e-eb8e-4164-8743-66af30f0105a"
       }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/96e73a0e-eb8e-4164-8743-66af30f0105a"
     }
   }
 }

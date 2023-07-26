@@ -1,11 +1,11 @@
 import React from "react";
 import { Alert, View, Image, TextInput, Text } from "react-native";
-import { WebView } from 'react-native-webview';
 import { useTranslation } from 'react-i18next';
 import { Picker } from "@react-native-picker/picker";
 import { REACT_APP_BASE_URL } from "@env";
-
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import HidePasswordButton from "../components/HidePasswordButton";
 import OAuthButton from "../components/OAuthButton";
 import ClickTextButtonWithDescription from "../components/ClickTextButtonWithDescription";
@@ -50,20 +50,12 @@ function Register({ navigation }) {
     function connectWithGoogle() {
         axios.get(`${REACT_APP_BASE_URL}/oauth/google/urlLogin`).then(res => {
             console.log(res.data);
-            <WebView
-                source={{ uri: res.data }}
-                style={{ marginTop: 20 }}
-            />
         })
     }
 
     function connectWithFacebook() {
         axios.get(`${REACT_APP_BASE_URL}/oauth/facebook/url`).then(res => {
             console.log(res.data);
-            <WebView
-                source={{ uri: res.data }}
-                style={{ marginTop: 20 }}
-            />
         })
     }
 
@@ -76,8 +68,8 @@ function Register({ navigation }) {
             }
             ).then(function (response) {
                 if (response.status === 200) {
-                    console.log("Register successful");
-                    // navigation.navigate('Home');
+                    AsyncStorage.setItem('loginToken', response.data.jwt);
+                    navigation.navigate('Calendar');
                 }
                 else {
                     Alert.alert(
@@ -102,7 +94,7 @@ function Register({ navigation }) {
                 else {
                     Alert.alert(
                         t('register.error.title'),
-                        error.message,
+                        t('register.error.message'),
                         [
                             { text: t('register.error.button') }
                         ]
@@ -120,6 +112,12 @@ function Register({ navigation }) {
             );
         }
     }
+
+    React.useEffect(() => {
+        if (AsyncStorage.getItem('loginToken')) {
+            navigation.navigate('Calendar');
+        }
+    });
 
     return (
         <View style={register.container}>

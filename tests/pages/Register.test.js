@@ -8,11 +8,19 @@ import Register from '../../src/pages/Register';
 jest.mock('axios');
 jest.mock('universal-cookie');
 jest.mock('@react-navigation/native', () => { });
+jest.mock('@react-native-async-storage/async-storage', () =>
+  require('@react-native-async-storage/async-storage/jest/async-storage-mock')
+);
 
 beforeEach(() => {
     i18n.init();
-    navigate = jest.fn();
 
+    axios.get.mockResolvedValueOnce({
+        status: 200,
+        data: {
+            url: 'url'
+        }
+    });
     axios.post.mockResolvedValueOnce({
         status: 200,
         data: {
@@ -27,7 +35,7 @@ afterEach(() => {
 });
 
 describe('Register', () => {
-    const navigation = { navigate: jest.fn() };
+    const navigation = { navigate: jest.fn(), reset: jest.fn() };
 
     it('renders correctly', () => {
         render(<Register navigation={navigation} />);

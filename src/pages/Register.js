@@ -31,6 +31,14 @@ function Register({ navigation }) {
         navigation.navigate('Login');
     }
 
+    function redirectToConnectedPage() {
+        navigation.navigate('Calendar');
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'Calendar' }],
+        });
+    }
+
     function handleUsernameChange(text) {
         setUsername(text);
     }
@@ -69,7 +77,7 @@ function Register({ navigation }) {
             ).then(function (response) {
                 if (response.status === 200) {
                     AsyncStorage.setItem('loginToken', response.data.jwt);
-                    navigation.navigate('Calendar');
+                    redirectToConnectedPage();
                 }
                 else {
                     Alert.alert(
@@ -112,12 +120,6 @@ function Register({ navigation }) {
             );
         }
     }
-
-    React.useEffect(() => {
-        if (AsyncStorage.getItem('loginToken')) {
-            navigation.navigate('Calendar');
-        }
-    });
 
     return (
         <View style={register.container}>

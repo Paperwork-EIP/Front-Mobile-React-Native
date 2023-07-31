@@ -11,7 +11,7 @@ import OAuthButton from "../components/OAuthButton";
 import ClickTextButtonWithDescription from "../components/ClickTextButtonWithDescription";
 import LongHorizontalButton from "../components/LongHorizontalButton";
 
-import { login } from "../../styles/login";
+import { login } from "../../styles/pages/login";
 
 function Login({ navigation }) {
     const { t, i18n } = useTranslation();

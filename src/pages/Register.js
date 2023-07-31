@@ -11,7 +11,7 @@ import OAuthButton from "../components/OAuthButton";
 import ClickTextButtonWithDescription from "../components/ClickTextButtonWithDescription";
 import LongHorizontalButton from "../components/LongHorizontalButton";
 
-import { register } from "../../styles/register";
+import { register } from "../../styles/pages/register";
 
 function Register({ navigation }) {
     const { t, i18n } = useTranslation();

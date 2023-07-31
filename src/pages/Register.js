@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Alert, View, Image, TextInput, Text } from "react-native";
 import { useTranslation } from 'react-i18next';
 import { Picker } from "@react-native-picker/picker";
@@ -16,12 +16,12 @@ import { register } from "../../styles/pages/register";
 function Register({ navigation }) {
     const { t, i18n } = useTranslation();
 
-    const [username, setUsername] = React.useState('');
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
-    const [confirmPassword, setConfirmPassword] = React.useState('');
-    const [hidePassword, setHidePassword] = React.useState(true);
-    const [hideConfirmPassword, setHideConfirmPassword] = React.useState(true);
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [hidePassword, setHidePassword] = useState(true);
+    const [hideConfirmPassword, setHideConfirmPassword] = useState(true);
 
     function changeLanguage(language) {
         i18n.changeLanguage(language);

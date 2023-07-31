@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Alert, View, Image, TextInput, Text } from "react-native";
 import { useTranslation } from 'react-i18next';
 import { Picker } from "@react-native-picker/picker";
@@ -16,10 +16,10 @@ import { login } from "../../styles/pages/login";
 function Login({ navigation }) {
     const { t, i18n } = useTranslation();
 
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
-    const [hidePassword, setHidePassword] = React.useState(true);
-    const [token, setToken] = React.useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [hidePassword, setHidePassword] = useState(true);
+    const [token, setToken] = useState('');
 
     function changeLanguage(language) {
         i18n.changeLanguage(language);

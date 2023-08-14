@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Alert, View, Image, TextInput, Text } from "react-native";
 import { useTranslation } from 'react-i18next';
 import { Picker } from "@react-native-picker/picker";
@@ -11,15 +11,15 @@ import OAuthButton from "../components/OAuthButton";
 import ClickTextButtonWithDescription from "../components/ClickTextButtonWithDescription";
 import LongHorizontalButton from "../components/LongHorizontalButton";
 
-import { login } from "../../styles/login";
+import { login } from "../../styles/pages/login";
 
 function Login({ navigation }) {
     const { t, i18n } = useTranslation();
 
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
-    const [hidePassword, setHidePassword] = React.useState(true);
-    const [token, setToken] = React.useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [hidePassword, setHidePassword] = useState(true);
+    const [token, setToken] = useState('');
 
     function changeLanguage(language) {
         i18n.changeLanguage(language);
@@ -179,47 +179,49 @@ function Login({ navigation }) {
                         testID="forgotPasswordButton"
                     />
                 </View>
-                <View style={login.buttons}>
-                    <OAuthButton
-                        title={t('login.google')}
-                        onPress={connectWithGoogle}
-                        source={require('../../assets/images/google-logo.png')}
-                        styleButton={login.googleButton}
-                        styleImage={login.googleButton.image}
-                        styleText={login.googleButton.text}
-                        testID="googleButton"
-                    />
-                    <OAuthButton
-                        title={t('login.facebook')}
-                        onPress={connectWithFacebook}
-                        source={require('../../assets/images/facebook-logo.png')}
-                        styleButton={login.facebookButton}
-                        styleImage={login.facebookButton.image}
-                        styleText={login.facebookButton.text}
-                        testID="facebookButton"
-                    />
-                </View>
-                <View style={login.center}>
-                    <ClickTextButtonWithDescription
-                        title={t('login.noAccount')}
-                        descriptionText={t('login.register')}
-                        onPress={redirectToRegister}
-                        styleButton={login.noAccountButton}
-                        styleTitle={login.noAccountButton.text}
-                        styleDescriptionText={login.noAccountButton.register}
-                        testID="registerButton"
-                    />
-                </View>
-                <View style={login.center}>
-                    <Picker
-                        selectedValue={i18n.language}
-                        style={login.picker}
-                        onValueChange={changeLanguage}
-                        testID="languagePicker"
-                    >
-                        <Picker.Item label="English" value="en" />
-                        <Picker.Item label="Français" value="fr" />
-                    </Picker>
+                <View style={login.bottom}>
+                    <View style={login.bottom.buttons}>
+                        <OAuthButton
+                            title={t('login.google')}
+                            onPress={connectWithGoogle}
+                            source={require('../../assets/images/google-logo.png')}
+                            styleButton={login.bottom.buttons.googleButton}
+                            styleImage={login.bottom.buttons.googleButton.image}
+                            styleText={login.bottom.buttons.googleButton.text}
+                            testID="googleButton"
+                        />
+                        <OAuthButton
+                            title={t('login.facebook')}
+                            onPress={connectWithFacebook}
+                            source={require('../../assets/images/facebook-logo.png')}
+                            styleButton={login.bottom.buttons.facebookButton}
+                            styleImage={login.bottom.buttons.facebookButton.image}
+                            styleText={login.bottom.buttons.facebookButton.text}
+                            testID="facebookButton"
+                        />
+                    </View>
+                    <View style={login.center}>
+                        <ClickTextButtonWithDescription
+                            title={t('login.noAccount')}
+                            descriptionText={t('login.register')}
+                            onPress={redirectToRegister}
+                            styleButton={login.bottom.noAccountButton}
+                            styleTitle={login.bottom.noAccountButton.text}
+                            styleDescriptionText={login.bottom.noAccountButton.register}
+                            testID="registerButton"
+                        />
+                    </View>
+                    <View style={login.center}>
+                        <Picker
+                            selectedValue={i18n.language}
+                            style={login.bottom.picker}
+                            onValueChange={changeLanguage}
+                            testID="languagePicker"
+                        >
+                            <Picker.Item label="English" value="en" />
+                            <Picker.Item label="Français" value="fr" />
+                        </Picker>
+                    </View>
                 </View>
             </View>
         </View >

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Alert, View, Image, TextInput, Text } from "react-native";
 import { useTranslation } from 'react-i18next';
 import { Picker } from "@react-native-picker/picker";
@@ -11,17 +11,17 @@ import OAuthButton from "../components/OAuthButton";
 import ClickTextButtonWithDescription from "../components/ClickTextButtonWithDescription";
 import LongHorizontalButton from "../components/LongHorizontalButton";
 
-import { register } from "../../styles/register";
+import { register } from "../../styles/pages/register";
 
 function Register({ navigation }) {
     const { t, i18n } = useTranslation();
 
-    const [username, setUsername] = React.useState('');
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
-    const [confirmPassword, setConfirmPassword] = React.useState('');
-    const [hidePassword, setHidePassword] = React.useState(true);
-    const [hideConfirmPassword, setHideConfirmPassword] = React.useState(true);
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [hidePassword, setHidePassword] = useState(true);
+    const [hideConfirmPassword, setHideConfirmPassword] = useState(true);
 
     function changeLanguage(language) {
         i18n.changeLanguage(language);
@@ -29,6 +29,14 @@ function Register({ navigation }) {
 
     function redirectToLogin() {
         navigation.navigate('Login');
+    }
+
+    function redirectToConnectedPage() {
+        navigation.navigate('Calendar');
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'Calendar' }],
+        });
     }
 
     function handleUsernameChange(text) {
@@ -69,7 +77,7 @@ function Register({ navigation }) {
             ).then(function (response) {
                 if (response.status === 200) {
                     AsyncStorage.setItem('loginToken', response.data.jwt);
-                    navigation.navigate('Calendar');
+                    redirectToConnectedPage();
                 }
                 else {
                     Alert.alert(
@@ -112,12 +120,6 @@ function Register({ navigation }) {
             );
         }
     }
-
-    React.useEffect(() => {
-        if (AsyncStorage.getItem('loginToken')) {
-            navigation.navigate('Calendar');
-        }
-    });
 
     return (
         <View style={register.container}>
@@ -184,47 +186,49 @@ function Register({ navigation }) {
                         testID="registerButton"
                     />
                 </View>
-                <View style={register.buttons}>
-                    <OAuthButton
-                        title={t('register.google')}
-                        onPress={connectWithGoogle}
-                        source={require('../../assets/images/google-logo.png')}
-                        styleButton={register.googleButton}
-                        styleImage={register.googleButton.image}
-                        styleText={register.googleButton.text}
-                        testID="googleButton"
-                    />
-                    <OAuthButton
-                        title={t('register.facebook')}
-                        onPress={connectWithFacebook}
-                        source={require('../../assets/images/facebook-logo.png')}
-                        styleButton={register.facebookButton}
-                        styleImage={register.facebookButton.image}
-                        styleText={register.facebookButton.text}
-                        testID="facebookButton"
-                    />
-                </View>
-                <View style={register.center}>
-                    <ClickTextButtonWithDescription
-                        title={t('register.alreadyHaveAccount')}
-                        descriptionText={t('register.login')}
-                        onPress={redirectToLogin}
-                        styleButton={register.noAccountButton}
-                        styleTitle={register.noAccountButton.text}
-                        styleDescriptionText={register.noAccountButton.register}
-                        testID="alreadyHaveAccountButton"
-                    />
-                </View>
-                <View style={register.center}>
-                    <Picker
-                        selectedValue={i18n.language}
-                        style={register.picker}
-                        onValueChange={changeLanguage}
-                        testID="languagePicker"
-                    >
-                        <Picker.Item label="English" value="en" />
-                        <Picker.Item label="Français" value="fr" />
-                    </Picker>
+                <View style={register.bottom}>
+                    <View style={register.bottom.buttons}>
+                        <OAuthButton
+                            title={t('register.google')}
+                            onPress={connectWithGoogle}
+                            source={require('../../assets/images/google-logo.png')}
+                            styleButton={register.bottom.buttons.googleButton}
+                            styleImage={register.bottom.buttons.googleButton.image}
+                            styleText={register.bottom.buttons.googleButton.text}
+                            testID="googleButton"
+                        />
+                        <OAuthButton
+                            title={t('register.facebook')}
+                            onPress={connectWithFacebook}
+                            source={require('../../assets/images/facebook-logo.png')}
+                            styleButton={register.bottom.buttons.facebookButton}
+                            styleImage={register.bottom.buttons.facebookButton.image}
+                            styleText={register.bottom.buttons.facebookButton.text}
+                            testID="facebookButton"
+                        />
+                    </View>
+                    <View style={register.center}>
+                        <ClickTextButtonWithDescription
+                            title={t('register.alreadyHaveAccount')}
+                            descriptionText={t('register.login')}
+                            onPress={redirectToLogin}
+                            styleButton={register.bottom.alreadyHaveAccount}
+                            styleTitle={register.bottom.alreadyHaveAccount.text}
+                            styleDescriptionText={register.bottom.alreadyHaveAccount.register}
+                            testID="alreadyHaveAccountButton"
+                        />
+                    </View>
+                    <View style={register.center}>
+                        <Picker
+                            selectedValue={i18n.language}
+                            style={register.bottom.picker}
+                            onValueChange={changeLanguage}
+                            testID="languagePicker"
+                        >
+                            <Picker.Item label="English" value="en" />
+                            <Picker.Item label="Français" value="fr" />
+                        </Picker>
+                    </View>
                 </View>
             </View>
         </View >

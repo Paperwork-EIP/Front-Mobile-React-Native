@@ -7,16 +7,14 @@ const login = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingTop: 50
+        paddingTop: 40
     },
     content: {
-        flex: 2,
         width: '100%',
+        flex: 2,
     },
     form: {
-        width: '100%',
-        height: '100%',
-        flex: 1,
+        flex: 2,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -93,87 +91,94 @@ const login = StyleSheet.create({
             fontWeight: 'bold'
         }
     },
-    buttons: {
+    bottom: {
         width: '100%',
         alignItems: 'center',
         justifyContent: 'space-evenly',
-        flexDirection: 'row',
-        marginBottom: 20,
-    },
-    googleButton: {
-        width: '40%',
-        borderWidth: 1,
-        borderColor: '#29C9B3',
-        paddingVertical: 10,
-        paddingHorizontal: 15,
-        borderRadius: 15,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
+        flex: 1,
 
-        image: {
-            width: 20,
-            height: 20,
-            marginRight: 10
+        buttons: {
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'space-evenly',
+            flexDirection: 'row',
+            marginBottom: 20,
+
+            googleButton: {
+                width: '40%',
+                borderWidth: 1,
+                borderColor: '#29C9B3',
+                paddingVertical: 10,
+                paddingHorizontal: 15,
+                borderRadius: 15,
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+
+                image: {
+                    width: 20,
+                    height: 20,
+                    marginRight: 10
+                },
+                text: {
+                    color: '#DB4437',
+                    fontSize: 14,
+                    fontWeight: 'bold'
+                }
+            },
+            facebookButton: {
+                width: '40%',
+                borderWidth: 1,
+                borderColor: '#29C9B3',
+                paddingVertical: 10,
+                paddingHorizontal: 15,
+                borderRadius: 15,
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+
+                image: {
+                    width: 20,
+                    height: 20,
+                    marginRight: 10
+                },
+                text: {
+                    color: '#3b5998',
+                    fontSize: 14,
+                    fontWeight: 'bold'
+                }
+            },
         },
-        text: {
-            color: '#DB4437',
-            fontSize: 14,
-            fontWeight: 'bold'
+
+        noAccountButton: {
+            width: '100%',
+            backgroundColor: 'transparent',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginVertical: 20,
+
+            text: {
+                color: '#777888',
+                fontSize: 16,
+                fontWeight: 'bold',
+                marginRight: 10
+            },
+            register: {
+                color: '#29C9B3',
+                fontSize: 16,
+                fontWeight: 'bold'
+            }
+        },
+
+        picker: {
+            width: 200,
+            backgroundColor: 'transparent',
+            borderWidth: 0,
+            paddingVertical: 10,
+            paddingHorizontal: 15
         }
     },
-    facebookButton: {
-        width: '40%',
-        borderWidth: 1,
-        borderColor: '#29C9B3',
-        paddingVertical: 10,
-        paddingHorizontal: 15,
-        borderRadius: 15,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-
-        image: {
-            width: 20,
-            height: 20,
-            marginRight: 10
-        },
-        text: {
-            color: '#3b5998',
-            fontSize: 14,
-            fontWeight: 'bold'
-        }
-    },
-
-    noAccountButton: {
-        width: '100%',
-        backgroundColor: 'transparent',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginVertical: 20,
-
-        text: {
-            color: '#777888',
-            fontSize: 16,
-            fontWeight: 'bold',
-            marginRight: 10
-        },
-        register: {
-            color: '#29C9B3',
-            fontSize: 16,
-            fontWeight: 'bold'
-        }
-    },
-
-    picker: {
-        width: 200,
-        height: 100,
-        backgroundColor: 'transparent',
-        borderWidth: 0,
-        paddingVertical: 10,
-        paddingHorizontal: 15
-    }
 });
 
 export { login };

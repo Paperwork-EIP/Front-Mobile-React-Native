@@ -186,47 +186,49 @@ function Register({ navigation }) {
                         testID="registerButton"
                     />
                 </View>
-                <View style={register.buttons}>
-                    <OAuthButton
-                        title={t('register.google')}
-                        onPress={connectWithGoogle}
-                        source={require('../../assets/images/google-logo.png')}
-                        styleButton={register.googleButton}
-                        styleImage={register.googleButton.image}
-                        styleText={register.googleButton.text}
-                        testID="googleButton"
-                    />
-                    <OAuthButton
-                        title={t('register.facebook')}
-                        onPress={connectWithFacebook}
-                        source={require('../../assets/images/facebook-logo.png')}
-                        styleButton={register.facebookButton}
-                        styleImage={register.facebookButton.image}
-                        styleText={register.facebookButton.text}
-                        testID="facebookButton"
-                    />
-                </View>
-                <View style={register.center}>
-                    <ClickTextButtonWithDescription
-                        title={t('register.alreadyHaveAccount')}
-                        descriptionText={t('register.login')}
-                        onPress={redirectToLogin}
-                        styleButton={register.noAccountButton}
-                        styleTitle={register.noAccountButton.text}
-                        styleDescriptionText={register.noAccountButton.register}
-                        testID="alreadyHaveAccountButton"
-                    />
-                </View>
-                <View style={register.center}>
-                    <Picker
-                        selectedValue={i18n.language}
-                        style={register.picker}
-                        onValueChange={changeLanguage}
-                        testID="languagePicker"
-                    >
-                        <Picker.Item label="English" value="en" />
-                        <Picker.Item label="Français" value="fr" />
-                    </Picker>
+                <View style={register.bottom}>
+                    <View style={register.bottom.buttons}>
+                        <OAuthButton
+                            title={t('register.google')}
+                            onPress={connectWithGoogle}
+                            source={require('../../assets/images/google-logo.png')}
+                            styleButton={register.bottom.buttons.googleButton}
+                            styleImage={register.bottom.buttons.googleButton.image}
+                            styleText={register.bottom.buttons.googleButton.text}
+                            testID="googleButton"
+                        />
+                        <OAuthButton
+                            title={t('register.facebook')}
+                            onPress={connectWithFacebook}
+                            source={require('../../assets/images/facebook-logo.png')}
+                            styleButton={register.bottom.buttons.facebookButton}
+                            styleImage={register.bottom.buttons.facebookButton.image}
+                            styleText={register.bottom.buttons.facebookButton.text}
+                            testID="facebookButton"
+                        />
+                    </View>
+                    <View style={register.center}>
+                        <ClickTextButtonWithDescription
+                            title={t('register.alreadyHaveAccount')}
+                            descriptionText={t('register.login')}
+                            onPress={redirectToLogin}
+                            styleButton={register.bottom.alreadyHaveAccount}
+                            styleTitle={register.bottom.alreadyHaveAccount.text}
+                            styleDescriptionText={register.bottom.alreadyHaveAccount.register}
+                            testID="alreadyHaveAccountButton"
+                        />
+                    </View>
+                    <View style={register.center}>
+                        <Picker
+                            selectedValue={i18n.language}
+                            style={register.bottom.picker}
+                            onValueChange={changeLanguage}
+                            testID="languagePicker"
+                        >
+                            <Picker.Item label="English" value="en" />
+                            <Picker.Item label="Français" value="fr" />
+                        </Picker>
+                    </View>
                 </View>
             </View>
         </View >

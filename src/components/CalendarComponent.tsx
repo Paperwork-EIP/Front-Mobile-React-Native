@@ -10,7 +10,6 @@ function CalendarComponent() {
     return (
         <View style={calendar_component.container}>
             <Calendar
-                // Callback that gets called when the user selects a day
                 onDayPress={day => {
                     setSelected(day.dateString);
                     console.log('selected day', day);
@@ -24,7 +23,7 @@ function CalendarComponent() {
                     [selected]: {
                         selected: true,
                         disableTouchEvent: true,
-                        selectedDotColor: 'orange'
+                        selectedColor: 'orange',
                     },
                     '2023-07-01': { selected: true, marked: true, selectedColor: 'blue' },
                     '2023-07-02': { marked: true },

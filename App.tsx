@@ -4,9 +4,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Login from "./src/pages/Login";
 import Register from "./src/pages/Register";
+import Calendar from './src/pages/Calendar';
 
 import "./src/i18n/i18n";
-import Calendar from './src/pages/Calendar';
 
 const Stack = createNativeStackNavigator();
 

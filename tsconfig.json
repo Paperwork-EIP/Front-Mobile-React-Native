@@ -1,0 +1,18 @@
+{
+    "extends": "@tsconfig/react-native/tsconfig.json",
+    "compilerOptions": {
+        "preserveConstEnums": true,
+        "baseUrl": ".",
+        "paths": {
+            "@env": [
+                "node_modules/react-native-dotenv"
+            ]
+        }
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "**/*.spec.ts"
+    ]
+}

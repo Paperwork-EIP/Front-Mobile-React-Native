@@ -16,10 +16,12 @@ function Home() {
     return (
         <View style={home.container}>
             <Tab.Navigator
+                initialRouteName="MainMenu"
                 screenOptions={({ route }) => ({
+                    tabBarShowLabel: false,
                     tabBarIcon: ({ focused, color, size }) => {
                         switch (route.name) {
-                            case 'Home':
+                            case 'MainMenu':
                                 return <Ionicons
                                     name={focused
                                         ? 'home'
@@ -55,7 +57,7 @@ function Home() {
                 })}
             >
                 {/* A remplacer les screens par les pages correspondantes */}
-                <Tab.Screen name="Home" component={Calendar} />
+                <Tab.Screen name="MainMenu" component={Calendar} />
                 <Tab.Screen name="Calendar" component={Calendar} />
                 <Tab.Screen name="Profile" component={Calendar} />
             </Tab.Navigator>

@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from 'react-i18next';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 
 import { calendar_component } from "../../styles/components/calendar_component.js";
 
-function CalendarComponent() {
+function CalendarComponent(props: any) {
     const { t, i18n } = useTranslation();
-
-    const selectedDotColor = '#FC6976';
-
-    const [selected, setSelected] = useState('');
 
     LocaleConfig.locales['fr'], LocaleConfig.locales['en'] = {
         monthNames: [
@@ -61,29 +57,16 @@ function CalendarComponent() {
         today: t('calendar.today')
     };
 
-    function handleDayPressed(day: { year?: number; month?: number; day?: number; timestamp?: number; dateString: any; }) {
-        setSelected(day.dateString);
-        console.log('selected day', day);
-    }
-
     useEffect(() => {
         LocaleConfig.defaultLocale = i18n.language;
     }, [i18n.language]);
 
     return (
         <Calendar
-            onDayPress={day => handleDayPressed(day)}
-            style={calendar_component.calendar}
-            markedDates={{
-                [selected]: {
-                    selected: true,
-                    disableTouchEvent: true,
-                    selectedColor: selectedDotColor,
-                },
-                '2023-07-01': { selected: true, marked: true, selectedColor: 'blue' },
-                '2023-07-02': { marked: true },
-                '2023-07-03': { selected: true, marked: true, selectedColor: 'blue' }
-            }}
+            minDate={Date()}
+            disableAllTouchEventsForDisabledDays={true}
+            firstDay={1}
+            {...props}
         />
     );
 }

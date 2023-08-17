@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useTranslation } from 'react-i18next';
-import { Calendar, LocaleConfig } from 'react-native-calendars';
-
-import { calendar_component } from "../../styles/components/calendar_component.js";
+import { AgendaList, CalendarProvider, ExpandableCalendar, LocaleConfig } from 'react-native-calendars';
+import CalendarItems from "./CalendarItems";
 
 function CalendarComponent(props: any) {
     const { t, i18n } = useTranslation();
@@ -57,17 +56,37 @@ function CalendarComponent(props: any) {
         today: t('calendar.today')
     };
 
+    
+    const renderItem = useCallback((item: any) => {
+        return (
+            <CalendarItems item={item} />
+        );
+    }, []);
+
     useEffect(() => {
         LocaleConfig.defaultLocale = i18n.language;
     }, [i18n.language]);
 
     return (
-        <Calendar
-            minDate={Date()}
-            disableAllTouchEventsForDisabledDays={true}
-            firstDay={1}
-            {...props}
-        />
+        <CalendarProvider
+            date={Date()}
+            showTodayButton={true}
+            disabledOpacity={0.6}
+        >
+            <ExpandableCalendar
+                minDate={Date()}
+                firstDay={1}
+                onDayPress={props.onDayPress}
+                markingType="multi-dot"
+                markedDates={props.markedDates}
+                testID="expandableCalendar"
+            />
+            <AgendaList
+                sections={props.items}
+                renderItem={renderItem}
+            />
+        </CalendarProvider>
+
     );
 }
 

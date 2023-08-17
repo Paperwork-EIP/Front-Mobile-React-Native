@@ -10,8 +10,34 @@ const calendar = StyleSheet.create({
         calendar: {
             borderWidth: 0,
             width: '100%',
+            flex: 1,
+        },
+        item: {
+            borderRadius: 5,
+            padding: 10,
+            marginRight: 10,
+            marginTop: 17,
+        },
+        section: {
+            textTransform: 'capitalize',
         },
     },
 });
 
-export { calendar };
+const brightRed = '#FC6976';
+const pastelRed = '#FDE0E6';
+const brightGreen = '#29C9B3';
+const pastelGreen = '#E0FDF7';
+
+const theme = {
+    'stylesheet.calendar.header': {
+        dayTextAtIndex0: {
+            color: brightRed
+        },
+        dayTextAtIndex6: {
+            color: brightGreen
+        }
+    }
+};
+
+export { calendar, theme, brightRed, pastelRed, brightGreen, pastelGreen };

@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, ImageStyle, StyleProp, TouchableOpacity, ViewStyle } from "react-native";
+import { Image, StyleProp, TouchableOpacity, ViewStyle } from "react-native";
 
 import { hide_password_button } from "../../styles/components/hide_password_button.js";
 

@@ -100,10 +100,10 @@ function Login({ navigation }: { navigation: any }) {
     }
 
     function redirectToConnectedPage() {
-        navigation.navigate('Calendar');
+        navigation.navigate('Home');
         navigation.reset({
             index: 0,
-            routes: [{ name: 'Calendar' }],
+            routes: [{ name: 'Home' }],
         });
     }
 

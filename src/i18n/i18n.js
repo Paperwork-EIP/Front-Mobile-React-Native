@@ -10,16 +10,15 @@ let defaultLanguage = Language.EN;
 
 const resources = {
     en: {
-        translation:en
+        translation: en
     },
     fr: {
         translation: fr
     }
 };
 
-i18n
-    .use(initReactI18next)
-    .init({
+i18n.use(initReactI18next).init(
+    {
         resources,
         compatibilityJSON: 'v3',
         lng: defaultLanguage,
@@ -27,6 +26,7 @@ i18n
         interpolation: {
             escapeValue: false
         }
-    });
+    }
+);
 
 export default i18n;

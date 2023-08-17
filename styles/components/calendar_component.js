@@ -1,12 +1,10 @@
 import { StyleSheet } from "react-native";
 
 const calendar_component = StyleSheet.create({
-    container: {
+    calendar: {
+        borderWidth: 0,
+        height: 700,
         width: '100%',
-        height: '100%',
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
     },
 });
 

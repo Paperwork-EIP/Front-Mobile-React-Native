@@ -1,15 +1,16 @@
-import React, { FC, ReactNode } from "react";
+import React from "react";
 import { Alert, StyleSheet, View, Text, TouchableOpacity, Button, GestureResponderEvent } from "react-native";
 
 interface CalendarItemsProps {
     item: any;
+    onPressCard: (event: GestureResponderEvent) => void;
+    onPressButton: (event: GestureResponderEvent) => void;
 }
 
 const CalendarItems = (props: CalendarItemsProps) => {
     const styles = StyleSheet.create({
         item: {
             padding: 20,
-            backgroundColor: 'white',
             borderBottomWidth: 1,
             borderBottomColor: 'lightgrey',
             flexDirection: 'row'
@@ -54,23 +55,11 @@ const CalendarItems = (props: CalendarItemsProps) => {
         );
     }
 
-    function itemPressed() {
-        Alert.alert('Item has been pressed');
-    }
-
-    function buttonPressed() {
-        Alert.alert('Button has been pressed');
-    }
-
     return (
-        <TouchableOpacity onPress={itemPressed} style={styles.item}>
-            <View>
-                <Text style={styles.itemHourText}>{props.item.hour}</Text>
-                <Text style={styles.itemDurationText}>{props.item.duration}</Text>
-            </View>
+        <TouchableOpacity onPress={props.onPressCard} style={styles.item}>
             <Text style={styles.itemTitleText}>{props.item.title}</Text>
             <View style={styles.itemButtonContainer}>
-                <Button color={'grey'} title={'Info'} onPress={buttonPressed} />
+                <Button title={'Info'} onPress={props.onPressButton} />
             </View>
         </TouchableOpacity>
     );

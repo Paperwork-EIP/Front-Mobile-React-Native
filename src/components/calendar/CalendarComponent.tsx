@@ -2,6 +2,7 @@ import React, { useCallback, useEffect } from "react";
 import { useTranslation } from 'react-i18next';
 import { AgendaList, CalendarProvider, ExpandableCalendar, LocaleConfig } from 'react-native-calendars';
 import CalendarItems from "./CalendarItems";
+import { Alert } from "react-native";
 
 function CalendarComponent(props: any) {
     const { t, i18n } = useTranslation();
@@ -56,16 +57,25 @@ function CalendarComponent(props: any) {
         today: t('calendar.today')
     };
 
-    
+    function itemPressed() {
+        Alert.alert('Item has been pressed');
+    }
+
+    function buttonPressed() {
+        Alert.alert('Button has been pressed');
+    }
+
     const renderItem = useCallback((item: any) => {
         return (
-            <CalendarItems item={item} />
+            <CalendarItems item={item} onPressCard={itemPressed} onPressButton={buttonPressed} />
         );
     }, []);
 
     useEffect(() => {
         LocaleConfig.defaultLocale = i18n.language;
     }, [i18n.language]);
+
+
 
     return (
         <CalendarProvider
@@ -77,8 +87,8 @@ function CalendarComponent(props: any) {
                 minDate={Date()}
                 firstDay={1}
                 onDayPress={props.onDayPress}
-                markingType="multi-dot"
                 markedDates={props.markedDates}
+                markingType="multi-dot"
                 testID="expandableCalendar"
             />
             <AgendaList

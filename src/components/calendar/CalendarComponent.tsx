@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from "react";
 import { useTranslation } from 'react-i18next';
 import { AgendaList, CalendarProvider, ExpandableCalendar, LocaleConfig } from 'react-native-calendars';
 import CalendarItems from "./CalendarItems";
-import { Alert } from "react-native";
+import { Alert, Text, View } from "react-native";
 
 function CalendarComponent(props: any) {
     const { t, i18n } = useTranslation();
@@ -67,15 +67,30 @@ function CalendarComponent(props: any) {
 
     const renderItem = useCallback((item: any) => {
         return (
-            <CalendarItems item={item} onPressCard={itemPressed} onPressButton={buttonPressed} />
+            <CalendarItems item={item.item} onPressCard={itemPressed} onPressButton={buttonPressed} />
         );
-    }, []);
+    }, [props.items]);
+
+    function displayEmptyAgenda() {
+        if (props.items.length === 0) {
+            return (
+                <View style={props.styleEmpty}>
+                    <Text style={props.styleEmptyText}>No event planned</Text>
+                </View>
+            );
+        } else {
+            return (
+                <AgendaList
+                    sections={props.items}
+                    renderItem={renderItem}
+                />
+            );
+        }
+    }
 
     useEffect(() => {
         LocaleConfig.defaultLocale = i18n.language;
     }, [i18n.language]);
-
-
 
     return (
         <CalendarProvider
@@ -91,10 +106,7 @@ function CalendarComponent(props: any) {
                 markingType="multi-dot"
                 testID="expandableCalendar"
             />
-            <AgendaList
-                sections={props.items}
-                renderItem={renderItem}
-            />
+            {displayEmptyAgenda()}
         </CalendarProvider>
 
     );

@@ -7,12 +7,11 @@ import CalendarComponent from "../components/calendar/CalendarComponent";
 import { calendar, brightRed } from "../../styles/screen/calendar";
 
 function Calendar({ navigation }: { navigation: any }) {
-
     const [selected, setSelected] = useState('');
+    const [items, setItems] = useState([{ title: '', data: [{ title: '', color: '' }] }]);
 
     const selectedDotColor = brightRed;
 
-    let items: any[] = [];
     let markedDates: any = {
         // [selected]: {
         //     selected: true,
@@ -31,31 +30,31 @@ function Calendar({ navigation }: { navigation: any }) {
     }
 
     function updateItems() {
-        // Make request to API to get items
-        items = [
+        // Make request to API to get items and make the conversion
+        setItems([
             {
                 title: '2023-09-01',
                 data: [
-                    { key: 'Item 1 - any js object', color: brightRed },
-                    { key: 'Item random - any js object', color: 'blue' },
-                    { key: 'Item test - any js object', color: 'yellow' }
+                    { title: 'Item 1 - any js object', color: brightRed },
+                    { title: 'Item random - any js object', color: 'blue' },
+                    { title: 'Item test - any js object', color: 'yellow' }
                 ]
             },
             {
                 title: '2023-09-20',
                 data: [
-                    { key: 'Item 2 - any js object', color: brightRed }
+                    { title: 'Item 2 - any js object', color: brightRed }
                 ]
             },
             {
                 title: '2023-10-03',
                 data: [
-                    { key: 'Item 3 - any js object', color: brightRed },
-                    { key: 'Item 4 - any js object', color: 'orange' },
-                    { key: 'Item 5 - any js object', color: 'green' }
+                    { title: 'Item 3 - any js object', color: brightRed },
+                    { title: 'Item 4 - any js object', color: 'orange' },
+                    { title: 'Item 5 - any js object', color: 'green' }
                 ]
             },
-        ];
+        ]);
     }
 
     function updateMarkedDates() {
@@ -109,20 +108,22 @@ function Calendar({ navigation }: { navigation: any }) {
 
     useState(() => {
         setDotMarkedDates();
+        updateItems();
     });
 
     useEffect(() => {
         getToken();
-        updateItems();
         updateMarkedDates();
         setDotMarkedDates();
-    }, [selected, markedDates]);
+    }, [selected, markedDates, items]);
 
     return (
         <View style={calendar.container}>
             <CalendarComponent
                 style={calendar.container.calendar}
                 sectionStyle={calendar.container.section}
+                styleEmpty={calendar.container.empty}
+                styleEmptyText={calendar.container.empty.text}
                 markedDates={markedDates}
                 items={items}
                 onDayPress={handleDayPressed}

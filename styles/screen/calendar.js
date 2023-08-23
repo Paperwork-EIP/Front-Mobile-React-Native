@@ -21,6 +21,17 @@ const calendar = StyleSheet.create({
         section: {
             textTransform: 'capitalize',
         },
+
+        empty: {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+
+            text: {
+                fontSize: 20,
+                color: '#999',
+            },
+        }
     },
 });
 

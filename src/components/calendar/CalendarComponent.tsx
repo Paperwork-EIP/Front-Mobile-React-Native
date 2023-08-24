@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useTranslation } from 'react-i18next';
-import { Calendar, LocaleConfig } from 'react-native-calendars';
+import { AgendaList, CalendarProvider, ExpandableCalendar, LocaleConfig } from 'react-native-calendars';
+import CalendarItems from "./CalendarItems";
+import { Alert, Text, View } from "react-native";
 
-import { calendar_component } from "../../styles/components/calendar_component.js";
-
-function CalendarComponent() {
+function CalendarComponent(props: any) {
     const { t, i18n } = useTranslation();
 
-    const selectedDotColor = '#FC6976';
-
-    const [selected, setSelected] = useState('');
-
-    LocaleConfig.locales['fr'], LocaleConfig.locales['en'] = {
+    LocaleConfig.locales['fr'] = {
         monthNames: [
             t('calendar.months.january'),
             t('calendar.months.february'),
@@ -61,9 +57,37 @@ function CalendarComponent() {
         today: t('calendar.today')
     };
 
-    function handleDayPressed(day: { year?: number; month?: number; day?: number; timestamp?: number; dateString: any; }) {
-        setSelected(day.dateString);
-        console.log('selected day', day);
+    LocaleConfig.locales['en'] = LocaleConfig.locales['fr'];
+
+    function itemPressed() {
+        Alert.alert('Item has been pressed');
+    }
+
+    function buttonPressed() {
+        Alert.alert('Button has been pressed');
+    }
+
+    const renderItem = useCallback((item: any) => {
+        return (
+            <CalendarItems item={item.item} onPressCard={itemPressed} onPressButton={buttonPressed} />
+        );
+    }, [props.items]);
+
+    function displayEmptyAgenda() {
+        if (props.items.length === 0) {
+            return (
+                <View style={props.styleEmpty}>
+                    <Text style={props.styleEmptyText}>No event planned</Text>
+                </View>
+            );
+        } else {
+            return (
+                <AgendaList
+                    sections={props.items}
+                    renderItem={renderItem}
+                />
+            );
+        }
     }
 
     useEffect(() => {
@@ -71,20 +95,21 @@ function CalendarComponent() {
     }, [i18n.language]);
 
     return (
-        <Calendar
-            onDayPress={day => handleDayPressed(day)}
-            style={calendar_component.calendar}
-            markedDates={{
-                [selected]: {
-                    selected: true,
-                    disableTouchEvent: true,
-                    selectedColor: selectedDotColor,
-                },
-                '2023-07-01': { selected: true, marked: true, selectedColor: 'blue' },
-                '2023-07-02': { marked: true },
-                '2023-07-03': { selected: true, marked: true, selectedColor: 'blue' }
-            }}
-        />
+        <CalendarProvider
+            date={Date()}
+            showTodayButton={true}
+            disabledOpacity={0.6}
+        >
+            <ExpandableCalendar
+                minDate={Date()}
+                firstDay={1}
+                onDayPress={props.onDayPress}
+                markedDates={props.markedDates}
+                markingType="multi-dot"
+                testID="expandableCalendar"
+            />
+            {displayEmptyAgenda()}
+        </CalendarProvider>
     );
 }
 

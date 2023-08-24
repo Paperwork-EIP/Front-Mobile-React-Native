@@ -7,6 +7,40 @@ import Calendar from "../screens/Calendar";
 
 import { home } from "../../styles/pages/home.js";
 
+function SwitchTabIcon(route: any, focused: boolean, color: string, size: number) {
+    switch (route.name) {
+        case 'MainMenu':
+            return <Ionicons
+                name={focused
+                    ? 'home'
+                    : 'home-outline'}
+                size={size}
+                color={color}
+            />;
+
+        case 'Calendar':
+            return <Ionicons
+                name={focused
+                    ? 'calendar'
+                    : 'calendar-outline'}
+                size={size}
+                color={color}
+            />;
+
+        case 'Profile':
+            return <Ionicons
+                name={focused
+                    ? 'person'
+                    : 'person-outline'}
+                size={size}
+                color={color}
+            />;
+
+        default:
+            break;
+    }
+}
+
 function Home() {
     const Tab = createBottomTabNavigator();
 
@@ -16,46 +50,18 @@ function Home() {
     return (
         <View style={home.container}>
             <Tab.Navigator
+                initialRouteName="MainMenu"
                 screenOptions={({ route }) => ({
+                    tabBarShowLabel: false,
                     tabBarIcon: ({ focused, color, size }) => {
-                        switch (route.name) {
-                            case 'Home':
-                                return <Ionicons
-                                    name={focused
-                                        ? 'home'
-                                        : 'home-outline'}
-                                    size={size}
-                                    color={color}
-                                />;
-
-                            case 'Calendar':
-                                return <Ionicons
-                                    name={focused
-                                        ? 'calendar'
-                                        : 'calendar-outline'}
-                                    size={size}
-                                    color={color}
-                                />;
-
-                            case 'Profile':
-                                return <Ionicons
-                                    name={focused
-                                        ? 'person'
-                                        : 'person-outline'}
-                                    size={size}
-                                    color={color}
-                                />;
-
-                            default:
-                                break;
-                        }
+                        return SwitchTabIcon(route, focused, color, size);
                     },
                     tabBarActiveTintColor: activeTabColor,
                     tabBarInactiveTintColor: inactiveTabColor,
                 })}
             >
                 {/* A remplacer les screens par les pages correspondantes */}
-                <Tab.Screen name="Home" component={Calendar} />
+                <Tab.Screen name="MainMenu" component={Calendar} />
                 <Tab.Screen name="Calendar" component={Calendar} />
                 <Tab.Screen name="Profile" component={Calendar} />
             </Tab.Navigator>

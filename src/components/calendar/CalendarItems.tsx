@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity, GestureResponderEvent } from "react-native";
+import { Text, TouchableOpacity, GestureResponderEvent } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { calendar_items } from "../../../styles/components/calendar/calendar_items";

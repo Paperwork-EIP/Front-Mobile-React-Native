@@ -7,7 +7,7 @@ import { Alert, Text, View } from "react-native";
 function CalendarComponent(props: any) {
     const { t, i18n } = useTranslation();
 
-    LocaleConfig.locales['fr'], LocaleConfig.locales['en'] = {
+    LocaleConfig.locales['fr'] = {
         monthNames: [
             t('calendar.months.january'),
             t('calendar.months.february'),
@@ -56,6 +56,8 @@ function CalendarComponent(props: any) {
         ],
         today: t('calendar.today')
     };
+
+    LocaleConfig.locales['en'] = LocaleConfig.locales['fr'];
 
     function itemPressed() {
         Alert.alert('Item has been pressed');
@@ -108,7 +110,6 @@ function CalendarComponent(props: any) {
             />
             {displayEmptyAgenda()}
         </CalendarProvider>
-
     );
 }
 

@@ -60,7 +60,7 @@ function Login({ navigation }: { navigation: any }) {
                 break;
             case "facebook":
                 url = `${baseUrl}/oauth/facebook/url`;
-                issuer = 'https://www.facebook.com';
+                issuer = 'https://graph.facebook.com';
                 break;
 
             default:
@@ -81,15 +81,17 @@ function Login({ navigation }: { navigation: any }) {
                 scopes: scopes.split('+'),
             };
 
+            console.log("config = ", config);
+
             const result = await authorize(config);
             console.log("result = ", result);
 
-        }).catch(err => {
+        }).catch(error => {
             Alert.alert(
                 t('login.error.title'),
-                t('login.error.message'),
+                error.message,
                 [
-                    { text: err }
+                    { text: t('login.error.button')}
                 ]
             );
         });

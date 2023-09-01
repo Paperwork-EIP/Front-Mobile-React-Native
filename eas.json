@@ -16,6 +16,9 @@
             "distribution": "internal"
         },
         "production": {
+            "env": {
+                "REACT_APP_BASE_URL": "http://54.86.209.237:8080"
+            },
             "android": {
                 "buildType": "apk"
             }

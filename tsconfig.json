@@ -3,14 +3,15 @@
     "compilerOptions": {
         "preserveConstEnums": true,
         "baseUrl": ".",
-        "paths": {
-            "@env": [
-                "node_modules/react-native-dotenv"
-            ]
-        }
+        "strict": true,
+        "types": [
+            "jest",
+            "react",
+            "node"
+        ]
     },
     "include": [
-        "src/**/*"
+        "src/**/*.tsx"
     ],
     "exclude": [
         "**/*.spec.ts"

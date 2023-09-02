@@ -4,10 +4,10 @@
     "slug": "paperwork-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -15,11 +15,12 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.paperworkmobile"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.anonymous.paperworkmobile",
@@ -28,6 +29,10 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "scheme": [
+      "paperwork-mobile",
+      "fb969915637497521"
+    ],
     "extra": {
       "eas": {
         "projectId": "96e73a0e-eb8e-4164-8743-66af30f0105a"

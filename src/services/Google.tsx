@@ -13,15 +13,14 @@ async function handleOAuthGoogleConnection() {
     await axios.get(url).then(async (res) => {
         const response = res.data;
         const clientId = response.split('client_id=')[1].split('&')[0];
-        const redirectUrl = response.split('redirect_uri=')[1].split('&')[0];
+        // const  redirectUri= response.split('redirect_uri=')[1].split('&')[0];
+        const redirectUri = "com.anonymous.paperworkmobile"
         const scopes = response.split('scope=')[1].split('&')[0];
-
-        console.log("response = ", response);
 
         const config = {
             issuer: issuer,
             clientId: clientId,
-            redirectUrl: redirectUrl,
+            redirectUrl: redirectUri,
             scopes: scopes.split('+'),
         };
 

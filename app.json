@@ -1,48 +1,16 @@
 {
   "expo": {
-    "name": "Paperwork",
-    "slug": "Paperwork",
+    "name": "paperwork-mobile",
+    "slug": "paperwork-mobile",
     "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/playstore-icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/logo.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "assetBundlePatterns": [
       "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.paperworkmobile"
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/playstore-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "package": "com.anonymous.paperworkmobile",
-      "softwareKeyboardLayoutMode": "pan"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "scheme": [
-      "paperwork-mobile",
-      "fb969915637497521"
     ],
     "extra": {
       "eas": {
         "projectId": "96e73a0e-eb8e-4164-8743-66af30f0105a"
       }
-    },
-    "runtimeVersion": {
-      "policy": "sdkVersion"
-    },
-    "updates": {
-      "url": "https://u.expo.dev/96e73a0e-eb8e-4164-8743-66af30f0105a"
     }
-  }
+  },
+  "name": "paperwork-mobile"
 }

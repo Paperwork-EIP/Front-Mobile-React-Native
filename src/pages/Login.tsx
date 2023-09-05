@@ -5,20 +5,15 @@ import { Picker } from "@react-native-picker/picker";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import * as Facebook from "expo-auth-session/providers/facebook";
-import * as WebBrowser from "expo-web-browser";
-
 import HidePasswordButton from "../components/HidePasswordButton";
 import OAuthButton from "../components/OAuthButton";
 import ClickTextButtonWithDescription from "../components/ClickTextButtonWithDescription";
 import LongHorizontalButton from "../components/LongHorizontalButton";
 
 import handleOAuthGoogleConnection from "../services/Google";
-// import { getInfoFromServerFacebook, getUserDataFromApi } from "../services/Facebook";
 import handleOAuthFacebookConnection from "../services/Facebook";
-import { login } from "../../styles/pages/login";
 
-// WebBrowser.maybeCompleteAuthSession();
+import { login } from "../../styles/pages/login";
 
 function Login({ navigation }: { navigation: any }) {
     const { t, i18n } = useTranslation();
@@ -79,7 +74,7 @@ function Login({ navigation }: { navigation: any }) {
 
     async function handleSubmit() {
         if (email && password) {
-            axios.post(process.env.REACT_APP_BASE_URL + '/user/login', {
+            axios.post(process.env.EXPO_PUBLIC_BASE_URL + '/user/login', {
                 email: email,
                 password: password
             }
@@ -118,55 +113,12 @@ function Login({ navigation }: { navigation: any }) {
         }
     }
 
-    //Facebook
-    // const [request, response, promptAsync] = Facebook.useAuthRequest({
-    //     clientId: getInfoFromServerFacebook().clientId,
-    //     scopes: getInfoFromServerFacebook().scopes,
-    // });
-
-    // async function handleOAuthFacebookConnection() {
-    //     const result = await promptAsync();
-
-    //     if (result.type !== "success") {
-    //         Alert.alert(
-    //             t('login.error.title'),
-    //             t('login.error.somethingWrong'),
-    //             [
-    //                 { text: t('login.error.button') }
-    //             ]
-    //         );
-    //     }
-    // }
-
     useEffect(() => {
         getToken();
-        // setUser(getUserDataFromApi(response));
-        console.log(user);
         if (token) {
             redirectToConnectedPage();
         }
-        // }, [response]);
     });
-
-    // async function handleOAuthFacebookConnection() {
-    //     const { facebookUrl } = await getInfoFromServerFacebook();
-
-    //     await WebBrowser.openAuthSessionAsync(
-    //         facebookUrl,
-    //     ).then((response) => {
-    //         const userInfo = getUserDataFromApi(response);
-    //         setUser(userInfo);
-    //         console.log(userInfo);
-    //     }).catch(error => {
-    //         Alert.alert(
-    //             t('login.error.title'),
-    //             error.message,
-    //             [
-    //                 { text: t('login.error.button') }
-    //             ]
-    //         );
-    //     });
-    // }
 
     return (
         <View>
@@ -190,7 +142,7 @@ function Login({ navigation }: { navigation: any }) {
                         />
                         <View style={login.passwordContainer} >
                             <TextInput
-                                style={login.passwordContainer.input}
+                                style={login.passwordContainer.input as StyleProp<ViewStyle>}
                                 onChangeText={handlePasswordChange}
                                 value={password}
                                 secureTextEntry={hidePassword}

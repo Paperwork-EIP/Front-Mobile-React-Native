@@ -5,7 +5,7 @@ import axios from "axios";
 import { t } from "i18next";
 
 async function handleOAuthGoogleConnection() {
-    const baseUrl = process.env.REACT_APP_BASE_URL;
+    const baseUrl = process.env.EXPO_PUBLIC_BASE_URL;
     const issuer = 'https://accounts.google.com';
 
     let url = `${baseUrl}/oauth/google/urlLogin`;

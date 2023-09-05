@@ -55,20 +55,20 @@ function Register({ navigation }: { navigation: any }) {
     }
 
     function connectWithGoogle() {
-        axios.get(`${process.env.REACT_APP_BASE_URL}/oauth/google/urlLogin`).then(res => {
+        axios.get(`${process.env.EXPO_PUBLIC_BASE_URL}/oauth/google/urlLogin`).then(res => {
             console.log(res.data);
         })
     }
 
     function connectWithFacebook() {
-        axios.get(`${process.env.REACT_APP_BASE_URL}/oauth/facebook/url`).then(res => {
+        axios.get(`${process.env.EXPO_PUBLIC_BASE_URL}/oauth/facebook/url`).then(res => {
             console.log(res.data);
         })
     }
 
     function handleSubmit() {
         if (email && password && confirmPassword && password === confirmPassword && username) {
-            axios.post(process.env.REACT_APP_BASE_URL + '/user/register', {
+            axios.post(process.env.EXPO_PUBLIC_BASE_URL + '/user/register', {
                 username: username,
                 email: email,
                 password: password

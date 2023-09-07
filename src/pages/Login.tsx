@@ -10,8 +10,8 @@ import OAuthButton from "../components/OAuthButton";
 import ClickTextButtonWithDescription from "../components/ClickTextButtonWithDescription";
 import LongHorizontalButton from "../components/LongHorizontalButton";
 
-import handleOAuthGoogleConnection from "../services/Google";
-import handleOAuthFacebookConnection from "../services/Facebook";
+import FacebookAuthButton from "../services/Facebook";
+import GoogleAuthButton from "../services/Google";
 
 import { login } from "../../styles/pages/login";
 
@@ -172,24 +172,8 @@ function Login({ navigation }: { navigation: any }) {
                     </View>
                     <View style={login.bottom}>
                         <View style={login.bottom.buttons as StyleProp<ViewStyle>}>
-                            <OAuthButton
-                                title={t('login.google')}
-                                onPress={handleOAuthGoogleConnection}
-                                source={require('../../assets/images/google-logo.png')}
-                                styleButton={login.bottom.buttons.googleButton}
-                                styleImage={login.bottom.buttons.googleButton.image}
-                                styleText={login.bottom.buttons.googleButton.text}
-                                testID="googleButton"
-                            />
-                            <OAuthButton
-                                title={t('login.facebook')}
-                                onPress={handleOAuthFacebookConnection}
-                                source={require('../../assets/images/facebook-logo.png')}
-                                styleButton={login.bottom.buttons.facebookButton}
-                                styleImage={login.bottom.buttons.facebookButton.image}
-                                styleText={login.bottom.buttons.facebookButton.text}
-                                testID="facebookButton"
-                            />
+                            <GoogleAuthButton />
+                            <FacebookAuthButton />
                         </View>
                         <View style={login.center}>
                             <ClickTextButtonWithDescription

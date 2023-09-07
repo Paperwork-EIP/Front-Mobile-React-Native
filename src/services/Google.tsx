@@ -1,41 +1,61 @@
 import React from "react";
 import { Alert } from "react-native";
-import { authorize } from "react-native-app-auth";
 import axios from "axios";
 import { t } from "i18next";
 
-async function handleOAuthGoogleConnection() {
-    const baseUrl = process.env.EXPO_PUBLIC_BASE_URL;
-    const issuer = 'https://accounts.google.com';
+import * as Google from "expo-auth-session/providers/google";
+import * as AuthSession from "expo-auth-session";
+import * as WebBrowser from 'expo-web-browser';
 
-    let url = `${baseUrl}/oauth/google/urlLogin`;
+import OAuthButton from "../components/OAuthButton";
 
-    await axios.get(url).then(async (res) => {
-        const response = res.data;
-        const clientId = response.split('client_id=')[1].split('&')[0];
-        // const  redirectUri= response.split('redirect_uri=')[1].split('&')[0];
-        const redirectUri = "com.anonymous.paperworkmobile"
-        const scopes = response.split('scope=')[1].split('&')[0];
+import { login } from "../../styles/pages/login";
 
-        const config = {
-            issuer: issuer,
+WebBrowser.maybeCompleteAuthSession();
+
+function GoogleAuthButton() {
+    const url = `${process.env.EXPO_PUBLIC_BASE_URL}/oauth/google/urlLogin`;
+
+    const [clientId, setClientId] = React.useState('');
+    const [scopes, setScopes] = React.useState([]);
+
+    const [request, response, prompt] = Google.useAuthRequest(
+        {
             clientId: clientId,
-            redirectUrl: redirectUri,
-            scopes: scopes.split('+'),
-        };
+            scopes: scopes,
+            redirectUri: AuthSession.makeRedirectUri({
+                native: "com.paperworkmobile",
+            }),
+        },
+    );
 
-        const result = await authorize(config);
-        console.log("result = ", result);
+    React.useEffect(() => {
+        axios.get(url).then(async (res) => {
+            setClientId(res.data.split('client_id=')[1].split('&')[0]);
+            setScopes(res.data.split('scope=')[1].split('&')[0].split(','));
+        }).catch(error => {
+            Alert.alert(
+                t('login.error.title'),
+                error.message,
+                [
+                    { text: t('login.error.button') }
+                ]
+            );
+        });
+        console.log("Google response: ", response);
+    }, [response]);
 
-    }).catch(error => {
-        Alert.alert(
-            t('login.error.title'),
-            error.message,
-            [
-                { text: t('login.error.button')}
-            ]
-        );
-    });
+    return (
+        <OAuthButton
+            title={t('login.google')}
+            onPress={() => prompt()}
+            source={require('../../assets/images/google-logo.png')}
+            styleButton={login.bottom.buttons.googleButton}
+            styleImage={login.bottom.buttons.googleButton.image}
+            styleText={login.bottom.buttons.googleButton.text}
+            testID="googleButton"
+        />
+    )
 }
 
-export default handleOAuthGoogleConnection;
+export default GoogleAuthButton;

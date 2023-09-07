@@ -7,7 +7,6 @@ import i18n from '../../src/i18n/i18n';
 import Login from '../../src/pages/Login';
 
 jest.mock('axios');
-jest.mock('universal-cookie');
 jest.mock('@react-navigation/native', () => { });
 jest.mock('@react-native-async-storage/async-storage', () =>
   require('@react-native-async-storage/async-storage/jest/async-storage-mock')

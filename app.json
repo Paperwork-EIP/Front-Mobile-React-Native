@@ -6,6 +6,10 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "android":{
+      "softwareKeyboardLayoutMode": "pan"
+    },
+    "scheme": "com.paperworkmobile",
     "extra": {
       "baseUrl": "http://54.86.209.237:8080",
       "appId": "969915637497521",

@@ -25,7 +25,7 @@ function FacebookAuthButton() {
             clientId: clientId,
             scopes: scopes,
             redirectUri: AuthSession.makeRedirectUri({
-                native: redirectUri,
+                scheme: redirectUri,
             }),
         },
     );

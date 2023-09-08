@@ -1,62 +1,71 @@
 import React from "react";
-import { Alert } from "react-native";
-import axios from "axios";
 import { t } from "i18next";
-
-import * as Facebook from "expo-auth-session/providers/facebook";
-import * as AuthSession from "expo-auth-session";
-import * as WebBrowser from 'expo-web-browser';
+import { LoginManager, Profile } from "react-native-fbsdk-next";
 
 import OAuthButton from "../components/OAuthButton";
 
 import { login } from "../../styles/pages/login";
 
-WebBrowser.maybeCompleteAuthSession();
+function FacebookAuthButton({ navigation }: { navigation: any }) {
+    const [userData, setUserData] = React.useState<{
+        name: string | null | undefined,
+        firstName: string | null | undefined,
+        email: string | null | undefined,
+        id: string | null | undefined,
+        picture: string | null | undefined,
+        linkProfile: string | null | undefined
+    }>();
 
-function FacebookAuthButton() {
-    const url = `${process.env.EXPO_PUBLIC_BASE_URL}/oauth/facebook/url`;
-
-    const [clientId, setClientId] = React.useState('');
-    const [redirectUri, setRedirectUri] = React.useState('');
-    const [scopes, setScopes] = React.useState([]);
-
-    const [request, response, prompt] = Facebook.useAuthRequest(
-        {
-            clientId: clientId,
-            scopes: scopes,
-            redirectUri: AuthSession.makeRedirectUri({
-                scheme: redirectUri,
-            }),
-        },
-    );
-
-    React.useEffect(() => {
-        axios.get(url).then((res) => {
-            setClientId(res.data.split('client_id=')[1].split('&')[0]);
-            setRedirectUri(`fb${res.data.split('client_id=')[1].split('&')[0]}://authorize`);
-            setScopes(res.data.split('scope=')[1].split('&')[0].split(','));
-        }).catch(error => {
-            Alert.alert(
-                t('login.error.title'),
-                error.message,
-                [
-                    { text: t('login.error.button') }
-                ]
-            );
+    function redirectToConnectedPage() {
+        navigation.navigate('Home');
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'Home' }],
         });
-        console.log(redirectUri + " " + clientId + " " + scopes)
-        console.log("Facebook response: ", response);
+    }
 
-        if (response?.type === 'success') {
-            const { access_token } = response.params;
-            console.log(access_token);
-        }
-    }, [response]);
+    async function getData() {
+        await Profile.getCurrentProfile().then(
+            function (currentProfile) {
+                if (currentProfile) {
+                    setUserData({
+                        name: currentProfile.name,
+                        firstName: currentProfile.firstName,
+                        email: currentProfile.email,
+                        id: currentProfile.userID,
+                        picture: currentProfile.imageURL,
+                        linkProfile: currentProfile.linkURL
+                    });
+                }
+            }
+        );
+    }
+
+    function handleClickAuth() {
+        LoginManager.logInWithPermissions(["public_profile"]).then(
+            async function (result) {
+                if (result.isCancelled) {
+                    console.log("Login cancelled");
+                } else {
+                    await getData();
+                    if (userData) {
+                        console.log("Facebook user data : " + userData.name + " " + userData.email + " " + userData.id + " " + userData.picture + " " + userData.linkProfile);
+                        redirectToConnectedPage();
+                    } else {
+                        console.log("Error getting user data");
+                    }
+                }
+            },
+            function (error) {
+                console.log("Login fail with error: " + error);
+            }
+        );
+    }
 
     return (
         <OAuthButton
             title={t('login.facebook')}
-            onPress={() => prompt()}
+            onPress={handleClickAuth}
             source={require('../../assets/images/facebook-logo.png')}
             styleButton={login.bottom.buttons.facebookButton}
             styleImage={login.bottom.buttons.facebookButton.image}

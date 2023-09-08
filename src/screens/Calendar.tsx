@@ -3,6 +3,7 @@ import { View, Button } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import CalendarComponent from "../components/calendar/CalendarComponent";
+import { getToken, removeToken } from "../services/Token";
 
 import { calendar, brightRed } from "../../styles/screen/calendar";
 
@@ -74,45 +75,13 @@ function Calendar({ navigation }: { navigation: any }) {
         });
     }
 
-    async function getToken() {
-        try {
-            const value = await AsyncStorage.getItem('loginToken');
-            if (value !== null) {
-                console.log(value);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    async function removeToken() {
-        try {
-            await AsyncStorage.removeItem('loginToken');
-            navigation.navigate('Login');
-            navigation.reset({
-                index: 0,
-                routes: [{ name: 'Login' }],
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    async function clearAsyncStorage() {
-        try {
-            removeToken();
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
     useState(() => {
         setDotMarkedDates();
         updateItems();
     });
 
     useEffect(() => {
-        getToken();
+        getToken('loginToken');
         updateMarkedDates();
         setDotMarkedDates();
     }, [selected, markedDates, items]);
@@ -129,7 +98,7 @@ function Calendar({ navigation }: { navigation: any }) {
                 onDayPress={handleDayPressed}
                 onItemPress={handleOnItemPressed}
             />
-            <Button title="Disconnect" onPress={clearAsyncStorage} />
+            <Button title="Disconnect" onPress={() => removeToken(navigation , 'loginToken', 'Login')} />
         </View >
     );
 };

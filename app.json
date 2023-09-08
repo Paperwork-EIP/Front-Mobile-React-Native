@@ -6,10 +6,28 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "android":{
+    "android": {
       "softwareKeyboardLayoutMode": "pan"
     },
-    "scheme": "com.paperworkmobile",
+    "scheme": [
+      "com.paperworkmobile",
+      "fb969915637497521"
+    ],
+    "plugins": [
+      [
+        "react-native-fbsdk-next",
+        {
+          "appID": "969915637497521",
+          "clientToken": "ced4dfd8bdaa4b000ea8d40ba3a28675",
+          "displayName": "Paperwork",
+          "scheme": "fb969915637497521",
+          "advertiserIDCollectionEnabled": false,
+          "autoLogAppEventsEnabled": false,
+          "isAutoInitEnabled": true,
+          "iosUserTrackingPermission": "This identifier will be used to login."
+        }
+      ]
+    ],
     "extra": {
       "baseUrl": "http://54.86.209.237:8080",
       "appId": "969915637497521",

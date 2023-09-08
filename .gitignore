@@ -25,6 +25,11 @@ npm-debug.*
 yarn-debug.*
 yarn-error.*
 
+#coverage
+coverage/lcov-report
+coverage/clover.xml
+coverage/coverage-final.json
+
 # macOS
 .DS_Store
 *.pem

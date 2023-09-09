@@ -1,4 +1,5 @@
 import React from "react";
+import { Alert } from "react-native";
 import { t } from "i18next";
 import { LoginManager, Profile } from "react-native-fbsdk-next";
 
@@ -52,7 +53,13 @@ function FacebookAuthButton({ navigation }: { navigation: any }) {
                         console.log("Facebook user data : " + userData.name + " " + userData.email + " " + userData.id + " " + userData.picture + " " + userData.linkProfile);
                         redirectToConnectedPage();
                     } else {
-                        console.log("Error getting user data");
+                        Alert.alert(
+                            t('login.error.title'),
+                            t('login.error.message'),
+                            [
+                                { text: t('login.error.button') }
+                            ]
+                        );
                     }
                 }
             },

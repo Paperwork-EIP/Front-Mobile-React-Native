@@ -35,6 +35,7 @@ coverage/coverage-final.json
 *.pem
 
 # local env files
+.env
 .env*.local
 
 # typescript

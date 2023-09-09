@@ -26,7 +26,8 @@
           "isAutoInitEnabled": true,
           "iosUserTrackingPermission": "This identifier will be used to login."
         }
-      ]
+      ],
+      ["@react-native-google-signin/google-signin"]
     ],
     "extra": {
       "baseUrl": "http://54.86.209.237:8080",

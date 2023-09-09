@@ -2,49 +2,89 @@ import React from "react";
 import { Alert } from "react-native";
 import axios from "axios";
 import { t } from "i18next";
-import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
+
+import * as WebBrowser from 'expo-web-browser';
+import * as Google from 'expo-auth-session/providers/google';
 
 import OAuthButton from "../components/OAuthButton";
 
+import { getItem, storeItem } from "./Token";
+
 import { login } from "../../styles/pages/login";
 
-async function SignOut() {
-    try {
-        return await GoogleSignin.signOut();
-    } catch (error) {
-        console.error(error);
-    }
-}
+WebBrowser.maybeCompleteAuthSession();
 
-async function GetGoogleUserData() {
-    try {
-        return await GoogleSignin.getCurrentUser();
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-
-function GoogleAuthButton() {
+function GoogleAuthButton({ navigation }: { navigation: any }) {
     const url = `${process.env.EXPO_PUBLIC_BASE_URL}/oauth/google/urlLogin`;
 
     const [webClientId, setWebClientId] = React.useState('');
-    const [scopes, setScopes] = React.useState([]);
-    const [response, setResponse] = React.useState({});
-    const [data, setData] = React.useState({});
+    const [iosClientId, setIosClientId] = React.useState('');
+    const [androidClientId, setAndroidClientId] = React.useState('');
 
-    async function handleGoogleAuth() {
+    const [userInfo, setUserInfo] = React.useState<{
+        name: any,
+        firstName: any,
+        email: any,
+        id: any,
+        picture: any
+    }>();
+
+    const [request, response, promptAsync] = Google.useAuthRequest({
+        androidClientId: androidClientId,
+        iosClientId: iosClientId,
+        webClientId: webClientId
+    });
+
+    async function getUserInfo(token: string) {
+        if (!token) {
+            return;
+        }
         try {
-            GoogleSignin.configure({
-                offlineAccess: true,
-                scopes: scopes,
+            const response = await axios.get("https://www.googleapis.com/userinfo/v2/me", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             });
-            GoogleSignin.hasPlayServices();
+            const user = response.data;
 
-            const userInfo = await GoogleSignin.signIn();
-            setResponse({ userInfo });
+            setUserInfo({
+                name: user.name,
+                firstName: user.given_name,
+                email: user.email,
+                id: user.id,
+                picture: user.picture
+            });
+            await storeItem('user', JSON.stringify(user));
         } catch (error) {
             console.log(error);
+            Alert.alert(
+                t('login.error.title'),
+                t('login.error.somethingWrong'),
+                [
+                    { text: t('login.error.button') }
+                ]
+            );
+        }
+    }
+
+    function redirectToConnectedPage() {
+        navigation.navigate('Home');
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'Home' }],
+        });
+    }
+
+    async function handleGoogleAuth() {
+        const user = await getItem('user');
+
+        if (!user) {
+            if (response?.type === 'success' && response?.authentication?.accessToken) {
+                await getUserInfo(response.authentication.accessToken);
+                redirectToConnectedPage();
+            }
+        } else {
+            setUserInfo(JSON.parse(user));
         }
     }
 
@@ -52,36 +92,27 @@ function GoogleAuthButton() {
         async function getCredentialDatas() {
             await axios.get(url).then(async (res) => {
                 setWebClientId(res.data.split('client_id=')[1].split('&')[0]);
-                setScopes(res.data.split('scope=')[1].split('&')[0].split(','));
-
-                console.log("Google web client id = ", webClientId);
             }).catch(error => {
+                console.log(error);
                 Alert.alert(
                     t('login.error.title'),
-                    error.message,
+                    t('login.error.somethingWrong'),
                     [
                         { text: t('login.error.button') }
                     ]
                 );
             });
         }
-
-        async function getUserData() {
-            const currentUser = await GetGoogleUserData();
-            setData({ currentUser });
-        }
-
+        setAndroidClientId(`${process.env.EXPO_PUBLIC_ANDROID_GOOGLE_ID}`);
+        setIosClientId(`${process.env.EXPO_PUBLIC_IOS_GOOGLE_ID}`);
         getCredentialDatas();
-        getUserData();
-
-        console.log("Google response = ", response);
-        console.log("Google data = ", data);
-    }, [response, webClientId]);
+        handleGoogleAuth();
+    }, [response, userInfo, webClientId]);
 
     return (
         <OAuthButton
             title={t('login.google')}
-            onPress={handleGoogleAuth}
+            onPress={() => promptAsync()}
             source={require('../../assets/images/google-logo.png')}
             styleButton={login.bottom.buttons.googleButton}
             styleImage={login.bottom.buttons.googleButton.image}

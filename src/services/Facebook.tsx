@@ -5,16 +5,17 @@ import { LoginManager, Profile } from "react-native-fbsdk-next";
 
 import OAuthButton from "../components/OAuthButton";
 
+import { storeItem, getItem } from "./Token";
+
 import { login } from "../../styles/pages/login";
 
 function FacebookAuthButton({ navigation }: { navigation: any }) {
     const [userData, setUserData] = React.useState<{
-        name: string | null | undefined,
-        firstName: string | null | undefined,
-        email: string | null | undefined,
-        id: string | null | undefined,
-        picture: string | null | undefined,
-        linkProfile: string | null | undefined
+        name: any,
+        firstName: any,
+        email: any,
+        id: any,
+        picture: any
     }>();
 
     function redirectToConnectedPage() {
@@ -27,16 +28,19 @@ function FacebookAuthButton({ navigation }: { navigation: any }) {
 
     async function getData() {
         await Profile.getCurrentProfile().then(
-            function (currentProfile) {
+            async function (currentProfile) {
                 if (currentProfile) {
                     setUserData({
                         name: currentProfile.name,
                         firstName: currentProfile.firstName,
                         email: currentProfile.email,
                         id: currentProfile.userID,
-                        picture: currentProfile.imageURL,
-                        linkProfile: currentProfile.linkURL
+                        picture: currentProfile.imageURL
                     });
+                    if (userData) {
+                        await storeItem('user', JSON.stringify(userData));
+                        redirectToConnectedPage();
+                    }
                 }
             }
         );
@@ -44,30 +48,44 @@ function FacebookAuthButton({ navigation }: { navigation: any }) {
 
     function handleClickAuth() {
         LoginManager.logInWithPermissions(["public_profile"]).then(
-            async function (result) {
+            function (result) {
                 if (result.isCancelled) {
-                    console.log("Login cancelled");
+                    Alert.alert(
+                        t('login.error.title'),
+                        t('login.error.somethingWrong'),
+                        [
+                            { text: t('login.error.button') }
+                        ]
+                    );
                 } else {
-                    await getData();
-                    if (userData) {
-                        console.log("Facebook user data : " + userData.name + " " + userData.email + " " + userData.id + " " + userData.picture + " " + userData.linkProfile);
-                        redirectToConnectedPage();
-                    } else {
-                        Alert.alert(
-                            t('login.error.title'),
-                            t('login.error.message'),
-                            [
-                                { text: t('login.error.button') }
-                            ]
-                        );
-                    }
+                    getData();
                 }
             },
             function (error) {
                 console.log("Login fail with error: " + error);
+                Alert.alert(
+                    t('login.error.title'),
+                    t('login.error.somethingWrong'),
+                    [
+                        { text: t('login.error.button') }
+                    ]
+                );
             }
         );
     }
+
+    React.useEffect(() => {
+        async function getUserData() {
+            await getItem('user').then(async (user) => {
+                if (user) {
+                    const data = JSON.parse(user);
+                    setUserData(data);
+                }
+            });
+        }
+        console.log("Facebook user data: " + userData);
+        getUserData();
+    }, [userData]);
 
     return (
         <OAuthButton

@@ -3,7 +3,7 @@ import { View, Button } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import CalendarComponent from "../components/calendar/CalendarComponent";
-import { getToken, removeToken } from "../services/Token";
+import { getItem, deleteItem } from "../services/Token";
 
 import { calendar, brightRed } from "../../styles/screen/calendar";
 
@@ -81,7 +81,7 @@ function Calendar({ navigation }: { navigation: any }) {
     });
 
     useEffect(() => {
-        getToken('loginToken');
+        getItem('loginToken');
         updateMarkedDates();
         setDotMarkedDates();
     }, [selected, markedDates, items]);
@@ -98,7 +98,10 @@ function Calendar({ navigation }: { navigation: any }) {
                 onDayPress={handleDayPressed}
                 onItemPress={handleOnItemPressed}
             />
-            <Button title="Disconnect" onPress={() => removeToken(navigation , 'loginToken', 'Login')} />
+            <Button title="Disconnect" onPress={() => {
+                AsyncStorage.clear();
+                deleteItem(navigation , 'loginToken', 'Login');
+            }} />
         </View >
     );
 };

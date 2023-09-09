@@ -1,7 +1,7 @@
 import React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-async function getToken(value: string) {
+async function getItem(value: string) {
     try {
         return await AsyncStorage.getItem(value);
     } catch (error) {
@@ -9,7 +9,7 @@ async function getToken(value: string) {
     }
 }
 
-async function storeToken(value: string, token: string) {
+async function storeItem(value: string, token: string) {
     try {
         await AsyncStorage.setItem(value, token);
     } catch (error) {
@@ -17,7 +17,7 @@ async function storeToken(value: string, token: string) {
     }
 }
 
-async function removeToken(navigation: any, value: string, route: string) {
+async function deleteItem(navigation: any, value: string, route: string) {
     try {
         await AsyncStorage.removeItem(value);
         navigation.navigate(route);
@@ -30,4 +30,4 @@ async function removeToken(navigation: any, value: string, route: string) {
     }
 }
 
-export { getToken, storeToken, removeToken };
+export { getItem, storeItem, deleteItem };

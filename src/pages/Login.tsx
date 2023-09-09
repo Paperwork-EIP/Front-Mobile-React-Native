@@ -10,7 +10,7 @@ import LongHorizontalButton from "../components/LongHorizontalButton";
 
 import FacebookAuthButton from "../services/Facebook";
 import GoogleAuthButton from "../services/Google";
-import { getToken, storeToken } from "../services/Token";
+import { getItem, storeItem } from "../services/Token";
 
 import { login } from "../../styles/pages/login";
 
@@ -20,8 +20,6 @@ function Login({ navigation }: { navigation: any }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [hidePassword, setHidePassword] = useState(true);
-
-    const windowHeight = Dimensions.get('window').height;
 
     function changeLanguage(language: string | undefined) {
         i18n.changeLanguage(language);
@@ -59,7 +57,7 @@ function Login({ navigation }: { navigation: any }) {
             }
             ).then(async function (response) {
                 if (response.status === 200) {
-                    await storeToken('loginToken', response.data.jwt);
+                    await storeItem('loginToken', response.data.jwt);
                     redirectToConnectedPage();
                 } else {
                     Alert.alert(
@@ -95,7 +93,7 @@ function Login({ navigation }: { navigation: any }) {
 
     useEffect(() => {
         async function checkToken() {
-            const token = await getToken('loginToken');
+            const token = await getItem('loginToken');
             if (token) {
                 redirectToConnectedPage();
             }
@@ -104,7 +102,7 @@ function Login({ navigation }: { navigation: any }) {
     });
 
     return (
-        <View style={{ height: windowHeight }} >
+        <View>
             <View style={login.container}>
                 <View style={login.center}>
                     <Image
@@ -155,7 +153,7 @@ function Login({ navigation }: { navigation: any }) {
                     </View>
                     <View style={login.bottom}>
                         <View style={login.bottom.buttons as StyleProp<ViewStyle>}>
-                            <GoogleAuthButton />
+                            <GoogleAuthButton navigation={navigation} />
                             <FacebookAuthButton navigation={navigation} />
                         </View>
                         <View style={login.center}>

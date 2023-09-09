@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Calendar from "../screens/Calendar";
+
+import { getItem } from '../services/Token';
 
 import { home } from "../../styles/pages/home.js";
 
@@ -46,6 +48,22 @@ function Home() {
 
     const activeTabColor = '#FC6976';
     const inactiveTabColor = 'grey';
+
+    const [user, setUser] = React.useState({});
+
+    async function getUserData() {
+        await getItem('user').then((user) => {
+            if (user) {
+                const userData = JSON.parse(user);
+                setUser(userData);
+            }
+        });
+    }
+
+    useEffect(() => {
+        getUserData();
+        console.log(user);
+    }, [user]);
 
     return (
         <View style={home.container}>

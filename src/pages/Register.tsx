@@ -177,7 +177,7 @@ function Register({ navigation }: { navigation: any }) {
                 </View>
                 <View style={register.bottom}>
                     <View style={register.bottom.buttons as StyleProp<ViewStyle>}>
-                        <GoogleAuthButton />
+                        <GoogleAuthButton navigation={navigation} />
                         <FacebookAuthButton navigation={navigation} />
                     </View>
                     <View style={register.center}>

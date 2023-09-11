@@ -51,14 +51,18 @@ function Login({ navigation }: { navigation: any }) {
 
     async function handleSubmit() {
         if (email && password) {
-            axios.post(process.env.EXPO_PUBLIC_BASE_URL + '/user/login', {
+            await axios.post(process.env.EXPO_PUBLIC_BASE_URL + '/user/login', {
                 email: email,
                 password: password
-            }
-            ).then(async function (response) {
+            }).then(async function (response) {
                 if (response.status === 200) {
-                    await storeItem('loginToken', response.data.jwt);
-                    redirectToConnectedPage();
+                    const token = response.data.jwt;
+                    await storeItem('loginToken', token);
+                    
+                    const test = await getItem('loginToken');
+                    if (test) {
+                        redirectToConnectedPage();
+                    }
                 } else {
                     Alert.alert(
                         t('login.error.title'),

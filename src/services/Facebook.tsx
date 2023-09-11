@@ -1,7 +1,8 @@
 import React from "react";
 import { Alert } from "react-native";
+import { AccessToken, LoginManager, Profile } from "react-native-fbsdk-next";
 import { t } from "i18next";
-import { LoginManager, Profile } from "react-native-fbsdk-next";
+import axios from "axios";
 
 import OAuthButton from "../components/OAuthButton";
 
@@ -39,7 +40,29 @@ function FacebookAuthButton({ navigation }: { navigation: any }) {
                     });
                     if (userData) {
                         await storeItem('user', JSON.stringify(userData));
-                        redirectToConnectedPage();
+                        AccessToken.getCurrentAccessToken().then(
+                            (data) => {
+                                console.log(data?.accessToken.toString());
+                            })
+                        
+                            await axios.post(`${process.env.EXPO_PUBLIC_BASE_URL}/oauth/google/mobileLogin`).then(
+                                async (response) => {
+                                    const token = response.data.token;
+                                    await storeItem('loginToken', token);
+                                    const test = await getItem('loginToken');
+                                    console.log("Facebook : " + test);
+                                    redirectToConnectedPage();
+                                }
+                            ).catch((error) => {
+                                console.log(error.response);
+                                Alert.alert(
+                                    t('login.error.title'),
+                                    t('login.error.somethingWrong'),
+                                    [
+                                        { text: t('login.error.button') }
+                                    ]
+                                );
+                            });
                     }
                 }
             }
@@ -83,7 +106,6 @@ function FacebookAuthButton({ navigation }: { navigation: any }) {
                 }
             });
         }
-        console.log("Facebook user data: " + userData);
         getUserData();
     }, [userData]);
 

@@ -49,21 +49,20 @@ function Home() {
     const activeTabColor = '#FC6976';
     const inactiveTabColor = 'grey';
 
-    const [user, setUser] = React.useState({});
+    const [userData, setUserData] = React.useState({});
 
     async function getUserData() {
         await getItem('user').then((user) => {
             if (user) {
-                const userData = JSON.parse(user);
-                setUser(userData);
+                const data = JSON.parse(user);
+                setUserData(data);
             }
         });
     }
 
     useEffect(() => {
         getUserData();
-        console.log(user);
-    }, [user]);
+    }, []);
 
     return (
         <View style={home.container}>

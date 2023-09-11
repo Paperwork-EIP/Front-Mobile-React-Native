@@ -13,7 +13,7 @@ interface CalendarItemsProps {
 const CalendarItems = (props: CalendarItemsProps) => {
     return (
         <TouchableOpacity onPress={props.onPressCard} style={calendar_items.item}>
-            <Text style={calendar_items.item.title}>{props.item.title}</Text>
+            <Text numberOfLines={1} style={calendar_items.item.title}>{props.item.title}</Text>
             <TouchableOpacity onPress={props.onPressButton} style={calendar_items.item.button}>
                 <Ionicons name="chevron-forward-outline" size={15} color="white" />
             </TouchableOpacity>

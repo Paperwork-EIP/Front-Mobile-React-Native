@@ -37,9 +37,6 @@
       ]
     ],
     "extra": {
-      "baseUrl": "http://54.86.209.237:8080",
-      "appId": "969915637497521",
-      "androidGoogleId": "793167651548-mp5i2j73gopp9hbi2s9dnav51nhun05h.apps.googleusercontent.com",
       "eas": {
         "projectId": "96e73a0e-eb8e-4164-8743-66af30f0105a"
       }

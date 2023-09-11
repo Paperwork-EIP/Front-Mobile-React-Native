@@ -15,11 +15,12 @@ import { login } from "../../styles/pages/login";
 WebBrowser.maybeCompleteAuthSession();
 
 function GoogleAuthButton({ navigation }: { navigation: any }) {
-    const url = `${process.env.EXPO_PUBLIC_BASE_URL}/oauth/google/urlLogin`;
-
-    const [webClientId, setWebClientId] = React.useState('');
     const [iosClientId, setIosClientId] = React.useState('');
     const [androidClientId, setAndroidClientId] = React.useState('');
+
+    const [accessToken, setAccessToken] = React.useState('');
+    const [idToken, setIdToken] = React.useState('');
+    const [loginToken, setLoginToken] = React.useState('');
 
     const [userInfo, setUserInfo] = React.useState<{
         name: any,
@@ -32,10 +33,37 @@ function GoogleAuthButton({ navigation }: { navigation: any }) {
     const [request, response, promptAsync] = Google.useAuthRequest({
         androidClientId: androidClientId,
         iosClientId: iosClientId,
-        webClientId: webClientId
     });
 
+    async function getTokens(accessToken: string, idToken: string) {
+        console.log(accessToken, idToken);
+        await axios.post(`${process.env.EXPO_PUBLIC_BASE_URL}/oauth/google/mobileLogin`, {
+            access_token: accessToken,
+            id_token: idToken
+        }).then(async (response) => {
+            const token = response.data.token;
+
+            setAccessToken(accessToken);
+            setIdToken(idToken);
+            setLoginToken(token);
+            await storeItem('loginToken', loginToken);
+            const test = await getItem('loginToken');
+            console.log("Google : " + test);
+            redirectToConnectedPage();
+        }).catch((error) => {
+            console.log(error.response);
+            Alert.alert(
+                t('login.error.title'),
+                t('login.error.somethingWrong'),
+                [
+                    { text: t('login.error.button') }
+                ]
+            );
+        });
+    }
+
     async function getUserInfo(token: string) {
+        console.log(token);
         if (!token) {
             return;
         }
@@ -79,9 +107,9 @@ function GoogleAuthButton({ navigation }: { navigation: any }) {
         const user = await getItem('user');
 
         if (!user) {
-            if (response?.type === 'success' && response?.authentication?.accessToken) {
+            if (response?.type === 'success' && response?.authentication?.accessToken && response?.authentication?.idToken) {
                 await getUserInfo(response.authentication.accessToken);
-                redirectToConnectedPage();
+                await getTokens(response.authentication.accessToken, response.authentication.idToken);
             }
         } else {
             setUserInfo(JSON.parse(user));
@@ -89,25 +117,10 @@ function GoogleAuthButton({ navigation }: { navigation: any }) {
     }
 
     React.useEffect(() => {
-        async function getCredentialDatas() {
-            await axios.get(url).then(async (res) => {
-                setWebClientId(res.data.split('client_id=')[1].split('&')[0]);
-            }).catch(error => {
-                console.log(error);
-                Alert.alert(
-                    t('login.error.title'),
-                    t('login.error.somethingWrong'),
-                    [
-                        { text: t('login.error.button') }
-                    ]
-                );
-            });
-        }
         setAndroidClientId(`${process.env.EXPO_PUBLIC_ANDROID_GOOGLE_ID}`);
         setIosClientId(`${process.env.EXPO_PUBLIC_IOS_GOOGLE_ID}`);
-        getCredentialDatas();
         handleGoogleAuth();
-    }, [response, userInfo, webClientId]);
+    }, [response, loginToken, userInfo, androidClientId, iosClientId, accessToken, idToken]);
 
     return (
         <OAuthButton

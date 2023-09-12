@@ -9,6 +9,7 @@ import OAuthButton from "../components/OAuthButton";
 import { storeItem, getItem } from "./Token";
 
 import { login } from "../../styles/pages/login";
+import AlertErrorSomethingWrong from "./Errors";
 
 function FacebookAuthButton({ navigation }: { navigation: any }) {
     const [userData, setUserData] = React.useState<{
@@ -28,42 +29,52 @@ function FacebookAuthButton({ navigation }: { navigation: any }) {
     }
 
     async function getData() {
+        const typeOauth = "facebook";
+
         await Profile.getCurrentProfile().then(
             async function (currentProfile) {
                 if (currentProfile) {
-                    setUserData({
-                        name: currentProfile.name,
-                        firstName: currentProfile.firstName,
-                        email: currentProfile.email,
-                        id: currentProfile.userID,
-                        picture: currentProfile.imageURL
-                    });
-                    if (userData) {
-                        await storeItem('user', JSON.stringify(userData));
-                        AccessToken.getCurrentAccessToken().then(
-                            (data) => {
-                                console.log(data?.accessToken.toString());
-                            })
-                        
-                            await axios.post(`${process.env.EXPO_PUBLIC_BASE_URL}/oauth/google/mobileLogin`).then(
-                                async (response) => {
-                                    const token = response.data.token;
+                    AccessToken.getCurrentAccessToken().then(async (data) => {
+                        const token = data?.accessToken.toString();
+
+                        if (token) {
+                            await axios.get(`https://graph.facebook.com/v13.0/me?fields=email,first_name,last_name`, {
+                                headers: {
+                                    Authorization: `Bearer ${token}`
+                                }
+                            }).then(async (response) => {
+                                const id = response.data.id;
+                                const email = response.data.email;
+
+                                await axios.post(`${process.env.EXPO_PUBLIC_BASE_URL}/user/mobileLogin`, {
+                                    access_token: token,
+                                    id: id,
+                                    email: email,
+                                    oauth: typeOauth
+                                }).then(async (res) => {
+                                    const token = res.data.jwt;
+
+                                    setUserData({
+                                        name: currentProfile.name,
+                                        firstName: currentProfile.firstName,
+                                        email: email,
+                                        id: currentProfile.userID,
+                                        picture: currentProfile.imageURL
+                                    });
+
+                                    await storeItem('user', JSON.stringify(userData));
                                     await storeItem('loginToken', token);
-                                    const test = await getItem('loginToken');
-                                    console.log("Facebook : " + test);
+
                                     redirectToConnectedPage();
                                 }
-                            ).catch((error) => {
-                                console.log(error.response);
-                                Alert.alert(
-                                    t('login.error.title'),
-                                    t('login.error.somethingWrong'),
-                                    [
-                                        { text: t('login.error.button') }
-                                    ]
-                                );
+                                ).catch((error) => {
+                                    AlertErrorSomethingWrong(error, t);
+                                });
+                            }).catch((error) => {
+                                AlertErrorSomethingWrong(error, t);
                             });
-                    }
+                        }
+                    });
                 }
             }
         );
@@ -73,26 +84,13 @@ function FacebookAuthButton({ navigation }: { navigation: any }) {
         LoginManager.logInWithPermissions(["public_profile"]).then(
             function (result) {
                 if (result.isCancelled) {
-                    Alert.alert(
-                        t('login.error.title'),
-                        t('login.error.somethingWrong'),
-                        [
-                            { text: t('login.error.button') }
-                        ]
-                    );
+                    console.log("Login cancelled");
                 } else {
                     getData();
                 }
             },
             function (error) {
-                console.log("Login fail with error: " + error);
-                Alert.alert(
-                    t('login.error.title'),
-                    t('login.error.somethingWrong'),
-                    [
-                        { text: t('login.error.button') }
-                    ]
-                );
+                AlertErrorSomethingWrong(error, t);
             }
         );
     }

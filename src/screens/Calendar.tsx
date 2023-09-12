@@ -33,7 +33,7 @@ function Calendar({ navigation }: { navigation: any }) {
         return listColor[Math.floor(Math.random() * listColor.length)];
     }
 
-    async function updateItems() {
+    async function updateItems(token: string) {
         await axios.get(`${url}/calendar/getAll?token=${token}`).then((response) => {
             let list = [];
 
@@ -83,7 +83,7 @@ function Calendar({ navigation }: { navigation: any }) {
 
         if (loginToken) {
             setToken(loginToken);
-            updateItems();
+            updateItems(loginToken);
         }
     }
 
@@ -94,9 +94,7 @@ function Calendar({ navigation }: { navigation: any }) {
         if (selected) {
             updateMarkedDates();
         }
-        if (items.length > 0) {
-            setDotMarkedDates();
-        }
+        setDotMarkedDates();
     }, [selected, items]);
 
     return (

@@ -8,9 +8,10 @@ import * as Google from 'expo-auth-session/providers/google';
 
 import OAuthButton from "../components/OAuthButton";
 
-import { getItem, storeItem } from "./Token";
+import { getItem, storeItem, removeItem } from "./Token";
 
 import { login } from "../../styles/pages/login";
+import AlertErrorSomethingWrong from "./Errors";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -18,8 +19,6 @@ function GoogleAuthButton({ navigation }: { navigation: any }) {
     const [iosClientId, setIosClientId] = React.useState('');
     const [androidClientId, setAndroidClientId] = React.useState('');
 
-    const [accessToken, setAccessToken] = React.useState('');
-    const [idToken, setIdToken] = React.useState('');
     const [loginToken, setLoginToken] = React.useState('');
 
     const [userInfo, setUserInfo] = React.useState<{
@@ -35,63 +34,53 @@ function GoogleAuthButton({ navigation }: { navigation: any }) {
         iosClientId: iosClientId,
     });
 
-    async function getTokens(accessToken: string, idToken: string) {
-        console.log(accessToken, idToken);
-        await axios.post(`${process.env.EXPO_PUBLIC_BASE_URL}/oauth/google/mobileLogin`, {
-            access_token: accessToken,
-            id_token: idToken
-        }).then(async (response) => {
-            const token = response.data.token;
+    async function getTokens(accessToken: string, idToken: string, email: string) {
+        const typeOauth = "google";
 
-            setAccessToken(accessToken);
-            setIdToken(idToken);
-            setLoginToken(token);
-            await storeItem('loginToken', loginToken);
-            const test = await getItem('loginToken');
-            console.log("Google : " + test);
-            redirectToConnectedPage();
-        }).catch((error) => {
-            console.log(error.response);
-            Alert.alert(
-                t('login.error.title'),
-                t('login.error.somethingWrong'),
-                [
-                    { text: t('login.error.button') }
-                ]
-            );
-        });
+        if (accessToken && idToken && email) {
+            await axios.post(`${process.env.EXPO_PUBLIC_BASE_URL}/user/mobileLogin`, {
+                access_token: accessToken,
+                id: idToken,
+                email: email,
+                oauth: typeOauth
+            }).then(async (response) => {
+                const token = response.data.jwt;
+
+                setLoginToken(token);
+                await storeItem('loginToken', loginToken);
+
+                redirectToConnectedPage();
+            }).catch((error) => {
+                AlertErrorSomethingWrong(error, t);
+            });
+        }
     }
 
-    async function getUserInfo(token: string) {
-        console.log(token);
-        if (!token) {
+    async function getUserInfo(accessToken: string, idToken: string) {
+        if (!accessToken) {
             return;
         }
         try {
-            const response = await axios.get("https://www.googleapis.com/userinfo/v2/me", {
+            await axios.get("https://www.googleapis.com/userinfo/v2/me", {
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${accessToken}`
                 }
-            });
-            const user = response.data;
+            }).then(async (response) => {
+                const user = response.data;
 
-            setUserInfo({
-                name: user.name,
-                firstName: user.given_name,
-                email: user.email,
-                id: user.id,
-                picture: user.picture
-            });
-            await storeItem('user', JSON.stringify(user));
+                setUserInfo({
+                    name: user.name,
+                    firstName: user.given_name,
+                    email: user.email,
+                    id: user.id,
+                    picture: user.picture
+                });
+
+                await storeItem('user', JSON.stringify(user));
+                await getTokens(accessToken, idToken, user.email);
+            })
         } catch (error) {
-            console.log(error);
-            Alert.alert(
-                t('login.error.title'),
-                t('login.error.somethingWrong'),
-                [
-                    { text: t('login.error.button') }
-                ]
-            );
+            AlertErrorSomethingWrong(error, t);
         }
     }
 
@@ -108,11 +97,10 @@ function GoogleAuthButton({ navigation }: { navigation: any }) {
 
         if (!user) {
             if (response?.type === 'success' && response?.authentication?.accessToken && response?.authentication?.idToken) {
-                await getUserInfo(response.authentication.accessToken);
-                await getTokens(response.authentication.accessToken, response.authentication.idToken);
+                await getUserInfo(response.authentication.accessToken, response.authentication.idToken);
             }
         } else {
-            setUserInfo(JSON.parse(user));
+            removeItem('user');
         }
     }
 
@@ -120,7 +108,7 @@ function GoogleAuthButton({ navigation }: { navigation: any }) {
         setAndroidClientId(`${process.env.EXPO_PUBLIC_ANDROID_GOOGLE_ID}`);
         setIosClientId(`${process.env.EXPO_PUBLIC_IOS_GOOGLE_ID}`);
         handleGoogleAuth();
-    }, [response, loginToken, userInfo, androidClientId, iosClientId, accessToken, idToken]);
+    }, [response, loginToken, userInfo, androidClientId, iosClientId]);
 
     return (
         <OAuthButton

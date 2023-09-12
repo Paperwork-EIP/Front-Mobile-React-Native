@@ -30,4 +30,12 @@ async function deleteItem(navigation: any, value: string, route: string) {
     }
 }
 
-export { getItem, storeItem, deleteItem };
+async function removeItem(value: string) {
+    try {
+        await AsyncStorage.removeItem(value);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export { getItem, storeItem, deleteItem, removeItem };

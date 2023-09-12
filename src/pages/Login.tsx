@@ -74,7 +74,7 @@ function Login({ navigation }: { navigation: any }) {
                 }
             }
             ).catch(function (error) {
-                console.log(error);
+                console.error(error);
                 Alert.alert(
                     t('login.error.title'),
                     t('login.error.message'),
@@ -96,13 +96,15 @@ function Login({ navigation }: { navigation: any }) {
     }
 
     useEffect(() => {
-        async function checkToken() {
+        async function checkExistingDatas() {
             const token = await getItem('loginToken');
-            if (token) {
+            const user = await getItem('user');
+
+            if (token && user) {
                 redirectToConnectedPage();
             }
         }
-        checkToken();
+        checkExistingDatas();
     });
 
     return (

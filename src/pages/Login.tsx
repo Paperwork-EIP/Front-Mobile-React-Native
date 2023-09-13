@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Dimensions, View, Image, TextInput, Text, StyleProp, ViewStyle } from "react-native";
+import { Alert, View, Image, TextInput, Text, StyleProp, ViewStyle } from "react-native";
 import { useTranslation } from 'react-i18next';
 import { Picker } from "@react-native-picker/picker";
 import axios from "axios";
@@ -10,6 +10,7 @@ import LongHorizontalButton from "../components/LongHorizontalButton";
 
 import FacebookAuthButton from "../services/Facebook";
 import GoogleAuthButton from "../services/Google";
+import AlertErrorSomethingWrong from "../services/Errors";
 import { getItem, storeItem } from "../services/Token";
 
 import { login } from "../../styles/pages/login";
@@ -49,32 +50,44 @@ function Login({ navigation }: { navigation: any }) {
         });
     }
 
-    async function handleSubmit() {
-        if (email && password) {
-            await axios.post(process.env.EXPO_PUBLIC_BASE_URL + '/user/login', {
-                email: email,
-                password: password
-            }).then(async function (response) {
-                if (response.status === 200) {
-                    const token = response.data.jwt;
-                    await storeItem('loginToken', token);
-                    
-                    const test = await getItem('loginToken');
-                    if (test) {
-                        redirectToConnectedPage();
-                    }
-                } else {
-                    Alert.alert(
-                        t('login.error.title'),
-                        t('login.error.message'),
-                        [
-                            { text: t('login.error.button') }
-                        ]
-                    );
+    async function getDatas(email: string, password: string) {
+        console.log('Login email : ', email, password);
+        console.log('Connecting...');
+
+        await axios.post(process.env.EXPO_PUBLIC_BASE_URL + '/user/login', {
+            email: email,
+            password: password
+        }).then(async function (response) {
+            if (response.status === 200) {
+                const token = response.data.jwt;
+                const userData = {
+                    name: "John",
+                    firstName: "Doe",
+                    email: email,
+                    id: 1,
+                    picture: ""
+                };
+
+                await storeItem('@loginToken', token);
+                await storeItem('@userEmail', email);
+                await storeItem('@userPassword', password);
+                await storeItem('@user', JSON.stringify(userData));
+
+                const checkToken = await getItem('@loginToken');
+                const userEmail = await getItem('@userEmail');
+                const userPassword = await getItem('@userPassword');
+                const checkUser = await getItem('@user');
+
+                console.log('Login check token : ', checkToken);
+                console.log('Login check userEmail : ', userEmail);
+                console.log('Login check userPassword : ', userPassword);
+                console.log('Login check user : ', checkUser);
+
+                if (checkToken && checkUser && userEmail && userPassword) {
+                    redirectToConnectedPage();
+                    console.log('Connected');
                 }
-            }
-            ).catch(function (error) {
-                console.error(error);
+            } else {
                 Alert.alert(
                     t('login.error.title'),
                     t('login.error.message'),
@@ -82,8 +95,16 @@ function Login({ navigation }: { navigation: any }) {
                         { text: t('login.error.button') }
                     ]
                 );
-            });
+            }
+        }
+        ).catch(function (error) {
+            AlertErrorSomethingWrong(error, t);
+        });
+    }
 
+    async function handleSubmit() {
+        if (email && password) {
+            await getDatas(email, password);
         } else {
             Alert.alert(
                 t('login.error.title'),
@@ -97,18 +118,23 @@ function Login({ navigation }: { navigation: any }) {
 
     useEffect(() => {
         async function checkExistingDatas() {
-            const token = await getItem('loginToken');
-            const user = await getItem('user');
+            const token = await getItem('@loginToken');
+            const userEmail = await getItem('@userEmail');
+            const userPassword = await getItem('@userPassword');
 
-            if (token && user) {
-                redirectToConnectedPage();
+            console.log('Login start token : ', token);
+            console.log('Login start userEmail : ', userEmail);
+            console.log('Login start userPassword : ', userPassword);
+
+            if (token && userEmail && userPassword) {
+                await getDatas(userEmail, userPassword);
             }
         }
         checkExistingDatas();
-    });
+    }, []);
 
     return (
-        <View>
+        <>
             <View style={login.container}>
                 <View style={login.center}>
                     <Image
@@ -187,7 +213,7 @@ function Login({ navigation }: { navigation: any }) {
                     </View>
                 </View>
             </View>
-        </View >
+        </ >
     );
 };
 

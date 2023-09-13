@@ -19,8 +19,6 @@ function GoogleAuthButton({ navigation }: { navigation: any }) {
     const [iosClientId, setIosClientId] = React.useState('');
     const [androidClientId, setAndroidClientId] = React.useState('');
 
-    const [loginToken, setLoginToken] = React.useState('');
-
     const [userInfo, setUserInfo] = React.useState<{
         name: any,
         firstName: any,
@@ -46,10 +44,16 @@ function GoogleAuthButton({ navigation }: { navigation: any }) {
             }).then(async (response) => {
                 const token = response.data.jwt;
 
-                setLoginToken(token);
-                await storeItem('loginToken', loginToken);
+                console.log('Google token : ', token);
 
-                redirectToConnectedPage();
+                await storeItem('@loginToken', token);
+
+                const check = await getItem('@loginToken');
+                console.log('Google check token : ', check);
+
+                if (check) {
+                    redirectToConnectedPage();
+                }
             }).catch((error) => {
                 AlertErrorSomethingWrong(error, t);
             });
@@ -76,8 +80,17 @@ function GoogleAuthButton({ navigation }: { navigation: any }) {
                     picture: user.picture
                 });
 
-                await storeItem('user', JSON.stringify(user));
-                await getTokens(accessToken, idToken, user.email);
+                console.log('Google user info : ', userInfo);
+
+                if (userInfo) {
+                    await storeItem('@user', JSON.stringify(userInfo));
+
+                    const checkToken = await getItem('@user');
+
+                    if (checkToken) {
+                        getTokens(accessToken, idToken, user.email);
+                    }
+                }
             })
         } catch (error) {
             AlertErrorSomethingWrong(error, t);
@@ -93,14 +106,14 @@ function GoogleAuthButton({ navigation }: { navigation: any }) {
     }
 
     async function handleGoogleAuth() {
-        const user = await getItem('user');
+        const user = await getItem('@user');
 
         if (!user) {
             if (response?.type === 'success' && response?.authentication?.accessToken && response?.authentication?.idToken) {
-                await getUserInfo(response.authentication.accessToken, response.authentication.idToken);
+                getUserInfo(response.authentication.accessToken, response.authentication.idToken);
             }
         } else {
-            removeItem('user');
+            removeItem('@user');
         }
     }
 
@@ -108,7 +121,7 @@ function GoogleAuthButton({ navigation }: { navigation: any }) {
         setAndroidClientId(`${process.env.EXPO_PUBLIC_ANDROID_GOOGLE_ID}`);
         setIosClientId(`${process.env.EXPO_PUBLIC_IOS_GOOGLE_ID}`);
         handleGoogleAuth();
-    }, [response, loginToken, userInfo, androidClientId, iosClientId]);
+    }, [response, userInfo]);
 
     return (
         <OAuthButton

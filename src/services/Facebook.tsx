@@ -12,13 +12,6 @@ import { login } from "../../styles/pages/login";
 import AlertErrorSomethingWrong from "./Errors";
 
 function FacebookAuthButton({ navigation }: { navigation: any }) {
-    const [userData, setUserData] = React.useState<{
-        name: any,
-        firstName: any,
-        email: any,
-        id: any,
-        picture: any
-    }>();
 
     function redirectToConnectedPage() {
         navigation.navigate('Home');
@@ -32,19 +25,28 @@ function FacebookAuthButton({ navigation }: { navigation: any }) {
         const typeOauth = "facebook";
 
         await Profile.getCurrentProfile().then(
-            async function (currentProfile) {
+            function (currentProfile) {
                 if (currentProfile) {
                     AccessToken.getCurrentAccessToken().then(async (data) => {
                         const token = data?.accessToken.toString();
 
                         if (token) {
-                            await axios.get(`https://graph.facebook.com/v13.0/me?fields=email,first_name,last_name`, {
+                            await axios.get(`https://graph.facebook.com/v13.0/me?fields=email`, {
                                 headers: {
                                     Authorization: `Bearer ${token}`
                                 }
                             }).then(async (response) => {
                                 const id = response.data.id;
                                 const email = response.data.email;
+                                const userData = {
+                                    name: currentProfile.name,
+                                    firstName: currentProfile.firstName,
+                                    email: email,
+                                    id: currentProfile.userID,
+                                    picture: currentProfile.imageURL
+                                };
+
+                                console.log('Facebook profile : ', userData);
 
                                 await axios.post(`${process.env.EXPO_PUBLIC_BASE_URL}/user/mobileLogin`, {
                                     access_token: token,
@@ -54,18 +56,19 @@ function FacebookAuthButton({ navigation }: { navigation: any }) {
                                 }).then(async (res) => {
                                     const token = res.data.jwt;
 
-                                    setUserData({
-                                        name: currentProfile.name,
-                                        firstName: currentProfile.firstName,
-                                        email: email,
-                                        id: currentProfile.userID,
-                                        picture: currentProfile.imageURL
-                                    });
+                                    console.log('Facebook token : ', token);
 
-                                    await storeItem('user', JSON.stringify(userData));
-                                    await storeItem('loginToken', token);
+                                    if (token && userData) {
+                                        await storeItem('@user', JSON.stringify(userData));
+                                        await storeItem('@loginToken', token);
 
-                                    redirectToConnectedPage();
+                                        const checkToken = await getItem('@loginToken');
+                                        console.log('Facebook check token : ', checkToken);
+
+                                        if (checkToken) {
+                                            redirectToConnectedPage();
+                                        }
+                                    }
                                 }
                                 ).catch((error) => {
                                     AlertErrorSomethingWrong(error, t);
@@ -94,18 +97,6 @@ function FacebookAuthButton({ navigation }: { navigation: any }) {
             }
         );
     }
-
-    React.useEffect(() => {
-        async function getUserData() {
-            await getItem('user').then(async (user) => {
-                if (user) {
-                    const data = JSON.parse(user);
-                    setUserData(data);
-                }
-            });
-        }
-        getUserData();
-    }, [userData]);
 
     return (
         <OAuthButton

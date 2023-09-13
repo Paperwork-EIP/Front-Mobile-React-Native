@@ -10,7 +10,7 @@ import { calendar, brightRed } from "../../styles/screen/calendar";
 
 function Calendar({ navigation }: { navigation: any }) {
     const [selected, setSelected] = useState('');
-    const [items, setItems] = useState([{ title: '', data: [{ title: '', color: '' }] }]);
+    const [items, setItems] = useState<any>([]);
     const [token, setToken] = useState('');
 
     const selectedDotColor = brightRed;
@@ -35,7 +35,7 @@ function Calendar({ navigation }: { navigation: any }) {
 
     async function updateItems(token: string) {
         await axios.get(`${url}/calendar/getAll?token=${token}`).then((response) => {
-            let list = [];
+            let list: any = [];
 
             for (let i = 0; i < response.data.appoinment.length; i++) {
                 const date = response.data.appoinment[i].date;
@@ -56,7 +56,8 @@ function Calendar({ navigation }: { navigation: any }) {
 
             setItems(list);
         }).catch((error) => {
-            console.log("Error axios get calendar : ", error.response);
+            setItems([]);
+            console.error("Error axios get calendar : ", error.response);
         });
     }
 
@@ -75,15 +76,14 @@ function Calendar({ navigation }: { navigation: any }) {
                 dots: items[i].data
             }
         }
-        console.log("Marked dates : ", markedDates, markedDates[selected]);
     }
 
     async function getLoginToken() {
-        const loginToken = await getItem('loginToken');
+        const loginToken = await getItem('@loginToken');
 
         if (loginToken) {
             setToken(loginToken);
-            updateItems(loginToken);
+            await updateItems(loginToken);
         }
     }
 
@@ -111,7 +111,7 @@ function Calendar({ navigation }: { navigation: any }) {
             />
             <Button title="Disconnect" onPress={() => {
                 AsyncStorage.clear();
-                deleteItem(navigation, 'loginToken', 'Login');
+                deleteItem(navigation, '@loginToken', 'Login');
             }} />
         </View >
     );

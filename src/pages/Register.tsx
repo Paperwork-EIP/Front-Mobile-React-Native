@@ -65,7 +65,7 @@ function Register({ navigation }: { navigation: any }) {
             }
             ).then(function (response) {
                 if (response.status === 200) {
-                    AsyncStorage.setItem('loginToken', response.data.jwt);
+                    AsyncStorage.setItem('@loginToken', response.data.jwt);
                     redirectToConnectedPage();
                 }
                 else {

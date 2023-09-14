@@ -3,7 +3,7 @@ import React from 'react';
 import { Alert } from 'react-native';
 
 function AlertErrorSomethingWrong(error: any, t: any) {
-    console.log(error.response);
+    console.error(error.response);
     Alert.alert(
         t('login.error.title'),
         t('login.error.somethingWrong'),

@@ -51,7 +51,6 @@ function Login({ navigation }: { navigation: any }) {
     }
 
     async function getDatas(email: string, password: string) {
-        console.log('Login email : ', email, password);
         console.log('Connecting...');
 
         await axios.post(process.env.EXPO_PUBLIC_BASE_URL + '/user/login', {

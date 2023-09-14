@@ -139,10 +139,8 @@ function Login({ navigation }: { navigation: any }) {
                     redirectToConnectedPage();
                     console.log('Connected with' + oauth);
                 }
-            } else {
-                if (userEmail && userPassword) {
-                    await getDatas(userEmail, userPassword);
-                }
+            } else if (userEmail && userPassword) {
+                await getDatas(userEmail, userPassword);
             }
         }
         checkExistingDatas();

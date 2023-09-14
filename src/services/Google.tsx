@@ -18,7 +18,7 @@ function GoogleAuthButton({ navigation }: { navigation: any }) {
     const [iosClientId, setIosClientId] = React.useState('');
     const [androidClientId, setAndroidClientId] = React.useState('');
 
-    const [request, response, promptAsync] = Google.useAuthRequest({
+    const [, response, promptAsync] = Google.useAuthRequest({
         androidClientId: androidClientId,
         iosClientId: iosClientId,
     });

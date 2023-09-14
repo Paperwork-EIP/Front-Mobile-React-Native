@@ -37,13 +37,13 @@ function Calendar({ navigation }: { navigation: any }) {
         await axios.get(`${url}/calendar/getAll?token=${token}`).then((response) => {
             let list: any = [];
 
-            for (let i = 0; i < response.data.appoinment.length; i++) {
-                const date = response.data.appoinment[i].date;
+            for (const value of response.data.appoinment) {
+                const date = value.date;
                 const hour = date.split('T')[1].split(':')[0] + ':' + date.split('T')[1].split(':')[1];
                 const title = date.split('T')[0];
                 const data = [
                     {
-                        title: hour + " - " + response.data.appoinment[i].step_title,
+                        title: hour + " - " + value.step_title,
                         color: getRandomColor()
                     },
                 ];
@@ -71,9 +71,9 @@ function Calendar({ navigation }: { navigation: any }) {
     }
 
     function setDotMarkedDates() {
-        for (let i = 0; i < items.length; i++) {
-            markedDates[items[i].title] = {
-                dots: items[i].data
+        for (const item of items) {
+            markedDates[item.title] = {
+                dots: item.data
             }
         }
     }
@@ -91,9 +91,7 @@ function Calendar({ navigation }: { navigation: any }) {
         if (!token || items.length === 0) {
             getLoginToken();
         }
-        if (selected) {
-            updateMarkedDates();
-        }
+        updateMarkedDates();
         setDotMarkedDates();
     }, [selected, items]);
 

@@ -6,8 +6,7 @@ const register = StyleSheet.create({
         height: '100%',
         backgroundColor: '#fff',
         alignItems: 'center',
-        justifyContent: 'center',
-        paddingTop: 40
+        justifyContent: 'center'
     },
     content: {
         width: '100%',

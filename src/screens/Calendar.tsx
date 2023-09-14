@@ -1,24 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { View, Button } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { View } from "react-native";
+import axios from "axios";
 
+import DisconnectButton from "../components/DisconnectButton";
 import CalendarComponent from "../components/calendar/CalendarComponent";
+import { getItem } from "../services/Storage";
 
 import { calendar, brightRed } from "../../styles/screen/calendar";
 
 function Calendar({ navigation }: { navigation: any }) {
     const [selected, setSelected] = useState('');
-    const [items, setItems] = useState([{ title: '', data: [{ title: '', color: '' }] }]);
+    const [items, setItems] = useState<any>([]);
+    const [token, setToken] = useState('');
 
     const selectedDotColor = brightRed;
+    const url = process.env.EXPO_PUBLIC_BASE_URL;
 
-    let markedDates: any = {
-        // [selected]: {
-        //     selected: true,
-        //     disableTouchEvent: true,
-        //     selectedColor: selectedDotColor,
-        // }
-    };
+    let markedDates: any = {};
 
     function handleDayPressed(day: { year?: number; month?: number; day?: number; timestamp?: number; dateString: any; }) {
         setSelected(day.dateString);
@@ -29,32 +27,38 @@ function Calendar({ navigation }: { navigation: any }) {
         console.log('selected item', item);
     }
 
-    function updateItems() {
-        // Make request to API to get items and make the conversion
-        setItems([
-            {
-                title: '2023-09-01',
-                data: [
-                    { title: 'Item 1 - any js object', color: brightRed },
-                    { title: 'Item random - any js object', color: 'blue' },
-                    { title: 'Item test - any js object', color: 'yellow' }
-                ]
-            },
-            {
-                title: '2023-09-20',
-                data: [
-                    { title: 'Item 2 - any js object', color: brightRed }
-                ]
-            },
-            {
-                title: '2023-10-03',
-                data: [
-                    { title: 'Item 3 - any js object', color: brightRed },
-                    { title: 'Item 4 - any js object', color: 'orange' },
-                    { title: 'Item 5 - any js object', color: 'green' }
-                ]
-            },
-        ]);
+    function getRandomColor() {
+        const listColor = ['orange', 'blue', 'green', 'red', 'purple', 'pink', 'yellow', 'grey', 'black'];
+
+        return listColor[Math.floor(Math.random() * listColor.length)];
+    }
+
+    async function updateItems(token: string) {
+        await axios.get(`${url}/calendar/getAll?token=${token}`).then((response) => {
+            let list: any = [];
+
+            for (const value of response.data.appoinment) {
+                const date = value.date;
+                const hour = date.split('T')[1].split(':')[0] + ':' + date.split('T')[1].split(':')[1];
+                const title = date.split('T')[0];
+                const data = [
+                    {
+                        title: hour + " - " + value.step_title,
+                        color: getRandomColor()
+                    },
+                ];
+
+                list.push({
+                    title: title,
+                    data: data
+                });
+            }
+
+            setItems(list);
+        }).catch((error) => {
+            setItems([]);
+            console.error("Error axios get calendar : ", error.response);
+        });
     }
 
     function updateMarkedDates() {
@@ -67,58 +71,33 @@ function Calendar({ navigation }: { navigation: any }) {
     }
 
     function setDotMarkedDates() {
-        items.forEach((item) => {
+        for (const item of items) {
             markedDates[item.title] = {
                 dots: item.data
             }
-        });
-    }
-
-    async function getToken() {
-        try {
-            const value = await AsyncStorage.getItem('loginToken');
-            if (value !== null) {
-                console.log(value);
-            }
-        } catch (error) {
-            console.log(error);
         }
     }
 
-    async function removeToken() {
-        try {
-            await AsyncStorage.removeItem('loginToken');
-            navigation.navigate('Login');
-            navigation.reset({
-                index: 0,
-                routes: [{ name: 'Login' }],
-            });
-        } catch (error) {
-            console.log(error);
+    async function getLoginToken() {
+        const loginToken = await getItem('@loginToken');
+
+        if (loginToken) {
+            setToken(loginToken);
+            await updateItems(loginToken);
         }
     }
-
-    async function clearAsyncStorage() {
-        try {
-            removeToken();
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    useState(() => {
-        setDotMarkedDates();
-        updateItems();
-    });
 
     useEffect(() => {
-        getToken();
+        if (!token || items.length === 0) {
+            getLoginToken();
+        }
         updateMarkedDates();
         setDotMarkedDates();
-    }, [selected, markedDates, items]);
+    }, [selected, items]);
 
     return (
         <View style={calendar.container}>
+            <DisconnectButton navigation={navigation} text="Disconnect" />
             <CalendarComponent
                 style={calendar.container.calendar}
                 sectionStyle={calendar.container.section}
@@ -129,7 +108,6 @@ function Calendar({ navigation }: { navigation: any }) {
                 onDayPress={handleDayPressed}
                 onItemPress={handleOnItemPressed}
             />
-            <Button title="Disconnect" onPress={clearAsyncStorage} />
         </View >
     );
 };

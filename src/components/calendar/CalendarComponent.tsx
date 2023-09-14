@@ -1,10 +1,13 @@
 import React, { useCallback, useEffect } from "react";
+import { Alert, Text, View } from "react-native";
 import { useTranslation } from 'react-i18next';
 import { AgendaList, CalendarProvider, ExpandableCalendar, LocaleConfig } from 'react-native-calendars';
+
 import CalendarItems from "./CalendarItems";
-import { Alert, Text, View } from "react-native";
+import CalendarModal from "./CalendarModal";
 
 function CalendarComponent(props: any) {
+    const [modalVisible, setModalVisible] = React.useState(false);
     const { t, i18n } = useTranslation();
 
     LocaleConfig.locales['fr'] = {

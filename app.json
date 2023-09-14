@@ -3,41 +3,44 @@
     "name": "paperwork-mobile",
     "slug": "paperwork-mobile",
     "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
-    },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "package": "com.anonymous.paperworkmobile",
-      "softwareKeyboardLayoutMode": "pan"
+      "softwareKeyboardLayoutMode": "pan",
+      "permissions": [
+        "android.permission.INTERNET"
+      ],
+      "package": "com.paperworkmobile"
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
+    "scheme": [
+      "paperwork-mobile",
+      "com.paperworkmobile",
+      "fb969915637497521"
+    ],
+    "plugins": [
+      [
+        "react-native-fbsdk-next",
+        {
+          "appID": "969915637497521",
+          "clientToken": "ced4dfd8bdaa4b000ea8d40ba3a28675",
+          "displayName": "Paperwork",
+          "scheme": "fb969915637497521",
+          "advertiserIDCollectionEnabled": false,
+          "autoLogAppEventsEnabled": false,
+          "isAutoInitEnabled": true,
+          "iosUserTrackingPermission": "This identifier will be used to login."
+        }
+      ],
+      [
+        "@react-native-google-signin/google-signin"
+      ]
+    ],
     "extra": {
       "eas": {
         "projectId": "96e73a0e-eb8e-4164-8743-66af30f0105a"
       }
-    },
-    "runtimeVersion": {
-      "policy": "sdkVersion"
-    },
-    "updates": {
-      "url": "https://u.expo.dev/96e73a0e-eb8e-4164-8743-66af30f0105a"
     }
-  }
+  },
+  "name": "paperwork-mobile"
 }

@@ -5,10 +5,12 @@ import { Picker } from "@react-native-picker/picker";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import HidePasswordButton from "../components/HidePasswordButton";
-import OAuthButton from "../components/OAuthButton";
+import HidePasswordButton from "../components/HidePasswordButton"
 import ClickTextButtonWithDescription from "../components/ClickTextButtonWithDescription";
 import LongHorizontalButton from "../components/LongHorizontalButton";
+
+import GoogleAuthButton from "../services/Google";
+import FacebookAuthButton from "../services/Facebook";
 
 import { register } from "../../styles/pages/register";
 
@@ -54,28 +56,16 @@ function Register({ navigation }: { navigation: any }) {
         setConfirmPassword(text);
     }
 
-    function connectWithGoogle() {
-        axios.get(`${process.env.REACT_APP_BASE_URL}/oauth/google/urlLogin`).then(res => {
-            console.log(res.data);
-        })
-    }
-
-    function connectWithFacebook() {
-        axios.get(`${process.env.REACT_APP_BASE_URL}/oauth/facebook/url`).then(res => {
-            console.log(res.data);
-        })
-    }
-
     function handleSubmit() {
         if (email && password && confirmPassword && password === confirmPassword && username) {
-            axios.post(process.env.REACT_APP_BASE_URL + '/user/register', {
+            axios.post(process.env.EXPO_PUBLIC_BASE_URL + '/user/register', {
                 username: username,
                 email: email,
                 password: password
             }
             ).then(function (response) {
                 if (response.status === 200) {
-                    AsyncStorage.setItem('loginToken', response.data.jwt);
+                    AsyncStorage.setItem('@loginToken', response.data.jwt);
                     redirectToConnectedPage();
                 }
                 else {
@@ -149,7 +139,7 @@ function Register({ navigation }: { navigation: any }) {
                     />
                     <View style={register.passwordContainer} >
                         <TextInput
-                            style={register.passwordContainer.input}
+                            style={register.passwordContainer.input as StyleProp<ViewStyle>}
                             onChangeText={handlePasswordChange}
                             value={password}
                             secureTextEntry={hidePassword}
@@ -164,7 +154,7 @@ function Register({ navigation }: { navigation: any }) {
                     </View>
                     <View style={register.passwordContainer} >
                         <TextInput
-                            style={register.passwordContainer.input}
+                            style={register.passwordContainer.input as StyleProp<ViewStyle>}
                             onChangeText={handleConfirmPasswordChange}
                             value={confirmPassword}
                             secureTextEntry={hideConfirmPassword}
@@ -187,24 +177,8 @@ function Register({ navigation }: { navigation: any }) {
                 </View>
                 <View style={register.bottom}>
                     <View style={register.bottom.buttons as StyleProp<ViewStyle>}>
-                        <OAuthButton
-                            title={t('register.google')}
-                            onPress={connectWithGoogle}
-                            source={require('../../assets/images/google-logo.png')}
-                            styleButton={register.bottom.buttons.googleButton}
-                            styleImage={register.bottom.buttons.googleButton.image}
-                            styleText={register.bottom.buttons.googleButton.text}
-                            testID="googleButton"
-                        />
-                        <OAuthButton
-                            title={t('register.facebook')}
-                            onPress={connectWithFacebook}
-                            source={require('../../assets/images/facebook-logo.png')}
-                            styleButton={register.bottom.buttons.facebookButton}
-                            styleImage={register.bottom.buttons.facebookButton.image}
-                            styleText={register.bottom.buttons.facebookButton.text}
-                            testID="facebookButton"
-                        />
+                        <GoogleAuthButton navigation={navigation} />
+                        <FacebookAuthButton navigation={navigation} />
                     </View>
                     <View style={register.center}>
                         <ClickTextButtonWithDescription

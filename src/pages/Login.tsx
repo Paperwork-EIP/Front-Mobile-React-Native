@@ -11,7 +11,7 @@ import LongHorizontalButton from "../components/LongHorizontalButton";
 import FacebookAuthButton from "../services/Facebook";
 import GoogleAuthButton from "../services/Google";
 import AlertErrorSomethingWrong from "../services/Errors";
-import { getItem, storeItem } from "../services/Token";
+import { getItem, getUserData, storeItem } from "../services/Storage";
 
 import { login } from "../../styles/pages/login";
 
@@ -78,14 +78,16 @@ function Login({ navigation }: { navigation: any }) {
                 const userPassword = await getItem('@userPassword');
                 const checkUser = await getItem('@user');
 
+                console.log("<--------------------------->");
                 console.log('Login check token : ', checkToken);
                 console.log('Login check userEmail : ', userEmail);
                 console.log('Login check userPassword : ', userPassword);
                 console.log('Login check user : ', checkUser);
+                console.log("<--------------------------->");
 
                 if (checkToken && checkUser && userEmail && userPassword) {
                     redirectToConnectedPage();
-                    console.log('Connected');
+                    console.log('Connected with email and password');
                 }
             } else {
                 Alert.alert(
@@ -121,13 +123,26 @@ function Login({ navigation }: { navigation: any }) {
             const token = await getItem('@loginToken');
             const userEmail = await getItem('@userEmail');
             const userPassword = await getItem('@userPassword');
+            const checkUser = await getUserData();
+            const oauth = await getItem('@oauth');
 
+            console.log("<--------------------------->");
             console.log('Login start token : ', token);
             console.log('Login start userEmail : ', userEmail);
             console.log('Login start userPassword : ', userPassword);
+            console.log('Login start user : ', checkUser);
+            console.log('Login start oauth : ', oauth);
+            console.log("<--------------------------->");
 
-            if (token && userEmail && userPassword) {
-                await getDatas(userEmail, userPassword);
+            if (token && oauth) {
+                if (checkUser?.email && checkUser?.firstName && checkUser?.id && checkUser?.name) {
+                    redirectToConnectedPage();
+                    console.log('Connected with' + oauth);
+                }
+            } else {
+                if (userEmail && userPassword) {
+                    await getDatas(userEmail, userPassword);
+                }
             }
         }
         checkExistingDatas();

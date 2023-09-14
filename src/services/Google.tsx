@@ -1,5 +1,4 @@
 import React from "react";
-import { Alert } from "react-native";
 import axios from "axios";
 import { t } from "i18next";
 
@@ -8,10 +7,10 @@ import * as Google from 'expo-auth-session/providers/google';
 
 import OAuthButton from "../components/OAuthButton";
 
-import { getItem, storeItem, removeItem } from "./Token";
+import { getItem, storeItem, saveUserData, getUserData } from "./Storage";
+import AlertErrorSomethingWrong from "./Errors";
 
 import { login } from "../../styles/pages/login";
-import AlertErrorSomethingWrong from "./Errors";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -19,21 +18,14 @@ function GoogleAuthButton({ navigation }: { navigation: any }) {
     const [iosClientId, setIosClientId] = React.useState('');
     const [androidClientId, setAndroidClientId] = React.useState('');
 
-    const [userInfo, setUserInfo] = React.useState<{
-        name: any,
-        firstName: any,
-        email: any,
-        id: any,
-        picture: any
-    }>();
-
     const [request, response, promptAsync] = Google.useAuthRequest({
         androidClientId: androidClientId,
         iosClientId: iosClientId,
     });
 
-    async function getTokens(accessToken: string, idToken: string, email: string) {
+    async function getTokens(accessToken: string, idToken: string, user: { name: string, given_name: string, family_name: string, email: string, id: string, picture: string }) {
         const typeOauth = "google";
+        const email = user.email;
 
         if (accessToken && idToken && email) {
             await axios.post(`${process.env.EXPO_PUBLIC_BASE_URL}/user/mobileLogin`, {
@@ -44,15 +36,21 @@ function GoogleAuthButton({ navigation }: { navigation: any }) {
             }).then(async (response) => {
                 const token = response.data.jwt;
 
-                console.log('Google token : ', token);
-
                 await storeItem('@loginToken', token);
+                await saveUserData(user.name, user.given_name, user.family_name, user.email, user.id, user.picture);
+                await storeItem('@oauth', 'google');
 
-                const check = await getItem('@loginToken');
-                console.log('Google check token : ', check);
+                const checkUserData = await getUserData();
+                const checkOauth = await getItem('@oauth');
+                const checkToken = await getItem('@loginToken');
 
-                if (check) {
+                console.log('Google check user data : ', checkUserData);
+                console.log('Google check oauth : ', checkOauth);
+                console.log('Google check token : ', checkToken);
+
+                if (checkToken && checkUserData && checkOauth) {
                     redirectToConnectedPage();
+                    console.log('Google connected');
                 }
             }).catch((error) => {
                 AlertErrorSomethingWrong(error, t);
@@ -61,7 +59,9 @@ function GoogleAuthButton({ navigation }: { navigation: any }) {
     }
 
     async function getUserInfo(accessToken: string, idToken: string) {
+        console.log('Google connecting...');
         if (!accessToken) {
+            console.log('Google : No access token');
             return;
         }
         try {
@@ -72,24 +72,10 @@ function GoogleAuthButton({ navigation }: { navigation: any }) {
             }).then(async (response) => {
                 const user = response.data;
 
-                setUserInfo({
-                    name: user.name,
-                    firstName: user.given_name,
-                    email: user.email,
-                    id: user.id,
-                    picture: user.picture
-                });
+                console.log('Google user : ', user);
 
-                console.log('Google user info : ', userInfo);
-
-                if (userInfo) {
-                    await storeItem('@user', JSON.stringify(userInfo));
-
-                    const checkToken = await getItem('@user');
-
-                    if (checkToken) {
-                        getTokens(accessToken, idToken, user.email);
-                    }
+                if (user) {
+                    await getTokens(accessToken, idToken, user);
                 }
             })
         } catch (error) {
@@ -106,14 +92,8 @@ function GoogleAuthButton({ navigation }: { navigation: any }) {
     }
 
     async function handleGoogleAuth() {
-        const user = await getItem('@user');
-
-        if (!user) {
-            if (response?.type === 'success' && response?.authentication?.accessToken && response?.authentication?.idToken) {
-                getUserInfo(response.authentication.accessToken, response.authentication.idToken);
-            }
-        } else {
-            removeItem('@user');
+        if (response?.type === 'success' && response?.authentication?.accessToken && response?.authentication?.idToken) {
+            await getUserInfo(response.authentication.accessToken, response.authentication.idToken);
         }
     }
 
@@ -121,7 +101,7 @@ function GoogleAuthButton({ navigation }: { navigation: any }) {
         setAndroidClientId(`${process.env.EXPO_PUBLIC_ANDROID_GOOGLE_ID}`);
         setIosClientId(`${process.env.EXPO_PUBLIC_IOS_GOOGLE_ID}`);
         handleGoogleAuth();
-    }, [response, userInfo]);
+    }, [response]);
 
     return (
         <OAuthButton

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { View, Button } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { View } from "react-native";
 import axios from "axios";
 
+import DisconnectButton from "../components/DisconnectButton";
 import CalendarComponent from "../components/calendar/CalendarComponent";
-import { getItem, deleteItem } from "../services/Token";
+import { getItem } from "../services/Storage";
 
 import { calendar, brightRed } from "../../styles/screen/calendar";
 
@@ -99,6 +99,7 @@ function Calendar({ navigation }: { navigation: any }) {
 
     return (
         <View style={calendar.container}>
+            <DisconnectButton navigation={navigation} text="Disconnect" />
             <CalendarComponent
                 style={calendar.container.calendar}
                 sectionStyle={calendar.container.section}
@@ -109,10 +110,6 @@ function Calendar({ navigation }: { navigation: any }) {
                 onDayPress={handleDayPressed}
                 onItemPress={handleOnItemPressed}
             />
-            <Button title="Disconnect" onPress={() => {
-                AsyncStorage.clear();
-                deleteItem(navigation, '@loginToken', 'Login');
-            }} />
         </View >
     );
 };

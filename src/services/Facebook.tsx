@@ -1,15 +1,15 @@
 import React from "react";
-import { Alert } from "react-native";
 import { AccessToken, LoginManager, Profile } from "react-native-fbsdk-next";
 import { t } from "i18next";
 import axios from "axios";
 
 import OAuthButton from "../components/OAuthButton";
 
-import { storeItem, getItem } from "./Token";
+import AlertErrorSomethingWrong from "./Errors";
+import { storeItem, getItem, saveUserData, getUserData } from "./Storage";
 
 import { login } from "../../styles/pages/login";
-import AlertErrorSomethingWrong from "./Errors";
+import { TokenResponse } from "expo-auth-session";
 
 function FacebookAuthButton({ navigation }: { navigation: any }) {
 
@@ -23,6 +23,8 @@ function FacebookAuthButton({ navigation }: { navigation: any }) {
 
     async function getData() {
         const typeOauth = "facebook";
+
+        console.log('Facebook connecting...');
 
         await Profile.getCurrentProfile().then(
             function (currentProfile) {
@@ -38,41 +40,47 @@ function FacebookAuthButton({ navigation }: { navigation: any }) {
                             }).then(async (response) => {
                                 const id = response.data.id;
                                 const email = response.data.email;
-                                const userData = {
-                                    name: currentProfile.name,
-                                    firstName: currentProfile.firstName,
-                                    email: email,
-                                    id: currentProfile.userID,
-                                    picture: currentProfile.imageURL
-                                };
 
-                                console.log('Facebook profile : ', userData);
+                                if (id && email) {
+                                    const userData = {
+                                        name: currentProfile.name,
+                                        firstName: currentProfile.firstName,
+                                        familyName: currentProfile.lastName,
+                                        email: email,
+                                        id: currentProfile.userID,
+                                        picture: currentProfile.imageURL
+                                    };
 
-                                await axios.post(`${process.env.EXPO_PUBLIC_BASE_URL}/user/mobileLogin`, {
-                                    access_token: token,
-                                    id: id,
-                                    email: email,
-                                    oauth: typeOauth
-                                }).then(async (res) => {
-                                    const token = res.data.jwt;
+                                    await axios.post(`${process.env.EXPO_PUBLIC_BASE_URL}/user/mobileLogin`, {
+                                        access_token: token,
+                                        id: id,
+                                        email: email,
+                                        oauth: typeOauth
+                                    }).then(async (res) => {
+                                        const token = res.data.jwt;
 
-                                    console.log('Facebook token : ', token);
+                                        if (token) {
+                                            await saveUserData(userData.name!, userData.firstName!, userData.familyName!, userData.email, userData.id!, userData.picture!);
+                                            await storeItem('@loginToken', token);
+                                            await storeItem('@oauth', 'facebook');
 
-                                    if (token && userData) {
-                                        await storeItem('@user', JSON.stringify(userData));
-                                        await storeItem('@loginToken', token);
+                                            const checkUserData = await getUserData();
+                                            const checkToken = await getItem('@loginToken');
+                                            const checkOauth = await getItem('@oauth');
 
-                                        const checkToken = await getItem('@loginToken');
-                                        console.log('Facebook check token : ', checkToken);
+                                            console.log('Facebook check user data : ', checkUserData);
+                                            console.log('Facebook check token : ', checkToken);
+                                            console.log('Facebook check oauth : ', checkOauth);
 
-                                        if (checkToken) {
-                                            redirectToConnectedPage();
+                                            if (checkToken && checkUserData && checkOauth) {
+                                                redirectToConnectedPage();
+                                                console.log('Facebook connected');
+                                            }
                                         }
-                                    }
+                                    }).catch((error) => {
+                                        AlertErrorSomethingWrong(error, t);
+                                    });
                                 }
-                                ).catch((error) => {
-                                    AlertErrorSomethingWrong(error, t);
-                                });
                             }).catch((error) => {
                                 AlertErrorSomethingWrong(error, t);
                             });

@@ -60,8 +60,9 @@ function Login({ navigation }: { navigation: any }) {
             if (response.status === 200) {
                 const token = response.data.jwt;
                 const userData = {
-                    name: "John",
-                    firstName: "Doe",
+                    name: " John Doe",
+                    firstName: "John",
+                    familyName: "Doe",
                     email: email,
                     id: 1,
                     picture: ""

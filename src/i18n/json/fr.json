@@ -85,6 +85,32 @@
                 "december": "Déc"
             }
         },
+        "modal": {
+            "title": "Ajouter un événement",
+            "name": "Nom",
+            "description": "Description",
+            "date": "Date",
+            "hour": "Heure",
+            "button": "Ajouter",
+            "edit": {
+                "title": "Modifier / Supprimer un événement",
+                "button": "Modifier",
+                "ok": "OK"
+            },
+            "delete": {
+                "title": "Supprimer un événement",
+                "message": "Êtes-vous sûr de vouloir supprimer cet événement ?",
+                "success": "Événement supprimé avec succès",
+                "cancel": "Annuler",
+                "button": "Supprimer",
+                "ok": "OK"
+            },
+            "error": {
+                "title": "Erreur",
+                "message": "Veuillez remplir tous les champs",
+                "button": "OK"
+            }
+        },
         "error": {
             "title": "Erreur",
             "message": "Une erreur est survenue, veuillez réessayer plus tard",

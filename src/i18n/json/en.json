@@ -85,6 +85,33 @@
                 "december": "Dec"
             }
         },
+        "modal": {
+            "title": "Add an event",
+            "name": "Name",
+            "description": "Description",
+            "date": "Date",
+            "hour": "Hour",
+            "button": "Add",
+            "edit": {
+                "title": "Edit / Delete event",
+                "button": "Edit",
+                "ok": "OK"
+
+            },
+            "delete": {
+                "title": "Delete",
+                "message": "Are you sure you want to delete this event ?",
+                "success": "Event deleted successfully",
+                "cancel": "Cancel",
+                "button": "Delete",
+                "ok": "OK"
+            },
+            "error": {
+                "title": "Error",
+                "message": "Please fill all the fields",
+                "button": "OK"
+            }
+        },
         "error": {
             "title": "Error",
             "message": "Something went wrong, please try again later",

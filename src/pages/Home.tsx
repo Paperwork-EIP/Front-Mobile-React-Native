@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Calendar from "../screens/Calendar";
 
 import { home } from "../../styles/pages/home.js";
+import AddButton from '../components/AddButton';
 
 function SwitchTabIcon(route: any, focused: boolean, color: string, size: number) {
     switch (route.name) {
@@ -49,6 +50,7 @@ function Home() {
 
     return (
         <View style={home.container}>
+
             <Tab.Navigator
                 initialRouteName="MainMenu"
                 screenOptions={({ route }) => ({
@@ -62,7 +64,16 @@ function Home() {
             >
                 {/* A remplacer les screens par les pages correspondantes */}
                 <Tab.Screen name="MainMenu" component={Calendar} />
-                <Tab.Screen name="Calendar" component={Calendar} />
+                <Tab.Screen
+                    name="Calendar"
+                    component={Calendar}
+                    options={{
+                        headerRight: (props: any) =>
+                            <AddButton
+                                onPress={() => console.log("OK")}
+                            />,
+                    }}
+                />
                 <Tab.Screen name="Profile" component={Calendar} />
             </Tab.Navigator>
         </View>

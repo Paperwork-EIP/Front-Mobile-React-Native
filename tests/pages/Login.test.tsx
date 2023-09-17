@@ -11,23 +11,6 @@ jest.mock('@react-navigation/native', () => { });
 jest.mock('@react-native-async-storage/async-storage', () =>
   require('@react-native-async-storage/async-storage/jest/async-storage-mock')
 );
-jest.mock('expo-auth-session/providers/facebook', () => {
-    return {
-        useAuthRequest: jest.fn()
-    }
-});
-jest.mock('expo-auth-session/providers/google', () => {
-    return {
-        useAuthRequest: jest.fn()
-    }
-});
-jest.mock('expo-auth-session', () => {
-    return {
-        makeRedirectUri: jest.fn(),
-        startAsync: jest.fn(),
-        makeAuthUrl: jest.fn(),
-    };
-});
 
 beforeEach(() => {
     i18n.init();

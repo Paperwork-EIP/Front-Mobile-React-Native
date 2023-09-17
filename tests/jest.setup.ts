@@ -7,14 +7,12 @@ jest.mock('expo-linking', () => {
 
     return module;
 });
-
-jest.mock('expo-auth-session/providers/google', () => ({
-    ...jest.requireActual('expo-auth-session/providers/google'),
-    useAuthRequest: jest.fn(),
-}));
-
 jest.mock('axios');
 jest.mock('@react-navigation/native', () => { });
-jest.mock('@react-native-async-storage/async-storage', () =>
-    require('@react-native-async-storage/async-storage/jest/async-storage-mock')
-);
+jest.mock('@react-native-async-storage/async-storage', () => {
+    return {
+        setItem: jest.fn(),
+        getItem: jest.fn(),
+        removeItem: jest.fn(),
+    };
+});

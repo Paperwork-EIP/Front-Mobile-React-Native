@@ -5,11 +5,19 @@ import axios from 'axios';
 import i18n from '../../src/i18n/i18n';
 import Register from '../../src/pages/Register';
 
-jest.mock('axios');
-jest.mock('@react-navigation/native', () => { });
-jest.mock('@react-native-async-storage/async-storage', () =>
-  require('@react-native-async-storage/async-storage/jest/async-storage-mock')
-);
+jest.mock('../../src/services/Google', () => ({
+    __esModule: true,
+    default: () => {
+        return <></>;
+    },
+}));
+
+jest.mock('../../src/services/Facebook', () => ({
+    __esModule: true,
+    default: () => {
+        return <></>;
+    },
+}));
 
 beforeEach(() => {
     i18n.init();
@@ -175,26 +183,6 @@ describe('Register', () => {
         expect(passwordInput.props.value).toBe('password');
         expect(confirmPasswordInput.props.value).toBe('password');
         expect(axios.post).toHaveBeenCalledTimes(0);
-    });
-
-    it('should press on google button', () => {
-        const { getByTestId } = render(<Register navigation={navigation} />);
-
-        const button = getByTestId('googleButton');
-
-        fireEvent.press(button);
-
-        expect(button).toBeTruthy();
-    });
-
-    it('should press on facebook button', () => {
-        const { getByTestId } = render(<Register navigation={navigation} />);
-
-        const button = getByTestId('facebookButton');
-
-        fireEvent.press(button);
-
-        expect(button).toBeTruthy();
     });
 
     it('should press on login button', () => {

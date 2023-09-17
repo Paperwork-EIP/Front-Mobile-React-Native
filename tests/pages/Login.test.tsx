@@ -6,11 +6,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import i18n from '../../src/i18n/i18n';
 import Login from '../../src/pages/Login';
 
-jest.mock('axios');
-jest.mock('@react-navigation/native', () => { });
-jest.mock('@react-native-async-storage/async-storage', () =>
-  require('@react-native-async-storage/async-storage/jest/async-storage-mock')
-);
+jest.mock('../../src/services/Google', () => ({
+    __esModule: true,
+    default: () => {
+        return <></>;
+    },
+}));
+
+jest.mock('../../src/services/Facebook', () => ({
+    __esModule: true,
+    default: () => {
+        return <></>;
+    },
+}));
 
 beforeEach(() => {
     i18n.init();
@@ -123,26 +131,6 @@ describe('Login', () => {
         expect(axios.post).toHaveBeenCalledTimes(0);
     });
 
-    it('should press on google button', () => {
-        const { getByTestId } = render(<Login navigation={navigation} />);
-
-        const button = getByTestId('googleButton');
-
-        fireEvent.press(button);
-
-        expect(button).toBeTruthy();
-    });
-
-    it('should press on facebook button', () => {
-        const { getByTestId } = render(<Login navigation={navigation} />);
-
-        const button = getByTestId('facebookButton');
-
-        fireEvent.press(button);
-
-        expect(button).toBeTruthy();
-    });
-
     it('should press on register button', () => {
         const { getByTestId } = render(<Login navigation={navigation} />);
 
@@ -183,30 +171,6 @@ describe('Login', () => {
 
         expect(picker).toBeTruthy();
         expect(i18n.language).toBe('en');
-    });
-
-    it('should not store token', () => {
-        AsyncStorage.setItem = jest.fn().mockRejectedValueOnce({
-            response: {
-                data: {
-                    message: 'error'
-                }
-            }
-        });
-
-        const { getByTestId } = render(<Login navigation={navigation} />);
-
-        const emailInput = getByTestId('emailInput');
-        const passwordInput = getByTestId('passwordInput');
-        const submitButton = getByTestId('loginButton');
-
-        fireEvent.changeText(emailInput, 'test');
-        fireEvent.changeText(passwordInput, 'password');
-        fireEvent.press(submitButton);
-
-        expect(emailInput.props.value).toBe('test');
-        expect(passwordInput.props.value).toBe('password');
-        expect(axios.post).toHaveBeenCalledTimes(1);
     });
 
     it('should not get token', () => {

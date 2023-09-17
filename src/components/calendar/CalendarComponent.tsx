@@ -1,14 +1,18 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import { useTranslation } from 'react-i18next';
 import { AgendaList, CalendarProvider, ExpandableCalendar, LocaleConfig } from 'react-native-calendars';
 
 import CalendarItems from "./CalendarItems";
-import { CalendarActionsModal, CalendarItemModal } from "./CalendarModals";
+import AddButton from "../AddButton";
+import { CalendarActionsModal, CalendarAddModal, CalendarItemModal } from "./CalendarModals";
+
+import { calendar_component } from "../../../styles/components/calendar/calendar_component.js";
 
 function CalendarComponent(props: any) {
-    const [itemModalVisible, setItemModalVisible] = React.useState(false);
-    const [actionsModalVisible, setActionsModalVisible] = React.useState(false);
+    const [itemModalVisible, setItemModalVisible] = useState(false);
+    const [actionsModalVisible, setActionsModalVisible] = useState(false);
+    const [addModalVisible, setAddModalVisible] = useState(false);
     const [itemModalData, setItemModalData] = React.useState();
 
     const { t, i18n } = useTranslation();
@@ -79,6 +83,10 @@ function CalendarComponent(props: any) {
         }
     }
 
+    function addButtonPressed() {
+        setAddModalVisible(true);
+    }
+
     const renderItem = useCallback((item: any) => {
         return (
             <CalendarItems
@@ -140,6 +148,15 @@ function CalendarComponent(props: any) {
         )
     }
 
+    function displayAddModal() {
+        return (
+            <CalendarAddModal
+                modalVisible={addModalVisible}
+                setModalVisible={setAddModalVisible}
+            />
+        )
+    }
+
     function displayModals() {
         if (itemModalData) {
             if (itemModalVisible) {
@@ -149,6 +166,9 @@ function CalendarComponent(props: any) {
             } else {
                 return null;
             }
+        }
+        if (addModalVisible) {
+            return displayAddModal();
         }
     }
 
@@ -174,6 +194,10 @@ function CalendarComponent(props: any) {
                 />
                 {displayAgendaItems()}
             </CalendarProvider>
+            <AddButton
+                style={calendar_component.addButton}
+                onPress={addButtonPressed}
+            />
         </>
     );
 }

@@ -9,7 +9,6 @@ const add_button = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         elevation: 2,
-        marginRight: 15,
 
         text: {
             fontSize: 20,

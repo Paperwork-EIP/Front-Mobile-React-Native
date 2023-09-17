@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Modal, Text, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { Picker } from '@react-native-picker/picker';
 import DatePicker from 'react-native-date-picker';
 import axios from 'axios';
 import moment from 'moment';
 
 import LongHorizontalButton from '../LongHorizontalButton';
 import CrossButton from '../CrossButton';
+
+import { getItem } from "../../services/Storage";
 
 import { calendar_modal } from '../../../styles/components/calendar/calendar_modal';
 
@@ -23,6 +26,11 @@ interface CalendarActionsModalProps {
     title: string;
     userProcessId: number
     stepId: number;
+    modalVisible: boolean;
+    setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+interface CalendarAddModaProps {
     modalVisible: boolean;
     setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -110,7 +118,6 @@ function CalendarActionsModal(props: CalendarActionsModalProps) {
                 'step_id': props.stepId,
                 'date': convertedDate
             }).then((response) => {
-                console.log(response);
                 Alert.alert(
                     t('calendar.modal.edit.title'),
                     response.data.message,
@@ -121,8 +128,7 @@ function CalendarActionsModal(props: CalendarActionsModalProps) {
                         }
                     ]
                 );
-            }
-            ).catch((error) => {
+            }).catch((error) => {
                 console.log(error.message);
             });
         }
@@ -217,4 +223,214 @@ function CalendarActionsModal(props: CalendarActionsModalProps) {
     )
 }
 
-export { CalendarItemModal, CalendarActionsModal };
+function CalendarAddModal(props: CalendarAddModaProps) {
+    const [date, setDate] = useState(new Date());
+    const [selectedUserProcessId, setSelectedUserProcessId] = useState(0);
+    const [selectedStepId, setSelectedStepId] = useState(0);
+    const [availableProcess, setAvailableProcess] = useState<any>([]);
+
+    const { t, i18n } = useTranslation();
+
+    const url = process.env.EXPO_PUBLIC_BASE_URL;
+
+    function formatDate(date: Date) {
+        const formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss');
+
+        return formattedDate;
+    }
+
+    async function requestAddProcess() {
+        if (selectedUserProcessId && selectedStepId && date) {
+            const convertedDate = formatDate(date);
+
+            console.log("Date : ", convertedDate);
+            console.log("User Process ID : ", selectedUserProcessId);
+            console.log("Step ID : ", selectedStepId);
+
+            await axios.post(`${url}/calendar/set`, {
+                'user_process_id': selectedUserProcessId,
+                'step_id': selectedStepId,
+                'date': convertedDate
+            }).then((response) => {
+                Alert.alert(
+                    t('calendar.modal.edit.title'),
+                    response.data.message,
+                    [
+                        {
+                            text: t('calendar.modal.edit.ok'),
+                            onPress: () => props.setModalVisible(!props.modalVisible)
+                        }
+                    ]
+                );
+            }).catch((error) => {
+                console.log(error.response.data);
+            });
+        }
+    }
+
+    function closeModal() {
+        props.setModalVisible(!props.modalVisible);
+    }
+
+    function displayProcessTitleInPickeritem() {
+        const processes = availableProcess;
+        let listTitleProcess: any = [];
+
+        function checkIfTitleExist(title: string) {
+            let exist = false;
+
+            listTitleProcess.forEach((item: any) => {
+                if (item.title === title) {
+                    exist = true;
+                }
+            });
+
+            return exist;
+        }
+
+        function addTitle(title: string, id: number) {
+            listTitleProcess.push({ title: title, id: id });
+        }
+
+        processes.forEach((process: any) => {
+            if (!checkIfTitleExist(process.processTitle)) {
+                addTitle(process.processTitle, process.userProcessId);
+            }
+        });
+
+        return listTitleProcess.map((item: any, index: number) => {
+            return (
+                <Picker.Item
+                    style={calendar_modal.add.modalContent.section.picker.item.text as any}
+                    label={item.title}
+                    value={item.id}
+                    key={index}
+                />
+            )
+        });
+    }
+
+    function displayStepsInPickeritem() {
+        return (
+            availableProcess.map((item: any, index: number) => {
+                if (item.userProcessId === selectedUserProcessId) {
+                    return (
+                        <Picker.Item
+                            style={calendar_modal.add.modalContent.section.picker.item.text as any}
+                            label={item.stepTitle}
+                            value={item.stepId}
+                            key={index}
+                        />
+                    )
+                }
+            })
+        )
+    }
+
+    async function getProcessDatas() {
+        const token = await getItem('@loginToken');
+        const url = process.env.EXPO_PUBLIC_BASE_URL;
+        setAvailableProcess([]);
+
+        if (token) {
+            await axios.get(`${url}/userProcess/getUserProcesses?user_token=${token}`).then(async (response) => {
+                const userProcesses = response.data.response;
+
+                if (userProcesses.length > 0) {
+                    for (const userProcess of userProcesses) {
+                        const processTitle = userProcess.userProcess.stocked_title;
+                        const processId = userProcess.userProcess.id;
+
+                        await axios.get(`${url}/userProcess/getUserSteps?user_token=${token}&process_title=${processTitle}`).then((response) => {
+                            const userProcessSteps = response.data.response;
+
+                            if (userProcessSteps.length > 0) {
+                                for (const userProcessStep of userProcessSteps) {
+                                    const userProcessId = processId;
+                                    const stepId = userProcessStep.step_id;
+                                    const stepTitle = userProcessStep.title;
+                                    const newProcess = {
+                                        processTitle: processTitle,
+                                        userProcessId: userProcessId,
+                                        stepId: stepId,
+                                        stepTitle: stepTitle
+                                    };
+                                    setAvailableProcess((availableProcess: any) => [...availableProcess, newProcess]);
+                                }
+                            }
+                        }).catch((error) => {
+                            console.log(error.response.data);
+                        })
+                    }
+                }
+            }).catch((error) => {
+                console.log(error);
+            });
+        }
+    }
+
+    useEffect(() => {
+        getProcessDatas();
+    }, []);
+
+    return (
+        <Modal
+            animationType="slide"
+            transparent={true}
+            visible={props.modalVisible}
+        >
+            <View style={calendar_modal.add.centeredView as any}>
+                <View style={calendar_modal.add.modalView as any}>
+                    <View style={calendar_modal.add.modalHeader as any}>
+                        <View style={calendar_modal.add.modalHeader.containerTitle as any}>
+                            <Text style={calendar_modal.add.modalHeader.containerTitle.title as any}>{t('calendar.modal.add.title')}</Text>
+                        </View>
+                        <CrossButton onPress={closeModal} />
+                    </View>
+                    <View style={calendar_modal.add.modalContent as any}>
+                        <View style={calendar_modal.add.modalContent.section as any}>
+                            <Text style={calendar_modal.add.modalContent.section.title as any}>{t('calendar.modal.add.process.title')}</Text>
+                            <Picker
+                                selectedValue={selectedUserProcessId}
+                                style={calendar_modal.add.modalContent.section.picker as any}
+                                onValueChange={(itemValue) => setSelectedUserProcessId(itemValue)}
+                            >
+                                {displayProcessTitleInPickeritem()}
+                            </Picker>
+                        </View>
+                        <View style={calendar_modal.add.modalContent.section as any}>
+                            <Text style={calendar_modal.add.modalContent.section.title as any}>{t('calendar.modal.add.step.title')}</Text>
+                            <Picker
+                                selectedValue={selectedStepId}
+                                style={calendar_modal.add.modalContent.section.picker as any}
+                                onValueChange={(itemValue) => setSelectedStepId(itemValue)}
+                            >
+                                {displayStepsInPickeritem()}
+                            </Picker>
+                        </View>
+                        <DatePicker
+                            mode="datetime"
+                            minimumDate={new Date()}
+                            minuteInterval={5}
+                            date={date}
+                            onConfirm={setDate}
+                            onDateChange={setDate}
+                            locale={i18n.language}
+                        />
+                    </View>
+                    <View style={calendar_modal.add.modalFooter as any}>
+                        <LongHorizontalButton
+                            title={t('calendar.modal.add.button')}
+                            styleButton={calendar_modal.add.modalFooter.buttonEdit}
+                            styleText={calendar_modal.add.modalFooter.buttonEdit.text as any}
+                            onPress={requestAddProcess}
+                            testID="add-modal-button"
+                        />
+                    </View>
+                </View>
+            </View>
+        </Modal>
+    )
+}
+
+export { CalendarItemModal, CalendarActionsModal, CalendarAddModal };

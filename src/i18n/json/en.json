@@ -91,7 +91,17 @@
             "description": "Description",
             "date": "Date",
             "hour": "Hour",
-            "button": "Add",
+            "add": {
+                "title": "Add event",
+                "button": "Add",
+                "ok": "OK",
+                "process": {
+                    "title": "Select a process"
+                },
+                "step": {
+                    "title": "Select a step"
+                }
+            },
             "edit": {
                 "title": "Edit / Delete event",
                 "button": "Edit",

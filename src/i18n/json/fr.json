@@ -91,7 +91,17 @@
             "description": "Description",
             "date": "Date",
             "hour": "Heure",
-            "button": "Ajouter",
+            "add": {
+                "title": "Ajouter un événement",
+                "button": "Ajouter",
+                "ok": "OK",
+                "process": {
+                    "title": "Selectionnez un processus"
+                },
+                "step": {
+                    "title": "Selectionnez une étape"
+                }
+            },
             "edit": {
                 "title": "Modifier / Supprimer un événement",
                 "button": "Modifier",

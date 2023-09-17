@@ -89,6 +89,21 @@
             "title": "Erreur",
             "message": "Une erreur est survenue, veuillez réessayer plus tard",
             "button": "OK"
+        },
+        "processidea": {
+            "pagetitle": "Soumettre une nouvelle idée de procédure",
+            "title": "Titre",
+            "description": "Description",
+            "content": "Contenu",
+            "submit": "Soumettre",
+            "helpTitle": "Titre du document.",
+            "errorTitle": "Le titre est requis.",
+            "helpDescription": "Courte description du document.",
+            "errorDescription": "La description est requise.",
+            "helpContent": "Description du document.",
+            "errorContent": "Le contenu est requis.",
+            "success": "Votre idée de procédure à été envoyée avec succès !",
+            "fail": "Un problème est survenu... Veuillez réessayer plus tard"
         }
     }
 }

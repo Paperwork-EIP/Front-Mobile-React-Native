@@ -90,5 +90,20 @@
             "message": "Something went wrong, please try again later",
             "button": "OK"
         }
+    },
+    "processidea": {
+        "pagetitle": "Submit a new process idea",
+        "title": "Title",
+        "description": "Description",
+        "content": "Content",
+        "submit": "Submit",
+        "helpTitle": "Title of the document.",
+        "errorTitle": "Title is required.",
+        "helpDescription": "Short description of the document.",
+        "errorDescription": "Description is required.",
+        "helpContent": "Description of the document.",
+        "errorContent": "Content is required.",
+        "success": "Your process idea have been sent with success!",
+        "fail": "Some problem occurs... Please try again later"
     }
 }

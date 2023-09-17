@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View } from "react-native";
+import { View, Button } from "react-native";
 import axios from "axios";
 
 import DisconnectButton from "../components/DisconnectButton";
@@ -98,6 +98,11 @@ function Calendar({ navigation }: { navigation: any }) {
     return (
         <View style={calendar.container}>
             <DisconnectButton navigation={navigation} text="Disconnect" />
+            <Button
+                title="Submit a process idea"
+                color="#FF0000"
+                onPress={() => navigation.navigate('ProcessIdea')}
+            />
             <CalendarComponent
                 style={calendar.container.calendar}
                 sectionStyle={calendar.container.section}

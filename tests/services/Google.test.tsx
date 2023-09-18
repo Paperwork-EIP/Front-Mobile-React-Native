@@ -6,7 +6,13 @@ import GoogleAuthButton from '../../src/services/Google';
 jest.mock('expo-auth-session/providers/google', () => ({
     startAsync: jest.fn(),
     makeRedirectUri: jest.fn(),
-    useAuthRequest: jest.fn(),
+    useAuthRequest: jest.fn().mockReturnValue([null, {
+        type: 'success',
+        authentication: {
+            accessToken: 'mockAccessToken',
+            idToken: 'mockIdToken'
+        },
+    }, jest.fn()])
 }));
 
 describe('GoogleAuthButton', () => {

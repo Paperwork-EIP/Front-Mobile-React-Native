@@ -12,12 +12,14 @@ jest.mock('@react-native-async-storage/async-storage', () => {
         setItem: jest.fn(),
         getItem: jest.fn(),
         removeItem: jest.fn(),
+        clear: jest.fn(),
     };
 });
 jest.mock('../src/services/Storage', () => ({
     storeItem: jest.fn(),
     getItem: jest.fn().mockResolvedValue('mockToken'),
     saveUserData: jest.fn(),
+    deleteItemAndRedirectTo: jest.fn(),
     getUserData: jest.fn().mockResolvedValue({
         name: 'John Doe',
         firstName: 'John',
@@ -27,4 +29,3 @@ jest.mock('../src/services/Storage', () => ({
         picture: 'https://example.com/avatar.jpg'
     })
 }));
-jest.mock('react-native-fbsdk-next', () => require('react-native-fbsdk-next/jest/mocks').default);

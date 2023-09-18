@@ -183,6 +183,7 @@ function CalendarComponent(props: any) {
                 date={Date()}
                 showTodayButton={true}
                 disabledOpacity={0.6}
+                testID="calendar"
             >
                 <ExpandableCalendar
                     minDate={Date()}

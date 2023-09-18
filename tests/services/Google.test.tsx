@@ -12,7 +12,7 @@ jest.mock('expo-auth-session/providers/google', () => ({
 describe('GoogleAuthButton', () => {
     const navigation = { navigate: jest.fn(), reset: jest.fn() };
 
-    it('renders correctly', () => {
+    test('renders correctly', () => {
         render(<GoogleAuthButton navigation={navigation} />);
     });
 });

@@ -4,10 +4,8 @@ jest.mock('expo-linking', () => {
         ...jest.requireActual('expo-linking'),
         createURL: jest.fn(),
     };
-
     return module;
 });
-jest.mock('axios');
 jest.mock('@react-navigation/native', () => { });
 jest.mock('@react-native-async-storage/async-storage', () => {
     return {
@@ -16,3 +14,4 @@ jest.mock('@react-native-async-storage/async-storage', () => {
         removeItem: jest.fn(),
     };
 });
+jest.mock('react-native-fbsdk-next', () => require('react-native-fbsdk-next/jest/mocks').default);

@@ -4,6 +4,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Calendar from "../screens/Calendar";
+import Help from "../screens/Help";
+import Lexicon from "../screens/Lexicon";
 
 import { home } from "../../styles/pages/home.js";
 
@@ -61,7 +63,7 @@ function Home() {
                 })}
             >
                 {/* A remplacer les screens par les pages correspondantes */}
-                <Tab.Screen name="MainMenu" component={Calendar} />
+                <Tab.Screen name="MainMenu" component={Lexicon} />
                 <Tab.Screen name="Calendar" component={Calendar} />
                 <Tab.Screen name="Profile" component={Calendar} />
             </Tab.Navigator>

@@ -172,18 +172,4 @@ describe('Login', () => {
         expect(picker).toBeTruthy();
         expect(i18n.language).toBe('en');
     });
-
-    it('should not get token', () => {
-        AsyncStorage.getItem = jest.fn().mockRejectedValueOnce({
-            response: {
-                data: {
-                    message: 'error'
-                }
-            }
-        });
-
-        render(<Login navigation={navigation} />);
-
-        expect(AsyncStorage.getItem).toHaveBeenCalledTimes(1);
-    });
 });

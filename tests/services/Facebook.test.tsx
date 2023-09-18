@@ -30,20 +30,6 @@ jest.mock('react-native-fbsdk-next', () => {
     };
 });
 
-jest.mock('../../src/services/Storage', () => ({
-    storeItem: jest.fn(),
-    getItem: jest.fn().mockResolvedValue('mockToken'),
-    saveUserData: jest.fn(),
-    getUserData: jest.fn().mockResolvedValue({
-        name: 'John Doe',
-        firstName: 'John',
-        familyName: 'Doe',
-        email: 'tewtwetwe',
-        id: '12345',
-        picture: 'https://example.com/avatar.jpg'
-    })
-}));
-
 beforeEach(() => {
     axios.get = jest.fn().mockResolvedValue({
         status: 200,

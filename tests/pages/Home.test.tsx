@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 import { cleanup, render } from '@testing-library/react-native';
 import axios from 'axios';
 
@@ -8,21 +9,6 @@ jest.mock('../../src/screens/Calendar', () => ({
     __esModule: true,
     default: () => {
         return <></>;
-    },
-}));
-
-jest.mock('@react-navigation/bottom-tabs', () => ({
-    __esModule: true,
-    createBottomTabNavigator: () => {
-        const Tab = () => {
-            return <></>;
-        }
-
-        Tab.Navigator = () => {
-            return <></>;
-        }
-
-        return Tab;
     },
 }));
 
@@ -49,7 +35,13 @@ afterEach(() => {
 });
 
 describe('Home', () => {
-    it('renders correctly', async () => {
-        render(<Home />);
+    test('renders correctly', async () => {
+        const { getByText } = render(
+            <NavigationContainer>
+                <Home />
+            </NavigationContainer>
+        );
+
+        expect(getByText('Main Menu')).toBeTruthy();
     });
 });

@@ -6,7 +6,6 @@ jest.mock('expo-linking', () => {
     };
     return module;
 });
-jest.mock('@react-navigation/native', () => { });
 jest.mock('@react-native-async-storage/async-storage', () => {
     return {
         setItem: jest.fn(),

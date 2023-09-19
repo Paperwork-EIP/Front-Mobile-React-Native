@@ -50,7 +50,7 @@ function Home() {
     return (
         <View style={home.container}>
             <Tab.Navigator
-                initialRouteName="MainMenu"
+                initialRouteName="Main Menu"
                 screenOptions={({ route }) => ({
                     tabBarShowLabel: false,
                     tabBarIcon: ({ focused, color, size }) => {
@@ -61,7 +61,7 @@ function Home() {
                 })}
             >
                 {/* A remplacer les screens par les pages correspondantes */}
-                <Tab.Screen name="MainMenu" component={Calendar} />
+                <Tab.Screen name="Main Menu" component={Calendar} />
                 <Tab.Screen name="Calendar" component={Calendar} />
                 <Tab.Screen name="Profile" component={Calendar} />
             </Tab.Navigator>

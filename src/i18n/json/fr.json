@@ -91,7 +91,7 @@
             "button": "OK"
         },
         "processidea": {
-            "pagetitle": "Soumettre une nouvelle idée de procédure",
+            "pagetitle": "Nouvelle idée de procédure",
             "title": "Titre",
             "description": "Description",
             "content": "Contenu",
@@ -104,6 +104,20 @@
             "errorContent": "Le contenu est requis.",
             "success": "Votre idée de procédure à été envoyée avec succès !",
             "fail": "Un problème est survenu... Veuillez réessayer plus tard"
+        },
+        "settings": {
+            "pageTitle": "Paramètres",
+            "darkMode": "Mode sombre",
+            "version": "Version",
+            "disconnect": "Déconnexion",
+            "deleteAccount": "Supprimer le compte",
+            "delete": "Supprimer",
+            "cancel": "Annuler",
+            "confirm": "Confirmer",
+            "deleteAccountSuccess": "Compte supprimer avec succès",
+            "alertUserNotFound": "Erreur: Utilisateur introuvable.",
+            "alertSystemError": "Erreur: Erreur système.",
+            "alertMissingToken": "Erreur: Paramètre token manquant."
         }
     }
 }

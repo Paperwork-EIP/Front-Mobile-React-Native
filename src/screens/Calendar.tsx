@@ -103,6 +103,11 @@ function Calendar({ navigation }: { navigation: any }) {
                 color="#FF0000"
                 onPress={() => navigation.navigate('ProcessIdea')}
             />
+            <Button
+                title="Settings"
+                color="#00FF00"
+                onPress={() => navigation.navigate('Settings')}
+            />
             <CalendarComponent
                 style={calendar.container.calendar}
                 sectionStyle={calendar.container.section}

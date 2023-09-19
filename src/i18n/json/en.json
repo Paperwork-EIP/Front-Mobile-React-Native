@@ -92,7 +92,7 @@
         }
     },
     "processidea": {
-        "pagetitle": "Submit a new process idea",
+        "pagetitle": "New process idea",
         "title": "Title",
         "description": "Description",
         "content": "Content",
@@ -105,5 +105,19 @@
         "errorContent": "Content is required.",
         "success": "Your process idea have been sent with success!",
         "fail": "Some problem occurs... Please try again later"
+    },
+    "settings": {
+        "pageTitle": "Settings",
+        "darkMode": "Dark mode",
+        "version": "Version",
+        "disconnect": "Disconnect",
+        "deleteAccount": "Delete account",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "deleteAccountSuccess": "Account successfully delete",
+        "alertUserNotFound": "Error: User not found.",
+        "alertSystemError": "Error: System error.",
+        "alertMissingToken": "Error: Missing token."
     }
 }

@@ -1,20 +1,30 @@
 import { StyleSheet } from "react-native";
 
-const processidea = StyleSheet.create({
+const processIdeaLight = StyleSheet.create({
     container: {
         width: '100%',
         height: '100%',
         backgroundColor: '#fff',
         alignItems: 'center',
-        justifyContent: 'center'
+        paddingVertical: "20%"
     },
     content: {
         width: '100%',
-        flex: 2,
+        paddingHorizontal: '5%',
+    },
+    homebtn: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'left',
+        marginBottom: "5%",
+
+        text: {
+            color: 'black',
+            fontSize: 24,
+            fontWeight: 'bold'
+        }
     },
     form: {
-        flex: 2,
-        paddingHorizontal: '5%',
         alignItems: 'left',
         justifyContent: 'center',
     },
@@ -70,4 +80,50 @@ const processidea = StyleSheet.create({
     },
 });
 
-export { processidea };
+
+
+// DARK MODE
+
+const processIdeaDark = StyleSheet.create({
+    container: {
+        ...processIdeaLight.container,
+        backgroundColor: '#121212',
+    },
+    content: {
+        ...processIdeaLight.content,
+    },
+    homebtn: {
+        ...processIdeaLight.homebtn,
+
+        text: {
+            ...processIdeaLight.homebtn.text,
+            color: 'white',
+        }
+    },
+    form: {
+        ...processIdeaLight.form,
+    },
+    title: {
+        ...processIdeaLight.title,
+        color: 'gray',
+    },
+    helpLabel: {
+        ...processIdeaLight.helpLabel,
+        color: 'gray',
+    },
+    errorLabel: {
+        ...processIdeaLight.errorLabel,
+    },
+    input: {
+        ...processIdeaLight.input,
+    },
+    button: {
+        ...processIdeaLight.button,
+
+        text: {
+            ...processIdeaLight.button.text,
+        }
+    },
+});
+
+export { processIdeaLight, processIdeaDark };

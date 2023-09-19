@@ -125,6 +125,35 @@
             "title": "Erreur",
             "message": "Une erreur est survenue, veuillez réessayer plus tard",
             "button": "OK"
+        },
+        "processidea": {
+            "pagetitle": "Nouvelle idée de procédure",
+            "title": "Titre",
+            "description": "Description",
+            "content": "Contenu",
+            "submit": "Soumettre",
+            "helpTitle": "Titre du document.",
+            "errorTitle": "Le titre est requis.",
+            "helpDescription": "Courte description du document.",
+            "errorDescription": "La description est requise.",
+            "helpContent": "Description du document.",
+            "errorContent": "Le contenu est requis.",
+            "success": "Votre idée de procédure à été envoyée avec succès !",
+            "fail": "Un problème est survenu... Veuillez réessayer plus tard"
+        },
+        "settings": {
+            "pageTitle": "Paramètres",
+            "darkMode": "Mode sombre",
+            "version": "Version",
+            "disconnect": "Déconnexion",
+            "deleteAccount": "Supprimer le compte",
+            "delete": "Supprimer",
+            "cancel": "Annuler",
+            "confirm": "Confirmer",
+            "deleteAccountSuccess": "Compte supprimer avec succès",
+            "alertUserNotFound": "Erreur: Utilisateur introuvable.",
+            "alertSystemError": "Erreur: Erreur système.",
+            "alertMissingToken": "Erreur: Paramètre token manquant."
         }
     }
 }

@@ -94,10 +94,9 @@ function FacebookAuthButton({ navigation }: { navigation: any }) {
                     getData();
                 }
             },
-            function (error) {
-                AlertErrorSomethingWrong(error, t);
-            }
-        );
+        ).catch((error) => {
+            AlertErrorSomethingWrong(error, t);
+        });
     }
 
     return (

@@ -16,6 +16,7 @@ const calendar_items = StyleSheet.create({
         title: {
             fontSize: 16,
             fontWeight: 'bold',
+            width: '80%',
         },
 
         button: {

@@ -18,105 +18,121 @@ const MainMenu: React.FC = () => {
   const goToHelpPage = () => {
     navigation.navigate("Help");
   };
+  const [userProcessInfo, setUserProcessInfo]:any = useState([{}]);
+
+  async function getProcess(token: string) {
+    try {
+      const response = await axios.get(`${url}/userProcess/getUserProcesses?user_token=${token}`);
+
+      const userProcessTmp = [];
+      for (let j = 0; j < response.data.response.length; j++) {
+        if (response.data.response[j]['pourcentage'] != null)
+          userProcessTmp.push({ process: response.data.response[j]['userProcess'].title, percentage: response.data.response[j]['pourcentage'] });
+        else
+          userProcessTmp.push({ process: response.data.response[j]['userProcess'].title, percentage: 0 });
+      }
+      setUserProcessInfo(userProcessTmp);
+    } catch (err) {
+    }
+  }
 
   const [selected, setSelected] = useState('');
-      const [items, setItems] = useState<any>([]);
-      const [token, setToken] = useState('');
+  const [items, setItems] = useState<any>([]);
+  const [token, setToken] = useState('');
 
-      const selectedDotColor = brightRed;
-      const url = process.env.EXPO_PUBLIC_BASE_URL;
+  const selectedDotColor = brightRed;
+  const url = process.env.EXPO_PUBLIC_BASE_URL;
 
-      let markedDates: any = {};
+  let markedDates: any = {};
 
-      function handleDayPressed(day: { year?: number; month?: number; day?: number; timestamp?: number; dateString: any; }) {
-          setSelected(day.dateString);
-          console.log('selected day', day);
-      }
+  function handleDayPressed(day: { year?: number; month?: number; day?: number; timestamp?: number; dateString: any; }) {
+      setSelected(day.dateString);
+  }
 
-      function handleOnItemPressed(item: any) {
-          console.log('selected item', item);
-      }
+  function handleOnItemPressed(item: any) {
+  }
 
-      function getRandomColor() {
-          const listColor = ['orange', 'blue', 'green', 'red', 'purple', 'pink', 'yellow', 'grey', 'black'];
+  function getRandomColor() {
+      const listColor = ['orange', 'blue', 'green', 'red', 'purple', 'pink', 'yellow', 'grey', 'black'];
 
-          return listColor[Math.floor(Math.random() * listColor.length)];
-      }
+      return listColor[Math.floor(Math.random() * listColor.length)];
+  }
 
-      async function updateItems(token: string) {
-          await axios.get(`${url}/calendar/getAll?token=${token}`).then((response) => {
-              let list: any = [];
+  async function updateItems(token: string) {
+      await axios.get(`${url}/calendar/getAll?token=${token}`).then((response) => {
+          let list: any = [];
 
-              for (const value of response.data.appoinment) {
-                  const date = value.date;
-                  const hour = date.split('T')[1].split(':')[0] + ':' + date.split('T')[1].split(':')[1];
-                  const title = date.split('T')[0];
-                  const data = [
-                      {
-                          title: hour + " - " + value.step_title,
-                          color: getRandomColor()
-                      },
-                  ];
+          for (const value of response.data.appoinment) {
+              const date = value.date;
+              const hour = date.split('T')[1].split(':')[0] + ':' + date.split('T')[1].split(':')[1];
+              const title = date.split('T')[0];
+              const data = [
+                  {
+                      title: hour + " - " + value.step_title,
+                      color: getRandomColor()
+                  },
+              ];
 
-                  list.push({
-                      title: title,
-                      data: data
-                  });
-              }
+              list.push({
+                  title: title,
+                  data: data
+              });
+          }
 
-              setItems(list);
-          }).catch((error) => {
-              setItems([]);
-              console.error("Error axios get calendar : ", error.response);
-          });
-      }
+          setItems(list);
+      }).catch((error) => {
+          setItems([]);
+          console.error("Error axios get calendar : ", error.response);
+      });
+  }
 
-      function updateMarkedDates() {
-          // Update marked dates when user selects a day
-          markedDates[selected] = {
-              selected: true,
-              disableTouchEvent: true,
-              selectedColor: selectedDotColor,
-          };
-      }
+  function updateMarkedDates() {
+      // Update marked dates when user selects a day
+      markedDates[selected] = {
+          selected: true,
+          disableTouchEvent: true,
+          selectedColor: selectedDotColor,
+      };
+  }
 
-      function setDotMarkedDates() {
-          for (const item of items) {
-              markedDates[item.title] = {
-                  dots: item.data
-              }
+  function setDotMarkedDates() {
+      for (const item of items) {
+          markedDates[item.title] = {
+              dots: item.data
           }
       }
+  }
 
-      async function getLoginToken() {
-          const loginToken = await getItem('@loginToken');
+  async function getLoginToken() {
+      const loginToken = await getItem('@loginToken');
 
-          if (loginToken) {
-              setToken(loginToken);
-              await updateItems(loginToken);
-          }
+      if (loginToken) {
+          setToken(loginToken);
+          await updateItems(loginToken);
+          await getProcess(loginToken);
       }
+  }
 
-      useEffect(() => {
-          if (!token || items.length === 0) {
-              getLoginToken();
-          }
-          updateMarkedDates();
-          setDotMarkedDates();
-      }, [selected, items]);
-
-
-
-
+  useEffect(() => {
+      if (!token || items.length === 0) {
+          getLoginToken();
+      }
+      updateMarkedDates();
+      setDotMarkedDates();
+  }, [selected, items]);
 
   return (
     <View style={mainmenu.container}>
         <View style={mainmenu.sectionContainer}>
           <Text style={mainmenu.title}>{"Process"}</Text>
-          <Text style={mainmenu.content}>{"a"}</Text>
+          {userProcessInfo.map((item: any, index: number) => (
+            <View key={index} style={mainmenu.processContainer}>
+              <Text style={mainmenu.processName}>{item.process}:</Text>
+              <Text style={mainmenu.processPercentage}>{`${item.percentage}%`}</Text>
+            </View>
+          ))}
         </View>
-          <Text style={mainmenu.title}>{"Events"}</Text>
-
+         <Text style={mainmenu.title}>{"Events"}</Text>
          <CalendarComponent
              style={calendar.container.calendar}
              sectionStyle={calendar.container.section}
@@ -127,9 +143,6 @@ const MainMenu: React.FC = () => {
              onDayPress={handleDayPressed}
              onItemPress={handleOnItemPressed}
          />
-
-
-
         <View style={mainmenu.sectionContainer}>
         <Text style={mainmenu.title}>{"Need Help ?"}</Text>
             <View style={mainmenu.buttonContainerWrapper}>

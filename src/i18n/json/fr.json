@@ -155,7 +155,8 @@
             "deleteAccountSuccess": "Compte supprimer avec succès",
             "alertUserNotFound": "Erreur: Utilisateur introuvable.",
             "alertSystemError": "Erreur: Erreur système.",
-            "alertMissingToken": "Erreur: Paramètre token manquant."
+            "alertMissingToken": "Erreur: Paramètre token manquant.",
+            "deleteAccountQuestion": "Êtes-vous sûr de vouloir supprimer votre compte ?"
         }
     }
 }

@@ -157,6 +157,7 @@
         "deleteAccountSuccess": "Account successfully delete",
         "alertUserNotFound": "Error: User not found.",
         "alertSystemError": "Error: System error.",
-        "alertMissingToken": "Error: Missing token."
+        "alertMissingToken": "Error: Missing token.",
+        "deleteAccountQuestion": "Are you sure you want to delete your account?"
     }
 }

@@ -107,38 +107,59 @@ function Settings({ navigation }: { navigation: any }) {
                     <View>
                         <TouchableOpacity
                             style={isDarkMode ? settingsDark.homeBtn : settingsLight.homeBtn}
-                            onPress={() => navigation.navigate('Home')}>
-                            <Ionicons name="chevron-back-outline" size={28} color={isDarkMode ? "white" : "black"} />
-                            <Text style={isDarkMode ? settingsDark.homeBtn.text : settingsLight.homeBtn.text}>{t('settings.pageTitle')}</Text>
+                            onPress={() => navigation.navigate('Home')}
+                            testID="backHomeBtn">
+                            <Ionicons
+                                name="chevron-back-outline"
+                                size={28}
+                                color={isDarkMode ? "white" : "black"}
+                                testID="iconPageTitle"
+                            />
+                            <Text
+                                style={isDarkMode ? settingsDark.homeBtn.text : settingsLight.homeBtn.text}
+                                testID="pageTitle"
+                            >
+                            {t('settings.pageTitle')}</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={isDarkMode ? settingsDark.settingsContainer : settingsLight.settingsContainer}>
                         <View style={isDarkMode ? settingsDark.section : settingsLight.section}>
-                            <Text style={isDarkMode ? settingsDark.title : settingsLight.title} >{t('settings.darkMode')}</Text>
+                            <Text
+                                style={isDarkMode ? settingsDark.title : settingsLight.title}
+                                testID="darkModeText"
+                            >{t('settings.darkMode')}</Text>
                             <Switch
                                 value={isDarkMode}
                                 onValueChange={toggleDarkMode}
+                                testID="darkModeSwitch"
                             />
                         </View>
                         <View style={isDarkMode ? settingsDark.lineBetween : settingsLight.lineBetween}></View>
                         <View style={isDarkMode ? settingsDark.section : settingsLight.section}>
-                            <Text style={isDarkMode ? settingsDark.title : settingsLight.title} >{t('settings.disconnect')}</Text>
+                            <Text
+                                style={isDarkMode ? settingsDark.title : settingsLight.title}
+                                testID="disconnectText"
+                            >{t('settings.disconnect')}</Text>
                             <DisconnectButton
                                 styleButton={isDarkMode ? settingsDark.disconnectButton : settingsLight.disconnectButton}
                                 styleText={isDarkMode ? settingsDark.disconnectButton.text : settingsLight.disconnectButton.text}
                                 navigation={navigation}
                                 text="Disconnect"
+                                testID="disconnectButton"
                             />
                         </View>
                         <View style={isDarkMode ? settingsDark.lineBetween : settingsLight.lineBetween}></View>
                         <View style={isDarkMode ? settingsDark.section : settingsLight.section}>
-                            <Text style={isDarkMode ? settingsDark.title : settingsLight.title} >{t('settings.deleteAccount')}</Text>
+                            <Text
+                                style={isDarkMode ? settingsDark.title : settingsLight.title}
+                                testID="deleteAccountText"
+                            >{t('settings.deleteAccount')}</Text>
                             <LongHorizontalButton
                                 title={t('settings.delete')}
                                 styleButton={isDarkMode ? settingsDark.button : settingsLight.button}
                                 styleText={isDarkMode ? settingsDark.button.text : settingsLight.button.text}
                                 onPress={() => setConfirmationVisible(true)}
-                                testID="loginButton"
+                                testID="deleteAccountButton"
                             />
                             <Modal
                                 animationType="slide"
@@ -147,22 +168,34 @@ function Settings({ navigation }: { navigation: any }) {
                                 onRequestClose={() => {
                                     setConfirmationVisible(false);
                                 }}
+                                testID="deleteAccountModal"
                             >
                                 <View style={isDarkMode ? settingsDark.modal : settingsLight.modal}>
                                     <View style={isDarkMode ? settingsDark.modal.center : settingsLight.modal.center}>
-                                        <Text style={isDarkMode ? settingsDark.modal.text : settingsLight.modal.text}>Êtes-vous sûr de vouloir supprimer votre compte ?</Text>
+                                        <Text
+                                            style={isDarkMode ? settingsDark.modal.text : settingsLight.modal.text}
+                                            testID="deleteAccountQuestion"
+                                        >{t('settings.deleteAccountQuestion')}</Text>
                                         <View style={isDarkMode ? settingsDark.section : settingsLight.section}>
                                             <TouchableOpacity
                                                 style={isDarkMode ? settingsDark.cancelButton : settingsLight.cancelButton}
                                                 onPress={handleCancel}
+                                                testID="modalCancelButton"
                                             >
-                                                <Text style={isDarkMode ? settingsDark.cancelButton.text : settingsLight.cancelButton.text}>Annuler</Text>
+                                                <Text
+                                                    style={isDarkMode ? settingsDark.cancelButton.text : settingsLight.cancelButton.text}
+                                                    testID="modalCancelText"
+                                                >{t('settings.cancel')}</Text>
                                             </TouchableOpacity>
                                             <TouchableOpacity
                                                 style={isDarkMode ? settingsDark.confirmButton : settingsLight.confirmButton}
                                                 onPress={handleConfirm}
+                                                testID="modalConfirmButton"
                                             >
-                                                <Text style={isDarkMode ? settingsDark.confirmButton.text : settingsLight.confirmButton.text}>Confirmer</Text>
+                                                <Text
+                                                    style={isDarkMode ? settingsDark.confirmButton.text : settingsLight.confirmButton.text}
+                                                    testID="modalConfirmText"
+                                                >{t('settings.confirm')}</Text>
                                             </TouchableOpacity>
                                         </View>
                                     </View>
@@ -171,8 +204,14 @@ function Settings({ navigation }: { navigation: any }) {
                         </View>
                         <View style={isDarkMode ? settingsDark.lineBetween : settingsLight.lineBetween}></View>
                         <View style={isDarkMode ? settingsDark.section : settingsLight.section}>
-                            <Text style={isDarkMode ? settingsDark.title : settingsLight.title} >{t('settings.version')}</Text>
-                            <Text style={isDarkMode ? settingsDark.title : settingsLight.title} >1.0</Text>
+                            <Text
+                                style={isDarkMode ? settingsDark.title : settingsLight.title}
+                                testID="versionText"
+                            >{t('settings.version')}</Text>
+                            <Text
+                                style={isDarkMode ? settingsDark.title : settingsLight.title}
+                                testID="versionNumber"
+                            >1.0</Text>
                         </View>
                     </View>
                 </View>

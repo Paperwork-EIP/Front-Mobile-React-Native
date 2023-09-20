@@ -4,8 +4,18 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Calendar from "../screens/Calendar";
+import Help from "../pages/Help";
+import Lexicon from "../pages/Lexicon";
+import MainMenu from "../pages/MainMenu";
 
 import { home } from "../../styles/pages/home.js";
+
+
+import DisconnectButton from "../components/DisconnectButton";
+import CalendarComponent from "../components/calendar/CalendarComponent";
+import { getItem } from "../services/Storage";
+
+import { calendar, brightRed } from "../../styles/screen/calendar";
 
 function SwitchTabIcon(route: any, focused: boolean, color: string, size: number) {
     switch (route.name) {
@@ -63,7 +73,7 @@ function Home() {
                 {/* A remplacer les screens par les pages correspondantes */}
                 <Tab.Screen name="Main Menu" component={Calendar} />
                 <Tab.Screen name="Calendar" component={Calendar} />
-                <Tab.Screen name="Profile" component={Calendar} />
+                <Tab.Screen name="Profile" component={Help} />
             </Tab.Navigator>
         </View>
     );

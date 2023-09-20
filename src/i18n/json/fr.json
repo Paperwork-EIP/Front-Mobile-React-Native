@@ -138,7 +138,9 @@
             "errorDescription": "La description est requise.",
             "helpContent": "Description du document.",
             "errorContent": "Le contenu est requis.",
+            "wSuccess": "Succès",
             "success": "Votre idée de procédure à été envoyée avec succès !",
+            "wFail": "Erreur",
             "fail": "Un problème est survenu... Veuillez réessayer plus tard"
         },
         "settings": {

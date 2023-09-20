@@ -140,7 +140,9 @@
         "errorDescription": "Description is required.",
         "helpContent": "Description of the document.",
         "errorContent": "Content is required.",
+        "wSuccess": "Success",
         "success": "Your process idea have been sent with success!",
+        "wFail": "Error",
         "fail": "Some problem occurs... Please try again later"
     },
     "settings": {

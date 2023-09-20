@@ -86,9 +86,6 @@ function ProcessIdea({ navigation }: { navigation: any }) {
             console.log("there is some errors");
         else {
             console.log("there is no errors");
-            console.log("title = " + title);
-            console.log("description = " + description);
-            console.log("content = " + content);
             axios.post(`${api}/processProposal/add`, {
                 title: title,
                 description: description,
@@ -96,11 +93,31 @@ function ProcessIdea({ navigation }: { navigation: any }) {
                 user_token: token
             }).then(res => {
                 console.log("res = " + res)
-                alert(t('processidea.success'))
+                Alert.alert(
+                  t('processidea.wSuccess'),
+                  t('processidea.success'),
+                  [
+                    {
+                      text: 'OK',
+                      onPress: () => console.log('OK Pressed')
+                    }
+                  ],
+                  { cancelable: false }
+                );
                 navigation.navigate('Home')
             }).catch(err => {
                 console.log("err = " + err);
-                alert(t('processidea.fail'))
+                Alert.alert(
+                  t('processidea.wFail'),
+                  t('processidea.fail'),
+                  [
+                    {
+                      text: 'OK',
+                      onPress: () => console.log('OK Pressed')
+                    }
+                  ],
+                  { cancelable: false }
+                );
             })
         }
     }
@@ -116,7 +133,8 @@ function ProcessIdea({ navigation }: { navigation: any }) {
                     <View>
                         <TouchableOpacity
                             style={isDarkMode ? processIdeaDark.homebtn : processIdeaLight.homebtn}
-                            onPress={() => navigation.navigate('Home')}>
+                            onPress={() => navigation.navigate('Home')}
+                            testID="backHomeBtn">
                             <Ionicons name="chevron-back-outline" size={28} color={isDarkMode ? "white" : "black"} />
                             <Text style={isDarkMode ? processIdeaDark.homebtn.text : processIdeaLight.homebtn.text}>{t('processidea.pagetitle')}</Text>
                         </TouchableOpacity>
@@ -133,8 +151,15 @@ function ProcessIdea({ navigation }: { navigation: any }) {
                             onChangeText = {text => setTitle(text)}
                             testID="titleInput"
                         />
-                        {errors.title ? <Text style={isDarkMode ? processIdeaDark.errorLabel : processIdeaLight.errorLabel}>{errors.title}</Text> : null }
-                        <Text style={isDarkMode ? processIdeaDark.helpLabel : processIdeaLight.helpLabel} >{t('processidea.helpTitle')}</Text>
+                        {errors.title ?
+                        <Text
+                            style={isDarkMode ? processIdeaDark.errorLabel : processIdeaLight.errorLabel}
+                            testID="errorTitle"
+                        >{errors.title}</Text> : null }
+                        <Text
+                            style={isDarkMode ? processIdeaDark.helpLabel : processIdeaLight.helpLabel}
+                            testID="helpTitle"
+                        >{t('processidea.helpTitle')}</Text>
                         <Text style={isDarkMode ? processIdeaDark.title : processIdeaLight.title} >{t('processidea.description')}</Text>
                         <TextInput
                             style={isDarkMode ? processIdeaDark.input : processIdeaLight.input}
@@ -146,8 +171,15 @@ function ProcessIdea({ navigation }: { navigation: any }) {
                             onChangeText = {text => setDescription(text)}
                             testID="descriptionInput"
                         />
-                        {errors.description ? <Text style={isDarkMode ? processIdeaDark.errorLabel : processIdeaLight.errorLabel}>{errors.description}</Text> : null }
-                        <Text style={isDarkMode ? processIdeaDark.helpLabel : processIdeaLight.helpLabel} >{t('processidea.helpDescription')}</Text>
+                        {errors.description ?
+                        <Text
+                            style={isDarkMode ? processIdeaDark.errorLabel : processIdeaLight.errorLabel}
+                            testID="errorDescription"
+                        >{errors.description}</Text> : null }
+                        <Text
+                            style={isDarkMode ? processIdeaDark.helpLabel : processIdeaLight.helpLabel}
+                            testID="helpDescription"
+                        >{t('processidea.helpDescription')}</Text>
                         <Text style={isDarkMode ? processIdeaDark.title : processIdeaLight.title} >{t('processidea.content')}</Text>
                         <TextInput
                             style={isDarkMode ? processIdeaDark.input : processIdeaLight.input}
@@ -159,14 +191,21 @@ function ProcessIdea({ navigation }: { navigation: any }) {
                             onChangeText = {text => setContent(text)}
                             testID="contentInput"
                         />
-                        {errors.content ? <Text style={isDarkMode ? processIdeaDark.errorLabel : processIdeaLight.errorLabel}>{errors.content}</Text> : null }
-                        <Text style={isDarkMode ? processIdeaDark.helpLabel : processIdeaLight.helpLabel} >{t('processidea.helpContent')}</Text>
+                        {errors.content ?
+                        <Text
+                            style={isDarkMode ? processIdeaDark.errorLabel : processIdeaLight.errorLabel}
+                            testID="errorContent"
+                        >{errors.content}</Text> : null }
+                        <Text
+                            style={isDarkMode ? processIdeaDark.helpLabel : processIdeaLight.helpLabel}
+                            testID="helpContent"
+                        >{t('processidea.helpContent')}</Text>
                         <LongHorizontalButton
                             title={t('processidea.submit')}
                             styleButton={isDarkMode ? processIdeaDark.button : processIdeaLight.button}
                             styleText={isDarkMode ? processIdeaDark.button.text : processIdeaLight.button.text}
                             onPress={handleSubmit}
-                            testID="loginButton"
+                            testID="submitButton"
                         />
                     </View>
                 </View>

@@ -7,6 +7,7 @@ import Calendar from "../screens/Calendar";
 import Help from "../pages/Help";
 import Lexicon from "../pages/Lexicon";
 import MainMenu from "../pages/MainMenu";
+import Settings from "../pages/Settings";
 
 import { home } from "../../styles/pages/home.js";
 
@@ -19,7 +20,7 @@ import { calendar, brightRed } from "../../styles/screen/calendar";
 
 function SwitchTabIcon(route: any, focused: boolean, color: string, size: number) {
     switch (route.name) {
-        case 'MainMenu':
+        case 'Home':
             return <Ionicons
                 name={focused
                     ? 'home'
@@ -71,9 +72,9 @@ function Home() {
                 })}
             >
                 {/* A remplacer les screens par les pages correspondantes */}
-                <Tab.Screen name="Main Menu" component={Calendar} />
+                <Tab.Screen name="Home" component={MainMenu} />
                 <Tab.Screen name="Calendar" component={Calendar} />
-                <Tab.Screen name="Profile" component={Help} />
+                <Tab.Screen name="Profile" component={Settings} />
             </Tab.Navigator>
         </View>
     );

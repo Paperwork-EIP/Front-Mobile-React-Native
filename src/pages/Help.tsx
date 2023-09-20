@@ -14,43 +14,43 @@ const Help: React.FC = () => {
       {
           question: t('help.question1'),
           answer: t('help.answer1'),
-          image: require('../../assets/images/help/Profile-light.png'),
+          image: require('../../assets/images/help/Profile.png'),
           link: '/Home'
       },
       {
           question: t('help.question2'),
           answer: t('help.answer2'),
-          image: require('../../assets/images/help/Quiz-light.png'),
+          image: require('../../assets/images/help/Quiz.png'),
           link: '/Quiz'
       },
       {
           question: t('help.question3'),
           answer: t('help.answer3'),
-          image: require('../../assets/images/help/Calendar-create-light.png'),
+          image: require('../../assets/images/help/Calendar-create.png'),
           link: '/Calendar'
       },
       {
           question: t('help.question4'),
           answer: t('help.answer4'),
-          image: require('../../assets/images/help/Calendar-delete-light.png'),
+          image: require('../../assets/images/help/Calendar-delete.png'),
           link: '/Calendar'
       },
       {
           question: t('help.question5'),
           answer: t('help.answer5'),
-          image: require('../../assets/images/help/ProcessIdea-light.png'),
+          image: require('../../assets/images/help/ProcessIdea.png'),
           link: '/ProcessIdea'
       },
       {
           question: t('help.question6'),
           answer: t('help.answer6'),
-          image: require('../../assets/images/help/Settings-light.png'),
+          image: require('../../assets/images/help/Settings.png'),
           link: '/Settings'
       },
       {
           question: t('help.question7'),
           answer: t('help.answer7'),
-          image: require('../../assets/images/help/Lexicon-light.png'),
+          image: require('../../assets/images/help/Lexicon.png'),
           link: '/Lexicon'
       }
   ]);

@@ -73,7 +73,7 @@ function Home() {
                 {/* A remplacer les screens par les pages correspondantes */}
                 <Tab.Screen name="Home" component={MainMenu} />
                 <Tab.Screen name="Calendar" component={Calendar} />
-                <Tab.Screen name="Profile" component={Lexicon} />
+                <Tab.Screen name="Profile" component={Help} />
             </Tab.Navigator>
         </View>
     );

@@ -27,29 +27,38 @@ function Calendar({ navigation }: { navigation: any }) {
         console.log('selected item', item);
     }
 
-    function getRandomColor() {
-        const listColor = ['orange', 'blue', 'green', 'red', 'purple', 'pink', 'yellow', 'grey', 'black'];
+    function setColor(index: number) {
+        const listColor = ['orange', 'blue', 'green', 'red', 'purple', 'pink', 'yellow', 'grey', 'black', 'brown'];
 
-        return listColor[Math.floor(Math.random() * listColor.length)];
+        if (index > listColor.length - 1) {
+            index = 0;
+        }
+
+        return listColor[index];
     }
 
     async function updateItems(token: string) {
         await axios.get(`${url}/calendar/getAll?token=${token}`).then((response) => {
             let list: any = [];
 
-            for (const value of response.data.appoinment) {
+            for (const [index, value] of response.data.appoinment.entries()) {
                 const date = value.date;
                 const hour = date.split('T')[1].split(':')[0] + ':' + date.split('T')[1].split(':')[1];
-                const title = date.split('T')[0];
+                const titleDate = date.split('T')[0];
                 const data = [
                     {
                         title: hour + " - " + value.step_title,
-                        color: getRandomColor()
+                        color: setColor(index)
                     },
                 ];
 
                 list.push({
-                    title: title,
+                    title: titleDate,
+                    processTitle: value.process_title,
+                    stockedTitle: value.stocked_title,
+                    stepDescription: value.step_description,
+                    userProcessId: value.user_process_id,
+                    stepId: value.step_id,
                     data: data
                 });
             }
@@ -88,11 +97,19 @@ function Calendar({ navigation }: { navigation: any }) {
     }
 
     useEffect(() => {
+        let interval: any;
+
         if (!token || items.length === 0) {
             getLoginToken();
+        } else {
+            interval = setInterval(() => {
+                getLoginToken();
+            }, 5000);
         }
         updateMarkedDates();
         setDotMarkedDates();
+
+        return () => clearInterval(interval);
     }, [selected, items]);
 
     return (

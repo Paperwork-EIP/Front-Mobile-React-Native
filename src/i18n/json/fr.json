@@ -85,10 +85,75 @@
                 "december": "Déc"
             }
         },
+        "modal": {
+            "title": "Ajouter un événement",
+            "name": "Nom",
+            "description": "Description",
+            "date": "Date",
+            "hour": "Heure",
+            "add": {
+                "title": "Ajouter un événement",
+                "button": "Ajouter",
+                "ok": "OK",
+                "process": {
+                    "title": "Selectionnez un processus"
+                },
+                "step": {
+                    "title": "Selectionnez une étape"
+                }
+            },
+            "edit": {
+                "title": "Modifier / Supprimer un événement",
+                "button": "Modifier",
+                "ok": "OK"
+            },
+            "delete": {
+                "title": "Supprimer un événement",
+                "message": "Êtes-vous sûr de vouloir supprimer cet événement ?",
+                "success": "Événement supprimé avec succès",
+                "cancel": "Annuler",
+                "button": "Supprimer",
+                "ok": "OK"
+            },
+            "error": {
+                "title": "Erreur",
+                "message": "Veuillez remplir tous les champs",
+                "button": "OK"
+            }
+        },
         "error": {
             "title": "Erreur",
             "message": "Une erreur est survenue, veuillez réessayer plus tard",
             "button": "OK"
+        },
+        "processidea": {
+            "pagetitle": "Nouvelle idée de procédure",
+            "title": "Titre",
+            "description": "Description",
+            "content": "Contenu",
+            "submit": "Soumettre",
+            "helpTitle": "Titre du document.",
+            "errorTitle": "Le titre est requis.",
+            "helpDescription": "Courte description du document.",
+            "errorDescription": "La description est requise.",
+            "helpContent": "Description du document.",
+            "errorContent": "Le contenu est requis.",
+            "success": "Votre idée de procédure à été envoyée avec succès !",
+            "fail": "Un problème est survenu... Veuillez réessayer plus tard"
+        },
+        "settings": {
+            "pageTitle": "Paramètres",
+            "darkMode": "Mode sombre",
+            "version": "Version",
+            "disconnect": "Déconnexion",
+            "deleteAccount": "Supprimer le compte",
+            "delete": "Supprimer",
+            "cancel": "Annuler",
+            "confirm": "Confirmer",
+            "deleteAccountSuccess": "Compte supprimer avec succès",
+            "alertUserNotFound": "Erreur: Utilisateur introuvable.",
+            "alertSystemError": "Erreur: Erreur système.",
+            "alertMissingToken": "Erreur: Paramètre token manquant."
         }
     }
 }

@@ -85,10 +85,76 @@
                 "december": "Dec"
             }
         },
+        "modal": {
+            "title": "Add an event",
+            "name": "Name",
+            "description": "Description",
+            "date": "Date",
+            "hour": "Hour",
+            "add": {
+                "title": "Add event",
+                "button": "Add",
+                "ok": "OK",
+                "process": {
+                    "title": "Select a process"
+                },
+                "step": {
+                    "title": "Select a step"
+                }
+            },
+            "edit": {
+                "title": "Edit / Delete event",
+                "button": "Edit",
+                "ok": "OK"
+
+            },
+            "delete": {
+                "title": "Delete",
+                "message": "Are you sure you want to delete this event ?",
+                "success": "Event deleted successfully",
+                "cancel": "Cancel",
+                "button": "Delete",
+                "ok": "OK"
+            },
+            "error": {
+                "title": "Error",
+                "message": "Please fill all the fields",
+                "button": "OK"
+            }
+        },
         "error": {
             "title": "Error",
             "message": "Something went wrong, please try again later",
             "button": "OK"
         }
+    },
+    "processidea": {
+        "pagetitle": "New process idea",
+        "title": "Title",
+        "description": "Description",
+        "content": "Content",
+        "submit": "Submit",
+        "helpTitle": "Title of the document.",
+        "errorTitle": "Title is required.",
+        "helpDescription": "Short description of the document.",
+        "errorDescription": "Description is required.",
+        "helpContent": "Description of the document.",
+        "errorContent": "Content is required.",
+        "success": "Your process idea have been sent with success!",
+        "fail": "Some problem occurs... Please try again later"
+    },
+    "settings": {
+        "pageTitle": "Settings",
+        "darkMode": "Dark mode",
+        "version": "Version",
+        "disconnect": "Disconnect",
+        "deleteAccount": "Delete account",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "deleteAccountSuccess": "Account successfully delete",
+        "alertUserNotFound": "Error: User not found.",
+        "alertSystemError": "Error: System error.",
+        "alertMissingToken": "Error: Missing token."
     }
 }

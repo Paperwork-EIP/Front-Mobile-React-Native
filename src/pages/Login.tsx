@@ -51,7 +51,6 @@ function Login({ navigation }: { navigation: any }) {
     }
 
     async function getDatas(email: string, password: string) {
-        console.log('Login email : ', email, password);
         console.log('Connecting...');
 
         await axios.post(process.env.EXPO_PUBLIC_BASE_URL + '/user/login', {
@@ -61,8 +60,9 @@ function Login({ navigation }: { navigation: any }) {
             if (response.status === 200) {
                 const token = response.data.jwt;
                 const userData = {
-                    name: "John",
-                    firstName: "Doe",
+                    name: " John Doe",
+                    firstName: "John",
+                    familyName: "Doe",
                     email: email,
                     id: 1,
                     picture: ""

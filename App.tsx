@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Login from "./src/pages/Login";
 import Register from "./src/pages/Register";
 import Home from './src/pages/Home';
+import ProcessIdea from './src/pages/ProcessIdea';
+import Settings from './src/pages/Settings';
 
 import "./src/i18n/i18n";
 
@@ -17,6 +19,8 @@ function App() {
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Register" component={Register} />
                 <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen name="ProcessIdea" component={ProcessIdea} />
+                <Stack.Screen name="Settings" component={Settings} />
             </Stack.Navigator>
         </NavigationContainer>
     );

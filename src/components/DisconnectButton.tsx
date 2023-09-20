@@ -18,7 +18,7 @@ function DisconnectButton(props: DisconnectButtonProps) {
     }
 
     return (
-        <TouchableOpacity style={props.styleButton} onPress={disconnect}>
+        <TouchableOpacity style={props.styleButton} onPress={disconnect} testID='disconnectButton'>
             <Text style={props.styleText}>{props.text}</Text>
         </TouchableOpacity>
     )

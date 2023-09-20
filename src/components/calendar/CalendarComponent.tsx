@@ -1,13 +1,20 @@
-import React, { useCallback, useEffect } from "react";
-import { Alert, Text, View } from "react-native";
+import React, { useCallback, useEffect, useState } from "react";
+import { Text, View } from "react-native";
 import { useTranslation } from 'react-i18next';
 import { AgendaList, CalendarProvider, ExpandableCalendar, LocaleConfig } from 'react-native-calendars';
 
 import CalendarItems from "./CalendarItems";
-import CalendarModal from "./CalendarModal";
+import AddButton from "../AddButton";
+import { CalendarActionsModal, CalendarAddModal, CalendarItemModal } from "./CalendarModals";
+
+import { calendar_component } from "../../../styles/components/calendar/calendar_component.js";
 
 function CalendarComponent(props: any) {
-    const [modalVisible, setModalVisible] = React.useState(false);
+    const [itemModalVisible, setItemModalVisible] = useState(false);
+    const [actionsModalVisible, setActionsModalVisible] = useState(false);
+    const [addModalVisible, setAddModalVisible] = useState(false);
+    const [itemModalData, setItemModalData] = React.useState();
+
     const { t, i18n } = useTranslation();
 
     LocaleConfig.locales['fr'] = {
@@ -62,21 +69,35 @@ function CalendarComponent(props: any) {
 
     LocaleConfig.locales['en'] = LocaleConfig.locales['fr'];
 
-    function itemPressed() {
-        Alert.alert('Item has been pressed');
+    function itemPressed(item: any) {
+        if (itemModalData !== item) {
+            setItemModalData(item);
+            setItemModalVisible(true);
+        }
     }
 
-    function buttonPressed() {
-        Alert.alert('Button has been pressed');
+    function buttonPressed(item: any) {
+        if (itemModalData !== item) {
+            setItemModalData(item);
+            setActionsModalVisible(true);
+        }
+    }
+
+    function addButtonPressed() {
+        setAddModalVisible(true);
     }
 
     const renderItem = useCallback((item: any) => {
         return (
-            <CalendarItems item={item.item} onPressCard={itemPressed} onPressButton={buttonPressed} />
+            <CalendarItems
+                item={item.item}
+                onPressCard={() => itemPressed(item)}
+                onPressButton={() => buttonPressed(item)}
+            />
         );
     }, [props.items]);
 
-    function displayEmptyAgenda() {
+    function displayAgendaItems() {
         if (props.items.length === 0) {
             return (
                 <View style={props.styleEmpty}>
@@ -93,26 +114,92 @@ function CalendarComponent(props: any) {
         }
     }
 
+    function displayItemModal(item: any) {
+        const title = item.item.title;
+        const processTitle = item.section.processTitle;
+        const stepDescription = item.section.stepDescription;
+        const date = item.section.title;
+
+        return (
+            <CalendarItemModal
+                modalVisible={itemModalVisible}
+                setModalVisible={setItemModalVisible}
+                title={title}
+                processTitle={processTitle}
+                stepDescription={stepDescription}
+                date={date}
+            />
+        )
+    }
+
+    function displayActionsModal(item: any) {
+        const title = item.item.title;
+        const userProcessId = item.section.userProcessId;
+        const stepId = item.section.stepId;
+
+        return (
+            <CalendarActionsModal
+                title={title}
+                userProcessId={userProcessId}
+                stepId={stepId}
+                modalVisible={actionsModalVisible}
+                setModalVisible={setActionsModalVisible}
+            />
+        )
+    }
+
+    function displayAddModal() {
+        return (
+            <CalendarAddModal
+                modalVisible={addModalVisible}
+                setModalVisible={setAddModalVisible}
+            />
+        )
+    }
+
+    function displayModals() {
+        if (itemModalData) {
+            if (itemModalVisible) {
+                return displayItemModal(itemModalData);
+            } else if (actionsModalVisible) {
+                return displayActionsModal(itemModalData);
+            } else {
+                return null;
+            }
+        }
+        if (addModalVisible) {
+            return displayAddModal();
+        }
+    }
+
     useEffect(() => {
         LocaleConfig.defaultLocale = i18n.language;
     }, [i18n.language]);
 
     return (
-        <CalendarProvider
-            date={Date()}
-            showTodayButton={true}
-            disabledOpacity={0.6}
-        >
-            <ExpandableCalendar
-                minDate={Date()}
-                firstDay={1}
-                onDayPress={props.onDayPress}
-                markedDates={props.markedDates}
-                markingType="multi-dot"
-                testID="expandableCalendar"
+        <>
+            {displayModals()}
+            <CalendarProvider
+                date={Date()}
+                showTodayButton={true}
+                disabledOpacity={0.6}
+                testID="calendar"
+            >
+                <ExpandableCalendar
+                    minDate={Date()}
+                    firstDay={1}
+                    onDayPress={props.onDayPress}
+                    markedDates={props.markedDates}
+                    markingType="multi-dot"
+                    testID="expandableCalendar"
+                />
+                {displayAgendaItems()}
+            </CalendarProvider>
+            <AddButton
+                style={calendar_component.addButton}
+                onPress={addButtonPressed}
             />
-            {displayEmptyAgenda()}
-        </CalendarProvider>
+        </>
     );
 }
 

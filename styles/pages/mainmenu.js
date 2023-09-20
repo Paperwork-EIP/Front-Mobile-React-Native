@@ -12,16 +12,16 @@ const mainmenu = StyleSheet.create({
     borderRadius: 8,
     padding: 16,
     marginBottom: 16,
-    marginTop: 20, // Ajout de la marge en haut
-    backgroundColor: '#FFFFFF', // Ajout d'un fond blanc
-    shadowColor: '#000', // Ajout d'une ombre
+    marginTop: 20,
+    backgroundColor: '#FFFFFF',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
     },
     shadowOpacity: 0.2,
     shadowRadius: 2,
-    elevation: 2, // Pour Android
+    elevation: 2,
   },
   processContainer: {
     flexDirection: 'row',
@@ -33,11 +33,11 @@ const mainmenu = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginRight: 8,
-    color: '#333', // Couleur du texte en gras
+    color: '#333',
   },
   processPercentage: {
     fontSize: 16,
-    color: '#555', // Couleur du texte pourcentage
+    color: '#555',
   },
   buttonContainer: {
     borderWidth: 1,
@@ -45,20 +45,20 @@ const mainmenu = StyleSheet.create({
     borderRadius: 8,
     padding: 16,
     marginBottom: 16,
-    backgroundColor: '#FFFFFF', // Ajout d'un fond blanc
-    shadowColor: '#000', // Ajout d'une ombre
+    backgroundColor: '#FFFFFF',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
     },
     shadowOpacity: 0.2,
     shadowRadius: 2,
-    elevation: 2, // Pour Android
+    elevation: 2,
   },
   buttonContainerWrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 20, // Ajout de la marge en haut
+    marginTop: 20,
   },
   title: {
     fontSize: 26,

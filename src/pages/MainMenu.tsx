@@ -49,13 +49,10 @@ const MainMenu: React.FC = () => {
       setSelected(day.dateString);
   }
 
-  function handleOnItemPressed(item: any) {
-  }
-
   function getRandomColor() {
       const listColor = ['orange', 'blue', 'green', 'red', 'purple', 'pink', 'yellow', 'grey', 'black'];
 
-      return listColor[Math.floor(Math.random() * listColor.length)];
+      return listColor[5];
   }
 
   async function updateItems(token: string) {
@@ -122,6 +119,7 @@ const MainMenu: React.FC = () => {
   }, [selected, items]);
 
   return (
+
     <View style={mainmenu.container}>
         <View style={mainmenu.sectionContainer}>
           <Text style={mainmenu.title}>{"Process"}</Text>
@@ -141,7 +139,6 @@ const MainMenu: React.FC = () => {
              markedDates={markedDates}
              items={items}
              onDayPress={handleDayPressed}
-             onItemPress={handleOnItemPressed}
          />
         <View style={mainmenu.sectionContainer}>
         <Text style={mainmenu.title}>{"Need Help ?"}</Text>

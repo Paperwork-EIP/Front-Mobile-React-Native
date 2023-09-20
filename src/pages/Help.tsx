@@ -1,48 +1,55 @@
 import React, { useState } from 'react';
 import { ScrollView, View, Text, TouchableOpacity, Image, Linking } from 'react-native';
 import { help } from "../../styles/pages/help";
+import { useTranslation } from 'react-i18next';
 
 const Help: React.FC = () => {
+  const { t, i18n } = useTranslation();
+
+  function changeLanguage(language: string | undefined) {
+      i18n.changeLanguage(language);
+  };
+
   const [faqs, setFaqs] = useState([
       {
-          question: 'How to update personal information?',
-          answer: 'To update your personal information, go to the Profile page by clicking on the image below.\nFrom this page, you can:\n- Update your profile picture by entering the image link of your choice in the "Profile picture link" field,\n- Modify your username using the "Username" field,\n- Update your shared email address using the "Email" field,\n- Finally, change your password by entering the new password twice.',
+          question: t('help.question1'),
+          answer: t('help.answer1'),
           image: require('../../assets/images/help/Profile-light.png'),
           link: '/Home'
       },
       {
-          question: 'How to add a process?',
-          answer: 'To add new processes, go to the Quiz page by clicking on the image below.\nFrom this page, you can choose a process from the available options.\nOnce you have selected a process, you will need to answer questions about your progress in the process (possession of necessary documents, eligibility for process advancement, etc.).\nOnce the question phase is completed, you will be redirected to a page that compiles all the information about the ongoing process, and you can add events related to it in the calendar if necessary.',
+          question: t('help.question2'),
+          answer: t('help.answer2'),
           image: require('../../assets/images/help/Quiz-light.png'),
           link: '/Quiz'
       },
       {
-          question: 'How to add an event to the calendar?',
-          answer: 'To add events related to processes, go to the Calendar page by clicking on the image below.\nFrom the calendar, you can view existing events and add new ones.\nTo do this, simply click on the date on which you want to add an event.\nThen click on the "Add an Event" button. You will need to provide the time of the event, the process associated with the event from the list of ongoing processes, and finally the step of the process. Finally, click on "Submit" once all the details are filled in to create the event.',
+          question: t('help.question3'),
+          answer: t('help.answer3'),
           image: require('../../assets/images/help/Calendar-create-light.png'),
           link: '/Calendar'
       },
       {
-          question: 'How to delete or modify an event in the calendar?',
-          answer: 'To modify or delete events related to processes, go to the Calendar page by clicking on the image below.\nFrom the calendar, you can view existing events and modify or delete them.\nTo do this, simply click on the date for which you want to modify the event.\nThen click on the "Edit/Delete an Event" button. For modification, you will need to enter the new time or step you want to assign to your event and click the "Submit" button to save the changes. Alternatively, you can directly click the "Delete Event" button to delete the event.',
+          question: t('help.question4'),
+          answer: t('help.answer4'),
           image: require('../../assets/images/help/Calendar-delete-light.png'),
           link: '/Calendar'
       },
       {
-          question: 'I can\'t find the process I need in the list of available processes. What should I do?',
-          answer: 'If you can\'t find the process you want to launch in the available processes list, you have the option to let us know through the Process Idea page by clicking on the image below.\nProvide the title, description, and content of the desired process, press the "Submit" button, and we will receive your request. You can also contact us via the contact button at the bottom of this page by sending an email to paperwork_2024@labeip.epitech.eu.',
+          question: t('help.question5'),
+          answer: t('help.answer5'),
           image: require('../../assets/images/help/ProcessIdea-light.png'),
           link: '/ProcessIdea'
       },
       {
-          question: 'How can I modify my personal information?',
-          answer: 'To modify your personal information, go to the Settings page, where you can:\n- Choose a profile picture,\n- Modify your name,\n- Modify your surname,\n- Modify your age,\n- Modify the application language,\n- Modify your email address,\n- Modify your postal address,\n- Modify your phone number,\n- And finally, modify your password.',
+          question: t('help.question6'),
+          answer: t('help.answer6'),
           image: require('../../assets/images/help/Settings-light.png'),
           link: '/Settings'
       },
       {
-          question: 'What should I do if I don\'t understand one of the technical terms used on the website?',
-          answer: 'The Lexicon page, which lists the definitions of technical terms, is available by clicking on the image below!',
+          question: t('help.question7'),
+          answer: t('help.answer7'),
           image: require('../../assets/images/help/Lexicon-light.png'),
           link: '/Lexicon'
       }

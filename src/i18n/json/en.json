@@ -156,5 +156,51 @@
         "alertUserNotFound": "Error: User not found.",
         "alertSystemError": "Error: System error.",
         "alertMissingToken": "Error: Missing token."
+    },
+    "help": {
+        "textLexicon": "Need a term to be explained ?",
+        "buttonLexicon": "Click Here !",
+        "question1": "How to update personal information?",
+        "answer1": "To update your personal information, go to the Profile page by clicking on the image below.\nFrom this page, you can:\n- Update your profile picture by entering the image link of your choice in the 'Profile picture link' field,\n- Modify your username using the 'Username' field,\n- Update your shared email address using the 'Email' field,\n- Finally, change your password by entering the new password twice.",
+        "question2": "How to add a process?",
+        "answer2": "To add new processes, go to the Quiz page by clicking on the image below.\nFrom this page, you can choose a process from the available options.\nOnce you have selected a process, you will need to answer questions about your progress in the process (possession of necessary documents, eligibility for process advancement, etc.).\nOnce the question phase is completed, you will be redirected to a page that compiles all the information about the ongoing process, and you can add events related to it in the calendar if necessary.",
+        "question3": "How to add an event to the calendar?",
+        "answer3": "To add events related to processes, go to the Calendar page by clicking on the image below.\nFrom the calendar, you can view existing events and add new ones.\nTo do this, simply click on the date on which you want to add an event.\nThen click on the 'Add an Event' button. You will need to provide the time of the event, the process associated with the event from the list of ongoing processes, and finally the step of the process. Finally, click on 'Submit' once all the details are filled in to create the event.",
+        "question4": "How to delete or modify an event in the calendar?",
+        "answer4": "To modify or delete events related to processes, go to the Calendar page by clicking on the image below.\nFrom the calendar, you can view existing events and modify or delete them.\nTo do this, simply click on the date for which you want to modify the event.\nThen click on the 'Edit/Delete an Event' button. For modification, you will need to enter the new time or step you want to assign to your event and click the 'Submit' button to save the changes. Alternatively, you can directly click the 'Delete Event' button to delete the event.",
+        "question5": "I can't find the process I need in the list of available processes. What should I do?",
+        "answer5": "If you can't find the process you want to launch in the available processes list, you have the option to let us know through the Process Idea page by clicking on the image below.\nProvide the title, description, and content of the desired process, press the 'Submit' button, and we will receive your request. You can also contact us via the contact button at the bottom of this page by sending an email to paperwork_2024@labeip.epitech.eu.",
+        "question6": "How can I modify my personal information?",
+        "answer6": "To modify your personal information, go to the Settings page, where you can:\n- Choose a profile picture,\n- Modify your name,\n- Modify your surname,\n- Modify your age,\n- Modify the application language,\n- Modify your email address,\n- Modify your postal address,\n- Modify your phone number,\n- And finally, modify your password.",
+        "question7": "What should I do if I don't understand one of the technical terms used on the website?",
+        "answer7": "The Lexicon page, which lists the definitions of technical terms, is available by clicking on the image below!"
+    },
+    "mainmenu": {
+        "title": "Your Paperwork Space",
+        "ascending": "Ascending",
+        "descending": "Descending",
+        "newProcessButton": "New Process",
+        "calendar": "Calendar",
+        "applied": "Applied",
+        "left": "Left",
+        "nothing": "Nothing to Show",
+        "process": "Process",
+        "events": "Events",
+        "needHelp": "Need Help ?",
+        "help": "Help",
+        "lexicon": "Lexicon",
+        "today": "Today"
+    },
+    "lexicon": {
+        "textHelp": "Question about the features of Paperwork ?",
+        "buttonHelp": "Click Here !",
+        "question1": "Vital Card",
+        "answer1": "Health insurance policies typically cover a wide range of medical expenses, such as hospitalization, surgical procedures, prescription drugs, laboratory tests, and doctor visits. Some policies may also cover specialized treatments such as dental, vision, or mental health care.",
+        "question2": "Passport",
+        "answer2": "A passport is a travel document that is issued by a government to its citizens for the purpose of international travel. It is an official proof of identity and citizenship that allows the passport holder to enter and exit foreign countries, and to request assistance and protection from their government while abroad.",
+        "question3": "Visa",
+        "answer3": "A visa is an official document or endorsement placed in a passport that allows the passport holder to enter, stay, or exit a foreign country for a specific period of time and for a specific purpose. The purpose of a visa is to regulate and control the entry and stay of foreign visitors in a country.",
+        "question4": "Proof of Residence",
+        "answer4": "A proof of address is a document that verifies where you live. It is often required as a form of identification when you need to open a bank account, apply for credit, or get a government-issued ID card. A proof of address can take many forms, but it typically includes your name, your address, and a date."
     }
 }

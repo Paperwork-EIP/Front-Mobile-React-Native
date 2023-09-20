@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Button, TouchableOpacity, Image, Linking } from 'react-native';
 import axios from "axios";
+import { useTranslation } from 'react-i18next';
 import { getItem } from "../services/Storage";
 import { mainmenu } from "../../styles/pages/mainmenu";
 import { useNavigation } from '@react-navigation/native';
@@ -11,7 +12,13 @@ import CalendarComponent from "../components/calendar/CalendarComponentMainMenu"
 import { calendar, brightRed } from "../../styles/screen/calendar";
 
 const MainMenu: React.FC = () => {
+  const { t, i18n } = useTranslation();
   const navigation = useNavigation();
+
+  function changeLanguage(language: string | undefined) {
+      i18n.changeLanguage(language);
+  };
+
   const goToLexiconPage = () => {
     navigation.navigate("Lexicon");
   };
@@ -122,15 +129,18 @@ const MainMenu: React.FC = () => {
 
     <View style={mainmenu.container}>
         <View style={mainmenu.sectionContainer}>
-          <Text style={mainmenu.title}>{"Process"}</Text>
+          <Text style={mainmenu.title}>{t('mainmenu.process')}</Text>
           {userProcessInfo.map((item: any, index: number) => (
             <View key={index} style={mainmenu.processContainer}>
               <Text style={mainmenu.processName}>{item.process}:</Text>
               <Text style={mainmenu.processPercentage}>{`${item.percentage}%`}</Text>
             </View>
           ))}
+          <TouchableOpacity onPress={goToLexiconPage}>
+              <Text style={mainmenu.button}>{t('mainmenu.newProcessButton')}</Text>
+            </TouchableOpacity>
         </View>
-         <Text style={mainmenu.title}>{"Events"}</Text>
+         <Text style={mainmenu.title}>{t('mainmenu.events')}</Text>
          <CalendarComponent
              style={calendar.container.calendar}
              sectionStyle={calendar.container.section}
@@ -141,17 +151,17 @@ const MainMenu: React.FC = () => {
              onDayPress={handleDayPressed}
          />
         <View style={mainmenu.sectionContainer}>
-        <Text style={mainmenu.title}>{"Need Help ?"}</Text>
+        <Text style={mainmenu.title}>{t('mainmenu.needHelp')}</Text>
             <View style={mainmenu.buttonContainerWrapper}>
                 <View style={mainmenu.buttonContainer}>
                     <TouchableOpacity onPress={() => goToHelpPage}>
-                        <Text style={mainmenu.content}>{"Help"}</Text>
+                        <Text style={mainmenu.content}>{t('mainmenu.help')}</Text>
                         <Image source={require('../../assets/images/help/FAQs-bro.png')} style={mainmenu.image} />
                     </TouchableOpacity>
                 </View>
                 <View style={mainmenu.buttonContainer}>
                     <TouchableOpacity onPress={() => goToLexiconPage()}>
-                        <Text style={mainmenu.content}>{"Lexicon"}</Text>
+                        <Text style={mainmenu.content}>{t('mainmenu.lexicon')}</Text>
                         <Image source={require('../../assets/images/lexicon/Lexicon-icon.png')} style={mainmenu.image} />
                     </TouchableOpacity>
                 </View>

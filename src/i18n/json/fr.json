@@ -138,7 +138,9 @@
             "errorDescription": "La description est requise.",
             "helpContent": "Description du document.",
             "errorContent": "Le contenu est requis.",
+            "wSuccess": "Succès",
             "success": "Votre idée de procédure à été envoyée avec succès !",
+            "wFail": "Erreur",
             "fail": "Un problème est survenu... Veuillez réessayer plus tard"
         },
         "settings": {
@@ -154,6 +156,7 @@
             "alertUserNotFound": "Erreur: Utilisateur introuvable.",
             "alertSystemError": "Erreur: Erreur système.",
             "alertMissingToken": "Erreur: Paramètre token manquant."
+            "deleteAccountQuestion": "Êtes-vous sûr de vouloir supprimer votre compte ?"
         },
         "help": {
             "textLexicon": "Besoin d'avoir la signification d'un terme ?",

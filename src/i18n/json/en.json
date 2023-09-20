@@ -140,7 +140,9 @@
         "errorDescription": "Description is required.",
         "helpContent": "Description of the document.",
         "errorContent": "Content is required.",
+        "wSuccess": "Success",
         "success": "Your process idea have been sent with success!",
+        "wFail": "Error",
         "fail": "Some problem occurs... Please try again later"
     },
     "settings": {
@@ -155,7 +157,8 @@
         "deleteAccountSuccess": "Account successfully delete",
         "alertUserNotFound": "Error: User not found.",
         "alertSystemError": "Error: System error.",
-        "alertMissingToken": "Error: Missing token."
+        "alertMissingToken": "Error: Missing token.",
+        "deleteAccountQuestion": "Are you sure you want to delete your account?"
     },
     "help": {
         "textLexicon": "Need a term to be explained ?",

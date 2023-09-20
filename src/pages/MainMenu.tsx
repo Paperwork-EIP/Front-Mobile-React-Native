@@ -154,7 +154,7 @@ const MainMenu: React.FC = () => {
         <Text style={mainmenu.title}>{t('mainmenu.needHelp')}</Text>
             <View style={mainmenu.buttonContainerWrapper}>
                 <View style={mainmenu.buttonContainer}>
-                    <TouchableOpacity onPress={() => goToHelpPage}>
+                    <TouchableOpacity onPress={() => goToHelpPage()}>
                         <Text style={mainmenu.content}>{t('mainmenu.help')}</Text>
                         <Image source={require('../../assets/images/help/FAQs-bro.png')} style={mainmenu.image} />
                     </TouchableOpacity>

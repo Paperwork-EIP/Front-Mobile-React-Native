@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import { ScrollView, View, Text, TouchableOpacity, Image, Linking } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { lexicon } from "../../styles/pages/lexicon";
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
 const Lexicon: React.FC = () => {
   const { t, i18n } = useTranslation();
+  const navigation = useNavigation();
 
   function changeLanguage(language: string | undefined) {
       i18n.changeLanguage(language);
@@ -49,6 +52,13 @@ const Lexicon: React.FC = () => {
 
   return (
     <ScrollView style={lexicon.container}>
+    <View>
+        <TouchableOpacity
+            style={lexicon.homebtn}
+            onPress={() => navigation.navigate('Home')}>
+            <Ionicons name="chevron-back-outline" size={28} color={"black"} />
+        </TouchableOpacity>
+    </View>
       <View style={lexicon.content}>
         <Image source={require('../../assets/images/lexicon/Lexicon-icon.png')} style={lexicon.faqImage} />
         {faqs.map((faq, index) => (

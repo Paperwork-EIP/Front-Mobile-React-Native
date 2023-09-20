@@ -18,6 +18,19 @@ container: {
       textTransform: 'uppercase',
       letterSpacing: 1,
     },
+    homebtn: {
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'left',
+          marginBottom: "5%",
+          marginTop: "5%",
+
+          text: {
+              color: 'black',
+              fontSize: 24,
+              fontWeight: 'bold'
+          }
+      },
   faqContainer: {
     marginBottom: 24,
     backgroundColor: '#FFF',

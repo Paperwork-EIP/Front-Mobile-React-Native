@@ -9,6 +9,23 @@ const lexicon = StyleSheet.create({
   content: {
     marginBottom: 16,
   },
+  homebtn: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'left',
+      marginBottom: "5%",
+      marginTop: "5%",
+
+      text: {
+          color: 'black',
+          fontSize: 24,
+          fontWeight: 'bold'
+      }
+  },
+  form: {
+      alignItems: 'left',
+      justifyContent: 'center',
+  },
   title: {
       fontSize: 26,
       fontWeight: 'bold',

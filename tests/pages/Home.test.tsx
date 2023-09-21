@@ -12,6 +12,21 @@ jest.mock('../../src/screens/Calendar', () => ({
     },
 }));
 
+jest.mock('../../src/screens/Profile', () => ({
+    __esModule: true,
+    default: () => {
+        return <></>;
+    },
+}));
+
+
+jest.mock('../../src/pages/MainMenu', () => ({
+    __esModule: true,
+    default: () => {
+        return <></>;
+    },
+}));
+
 beforeEach(() => {
     axios.get = jest.fn().mockResolvedValue({
         status: 200,
@@ -34,7 +49,7 @@ afterEach(() => {
     jest.clearAllMocks();
 });
 
-describe('Home', () => {
+describe('Home tests', () => {
     test('renders correctly', async () => {
         const { getByText } = render(
             <NavigationContainer>
@@ -42,6 +57,6 @@ describe('Home', () => {
             </NavigationContainer>
         );
 
-        expect(getByText('Main Menu')).toBeTruthy();
+        expect(getByText('Home')).toBeTruthy();
     });
 });

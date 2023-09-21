@@ -1,6 +1,3 @@
 <resources>
   <string name="app_name">paperwork-mobile</string>
-  <string name="facebook_app_id">969915637497521</string>
-  <string name="facebook_client_token">ced4dfd8bdaa4b000ea8d40ba3a28675</string>
-  <string name="fb_login_protocol_scheme">fb969915637497521</string>
 </resources>

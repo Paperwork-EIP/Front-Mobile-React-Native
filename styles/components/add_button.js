@@ -8,7 +8,7 @@ const add_button = StyleSheet.create({
         backgroundColor: '#FDE0E6',
         alignItems: 'center',
         justifyContent: 'center',
-        elevation: 2,
+        elevation: 5,
 
         text: {
             fontSize: 20,

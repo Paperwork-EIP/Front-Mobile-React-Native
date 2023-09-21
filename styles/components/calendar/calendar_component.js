@@ -11,6 +11,9 @@ const calendar_component = StyleSheet.create({
         backgroundColor: '#FC6976',
         justifyContent: 'center',
         alignItems: 'center',
+        elevation: 5,
+        shadowColor: '#000000',
+        shadowOffset: { width: 1, height: 1 },
     }
 });
 

@@ -1,19 +1,11 @@
 import React from 'react';
 import { render, fireEvent, cleanup } from '@testing-library/react-native';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import i18n from '../../src/i18n/i18n';
 import Login from '../../src/pages/Login';
 
 jest.mock('../../src/services/Google', () => ({
-    __esModule: true,
-    default: () => {
-        return <></>;
-    },
-}));
-
-jest.mock('../../src/services/Facebook', () => ({
     __esModule: true,
     default: () => {
         return <></>;

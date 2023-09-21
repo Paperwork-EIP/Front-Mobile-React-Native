@@ -127,6 +127,23 @@ const profile = StyleSheet.create({
         paddingHorizontal: 15,
         borderRadius: 15,
     },
+    processContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 8,
+        marginBottom: 8,
+      },
+      processName: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginRight: 5,
+        color: '#333',
+      },
+      processPercentage: {
+        fontSize: 16,
+        color: '#555',
+      },
 });
 
 const result = StyleSheet.create({

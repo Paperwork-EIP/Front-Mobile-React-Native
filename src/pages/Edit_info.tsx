@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Alert, View, Image, TextInput, Text, TouchableHighlight } from "react-native";
+import { Alert, View, Image, TextInput, Text, TouchableHighlight, TouchableOpacity, ScrollView } from "react-native";
 import { useTranslation } from 'react-i18next';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { useRoute } from '@react-navigation/native';
 
@@ -157,6 +158,13 @@ function Edit_info({ navigation }: { navigation: any }) {
 
     return (
         <View style={edit.container}>
+            <View>
+                <TouchableOpacity
+                    style={edit.homebtn}
+                    onPress={() => navigation.navigate('Home')}>
+                    <Ionicons name="chevron-back-outline" size={28} color={"black"} />
+                </TouchableOpacity>
+            </View>
             <Text style={edit.title}> {t('profile.editInfo.title')} </ Text>
             <View style={edit.center}>
                 <TouchableHighlight style={edit.modifPicture} onPress={() => { showAlert() }}>

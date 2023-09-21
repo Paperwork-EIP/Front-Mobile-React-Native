@@ -9,6 +9,19 @@ const edit = StyleSheet.create({
         justifyContent: 'center',
         // paddingTop: 50
     },
+    homebtn: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'left',
+        marginBottom: "5%",
+        marginTop: "5%",
+
+        text: {
+            color: 'black',
+            fontSize: 24,
+            fontWeight: 'bold'
+        }
+    },
     title: {
         fontSize: 18,
         fontWeight: 'bold',

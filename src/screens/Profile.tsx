@@ -25,19 +25,31 @@ function Profile({ navigation } : { navigation: any }) {
     const [email, setEmail] = React.useState("");
     const [address, setAddress] = React.useState("");
     const [phonenumber, setPhonenumber] = React.useState("");
-    const [profilePicture, setProfilePicture] = React.useState("");
+    const [profilePicture, setProfilePicture] = React.useState('');
 
-    const [userProcessInfo, setUserProcessInfo] = React.useState('');
+    const [userProcessInfo, setUserProcessInfo]:any = useState([{}]);
+
+    // let profilePictureDisplay;
 
     async function getProcess() {
         const token = await getItem('@loginToken');
-        axios.get(`${url}/userProcess/getUserProcesses`, { params: { user_token: token } })
-        .then(res => {
-            setUserProcessInfo(res.data.response);
-            console.log("userProcessInfo = " + userProcessInfo);
-        }).catch(err => {
-            console.log(err)
-        });
+        const response = await axios.get(`${url}/userProcess/getUserProcesses?user_token=${token}`);
+
+      const userProcessTmp = [];
+      for (let j = 0; j < response.data.response.length; j++) {
+        if (response.data.response[j]['pourcentage'] != null)
+          userProcessTmp.push({ process: response.data.response[j]['userProcess'].title, percentage: response.data.response[j]['pourcentage'] });
+        else
+          userProcessTmp.push({ process: response.data.response[j]['userProcess'].title, percentage: 0 });
+      }
+      setUserProcessInfo(userProcessTmp);
+        // axios.get(`${url}/userProcess/getUserProcesses`, { params: { user_token: token } })
+        // .then(res => {
+        //     setUserProcessInfo(res.data.response);
+        //     console.log("userProcessInfo = " + userProcessInfo);
+        // }).catch(err => {
+        //     console.log(err)
+        // });
     }
 
     async function getUserInfo() {
@@ -63,6 +75,8 @@ function Profile({ navigation } : { navigation: any }) {
     useEffect(() => {
         getUserInfo();
         getProcess();
+        // profilePictureDisplay = require(profilePicture);
+        // console.log("profilePictureDisplay = " + profilePictureDisplay);
         console.log("userProcessInfo = " + userProcessInfo);
         console.log("userInfo = " + username + " " + name + " " + firstname + " " + language + " " + age + " " + email + " " + address + " " + phonenumber + " " + profilePicture);
     }, [items]);
@@ -75,7 +89,7 @@ function Profile({ navigation } : { navigation: any }) {
                 </TouchableHighlight>
             </View>
             <View style={profile.center}>
-                <Image source={profilePicture === null ? require('../../assets/avatar/NoAvatar.png') : profilePicture}
+                <Image source={/*profilePicture === null ?*/ require('../../assets/avatar/NoAvatar.png') /*: profilePicture*/}
                     style={[profile.profilePicture, profile.shadowProp]} />
             </View>
             <View style={profile.content}>
@@ -105,10 +119,14 @@ function Profile({ navigation } : { navigation: any }) {
                     </View>
                 </View>
                 <View >
-                    <Text>
-                        <Text style={profile.title}> {t('profile.ongoingProcess')} </ Text>
+                    <Text style={profile.title}> {t('profile.ongoingProcess')} </ Text>
+                    {userProcessInfo.map((item: any, index: number) => (
+                        <View key={index} style={profile.processContainer}>
+                        <Text style={profile.processName}>{item.process}:</Text>
+                        <Text style={profile.processPercentage}>{`${item.percentage}%`}</Text>
+            </View>
+          ))}
 
-                    </ Text>
                 </View>
             </View>
          </View >

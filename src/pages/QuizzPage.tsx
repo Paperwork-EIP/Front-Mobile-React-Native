@@ -8,6 +8,7 @@ import { getItem } from "../services/Storage";
 import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 import { View } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown'
+import { useTranslation } from 'react-i18next';
 
 import LongHorizontalButton from "../components/LongHorizontalButton";
 
@@ -17,18 +18,17 @@ function QuizzPage({ navigation } : { navigation: any }) {
 
     const url = process.env.EXPO_PUBLIC_BASE_URL;
 
+    const { t, i18n } = useTranslation();
+
     const [posts, setPosts] = useState([{}]);
+    const [processSelected, setProcessSelected] = useState("");
+    const [processValue, setProcessValue] = useState(0);
 
 
     // User informations
     const [language, setLanguage] = useState("");
+    const goToQuestion = () => navigation.navigate("quizz_question", {processSelected: processSelected, step: processValue});
 
-
-    // Translation
-    // const translation = getTranslation(language, "quiz");
-
-    // Color mode
-    // const { colorMode } = useColorMode();
 
     async function getLanguage() {
         const token = await getItem('@loginToken');
@@ -44,7 +44,7 @@ function QuizzPage({ navigation } : { navigation: any }) {
         axios.get(`${url}/process/getAll`, { params: { language: language } })
             .then(res => {
                 var procedures = [];
-                console.log(res.data);
+                // console.log(res.data);
                 for (var i = 0; i < res.data.response.length; i++)
                 {
                     procedures.push({
@@ -60,9 +60,16 @@ function QuizzPage({ navigation } : { navigation: any }) {
     }
 
     useEffect(() => {
-        getLanguage();
+        switch(i18n.language) {
+            case 'en':
+              setLanguage('english');
+            case 'fr':
+              setLanguage('francais');
+            default:
+                setLanguage('english');
+          }
         getProcedures();
-
+        console.log(posts);
         
         }, [])
 
@@ -72,12 +79,15 @@ function QuizzPage({ navigation } : { navigation: any }) {
     }                     
 
     return (
-        <View>
-             <SelectDropdown
-            data={posts}
+        <View style={quizzPage.container}>
+            <SelectDropdown
+            data={posts.map((item) => item.label)}
             // defaultValueByIndex={1} // use default value by index or default value
             // defaultValue={'Canada'} // use default value by index or default value
             onSelect={(selectedItem, index) => {
+                setProcessSelected(selectedItem);
+                setProcessValue(posts[index].value);
+                goToQuestion();
               console.log(selectedItem, index);
             }}
             buttonTextAfterSelection={(selectedItem, index) => {

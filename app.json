@@ -15,23 +15,9 @@
     },
     "scheme": [
       "paperwork-mobile",
-      "com.paperworkmobile",
-      "fb969915637497521"
+      "com.paperworkmobile"
     ],
     "plugins": [
-      [
-        "react-native-fbsdk-next",
-        {
-          "appID": "969915637497521",
-          "clientToken": "ced4dfd8bdaa4b000ea8d40ba3a28675",
-          "displayName": "Paperwork",
-          "scheme": "fb969915637497521",
-          "advertiserIDCollectionEnabled": false,
-          "autoLogAppEventsEnabled": false,
-          "isAutoInitEnabled": true,
-          "iosUserTrackingPermission": "This identifier will be used to login."
-        }
-      ],
       [
         "@react-native-google-signin/google-signin"
       ]

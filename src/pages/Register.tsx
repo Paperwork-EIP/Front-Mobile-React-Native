@@ -10,7 +10,6 @@ import ClickTextButtonWithDescription from "../components/ClickTextButtonWithDes
 import LongHorizontalButton from "../components/LongHorizontalButton";
 
 import GoogleAuthButton from "../services/Google";
-import FacebookAuthButton from "../services/Facebook";
 
 import { register } from "../../styles/pages/register";
 
@@ -178,7 +177,6 @@ function Register({ navigation }: { navigation: any }) {
                 <View style={register.bottom}>
                     <View style={register.bottom.buttons as StyleProp<ViewStyle>}>
                         <GoogleAuthButton navigation={navigation} />
-                        <FacebookAuthButton navigation={navigation} />
                     </View>
                     <View style={register.center}>
                         <ClickTextButtonWithDescription

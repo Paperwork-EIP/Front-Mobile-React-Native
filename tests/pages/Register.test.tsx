@@ -12,13 +12,6 @@ jest.mock('../../src/services/Google', () => ({
     },
 }));
 
-jest.mock('../../src/services/Facebook', () => ({
-    __esModule: true,
-    default: () => {
-        return <></>;
-    },
-}));
-
 beforeEach(() => {
     i18n.init();
 

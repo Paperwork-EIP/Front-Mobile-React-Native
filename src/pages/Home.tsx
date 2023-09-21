@@ -29,7 +29,7 @@ function SwitchTabIcon(route: any, focused: boolean, color: string, size: number
                 color={color}
             />;
 
-        case 'Profile':
+        default:
             return <Ionicons
                 name={focused
                     ? 'person'
@@ -37,9 +37,6 @@ function SwitchTabIcon(route: any, focused: boolean, color: string, size: number
                 size={size}
                 color={color}
             />;
-
-        default:
-            break;
     }
 }
 

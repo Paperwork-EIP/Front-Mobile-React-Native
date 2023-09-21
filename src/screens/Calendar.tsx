@@ -114,7 +114,6 @@ function Calendar({ navigation }: { navigation: any }) {
 
     return (
         <View style={calendar.container}>
-            <DisconnectButton navigation={navigation} text="Disconnect" />
             <CalendarComponent
                 style={calendar.container.calendar}
                 sectionStyle={calendar.container.section}

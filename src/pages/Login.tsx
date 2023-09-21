@@ -8,7 +8,6 @@ import HidePasswordButton from "../components/HidePasswordButton";
 import ClickTextButtonWithDescription from "../components/ClickTextButtonWithDescription";
 import LongHorizontalButton from "../components/LongHorizontalButton";
 
-import FacebookAuthButton from "../services/Facebook";
 import GoogleAuthButton from "../services/Google";
 import AlertErrorSomethingWrong from "../services/Errors";
 import { getItem, getUserData, storeItem } from "../services/Storage";
@@ -199,7 +198,6 @@ function Login({ navigation }: { navigation: any }) {
                     <View style={login.bottom}>
                         <View style={login.bottom.buttons as StyleProp<ViewStyle>}>
                             <GoogleAuthButton navigation={navigation} />
-                            <FacebookAuthButton navigation={navigation} />
                         </View>
                         <View style={login.center}>
                             <ClickTextButtonWithDescription

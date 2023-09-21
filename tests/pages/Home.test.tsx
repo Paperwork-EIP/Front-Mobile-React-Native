@@ -34,7 +34,7 @@ afterEach(() => {
     jest.clearAllMocks();
 });
 
-describe('Home', () => {
+describe('Home tests', () => {
     test('renders correctly', async () => {
         const { getByText } = render(
             <NavigationContainer>
@@ -42,6 +42,6 @@ describe('Home', () => {
             </NavigationContainer>
         );
 
-        expect(getByText('Main Menu')).toBeTruthy();
+        expect(getByText('Home')).toBeTruthy();
     });
 });

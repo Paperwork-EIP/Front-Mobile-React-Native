@@ -1,0 +1,4 @@
+sonar.projectKey=Paperwork-EIP_Front-Mobile-React-Native
+sonar.organization=paperwork-eip
+sonar.javascript.lcov.reportPaths=/coverage/lcov.info
+sonar.exclusions=**/*.test.tsx, **/.json, **/tests/**/*, **/android/**, **/styles/**, **/android/**, **/ios/**, **/assets/**

@@ -8,6 +8,7 @@ import Help from "../pages/Help";
 import Lexicon from "../pages/Lexicon";
 import MainMenu from "../pages/MainMenu";
 import Settings from "../pages/Settings";
+import Profile from "../screens/Profile";
 
 import { home } from "../../styles/pages/home.js";
 
@@ -74,7 +75,7 @@ function Home() {
                 {/* A remplacer les screens par les pages correspondantes */}
                 <Tab.Screen name="Home" component={MainMenu} />
                 <Tab.Screen name="Calendar" component={Calendar} />
-                <Tab.Screen name="Profile" component={Settings} />
+                <Tab.Screen name="Profile" component={Profile} />
             </Tab.Navigator>
         </View>
     );

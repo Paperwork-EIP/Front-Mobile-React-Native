@@ -155,7 +155,7 @@
             "deleteAccountSuccess": "Compte supprimer avec succès",
             "alertUserNotFound": "Erreur: Utilisateur introuvable.",
             "alertSystemError": "Erreur: Erreur système.",
-            "alertMissingToken": "Erreur: Paramètre token manquant."
+            "alertMissingToken": "Erreur: Paramètre token manquant.",
             "deleteAccountQuestion": "Êtes-vous sûr de vouloir supprimer votre compte ?"
         },
         "help": {
@@ -203,6 +203,21 @@
             "help": "Aide",
             "lexicon": "Lexique",
             "today": "Aujourd'hui"
+        }
+    },
+    "profile": {
+        "personnalInfo": "Informations personnelles",
+        "edit": "Modifier",
+        "noInfo": "Aucune information",
+        "ongoingProcess": "Processus en cours",
+        "editInfo": {
+            "title" : "Modifier vos informations",
+            "address": "Adresse",
+            "age": "Age",
+            "name": "Noms",
+            "phoneNumber": "Numéro de téléphone",
+            "submit": "Envoyé",
+            "selectLanguage": "Sélectionnez votre langue"
         }
     }
 }

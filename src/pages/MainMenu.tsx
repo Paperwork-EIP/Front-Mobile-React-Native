@@ -19,6 +19,9 @@ const MainMenu: React.FC = () => {
       i18n.changeLanguage(language);
   };
 
+  const goToQuizzPage = () => {
+    navigation.navigate("QuizzPage");
+  };
   const goToLexiconPage = () => {
     navigation.navigate("Lexicon");
   };
@@ -136,7 +139,7 @@ const MainMenu: React.FC = () => {
               <Text style={mainmenu.processPercentage}>{`${item.percentage}%`}</Text>
             </View>
           ))}
-          <TouchableOpacity onPress={goToLexiconPage}>
+          <TouchableOpacity onPress={goToQuizzPage}>
               <Text style={mainmenu.button}>{t('mainmenu.newProcessButton')}</Text>
             </TouchableOpacity>
         </View>

@@ -10,6 +10,9 @@ import Settings from './src/pages/Settings';
 import MainMenu from './src/pages/MainMenu';
 import Lexicon from './src/pages/Lexicon';
 import Help from './src/pages/Help';
+import QuizzPage from './src/pages/QuizzPage';
+import Edit_info from './src/pages/Edit_info';
+import Result  from './src/pages/Result';
 
 import "./src/i18n/i18n";
 
@@ -27,6 +30,9 @@ function App() {
                 <Stack.Screen name="MainMenu" component={MainMenu} />
                 <Stack.Screen name="Lexicon" component={Lexicon} />
                 <Stack.Screen name="Help" component={Help} />
+                <Stack.Screen name="Edit_info" component={Edit_info} />
+                <Stack.Screen name="QuizzPage" component={QuizzPage} />
+                <Stack.Screen name="Result" component={Result} />
             </Stack.Navigator>
         </NavigationContainer>
     );

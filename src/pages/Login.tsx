@@ -7,6 +7,7 @@ import axios from "axios";
 import HidePasswordButton from "../components/HidePasswordButton";
 import ClickTextButtonWithDescription from "../components/ClickTextButtonWithDescription";
 import LongHorizontalButton from "../components/LongHorizontalButton";
+import LoadingComponent from "../components/LoadingComponent";
 
 import GoogleAuthButton from "../services/Google";
 import AlertErrorSomethingWrong from "../services/Errors";
@@ -20,6 +21,7 @@ function Login({ navigation }: { navigation: any }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [hidePassword, setHidePassword] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     function changeLanguage(language: string | undefined) {
         i18n.changeLanguage(language);
@@ -42,6 +44,7 @@ function Login({ navigation }: { navigation: any }) {
     }
 
     function redirectToConnectedPage() {
+        setIsLoading(false);
         navigation.navigate('Home');
         navigation.reset({
             index: 0,
@@ -51,6 +54,7 @@ function Login({ navigation }: { navigation: any }) {
 
     async function getDatas(email: string, password: string) {
         console.log('Connecting...');
+        setIsLoading(true);
 
         await axios.post(process.env.EXPO_PUBLIC_BASE_URL + '/user/login', {
             email: email,
@@ -89,6 +93,7 @@ function Login({ navigation }: { navigation: any }) {
                     console.log('Connected with email and password');
                 }
             } else {
+                setIsLoading(false);
                 Alert.alert(
                     t('login.error.title'),
                     t('login.error.message'),
@@ -99,12 +104,14 @@ function Login({ navigation }: { navigation: any }) {
             }
         }
         ).catch(function (error) {
+            setIsLoading(false);
             AlertErrorSomethingWrong(error, t);
         });
     }
 
     async function handleSubmit() {
         if (email && password) {
+            setIsLoading(true);
             await getDatas(email, password);
         } else {
             Alert.alert(
@@ -147,6 +154,9 @@ function Login({ navigation }: { navigation: any }) {
 
     return (
         <>
+            {
+                isLoading ? <LoadingComponent /> : null
+            }
             <View style={login.container}>
                 <View style={login.center}>
                     <Image

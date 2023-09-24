@@ -188,7 +188,6 @@ function CalendarComponent(props: any) {
                 <ExpandableCalendar
                     minDate={Date()}
                     firstDay={1}
-                    onDayPress={props.onDayPress}
                     markedDates={props.markedDates}
                     markingType="multi-dot"
                     testID="expandableCalendar"

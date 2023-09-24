@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import axios from "axios";
 
-import DisconnectButton from "../components/DisconnectButton";
 import CalendarComponent from "../components/calendar/CalendarComponent";
 import { getItem } from "../services/Storage";
 
 import { calendar, brightRed } from "../../styles/screen/calendar";
 
-function Calendar({ navigation }: { navigation: any }) {
+function Calendar() {
     const [selected, setSelected] = useState('');
     const [items, setItems] = useState<any>([]);
     const [token, setToken] = useState('');
@@ -17,15 +16,6 @@ function Calendar({ navigation }: { navigation: any }) {
     const url = process.env.EXPO_PUBLIC_BASE_URL;
 
     let markedDates: any = {};
-
-    function handleDayPressed(day: { year?: number; month?: number; day?: number; timestamp?: number; dateString: any; }) {
-        setSelected(day.dateString);
-        console.log('selected day', day);
-    }
-
-    function handleOnItemPressed(item: any) {
-        console.log('selected item', item);
-    }
 
     function setColor(index: number) {
         const listColor = ['orange', 'blue', 'green', 'red', 'purple', 'pink', 'yellow', 'grey', 'black', 'brown'];
@@ -70,21 +60,30 @@ function Calendar({ navigation }: { navigation: any }) {
         });
     }
 
-    function updateMarkedDates() {
-        // Update marked dates when user selects a day
-        markedDates[selected] = {
-            selected: true,
-            disableTouchEvent: true,
-            selectedColor: selectedDotColor,
-        };
-    }
-
     function setDotMarkedDates() {
-        for (const item of items) {
-            markedDates[item.title] = {
-                dots: item.data
+        items.forEach((item: any) => {
+            const date = item.title;
+            const dotColor = item.data[0].color;
+
+            if (markedDates[date]) {
+                markedDates[date].dots = [
+                    ...markedDates[date].dots,
+                    {
+                        color: dotColor,
+                        selectedDotColor: selectedDotColor,
+                    },
+                ];
+            } else {
+                markedDates[date] = {
+                    dots: [
+                        {
+                            color: dotColor,
+                            selectedDotColor: selectedDotColor,
+                        },
+                    ],
+                };
             }
-        }
+        });
     }
 
     async function getLoginToken() {
@@ -106,7 +105,6 @@ function Calendar({ navigation }: { navigation: any }) {
                 getLoginToken();
             }, 5000);
         }
-        updateMarkedDates();
         setDotMarkedDates();
 
         return () => clearInterval(interval);
@@ -121,8 +119,6 @@ function Calendar({ navigation }: { navigation: any }) {
                 styleEmptyText={calendar.container.empty.text}
                 markedDates={markedDates}
                 items={items}
-                onDayPress={handleDayPressed}
-                onItemPress={handleOnItemPressed}
             />
         </View >
     );

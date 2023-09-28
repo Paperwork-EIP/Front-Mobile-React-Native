@@ -1,23 +1,17 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Button, TouchableOpacity, Image, Linking } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import axios from "axios";
 import { useTranslation } from 'react-i18next';
 import { getItem } from "../services/Storage";
 import { mainmenu } from "../../styles/pages/mainmenu";
 import { useNavigation } from '@react-navigation/native';
-import Help from "../pages/Help";
-import Lexicon from "../pages/Lexicon";
 
 import CalendarComponent from "../components/calendar/CalendarComponentMainMenu";
 import { calendar, brightRed } from "../../styles/screen/calendar";
 
 const MainMenu: React.FC = () => {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     const navigation = useNavigation();
-
-    function changeLanguage(language: string | undefined) {
-        i18n.changeLanguage(language);
-    };
 
     const goToQuizzPage = () => {
         navigation.navigate("QuizzPage");

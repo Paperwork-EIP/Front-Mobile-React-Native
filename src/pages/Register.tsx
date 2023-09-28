@@ -8,6 +8,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import HidePasswordButton from "../components/HidePasswordButton"
 import ClickTextButtonWithDescription from "../components/ClickTextButtonWithDescription";
 import LongHorizontalButton from "../components/LongHorizontalButton";
+import LoadingComponent from "../components/LoadingComponent";
 
 import GoogleAuthButton from "../services/Google";
 
@@ -22,6 +23,7 @@ function Register({ navigation }: { navigation: any }) {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [hidePassword, setHidePassword] = useState(true);
     const [hideConfirmPassword, setHideConfirmPassword] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     function changeLanguage(language: string | undefined) {
         i18n.changeLanguage(language);
@@ -32,6 +34,7 @@ function Register({ navigation }: { navigation: any }) {
     }
 
     function redirectToConnectedPage() {
+        setIsLoading(false);
         navigation.navigate('Home');
         navigation.reset({
             index: 0,
@@ -57,6 +60,7 @@ function Register({ navigation }: { navigation: any }) {
 
     function handleSubmit() {
         if (email && password && confirmPassword && password === confirmPassword && username) {
+            setIsLoading(true);
             axios.post(process.env.EXPO_PUBLIC_BASE_URL + '/user/register', {
                 username: username,
                 email: email,
@@ -68,6 +72,7 @@ function Register({ navigation }: { navigation: any }) {
                     redirectToConnectedPage();
                 }
                 else {
+                    setIsLoading(false);
                     Alert.alert(
                         t('register.error.title'),
                         t('register.error.somethingWrong'),
@@ -78,6 +83,7 @@ function Register({ navigation }: { navigation: any }) {
                 }
             }
             ).catch(function (error) {
+                setIsLoading(false);
                 if (error.response.status === 409) {
                     Alert.alert(
                         t('register.error.title'),

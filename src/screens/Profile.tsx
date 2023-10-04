@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, View, Image, Text, TouchableHighlight } from "react-native";
+import { View, Image, Text, TouchableHighlight, ImageStyle } from "react-native";
 import { useTranslation } from 'react-i18next';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -9,12 +9,12 @@ import axios from "axios";
 
 import { profile } from "../../styles/screen/profile.js";
 
-function Profile({ navigation } : { navigation: any }) {
-    
+function Profile({ navigation }: { navigation: any }) {
+
     const url = process.env.EXPO_PUBLIC_BASE_URL;
     const [items, setItems] = useState<any>([]);
 
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
     // User informations
     const [username, setUsername] = React.useState("");
@@ -27,7 +27,7 @@ function Profile({ navigation } : { navigation: any }) {
     const [phonenumber, setPhonenumber] = React.useState("");
     const [profilePicture, setProfilePicture] = React.useState('');
 
-    const [userProcessInfo, setUserProcessInfo]:any = useState([{}]);
+    const [userProcessInfo, setUserProcessInfo]: any = useState([{}]);
 
     // let profilePictureDisplay;
 
@@ -35,14 +35,14 @@ function Profile({ navigation } : { navigation: any }) {
         const token = await getItem('@loginToken');
         const response = await axios.get(`${url}/userProcess/getUserProcesses?user_token=${token}`);
 
-      const userProcessTmp = [];
-      for (let j = 0; j < response.data.response.length; j++) {
-        if (response.data.response[j]['pourcentage'] != null)
-          userProcessTmp.push({ process: response.data.response[j]['userProcess'].title, percentage: response.data.response[j]['pourcentage'] });
-        else
-          userProcessTmp.push({ process: response.data.response[j]['userProcess'].title, percentage: 0 });
-      }
-      setUserProcessInfo(userProcessTmp);
+        const userProcessTmp = [];
+        for (let j = 0; j < response.data.response.length; j++) {
+            if (response.data.response[j]['pourcentage'] != null)
+                userProcessTmp.push({ process: response.data.response[j]['userProcess'].title, percentage: response.data.response[j]['pourcentage'] });
+            else
+                userProcessTmp.push({ process: response.data.response[j]['userProcess'].title, percentage: 0 });
+        }
+        setUserProcessInfo(userProcessTmp);
         // axios.get(`${url}/userProcess/getUserProcesses`, { params: { user_token: token } })
         // .then(res => {
         //     setUserProcessInfo(res.data.response);
@@ -70,7 +70,7 @@ function Profile({ navigation } : { navigation: any }) {
             });
     }
 
-    const goToEdit = () => navigation.navigate("Edit_info", {username: username, name: name, firstname: firstname, language: language, age: age, email: email, address: address, phonenumber: phonenumber, profilePicture: profilePicture});
+    const goToEdit = () => navigation.navigate("Edit_info", { username: username, name: name, firstname: firstname, language: language, age: age, email: email, address: address, phonenumber: phonenumber, profilePicture: profilePicture });
 
     useEffect(() => {
         getUserInfo();
@@ -84,13 +84,13 @@ function Profile({ navigation } : { navigation: any }) {
     return (
         <View style={profile.container}>
             <View style={profile.header}>
-                <TouchableHighlight style={profile.toSettings} onPress={() => {navigation.navigate('Settings')}}>
+                <TouchableHighlight style={profile.toSettings} onPress={() => { navigation.navigate('Settings') }}>
                     <Ionicons name={'settings-sharp'} size={30} color={'black'} />
                 </TouchableHighlight>
             </View>
             <View style={profile.center}>
                 <Image source={/*profilePicture === null ?*/ require('../../assets/avatar/NoAvatar.png') /*: profilePicture*/}
-                    style={[profile.profilePicture, profile.shadowProp]} />
+                    style={[profile.profilePicture, profile.shadowProp] as ImageStyle} />
             </View>
             <View style={profile.content}>
                 <View >
@@ -101,35 +101,34 @@ function Profile({ navigation } : { navigation: any }) {
                         </ Text>
                     </View>
                     <View style={profile.info}>
-                        <Text style={profile.text}> Username : {username? username : t('profile.noInfo')} </ Text>
+                        <Text style={profile.text}> Username : {username ? username : t('profile.noInfo')} </ Text>
                         <View style={profile.line} />
-                        <Text style={profile.text}> Name : {name? name : t('profile.noInfo')} </ Text>
+                        <Text style={profile.text}> Name : {name ? name : t('profile.noInfo')} </ Text>
                         <View style={profile.line} />
-                        <Text style={profile.text}> Firstname : {firstname? firstname : t('profile.noInfo')} </ Text>
+                        <Text style={profile.text}> Firstname : {firstname ? firstname : t('profile.noInfo')} </ Text>
                         <View style={profile.line} />
-                        <Text style={profile.text}> Language : {language? language : t('profile.noInfo')} </ Text>
+                        <Text style={profile.text}> Language : {language ? language : t('profile.noInfo')} </ Text>
                         <View style={profile.line} />
-                        <Text style={profile.text}> Age : {age? age : t('profile.noInfo')} </ Text>
+                        <Text style={profile.text}> Age : {age ? age : t('profile.noInfo')} </ Text>
                         <View style={profile.line} />
-                        <Text style={profile.text}> Email : {email? email : t('profile.noInfo')} </ Text>
+                        <Text style={profile.text}> Email : {email ? email : t('profile.noInfo')} </ Text>
                         <View style={profile.line} />
-                        <Text style={profile.text}> Address : {address? address : t('profile.noInfo')} </ Text>
+                        <Text style={profile.text}> Address : {address ? address : t('profile.noInfo')} </ Text>
                         <View style={profile.line} />
-                        <Text style={profile.text}> Phone number : {phonenumber? phonenumber : t('profile.noInfo')} </ Text>
+                        <Text style={profile.text}> Phone number : {phonenumber ? phonenumber : t('profile.noInfo')} </ Text>
                     </View>
                 </View>
                 <View >
                     <Text style={profile.title}> {t('profile.ongoingProcess')} </ Text>
                     {userProcessInfo.map((item: any, index: number) => (
                         <View key={index} style={profile.processContainer}>
-                        <Text style={profile.processName}>{item.process}:</Text>
-                        <Text style={profile.processPercentage}>{`${item.percentage}%`}</Text>
-            </View>
-          ))}
-
+                            <Text style={profile.processName}>{item.process}:</Text>
+                            <Text style={profile.processPercentage}>{`${item.percentage}%`}</Text>
+                        </View>
+                    ))}
                 </View>
             </View>
-         </View >
+        </View >
     );
 };
 

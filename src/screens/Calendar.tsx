@@ -8,9 +8,9 @@ import { getItem } from "../services/Storage";
 import { calendar, brightRed } from "../../styles/screen/calendar";
 
 function Calendar() {
-    const [selected, setSelected] = useState('');
     const [items, setItems] = useState<any>([]);
     const [token, setToken] = useState('');
+    const [markedDatesState, setMarkedDatesState] = useState<any>({});
 
     const selectedDotColor = brightRed;
     const url = process.env.EXPO_PUBLIC_BASE_URL;
@@ -61,20 +61,22 @@ function Calendar() {
     }
 
     function setDotMarkedDates() {
+        let tmp: any = {};
+
         items.forEach((item: any) => {
             const date = item.title;
             const dotColor = item.data[0].color;
 
-            if (markedDates[date]) {
-                markedDates[date].dots = [
-                    ...markedDates[date].dots,
+            if (tmp[date]) {
+                tmp[date].dots = [
+                    ...tmp[date].dots,
                     {
                         color: dotColor,
                         selectedDotColor: selectedDotColor,
                     },
                 ];
             } else {
-                markedDates[date] = {
+                tmp[date] = {
                     dots: [
                         {
                             color: dotColor,
@@ -84,6 +86,9 @@ function Calendar() {
                 };
             }
         });
+
+        markedDates = tmp;
+        setMarkedDatesState(markedDates);
     }
 
     async function getLoginToken() {
@@ -103,12 +108,13 @@ function Calendar() {
         } else {
             interval = setInterval(() => {
                 getLoginToken();
-            }, 5000);
+            }, 3000);
         }
+        
         setDotMarkedDates();
 
         return () => clearInterval(interval);
-    }, [selected, items]);
+    }, [items]);
 
     return (
         <View style={calendar.container}>
@@ -117,7 +123,7 @@ function Calendar() {
                 sectionStyle={calendar.container.section}
                 styleEmpty={calendar.container.empty}
                 styleEmptyText={calendar.container.empty.text}
-                markedDates={markedDates}
+                markedDates={markedDatesState}
                 items={items}
             />
         </View >

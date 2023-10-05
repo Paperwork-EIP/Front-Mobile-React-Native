@@ -1,28 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
-import axios from "axios";
 import { useTranslation } from 'react-i18next';
+import axios from "axios";
+
 import { getItem } from "../services/Storage";
-import { mainmenu } from "../../styles/pages/mainmenu";
-import { useNavigation } from '@react-navigation/native';
 
 import CalendarComponent from "../components/calendar/CalendarComponentMainMenu";
-import { calendar, brightRed } from "../../styles/screen/calendar";
 
-const MainMenu: React.FC = () => {
+import { mainmenu } from "../../styles/screen/mainmenu";
+import { calendar } from "../../styles/screen/calendar";
+
+const MainMenu: React.FC = ({ navigation }: any) => {
+    const [userProcessInfo, setUserProcessInfo]: any = useState([{}]);
+
     const { t } = useTranslation();
-    const navigation = useNavigation();
 
-    const goToQuizzPage = () => {
+    function goToQuizzPage() {
         navigation.navigate("QuizzPage");
     };
-    const goToLexiconPage = () => {
+
+    function goToLexiconPage() {
         navigation.navigate("Lexicon");
     };
-    const goToHelpPage = () => {
+
+    function goToHelpPage() {
         navigation.navigate("Help");
     };
-    const [userProcessInfo, setUserProcessInfo]: any = useState([{}]);
 
     async function getProcess(token: string) {
         try {
@@ -40,42 +43,45 @@ const MainMenu: React.FC = () => {
         }
     }
 
-    const [selected, setSelected] = useState('');
     const [items, setItems] = useState<any>([]);
     const [token, setToken] = useState('');
 
-    const selectedDotColor = brightRed;
     const url = process.env.EXPO_PUBLIC_BASE_URL;
 
     let markedDates: any = {};
 
-    function handleDayPressed(day: { year?: number; month?: number; day?: number; timestamp?: number; dateString: any; }) {
-        setSelected(day.dateString);
-    }
+    function setColor(index: number) {
+        const listColor = ['orange', 'blue', 'green', 'red', 'purple', 'pink', 'yellow', 'grey', 'black', 'brown'];
 
-    function getRandomColor() {
-        const listColor = ['orange', 'blue', 'green', 'red', 'purple', 'pink', 'yellow', 'grey', 'black'];
+        if (index > listColor.length - 1) {
+            index = 0;
+        }
 
-        return listColor[5];
+        return listColor[index];
     }
 
     async function updateItems(token: string) {
         await axios.get(`${url}/calendar/getAll?token=${token}`).then((response) => {
             let list: any = [];
 
-            for (const value of response.data.appoinment) {
+            for (const [index, value] of response.data.appoinment.entries()) {
                 const date = value.date;
                 const hour = date.split('T')[1].split(':')[0] + ':' + date.split('T')[1].split(':')[1];
-                const title = date.split('T')[0];
+                const titleDate = date.split('T')[0];
                 const data = [
                     {
                         title: hour + " - " + value.step_title,
-                        color: getRandomColor()
+                        color: setColor(index)
                     },
                 ];
 
                 list.push({
-                    title: title,
+                    title: titleDate,
+                    processTitle: value.process_title,
+                    stockedTitle: value.stocked_title,
+                    stepDescription: value.step_description,
+                    userProcessId: value.user_process_id,
+                    stepId: value.step_id,
                     data: data
                 });
             }
@@ -85,23 +91,6 @@ const MainMenu: React.FC = () => {
             setItems([]);
             console.error("Error axios get calendar : ", error.response);
         });
-    }
-
-    function updateMarkedDates() {
-        // Update marked dates when user selects a day
-        markedDates[selected] = {
-            selected: true,
-            disableTouchEvent: true,
-            selectedColor: selectedDotColor,
-        };
-    }
-
-    function setDotMarkedDates() {
-        for (const item of items) {
-            markedDates[item.title] = {
-                dots: item.data
-            }
-        }
     }
 
     async function getLoginToken() {
@@ -115,15 +104,20 @@ const MainMenu: React.FC = () => {
     }
 
     useEffect(() => {
+        let interval: any;
+
         if (!token || items.length === 0) {
             getLoginToken();
+        } else {
+            interval = setInterval(() => {
+                getLoginToken();
+            }, 3000);
         }
-        updateMarkedDates();
-        setDotMarkedDates();
-    }, [selected, items]);
+
+        return () => clearInterval(interval);
+    }, [items]);
 
     return (
-
         <View style={mainmenu.container}>
             <View style={mainmenu.sectionContainer}>
                 <Text style={mainmenu.title}>{t('mainmenu.process')}</Text>
@@ -139,16 +133,20 @@ const MainMenu: React.FC = () => {
             </View>
             <View style={mainmenu.sectionContainer}>
                 <Text style={mainmenu.title}>{t('mainmenu.events')}</Text>
+                <View style={mainmenu.calendarContainer}>
+                    <View style={mainmenu.calendarWrapper}>
+                        <CalendarComponent
+                            style={calendar.container.calendar}
+                            sectionStyle={calendar.container.section}
+                            styleEmpty={calendar.container.empty}
+                            styleEmptyText={calendar.container.empty.text}
+                            markedDates={markedDates}
+                            items={items}
+                            onPressButton={() => navigation.navigate("Calendar")}
+                        />
+                    </View>
+                </View>
             </View>
-            <CalendarComponent
-                style={calendar.container.calendar}
-                sectionStyle={calendar.container.section}
-                styleEmpty={calendar.container.empty}
-                styleEmptyText={calendar.container.empty.text}
-                markedDates={markedDates}
-                items={items}
-                onDayPress={handleDayPressed}
-            />
             <View style={mainmenu.sectionContainer}>
                 <Text style={mainmenu.title}>{t('mainmenu.needHelp')}</Text>
                 <View style={mainmenu.buttonContainerWrapper}>

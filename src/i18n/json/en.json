@@ -220,5 +220,11 @@
             "submit": "Submit",
             "selectLanguage": "Select language"
         }
+    },
+    "header": {
+        "navigationQuestion": "Choose where you want to navigate:",
+        "homePage": "Home",
+        "profilePage": "Profile",
+        "settingsPage": "Settings"
     }
 }

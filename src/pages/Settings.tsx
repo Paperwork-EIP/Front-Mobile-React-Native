@@ -3,13 +3,14 @@ import { TouchableOpacity, Icon, View, Text, Switch, Modal } from "react-native"
 import { useTranslation } from 'react-i18next';
 import axios from "axios";
 import Ionicons from '@expo/vector-icons/Ionicons';
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { settingsLight, settingsDark } from "../../styles/pages/settings.js";
 import { getItem } from "../services/Storage";
 import DisconnectButton from "../components/DisconnectButton";
 import LongHorizontalButton from "../components/LongHorizontalButton";
-import { deleteItemAndRedirectTo } from '../services/Storage';
+import { deleteItemAndRedirectTo } from "../services/Storage";
+import Header from "../components/Header";
 
 function Settings({ navigation }: { navigation: any }) {
 
@@ -104,24 +105,7 @@ function Settings({ navigation }: { navigation: any }) {
         <>
             <View style={isDarkMode ? settingsDark.container : settingsLight.container}>
                 <View style={isDarkMode ? settingsDark.content : settingsLight.content}>
-                    <View>
-                        <TouchableOpacity
-                            style={isDarkMode ? settingsDark.homeBtn : settingsLight.homeBtn}
-                            onPress={() => navigation.navigate('Home')}
-                            testID="backHomeBtn">
-                            <Ionicons
-                                name="chevron-back-outline"
-                                size={28}
-                                color={isDarkMode ? "white" : "black"}
-                                testID="iconPageTitle"
-                            />
-                            <Text
-                                style={isDarkMode ? settingsDark.homeBtn.text : settingsLight.homeBtn.text}
-                                testID="pageTitle"
-                            >
-                            {t('settings.pageTitle')}</Text>
-                        </TouchableOpacity>
-                    </View>
+                    <Header navigation={navigation} isDarkMode={isDarkMode} pageName={t('settings.pageTitle')} />
                     <View style={isDarkMode ? settingsDark.settingsContainer : settingsLight.settingsContainer}>
                         <View style={isDarkMode ? settingsDark.section : settingsLight.section}>
                             <Text

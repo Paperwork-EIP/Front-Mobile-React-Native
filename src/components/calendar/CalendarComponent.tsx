@@ -163,12 +163,11 @@ function CalendarComponent(props: any) {
                 return displayItemModal(itemModalData);
             } else if (actionsModalVisible) {
                 return displayActionsModal(itemModalData);
+            } else if (addModalVisible) {
+                return displayAddModal();
             } else {
                 return null;
             }
-        }
-        if (addModalVisible) {
-            return displayAddModal();
         }
     }
 

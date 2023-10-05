@@ -31,8 +31,8 @@ const mainmenu = StyleSheet.create({
     paddingVertical: 4,
   },
   processName: {
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: 14,
+    fontWeight: '400',
     color: '#333',
   },
   processPercentage: {
@@ -70,7 +70,7 @@ const mainmenu = StyleSheet.create({
     justifyContent: 'space-between',
   },
   title: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 'bold',
     paddingVertical: 12,
     color: '#333',
@@ -88,6 +88,14 @@ const mainmenu = StyleSheet.create({
     resizeMode: 'contain',
     aspectRatio: 1,
   },
+  calendarContainer: {
+    width: '100%',
+    height: 310,
+    paddingBottom: 16,
+  },
+  calendarWrapper: {
+    height: '100%',
+  }
 });
 
 export { mainmenu };

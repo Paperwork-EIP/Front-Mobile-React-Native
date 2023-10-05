@@ -6,8 +6,8 @@ import { calendar_items } from "../../../styles/components/calendar/calendar_ite
 
 interface CalendarItemsProps {
     item: any;
-    onPressCard: (event: GestureResponderEvent) => void;
-    onPressButton: (event: GestureResponderEvent) => void;
+    onPressCard?: (event: GestureResponderEvent) => void;
+    onPressButton?: (event: GestureResponderEvent) => void;
 }
 
 function CalendarItems(props: CalendarItemsProps) {

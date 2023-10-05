@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { View, Image, Text, TouchableHighlight, ImageStyle } from "react-native";
+import { View, Image, Text, TouchableOpacity } from "react-native";
 import { useTranslation } from 'react-i18next';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import axios from "axios";
 
 import { getItem } from "../services/Storage";
-
-import axios from "axios";
 
 import { profile } from "../../styles/screen/profile.js";
 
@@ -27,9 +26,39 @@ function Profile({ navigation }: { navigation: any }) {
     const [phonenumber, setPhonenumber] = React.useState("");
     const [profilePicture, setProfilePicture] = React.useState('');
 
-    const [userProcessInfo, setUserProcessInfo]: any = useState([{}]);
+    const [userProcessInfo, setUserProcessInfo]: any = useState([]);
 
-    // let profilePictureDisplay;
+    const colorEditButton = '#FC6976';
+    const colorInfoIcons = '#29c9b3';
+    const sizeInfoIcons = 16;
+
+    const propsCardInfo = [
+        {
+            title: t('profile.email'),
+            icon: 'mail-outline',
+            text: email ? email : t('profile.noInfo')
+        },
+        {
+            title: t('profile.language'),
+            icon: 'language-outline',
+            text: language ? language : t('profile.noInfo')
+        },
+        {
+            title: t('profile.age'),
+            icon: 'newspaper-outline',
+            text: age ? age : t('profile.noInfo')
+        },
+        {
+            title: t('profile.address'),
+            icon: 'location-outline',
+            text: address ? address : t('profile.noInfo')
+        },
+        {
+            title: t('profile.phoneNumber'),
+            icon: 'call-outline',
+            text: phonenumber ? phonenumber : t('profile.noInfo')
+        }
+    ]
 
     async function getProcess() {
         const token = await getItem('@loginToken');
@@ -43,13 +72,6 @@ function Profile({ navigation }: { navigation: any }) {
                 userProcessTmp.push({ process: response.data.response[j]['userProcess'].title, percentage: 0 });
         }
         setUserProcessInfo(userProcessTmp);
-        // axios.get(`${url}/userProcess/getUserProcesses`, { params: { user_token: token } })
-        // .then(res => {
-        //     setUserProcessInfo(res.data.response);
-        //     console.log("userProcessInfo = " + userProcessInfo);
-        // }).catch(err => {
-        //     console.log(err)
-        // });
     }
 
     async function getUserInfo() {
@@ -74,58 +96,94 @@ function Profile({ navigation }: { navigation: any }) {
 
     useEffect(() => {
         getUserInfo();
-        getProcess();
+        // getProcess();
         // profilePictureDisplay = require(profilePicture);
-        // console.log("profilePictureDisplay = " + profilePictureDisplay);
-        console.log("userProcessInfo = " + userProcessInfo);
-        console.log("userInfo = " + username + " " + name + " " + firstname + " " + language + " " + age + " " + email + " " + address + " " + phonenumber + " " + profilePicture);
     }, [items]);
 
     return (
         <View style={profile.container}>
-            <View style={profile.header}>
-                <TouchableHighlight style={profile.toSettings} onPress={() => { navigation.navigate('Settings') }}>
-                    <Ionicons name={'settings-sharp'} size={30} color={'black'} />
-                </TouchableHighlight>
-            </View>
-            <View style={profile.center}>
-                <Image source={/*profilePicture === null ?*/ require('../../assets/avatar/NoAvatar.png') /*: profilePicture*/}
-                    style={[profile.profilePicture, profile.shadowProp] as ImageStyle} />
+            <View style={profile.profileWrapper}>
+                <View style={profile.profilePictureWrapper}>
+                    <Image
+                        source={/*profilePicture === null ?*/ require('../../assets/avatar/NoAvatar.png') /*: profilePicture*/}
+                        style={profile.profilePicture}
+                    />
+                </View>
+                <View style={profile.profileTexts}>
+                    <Text style={profile.profileText}>{firstname ? firstname : t('profile.noInfo')} </ Text>
+                    <Text style={profile.profileText}>{name ? name : t('profile.noInfo')} </ Text>
+                </View>
+                <View style={profile.profileTexts}>
+                    <Text style={profile.profileTextUsername}>{username ? username : t('profile.noInfo')}</Text>
+                </View>
             </View>
             <View style={profile.content}>
-                <View >
-                    <View >
-                        <Text>
-                            <Text style={profile.title}> {t('profile.personnalInfo')} </ Text>
-                            <Text style={profile.edit} onPress={goToEdit}> {t('profile.edit')} <Ionicons name={'pencil'} size={19} color={'#29c9b3'} /> </ Text>
+                <View style={profile.editWrapper}>
+                    <Text style={profile.title}>{t('profile.personnalInfo')}</ Text>
+                    <TouchableOpacity style={profile.editButton} onPress={goToEdit}>
+                        <Text style={profile.edit}>
+                            {t('profile.edit')}
                         </ Text>
-                    </View>
-                    <View style={profile.info}>
-                        <Text style={profile.text}> Username : {username ? username : t('profile.noInfo')} </ Text>
-                        <View style={profile.line} />
-                        <Text style={profile.text}> Name : {name ? name : t('profile.noInfo')} </ Text>
-                        <View style={profile.line} />
-                        <Text style={profile.text}> Firstname : {firstname ? firstname : t('profile.noInfo')} </ Text>
-                        <View style={profile.line} />
-                        <Text style={profile.text}> Language : {language ? language : t('profile.noInfo')} </ Text>
-                        <View style={profile.line} />
-                        <Text style={profile.text}> Age : {age ? age : t('profile.noInfo')} </ Text>
-                        <View style={profile.line} />
-                        <Text style={profile.text}> Email : {email ? email : t('profile.noInfo')} </ Text>
-                        <View style={profile.line} />
-                        <Text style={profile.text}> Address : {address ? address : t('profile.noInfo')} </ Text>
-                        <View style={profile.line} />
-                        <Text style={profile.text}> Phone number : {phonenumber ? phonenumber : t('profile.noInfo')} </ Text>
-                    </View>
+                        <Ionicons name={'create-outline'} size={18} color={colorEditButton} />
+                    </TouchableOpacity>
                 </View>
-                <View >
-                    <Text style={profile.title}> {t('profile.ongoingProcess')} </ Text>
-                    {userProcessInfo.map((item: any, index: number) => (
-                        <View key={index} style={profile.processContainer}>
-                            <Text style={profile.processName}>{item.process}:</Text>
-                            <Text style={profile.processPercentage}>{`${item.percentage}%`}</Text>
-                        </View>
+                <View style={profile.info}>
+                    {propsCardInfo.map((item: any, index: number) => (
+                        <>
+                            <View key={index} style={profile.textsInfo}>
+                                <View style={profile.leftPartInfo}>
+                                    <Ionicons name={item.icon} size={sizeInfoIcons} color={colorInfoIcons} />
+                                    <Text style={profile.leftPartInfoText}>
+                                        {item.title}
+                                    </Text>
+                                </View>
+                                <View style={profile.rightPartInfo}>
+                                    <Text style={profile.rightPartInfoText}>
+                                        {item.text}
+                                    </Text>
+                                </View>
+                            </ View>
+                            {
+                                index + 1 !== propsCardInfo.length &&
+                                <View style={profile.line} />
+                            }
+                        </>
                     ))}
+                </View>
+                <View style={profile.content}>
+                    <Text style={profile.title}>{t('profile.ongoingProcess')}</ Text>
+                    {
+                        userProcessInfo.length > 0 ?
+                            <View style={profile.info}>
+                                {userProcessInfo.map((item: any, index: number) => (
+                                    <>
+                                        <View key={index} style={profile.textsInfo}>
+                                            <View style={profile.leftPartInfo}>
+                                                <Text>
+                                                    {index + 1}.
+                                                </Text>
+                                                <Text style={profile.leftPartInfoText}>
+                                                    {item.process}
+                                                </Text>
+                                            </View>
+                                            <View style={profile.rightPartInfo}>
+                                                <Text style={profile.rightPartInfoText}>
+                                                    {item.percentage}%
+                                                </Text>
+                                            </View>
+                                        </ View>
+                                        {
+                                            index + 1 !== userProcessInfo.length &&
+                                            <View style={profile.line} />
+                                        }
+                                    </>
+                                ))}
+                            </View>
+                            :
+                            <View style={profile.noProcess}>
+                                <Text style={profile.noProcessText}>{t('profile.noProcess')}</Text>
+                            </View>
+                    }
                 </View>
             </View>
         </View >

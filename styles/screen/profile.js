@@ -1,21 +1,110 @@
 import { StyleSheet } from 'react-native';
 
 const profile = StyleSheet.create({
-    toSettings: {
-        alignContent: 'left',
+    container: {
+        width: '100%',
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 20,
+        paddingHorizontal: 25,
+        backgroundColor: 'white',
+    },
+    content: {
+        flex: 3,
+        width: '100%',
+    },
+    settingsButton: {
+        marginRight: 20,
+    },
+    editWrapper: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    editButton: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 6,
+        flexDirection: 'row',
+    },
+    profileWrapper: {
+        width: '100%',
+        flex: 1,
+        overflow: 'hidden',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    profilePictureWrapper: {
+        elevation: 20,
+        borderRadius: 50,
+        shadowColor: '#FC6976',
+        borderColor: '#FC6976',
+        borderWidth: 2,
+        marginBottom: 18,
     },
     profilePicture: {
-        width: '80%',
-        height: '70%',
-        // backgroundColor: '#000000',
-        borderRadius: 100,
+        height: 80,
+        width: 80,
+        borderRadius: 40,
     },
-    shadowProp: {
-        shadowColor: '#171717',
-        shadowOffset: {width: -2, height: 4},
-        shadowOpacity: 0.2,
-        shadowRadius: 3,
+    profileTexts: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
     },
+    profileText: {
+        fontSize: 20,
+        fontWeight: '500',
+        letterSpacing: 0.8,
+    },
+    profileTextUsername: {
+        fontSize: 16,
+        letterSpacing: 1.3,
+    },
+    textsInfo: {
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        paddingVertical: 9,
+        paddingHorizontal: 12,
+    },
+    leftPartInfo: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        gap: 10,
+    },
+    rightPartInfo: {
+        alignItems: 'flex-end',
+        justifyContent: 'center',
+    },
+    leftPartInfoText: {
+        fontSize: 12,
+        fontWeight: '400',
+    },
+    rightPartInfoText: {
+        fontSize: 13,
+        fontWeight: '500',
+    },
+    noProcess: {
+        marginTop: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#f2f2f2',
+        borderRadius: 15,
+        paddingVertical: 25,
+    },
+    noProcessText: {
+        fontSize: 16,
+        opacity: 0.5,
+        fontWeight: '500',
+        color: 'black',
+    },
+
+
     button: {
         width: '30%',
         backgroundColor: '#29C9B3',
@@ -36,12 +125,7 @@ const profile = StyleSheet.create({
             fontWeight: 'bold'
         }
     },
-    content: {
-        flex: 2,
-        width: '100%',
-        paddingTop: 20,
-        paddingLeft: 20,
-    },
+
     passwordContainer: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -63,14 +147,7 @@ const profile = StyleSheet.create({
         width: '100%',
         height: 150
     },
-    container: {
-        width: '100%',
-        height: '100%',
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-        // paddingTop: 50
-    },
+
     header: {
         width: '100%',
         alignItems: 'flex-end',
@@ -81,41 +158,30 @@ const profile = StyleSheet.create({
         height: '20%',
         alignItems: 'center',
         justifyContent: 'center',
-        // backgroundColor: '#c6c8cc',
     },
     title: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: 'black',
-        marginTop: 15,
-        marginLeft: 5
+        fontSize: 14,
+        fontWeight: '600',
     },
     edit: {
-        fontSize: 15,
-        fontWeight: 'bold',
-        color: '#29c9b3',
-        marginLeft: 50,
-        textAlign: 'right',
+        fontSize: 14,
+        fontWeight: '500',
+        color: '#FC6976',
     },
-    info : {
-        backgroundColor: '#f0f0f0',
-        width: '85%',
+    info: {
+        backgroundColor: '#e9ecef',
         borderRadius: 10,
         marginTop: 10,
         marginBottom: 30,
     },
     text: {
         fontSize: 13,
-        // fontWeight: 'bold',
-        color: 'black',
-        marginTop: 5,
-        marginBottom: 5,
-        marginLeft: 10,
-        textAlign: 'left',
+        paddingVertical: 9,
+        paddingHorizontal: 10,
     },
-    line : {
-        borderBottomColor: 'black',
-        borderBottomWidth: StyleSheet.hairlineWidth
+    line: {
+        borderBottomColor: 'grey',
+        borderBottomWidth: StyleSheet.hairlineWidth,
     },
     input: {
         width: '90%',
@@ -133,17 +199,17 @@ const profile = StyleSheet.create({
         alignItems: 'center',
         marginTop: 8,
         marginBottom: 8,
-      },
-      processName: {
+    },
+    processName: {
         fontSize: 16,
         fontWeight: 'bold',
         marginRight: 5,
         color: '#333',
-      },
-      processPercentage: {
+    },
+    processPercentage: {
         fontSize: 16,
         color: '#555',
-      },
+    },
 });
 
 const result = StyleSheet.create({

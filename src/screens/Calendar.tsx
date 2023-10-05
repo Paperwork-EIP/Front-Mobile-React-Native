@@ -126,7 +126,7 @@ function Calendar() {
                 markedDates={markedDatesState}
                 items={items}
             />
-        </View >
+        </View>
     );
 };
 

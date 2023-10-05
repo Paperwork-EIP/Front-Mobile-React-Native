@@ -14,7 +14,7 @@ const calendar_items = StyleSheet.create({
         alignItems: 'center',
 
         title: {
-            fontSize: 16,
+            fontSize: 14,
             fontWeight: 'bold',
             width: '85%',
         },

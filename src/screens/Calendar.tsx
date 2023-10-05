@@ -110,7 +110,6 @@ function Calendar() {
                 getLoginToken();
             }, 3000);
         }
-        
         setDotMarkedDates();
 
         return () => clearInterval(interval);

@@ -96,7 +96,7 @@ function Profile({ navigation }: { navigation: any }) {
 
     useEffect(() => {
         getUserInfo();
-        // getProcess();
+        getProcess();
         // profilePictureDisplay = require(profilePicture);
     }, [items]);
 

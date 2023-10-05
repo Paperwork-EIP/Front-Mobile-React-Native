@@ -7,7 +7,7 @@ import { getItem } from "../services/Storage";
 
 import CalendarComponent from "../components/calendar/CalendarComponentMainMenu";
 
-import { mainmenu } from "../../styles/screen/mainmenu";
+import { mainmenu } from "../../styles/pages/mainmenu";
 import { calendar } from "../../styles/screen/calendar";
 
 const MainMenu: React.FC = ({ navigation }: any) => {

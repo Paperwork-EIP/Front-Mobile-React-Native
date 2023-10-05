@@ -31,7 +31,7 @@ const mainmenu = StyleSheet.create({
     paddingVertical: 4,
   },
   processName: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: '400',
     color: '#333',
   },

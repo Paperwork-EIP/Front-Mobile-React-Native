@@ -6,6 +6,8 @@ const headerLight = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         marginBottom: "5%",
+        paddingTop: "15%",
+        paddingHorizontal: '5%',
     },
     text: {
         color: "black",
@@ -37,6 +39,13 @@ const headerLight = StyleSheet.create({
     navButton: {
         paddingTop: 25,
     },
+    logo: {
+        width: '20%',
+        height: undefined,
+        alignSelf: 'center',
+        resizeMode: 'contain',
+        aspectRatio: 1,
+    }
 });
 
 // DARK MODE
@@ -63,6 +72,9 @@ const headerDark = StyleSheet.create({
     },
     navButton: {
         ...headerLight.navButton,
+    },
+    logo: {
+        ...headerLight.logo,
     },
 });
 

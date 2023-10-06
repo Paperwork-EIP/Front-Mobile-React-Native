@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Text, TouchableOpacity, View, Animated, Easing, Modal, Pressable } from 'react-native';
+import { Text, TouchableOpacity, View, Animated, Easing, Modal, Pressable, Image } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { headerLight, headerDark } from "../../styles/components/header.js";
 
-function Header({ navigation, isDarkMode, pageName }: { navigation: any }) {
+function Header({ navigation, isDarkMode }: { navigation: any }) {
 
     const { t, i18n } = useTranslation();
     const [language, setLanguage] = useState("");
@@ -46,12 +46,10 @@ function Header({ navigation, isDarkMode, pageName }: { navigation: any }) {
                         testID="iconPageTitle"
                     />
                 </TouchableOpacity>
-                <Text
-                    style={isDarkMode ? headerDark.text : headerLight.text}
-                    testID="pageTitle"
-                >
-                { pageName }
-                </Text>
+                <Image
+                    style={isDarkMode ? headerDark.logo : headerLight.logo}
+                    source={require('../../assets/logo.png')}
+                  />
                 <TouchableOpacity
                     onPress={ toggleMenu }
                     testID="drawerBtn">

@@ -10,7 +10,6 @@ import { getItem } from "../services/Storage";
 import DisconnectButton from "../components/DisconnectButton";
 import LongHorizontalButton from "../components/LongHorizontalButton";
 import { deleteItemAndRedirectTo } from "../services/Storage";
-import Header from "../components/Header";
 
 function Settings({ navigation }: { navigation: any }) {
 
@@ -105,7 +104,6 @@ function Settings({ navigation }: { navigation: any }) {
         <>
             <View style={isDarkMode ? settingsDark.container : settingsLight.container}>
                 <View style={isDarkMode ? settingsDark.content : settingsLight.content}>
-                    <Header navigation={navigation} isDarkMode={isDarkMode} pageName={t('settings.pageTitle')} />
                     <View style={isDarkMode ? settingsDark.settingsContainer : settingsLight.settingsContainer}>
                         <View style={isDarkMode ? settingsDark.section : settingsLight.section}>
                             <Text

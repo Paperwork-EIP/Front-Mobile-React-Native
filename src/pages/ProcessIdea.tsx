@@ -24,7 +24,6 @@ function ProcessIdea({ navigation }: { navigation: any }) {
 
     const api = process.env.EXPO_PUBLIC_BASE_URL;
 
-
     const [isDarkMode, setIsDarkMode] = useState(false);
 
     const loadThemePreference = async () => {
@@ -131,7 +130,7 @@ function ProcessIdea({ navigation }: { navigation: any }) {
         <>
             <View style={isDarkMode ? processIdeaDark.container : processIdeaLight.container}>
                 <View style={isDarkMode ? processIdeaDark.content : processIdeaLight.content}>
-                    <Header navigation={navigation} isDarkMode={isDarkMode} pageName={t('processidea.pagetitle')} />
+                    <Header navigation={navigation} isDarkMode={isDarkMode} />
                     <View style={isDarkMode ? processIdeaDark.form : processIdeaLight.form}>
                         <Text style={isDarkMode ? processIdeaDark.title : processIdeaLight.title} >{t('processidea.title')}</Text>
                         <TextInput

@@ -12,7 +12,7 @@ import { profile } from "../../styles/screen/profile.js";
 
 function SwitchTabIcon(route: any, focused: boolean, color: string, size: number) {
     switch (route.name) {
-        case 'Home':
+        case 'Main Menu':
             return <Ionicons
                 name={focused
                     ? 'home'
@@ -66,7 +66,7 @@ function Home({ navigation }: { navigation: any }) {
                 })}
             >
                 <Tab.Screen
-                    name="Home"
+                    name="Main Menu"
                     component={MainMenu}
                 />
                 <Tab.Screen

@@ -180,7 +180,7 @@ function CalendarComponent(props: any) {
             {displayModals()}
             <CalendarProvider
                 date={Date()}
-                showTodayButton={true}
+                showTodayButton={false}
                 disabledOpacity={0.6}
                 testID="calendar"
             >

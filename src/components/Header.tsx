@@ -33,6 +33,16 @@ function Header({ navigation, isDarkMode }: { navigation: any }) {
         event.stopPropagation();
     };
 
+    const navigateToPage = ( pageName ) => {
+        navigation.navigate(pageName);
+        setIsMenuOpen(false);
+    }
+
+    const navigateToScreen = ( pageName, screenName ) => {
+        navigation.navigate(pageName, {screen: screenName})
+        setIsMenuOpen(false);
+    }
+
     return (
         <>
             <View style={isDarkMode ? headerDark.headerContainer : headerLight.headerContainer}>
@@ -92,17 +102,17 @@ function Header({ navigation, isDarkMode }: { navigation: any }) {
                                 onPress={preventModalClose}>{t('header.navigationQuestion')}</Text>
                             <TouchableOpacity
                                 style={isDarkMode ? headerDark.navButton : headerLight.navButton}
-                                onPress={() => navigation.navigate('Home')}>
+                                onPress={() => navigateToScreen('Home', 'Home')}>
                                 <Text style={isDarkMode ? headerDark.navText : headerLight.navText}>{t('header.homePage')}</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={isDarkMode ? headerDark.navButton : headerLight.navButton}
-                                onPress={() => navigation.navigate('Profile')}>
+                                onPress={() => navigateToScreen('Home', 'Profile')}>
                                 <Text style={isDarkMode ? headerDark.navText : headerLight.navText}>{t('header.profilePage')}</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={isDarkMode ? headerDark.navButton : headerLight.navButton}
-                                onPress={() => navigation.navigate('Settings')}>
+                                onPress={() => navigateToPage('Settings')}>
                                 <Text style={isDarkMode ? headerDark.navText : headerLight.navText}>{t('header.settingsPage')}</Text>
                             </TouchableOpacity>
                         </View>

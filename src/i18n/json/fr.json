@@ -156,7 +156,8 @@
             "alertUserNotFound": "Erreur: Utilisateur introuvable.",
             "alertSystemError": "Erreur: Erreur système.",
             "alertMissingToken": "Erreur: Paramètre token manquant.",
-            "deleteAccountQuestion": "Êtes-vous sûr de vouloir supprimer votre compte ?"
+            "deleteAccountQuestion": "Êtes-vous sûr de vouloir supprimer votre compte ?",
+            "restartMessage": "L'application va redémarrer pour appliquer les changements."
         },
         "help": {
             "textLexicon": "Besoin d'avoir la signification d'un terme ?",
@@ -198,6 +199,7 @@
             "left": "Restant",
             "nothing": "Rien à Afficher",
             "process": "Procédure",
+            "noProcess": "Aucune procédure en cours",
             "events": "Évènements",
             "needHelp": "Besoin d'aide ?",
             "help": "Aide",

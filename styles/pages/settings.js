@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { darkBackgroundColor, lightBackgroundColor, lightTextColor, lightSecondaryBackgroundColor, darkTextColor, darkSecondaryBackgroundColor } from "../../styles/colors";
 
 const settingsLight = StyleSheet.create({
     container: {
@@ -6,8 +7,8 @@ const settingsLight = StyleSheet.create({
         height: '100%',
         alignItems: 'center',
         paddingVertical: "20%",
-        color: "black",
-        backgroundColor: '#E6E6E6',
+        color: lightTextColor,
+        backgroundColor: lightBackgroundColor,
     },
     content: {
         width: '100%',
@@ -22,7 +23,7 @@ const settingsLight = StyleSheet.create({
         marginBottom: "5%",
 
         text: {
-            color: "black",
+            color: lightTextColor,
             fontSize: 24,
             fontWeight: 'bold'
         }
@@ -30,12 +31,12 @@ const settingsLight = StyleSheet.create({
     title: {
         fontSize: 18,
         fontWeight: 'bold',
-        color: 'gray',
+        color: lightTextColor,
     },
     settingsContainer: {
         width: '100%',
         alignItems: 'center',
-        backgroundColor: 'white',
+        backgroundColor: lightSecondaryBackgroundColor,
         borderRadius: 10,
     },
     section: {
@@ -43,19 +44,19 @@ const settingsLight = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingVertical: '5%',
-        paddingHorizontal: '10%',
+        paddingVertical: 16,
+        paddingHorizontal: 24,
     },
     lineBetween: {
         width: "100%",
         borderBottomWidth: 1,
-        borderBottomColor: '#E6E6E6',
+        borderBottomColor: lightTextColor,
     },
     disconnectButton: {
         backgroundColor: "#FC6976",
         borderRadius: 10,
-        paddingVertical: "3%",
-        paddingHorizontal: "5%",
+        paddingVertical: 9,
+        paddingHorizontal: 12,
         alignItems: 'center',
         justifyContent: 'center',
 
@@ -68,8 +69,8 @@ const settingsLight = StyleSheet.create({
     button: {
         backgroundColor: '#FC6976',
         borderRadius: 10,
-        paddingVertical: "3%",
-        paddingHorizontal: "5%",
+        paddingVertical: 9,
+        paddingHorizontal: 12,
         alignItems: 'center',
         justifyContent: 'center',
 
@@ -82,8 +83,8 @@ const settingsLight = StyleSheet.create({
     cancelButton: {
         backgroundColor: '#FC6976',
         borderRadius: 10,
-        paddingVertical: "3%",
-        paddingHorizontal: "5%",
+        paddingVertical: 9,
+        paddingHorizontal: 12,
         alignItems: 'center',
         justifyContent: 'center',
 
@@ -94,8 +95,8 @@ const settingsLight = StyleSheet.create({
     confirmButton: {
         backgroundColor: '#29C9B3',
         borderRadius: 10,
-        paddingVertical: "3%",
-        paddingHorizontal: "5%",
+        paddingVertical: 9,
+        paddingHorizontal: 12,
         alignItems: 'center',
         justifyContent: 'center',
 
@@ -109,18 +110,20 @@ const settingsLight = StyleSheet.create({
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
         justifyContent: "center",
         alignItems: "center",
-        paddingHorizontal: "5%",
-        paddingBottom: "40%",
+        paddingHorizontal: 20,
 
         center: {
-            backgroundColor: "white",
-            padding: "5%",
+            backgroundColor: lightSecondaryBackgroundColor,
+            alignItems: "center",
+            justifyContent: "center",
+            paddingTop: 20,
+            paddingBottom: 10,
             borderRadius: 10,
-            width: "90%",
+            width: "100%",
         },
 
         text: {
-            color: "black",
+            color: lightTextColor,
         }
     }
 });
@@ -130,8 +133,8 @@ const settingsLight = StyleSheet.create({
 const settingsDark = StyleSheet.create({
     container: {
         ...settingsLight.container,
-        backgroundColor: '#121212',
-        color: 'white'
+        backgroundColor: darkBackgroundColor,
+        color: darkTextColor,
     },
     content: {
         ...settingsLight.content,
@@ -141,23 +144,23 @@ const settingsDark = StyleSheet.create({
 
         text: {
             ...settingsLight.homeBtn.text,
-            color: 'white',
+            color: darkTextColor,
         }
     },
     title: {
         ...settingsLight.title,
-        color: 'white',
+        color: darkTextColor,
     },
     settingsContainer: {
         ...settingsLight.settingsContainer,
-        backgroundColor: '#343434',
+        backgroundColor: darkSecondaryBackgroundColor,
     },
     section: {
         ...settingsLight.section,
     },
     lineBetween: {
         ...settingsLight.lineBetween,
-        borderBottomColor: 'white',
+        borderBottomColor: darkTextColor,
     },
     disconnectButton: {
         ...settingsLight.disconnectButton,

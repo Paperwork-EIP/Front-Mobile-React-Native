@@ -1,10 +1,18 @@
 import { StyleSheet } from 'react-native';
+import { lightTextColor, lightBackgroundColor, darkTextColor, darkBackgroundColor, darkSecondaryBackgroundColor } from '../colors';
 
 const login = StyleSheet.create({
     container: {
         width: '100%',
         height: '100%',
-        backgroundColor: '#fff',
+        backgroundColor: lightBackgroundColor,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    containerDark: {
+        width: '100%',
+        height: '100%',
+        backgroundColor: darkBackgroundColor,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -30,18 +38,41 @@ const login = StyleSheet.create({
     title: {
         fontSize: 20,
         fontWeight: 'bold',
-        color: 'gray',
+        color: lightTextColor,
+        marginBottom: 20
+    },
+    titleDark: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: darkTextColor,
         marginBottom: 20
     },
     input: {
+        color: lightTextColor,
         width: '90%',
         backgroundColor: '#f2f2f2',
-        color: 'gray',
         borderWidth: 0,
         marginBottom: 12,
         paddingVertical: 10,
         paddingHorizontal: 15,
         borderRadius: 15,
+    },
+    inputDark: {
+        color: darkTextColor,
+        width: '90%',
+        backgroundColor: darkSecondaryBackgroundColor,
+        borderColor: darkTextColor,
+        borderWidth: 0.5,
+        marginBottom: 12,
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        borderRadius: 15,
+    },
+    placeholder: {
+        color: lightTextColor
+    },
+    placeholderDark: {
+        color: darkTextColor
     },
     button: {
         width: '90%',
@@ -75,7 +106,26 @@ const login = StyleSheet.create({
 
         input: {
             width: '85%',
-            color: 'gray',
+            color: lightTextColor,
+            borderWidth: 0,
+        },
+    },
+    passwordContainerDark: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        width: '90%',
+        backgroundColor: darkSecondaryBackgroundColor,
+        borderColor: darkTextColor,
+        borderWidth: 0.5,
+        marginBottom: 12,
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        borderRadius: 15,
+
+        input: {
+            width: '85%',
+            color: darkTextColor,
             borderWidth: 0,
         },
     },
@@ -159,7 +209,13 @@ const login = StyleSheet.create({
             marginVertical: 20,
 
             text: {
-                color: '#777888',
+                color: lightTextColor,
+                fontSize: 16,
+                fontWeight: 'bold',
+                marginRight: 10
+            },
+            textDark: {
+                color: darkTextColor,
                 fontSize: 16,
                 fontWeight: 'bold',
                 marginRight: 10
@@ -172,11 +228,20 @@ const login = StyleSheet.create({
         },
 
         picker: {
+            color: lightTextColor,
             width: 200,
             backgroundColor: 'transparent',
             borderWidth: 0,
             paddingVertical: 10,
-            paddingHorizontal: 15
+            paddingHorizontal: 15,
+        },
+        pickerDark: {
+            width: 200,
+            backgroundColor: darkBackgroundColor,
+            color: darkTextColor,
+            borderWidth: 0,
+            paddingVertical: 10,
+            paddingHorizontal: 15,
         }
     },
 });

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -11,13 +11,13 @@ import Lexicon from './src/pages/Lexicon';
 import Help from './src/pages/Help';
 import QuizzPage from './src/pages/QuizzPage';
 import Edit_info from './src/pages/Edit_info';
-import Result  from './src/pages/Result';
+import Result from './src/pages/Result';
 
 import "./src/i18n/i18n";
 
-const Stack = createNativeStackNavigator();
-
 function App() {
+    const Stack = createNativeStackNavigator();
+
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }}>

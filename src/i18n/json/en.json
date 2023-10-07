@@ -158,7 +158,8 @@
         "alertUserNotFound": "Error: User not found.",
         "alertSystemError": "Error: System error.",
         "alertMissingToken": "Error: Missing token.",
-        "deleteAccountQuestion": "Are you sure you want to delete your account?"
+        "deleteAccountQuestion": "Are you sure you want to delete your account?",
+        "restartMessage": "The application will restart to apply the changes."
     },
     "help": {
         "textLexicon": "Need a term to be explained ?",
@@ -188,6 +189,7 @@
         "left": "Left",
         "nothing": "Nothing to Show",
         "process": "Process",
+        "noProcess": "No process",
         "events": "Events",
         "needHelp": "Need Help ?",
         "help": "Help",

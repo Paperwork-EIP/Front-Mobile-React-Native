@@ -6,10 +6,14 @@ import { AgendaList, CalendarProvider, LocaleConfig } from 'react-native-calenda
 import CalendarItems from "./CalendarItems";
 import { CalendarActionsModal, CalendarItemModal } from "./CalendarModals";
 
+import { theme_dark_transparent_bg, theme_light } from "../../../styles/components/calendar/calendar_component";
+
 function CalendarComponent(props: any) {
     const [itemModalVisible, setItemModalVisible] = useState(false);
     const [actionsModalVisible, setActionsModalVisible] = useState(false);
     const [itemModalData, setItemModalData] = React.useState();
+    
+    const colorMode = props.colorMode;
 
     const { t, i18n } = useTranslation();
 
@@ -82,6 +86,7 @@ function CalendarComponent(props: any) {
     const renderItem = useCallback((item: any) => {
         return (
             <CalendarItems
+                colorMode={colorMode}
                 item={item.item}
                 onPressCard={() => itemPressed(item)}
                 onPressButton={() => buttonPressed(item)}
@@ -145,6 +150,7 @@ function CalendarComponent(props: any) {
         } else {
             return (
                 <AgendaList
+                    theme={colorMode === 'light' ? theme_light : theme_dark_transparent_bg}
                     sections={props.items}
                     renderItem={renderItem}
                 />

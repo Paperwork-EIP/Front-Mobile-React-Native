@@ -1,19 +1,26 @@
 import { StyleSheet } from "react-native";
+import { lightTextColor, lightBackgroundColor, darkTextColor, darkBackgroundColor, darkSecondaryBackgroundColor, lightSecondaryBackgroundColor } from '../colors';
 
 const mainmenu = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 16,
-    backgroundColor: '#F7F7F7',
+    backgroundColor: lightBackgroundColor,
+  },
+  containerDark: {
+    flex: 1,
+    paddingHorizontal: 16,
+    backgroundColor: darkBackgroundColor,
   },
   sectionContainer: {
+    minHeight: 150,
     borderWidth: 1,
-    borderColor: '#E0E0E0',
+    borderColor: lightSecondaryBackgroundColor,
     borderRadius: 8,
     padding: 16,
     paddingVertical: 0,
     marginVertical: 7,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: lightBackgroundColor,
     shadowColor: 'grey',
     shadowOffset: {
       width: 0,
@@ -22,6 +29,31 @@ const mainmenu = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 2,
     elevation: 2,
+  },
+  sectionContainerDark: {
+    minHeight: 150,
+    borderRadius: 8,
+    padding: 16,
+    paddingVertical: 0,
+    marginVertical: 7,
+    backgroundColor: darkSecondaryBackgroundColor,
+    shadowColor: 'grey',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  noProcessContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  noProcessText: {
+    fontSize: 16,
+    color: '#555',
   },
   processContainer: {
     flexDirection: 'row',
@@ -33,11 +65,20 @@ const mainmenu = StyleSheet.create({
   processName: {
     fontSize: 14,
     fontWeight: '400',
-    color: '#333',
+    color: lightTextColor,
   },
   processPercentage: {
     fontSize: 16,
-    color: '#555',
+    color: lightTextColor,
+  },
+  processNameDark: {
+    fontSize: 14,
+    fontWeight: '400',
+    color: darkTextColor,
+  },
+  processPercentageDark: {
+    fontSize: 16,
+    color: darkTextColor,
   },
   button: {
     backgroundColor: '#29C9B3',
@@ -52,8 +93,23 @@ const mainmenu = StyleSheet.create({
   },
   buttonContainer: {
     borderWidth: 1,
-    borderColor: '#cecece',
-    backgroundColor: '#f8f9fa',
+    borderColor: lightSecondaryBackgroundColor,
+    backgroundColor: lightBackgroundColor,
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    marginBottom: 16,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+  },
+  buttonContainerDark: {
+    borderWidth: 1,
+    borderColor: darkBackgroundColor,
+    backgroundColor: darkSecondaryBackgroundColor,
     borderRadius: 8,
     paddingHorizontal: 16,
     paddingVertical: 12,
@@ -73,13 +129,25 @@ const mainmenu = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     paddingVertical: 12,
-    color: '#333',
+    color: lightTextColor,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+  },
+  titleDark: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    paddingVertical: 12,
+    color: darkTextColor,
     textTransform: 'uppercase',
     letterSpacing: 1,
   },
   content: {
     fontSize: 16,
-    color: '#555',
+    color: lightTextColor
+  },
+  contentDark: {
+    fontSize: 16,
+    color: darkTextColor
   },
   image: {
     width: '40%',

@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { View, Image, Text, TouchableOpacity } from "react-native";
+import { View, Image, Text, TouchableOpacity, useColorScheme } from "react-native";
 import { useTranslation } from 'react-i18next';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import axios from "axios";
 
 import { getItem } from "../services/Storage";
 
+import LoadingComponent from "../components/LoadingComponent";
+
 import { profile } from "../../styles/screen/profile.js";
+import { loading_component } from "../../styles/components/loading_component";
 
 function Profile({ navigation }: { navigation: any }) {
 
@@ -26,11 +29,14 @@ function Profile({ navigation }: { navigation: any }) {
     const [phonenumber, setPhonenumber] = React.useState("");
     const [profilePicture, setProfilePicture] = React.useState(require('../../assets/avatar/NoAvatar.png'));
 
+    const [isLoading, setIsLoading] = useState(true);
     const [userProcessInfo, setUserProcessInfo]: any = useState([]);
 
     const colorEditButton = '#FC6976';
     const colorInfoIcons = '#29c9b3';
     const sizeInfoIcons = 16;
+
+    const colorMode = useColorScheme();
 
     const propsCardInfo = [
         {
@@ -81,6 +87,7 @@ function Profile({ navigation }: { navigation: any }) {
 
     async function getUserInfo() {
         const token = await getItem('@loginToken');
+
         axios.get(`${url}/user/getbytoken`, { params: { token: token } })
             .then(res => {
                 setUsername(res.data.username);
@@ -95,7 +102,9 @@ function Profile({ navigation }: { navigation: any }) {
                 if (res.data.profile_picture != null) {
                     getImagesFromAssetsByFilename(res.data.profile_picture);
                 }
+                setIsLoading(false);
             }).catch(err => {
+                setIsLoading(false);
                 console.log(err)
             });
     }
@@ -152,95 +161,102 @@ function Profile({ navigation }: { navigation: any }) {
     }, [items]);
 
     return (
-        <View style={profile.container}>
-            <View style={profile.profileWrapper}>
-                <View style={profile.profilePictureWrapper}>
-                    <Image
-                        source={profilePicture as any}
-                        style={profile.profilePicture}
-                    />
-                </View>
-                <View style={profile.profileTexts}>
-                    <Text style={profile.profileText}>{firstname ? firstname : t('profile.noInfo')} </ Text>
-                    <Text style={profile.profileText}>{name ? name : t('profile.noInfo')} </ Text>
-                </View>
-                <View style={profile.profileTexts}>
-                    <Text style={profile.profileTextUsername}>{username ? username : t('profile.noInfo')}</Text>
-                </View>
-            </View>
-            <View style={profile.content}>
-                <View style={profile.editWrapper}>
-                    <Text style={profile.title}>{t('profile.personnalInfo')}</ Text>
-                    <TouchableOpacity style={profile.editButton} onPress={goToEdit}>
-                        <Text style={profile.edit}>
-                            {t('profile.edit')}
-                        </ Text>
-                        <Ionicons name={'create-outline'} size={18} color={colorEditButton} />
-                    </TouchableOpacity>
-                </View>
-                <View style={profile.info}>
-                    {
-                        propsCardInfo.map((item: any, index: number) => (
-                            <View key={item.id}>
-                                <View style={profile.textsInfo}>
-                                    <View style={profile.leftPartInfo}>
-                                        <Ionicons name={item.icon} size={sizeInfoIcons} color={colorInfoIcons} />
-                                        <Text style={profile.leftPartInfoText}>
-                                            {item.title}
-                                        </Text>
-                                    </View>
-                                    <View style={profile.rightPartInfo}>
-                                        <Text style={profile.rightPartInfoText}>
-                                            {item.text}
-                                        </Text>
-                                    </View>
-                                </ View>
-                                {
-                                    index + 1 !== propsCardInfo.length &&
-                                    <View key={index + 432234234} style={profile.line} />
-                                }
+        <View style={colorMode === 'light' ? profile.container : profile.containerDark}>
+            {
+                isLoading ?
+                    <LoadingComponent styleContainer={loading_component.lightContainer} />
+                    :
+                    <>
+                        <View style={profile.profileWrapper}>
+                            <View style={profile.profilePictureWrapper}>
+                                <Image
+                                    source={profilePicture as any}
+                                    style={profile.profilePicture}
+                                />
                             </View>
-                        ))
-                    }
-                </View>
-                <View style={profile.content}>
-                    <Text style={profile.title}>{t('profile.ongoingProcess')}</ Text>
-                    {
-                        userProcessInfo.length > 0 ?
-                            <View style={profile.info}>
+                            <View style={profile.profileTexts}>
+                                <Text style={colorMode === 'light' ? profile.profileText : profile.profileTextDark}>{firstname ? firstname : t('profile.noInfo')} </ Text>
+                                <Text style={colorMode === 'light' ? profile.profileText : profile.profileTextDark}>{name ? name : t('profile.noInfo')} </ Text>
+                            </View>
+                            <View style={profile.profileTexts}>
+                                <Text style={colorMode === 'light' ? profile.profileTextUsername : profile.profileTextUsernameDark}>{username ? username : t('profile.noInfo')}</Text>
+                            </View>
+                        </View>
+                        <View style={profile.content}>
+                            <View style={profile.editWrapper}>
+                                <Text style={colorMode === 'light' ? profile.title : profile.titleDark}>{t('profile.personnalInfo')}</ Text>
+                                <TouchableOpacity style={profile.editButton} onPress={goToEdit}>
+                                    <Text style={profile.edit}>
+                                        {t('profile.edit')}
+                                    </ Text>
+                                    <Ionicons name={'create-outline'} size={18} color={colorEditButton} />
+                                </TouchableOpacity>
+                            </View>
+                            <View style={colorMode === 'light' ? profile.info : profile.infoDark}>
                                 {
-                                    userProcessInfo.map((item: any, index: number) => (
-                                        <View key={index}>
+                                    propsCardInfo.map((item: any, index: number) => (
+                                        <View key={item.id}>
                                             <View style={profile.textsInfo}>
                                                 <View style={profile.leftPartInfo}>
-                                                    <Text>
-                                                        {index + 1}.
-                                                    </Text>
-                                                    <Text style={profile.leftPartInfoText}>
-                                                        {item.process}
+                                                    <Ionicons name={item.icon} size={sizeInfoIcons} color={colorInfoIcons} />
+                                                    <Text style={colorMode === 'light' ? profile.leftPartInfoText : profile.leftPartInfoTextDark}>
+                                                        {item.title}
                                                     </Text>
                                                 </View>
                                                 <View style={profile.rightPartInfo}>
-                                                    <Text style={profile.rightPartInfoText}>
-                                                        {item.percentage}%
+                                                    <Text style={colorMode === 'light' ? profile.rightPartInfoText : profile.rightPartInfoTextDark}>
+                                                        {item.text}
                                                     </Text>
                                                 </View>
                                             </ View>
                                             {
-                                                index + 1 !== userProcessInfo.length &&
-                                                <View style={profile.line} />
+                                                index + 1 !== propsCardInfo.length &&
+                                                <View key={index + 432234234} style={profile.line} />
                                             }
                                         </View>
                                     ))
                                 }
                             </View>
-                            :
-                            <View style={profile.noProcess}>
-                                <Text style={profile.noProcessText}>{t('profile.noProcess')}</Text>
+                            <View style={profile.content}>
+                                <Text style={colorMode === 'light' ? profile.title : profile.titleDark}>{t('profile.ongoingProcess')}</ Text>
+                                {
+                                    userProcessInfo.length > 0 ?
+                                        <View style={colorMode === 'light' ? profile.info : profile.infoDark}>
+                                            {
+                                                userProcessInfo.map((item: any, index: number) => (
+                                                    <View key={index}>
+                                                        <View style={profile.textsInfo}>
+                                                            <View style={profile.leftPartInfo}>
+                                                                <Text style={colorMode === 'light' ? profile.leftPartInfoText : profile.leftPartInfoTextDark}>
+                                                                    {index + 1}.
+                                                                </Text>
+                                                                <Text style={colorMode === 'light' ? profile.leftPartInfoText : profile.leftPartInfoTextDark}>
+                                                                    {item.process}
+                                                                </Text>
+                                                            </View>
+                                                            <View style={profile.rightPartInfo}>
+                                                                <Text style={colorMode === 'light' ? profile.rightPartInfoText : profile.rightPartInfoTextDark}>
+                                                                    {item.percentage}%
+                                                                </Text>
+                                                            </View>
+                                                        </ View>
+                                                        {
+                                                            index + 1 !== userProcessInfo.length &&
+                                                            <View style={profile.line} />
+                                                        }
+                                                    </View>
+                                                ))
+                                            }
+                                        </View>
+                                        :
+                                        <View style={profile.noProcess}>
+                                            <Text style={profile.noProcessText}>{t('profile.noProcess')}</Text>
+                                        </View>
+                                }
                             </View>
-                    }
-                </View>
-            </View>
+                        </View>
+                    </>
+            }
         </View >
     );
 };

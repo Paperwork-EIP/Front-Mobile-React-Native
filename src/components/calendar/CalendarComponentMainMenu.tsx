@@ -6,7 +6,7 @@ import { AgendaList, CalendarProvider, LocaleConfig } from 'react-native-calenda
 import CalendarItems from "./CalendarItems";
 import { CalendarActionsModal, CalendarItemModal } from "./CalendarModals";
 
-import { theme_dark_transparent_bg, theme_light } from "../../../styles/components/calendar/calendar_component";
+import { theme_dark_secondary, theme_light } from "../../../styles/components/calendar/calendar_component";
 
 function CalendarComponent(props: any) {
     const [itemModalVisible, setItemModalVisible] = useState(false);
@@ -150,7 +150,7 @@ function CalendarComponent(props: any) {
         } else {
             return (
                 <AgendaList
-                    theme={colorMode === 'light' ? theme_light : theme_dark_transparent_bg}
+                    theme={colorMode === 'light' ? theme_light : theme_dark_secondary}
                     sections={props.items}
                     renderItem={renderItem}
                 />

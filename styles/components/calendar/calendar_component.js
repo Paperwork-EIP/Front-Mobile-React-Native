@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { lightBackgroundColor, darkTextColor, lightTextColor, darkBackgroundColor } from '../../colors';
+import { lightBackgroundColor, darkTextColor, lightTextColor, darkBackgroundColor, darkSecondaryBackgroundColor } from '../../colors';
 
 const calendar_component = StyleSheet.create({
     addButton: {
@@ -31,11 +31,15 @@ const calendar_component = StyleSheet.create({
         shadowOffset: { width: 1, height: 1 },
     },
     agendaList: {
+        flex: 1,
         paddingHorizontal: 10,
+        paddingBottom: 10,
         backgroundColor: lightBackgroundColor,
     },
     agendaListDark: {
+        flex: 1,
         paddingHorizontal: 10,
+        paddingBottom: 10,
         backgroundColor: darkBackgroundColor,
     },
 });
@@ -56,12 +60,12 @@ const theme_dark = {
     monthTextColor: darkTextColor,
 };
 
-const theme_dark_transparent_bg = {
-    backgroundColor: 'transparent',
-    calendarBackground: 'transparent',
+const theme_dark_secondary = {
+    backgroundColor: darkSecondaryBackgroundColor,
+    calendarBackground: darkSecondaryBackgroundColor,
     textDisabledColor: lightTextColor,
     dayTextColor: darkTextColor,
     monthTextColor: darkTextColor,
 };
 
-export { calendar_component, theme_dark, theme_light, theme_dark_transparent_bg };
+export { calendar_component, theme_dark, theme_light, theme_dark_secondary };

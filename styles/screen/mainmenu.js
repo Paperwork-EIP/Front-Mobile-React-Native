@@ -12,8 +12,8 @@ const mainmenu = StyleSheet.create({
     paddingHorizontal: 16,
     backgroundColor: darkBackgroundColor,
   },
-  sectionContainer: {
-    minHeight: 150,
+  sectionContainerFlex1: {
+    flex: 1,
     borderWidth: 1,
     borderColor: lightSecondaryBackgroundColor,
     borderRadius: 8,
@@ -30,8 +30,44 @@ const mainmenu = StyleSheet.create({
     shadowRadius: 2,
     elevation: 2,
   },
-  sectionContainerDark: {
-    minHeight: 150,
+  sectionContainerDarkFlex1: {
+    flex: 1,
+    borderRadius: 8,
+    padding: 16,
+    paddingVertical: 0,
+    marginVertical: 7,
+    backgroundColor: darkSecondaryBackgroundColor,
+    shadowColor: 'grey',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  sectionContainerFlex2: {
+    flex: 2,
+    paddingBottom: 10,
+    borderWidth: 1,
+    borderColor: lightSecondaryBackgroundColor,
+    borderRadius: 8,
+    padding: 16,
+    paddingVertical: 0,
+    marginVertical: 7,
+    backgroundColor: lightBackgroundColor,
+    shadowColor: 'grey',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  sectionContainerDarkFlex2: {
+    flex: 2,
+    paddingBottom: 10,
     borderRadius: 8,
     padding: 16,
     paddingVertical: 0,
@@ -94,7 +130,7 @@ const mainmenu = StyleSheet.create({
   buttonContainer: {
     borderWidth: 1,
     borderColor: lightSecondaryBackgroundColor,
-    backgroundColor: lightBackgroundColor,
+    backgroundColor: lightSecondaryBackgroundColor,
     borderRadius: 8,
     paddingHorizontal: 16,
     paddingVertical: 12,
@@ -109,7 +145,7 @@ const mainmenu = StyleSheet.create({
   buttonContainerDark: {
     borderWidth: 1,
     borderColor: darkBackgroundColor,
-    backgroundColor: darkSecondaryBackgroundColor,
+    backgroundColor: darkBackgroundColor,
     borderRadius: 8,
     paddingHorizontal: 16,
     paddingVertical: 12,
@@ -158,12 +194,9 @@ const mainmenu = StyleSheet.create({
   },
   calendarContainer: {
     width: '100%',
-    height: 310,
-    paddingBottom: 16,
+    overflow: 'hidden',
+    paddingBottom: 10,
   },
-  calendarWrapper: {
-    height: '100%',
-  }
 });
 
 export { mainmenu };

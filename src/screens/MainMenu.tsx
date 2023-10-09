@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, Image, useColorScheme } from 'react-native';
+import { View, Text, TouchableOpacity, Image, useColorScheme, ScrollView } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import axios from "axios";
 
@@ -142,40 +142,38 @@ const MainMenu: React.FC = ({ navigation }: any) => {
 
     return (
         <View style={colorMode === 'light' ? mainmenu.container : mainmenu.containerDark}>
-            <View style={colorMode === 'light' ? mainmenu.sectionContainer : mainmenu.sectionContainerDark}>
+            <View style={colorMode === 'light' ? mainmenu.sectionContainerFlex1 : mainmenu.sectionContainerDarkFlex1}>
                 <Text style={colorMode === 'light' ? mainmenu.title : mainmenu.titleDark}>{t('mainmenu.process')}</Text>
-                {
-                    isLoadingProcessList ?
-                        <LoadingComponent size="small" styleContainer={loading_component.lightContainer} />
-                        :
-                        displayProcessList()
-                }
+                <ScrollView>
+                    {
+                        isLoadingProcessList ?
+                            <LoadingComponent size="small" styleContainer={loading_component.lightContainer} />
+                            :
+                            displayProcessList()
+                    }
+                </ScrollView>
                 <TouchableOpacity onPress={goToQuizzPage}>
                     <Text style={mainmenu.button}>{t('mainmenu.newProcessButton')}</Text>
                 </TouchableOpacity>
             </View>
-            <View style={colorMode === 'light' ? mainmenu.sectionContainer : mainmenu.sectionContainerDark}>
+            <View style={colorMode === 'light' ? mainmenu.sectionContainerFlex2 : mainmenu.sectionContainerDarkFlex2}>
                 <Text style={colorMode === 'light' ? mainmenu.title : mainmenu.titleDark}>{t('mainmenu.events')}</Text>
-                <View style={mainmenu.calendarContainer}>
-                    <View style={mainmenu.calendarWrapper}>
-                        {
-                            isLoadingCalendarAgendaList ?
-                                <LoadingComponent size="small" styleContainer={loading_component.lightContainer} />
-                                :
-                                <CalendarComponent
-                                    colorMode={colorMode}
-                                    style={colorMode === 'light' ? calendar.container.calendar : calendar.containerDark.calendar}
-                                    sectionStyle={colorMode === 'light' ? calendar.container.section : calendar.containerDark.section}
-                                    styleEmpty={colorMode === 'light' ? calendar.container.empty : calendar.containerDark.empty}
-                                    styleEmptyText={colorMode === 'light' ? calendar.container.empty.text : calendar.containerDark.empty.text}
-                                    markedDates={markedDates}
-                                    items={items}
-                                />
-                        }
-                    </View>
-                </View>
+                {
+                    isLoadingCalendarAgendaList ?
+                        <LoadingComponent size="small" styleContainer={loading_component.lightContainer} />
+                        :
+                        <CalendarComponent
+                            colorMode={colorMode}
+                            style={colorMode === 'light' ? calendar.container.calendar : calendar.containerDark.calendar}
+                            sectionStyle={colorMode === 'light' ? calendar.container.section : calendar.containerDark.section}
+                            styleEmpty={colorMode === 'light' ? calendar.container.empty : calendar.containerDark.empty}
+                            styleEmptyText={colorMode === 'light' ? calendar.container.empty.text : calendar.containerDark.empty.text}
+                            markedDates={markedDates}
+                            items={items}
+                        />
+                }
             </View>
-            <View style={colorMode === 'light' ? mainmenu.sectionContainer : mainmenu.sectionContainerDark}>
+            <View style={colorMode === 'light' ? mainmenu.sectionContainerFlex1 : mainmenu.sectionContainerDarkFlex1}>
                 <Text style={colorMode === 'light' ? mainmenu.title : mainmenu.titleDark}>{t('mainmenu.needHelp')}</Text>
                 <View style={mainmenu.buttonContainerWrapper}>
                     <View style={colorMode === 'light' ? mainmenu.buttonContainer : mainmenu.buttonContainerDark}>

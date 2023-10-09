@@ -49,10 +49,10 @@ const profile = StyleSheet.create({
     },
     profileWrapper: {
         width: '100%',
-        flex: 1,
         overflow: 'hidden',
         alignItems: 'center',
         justifyContent: 'center',
+        marginVertical: 20,
     },
     profilePictureWrapper: {
         elevation: 20,

@@ -1,16 +1,21 @@
-import React, { useCallback, useEffect } from "react";
-import { Alert, Text, View } from "react-native";
+import React, { useCallback, useEffect, useState } from "react";
+import { Text, View } from "react-native";
 import { useTranslation } from 'react-i18next';
-import { useNavigation } from '@react-navigation/native';
-import { AgendaList, CalendarProvider, ExpandableCalendar, LocaleConfig } from 'react-native-calendars';
+import { AgendaList, CalendarProvider, LocaleConfig } from 'react-native-calendars';
 
 import CalendarItems from "./CalendarItems";
-import CalendarModal from "./CalendarModal";
+import { CalendarActionsModal, CalendarItemModal } from "./CalendarModals";
+
+import { theme_dark_secondary, theme_light } from "../../../styles/components/calendar/calendar_component";
 
 function CalendarComponent(props: any) {
-    const [modalVisible, setModalVisible] = React.useState(false);
+    const [itemModalVisible, setItemModalVisible] = useState(false);
+    const [actionsModalVisible, setActionsModalVisible] = useState(false);
+    const [itemModalData, setItemModalData] = React.useState();
+    
+    const colorMode = props.colorMode;
+
     const { t, i18n } = useTranslation();
-    const navigation = useNavigation();
 
     LocaleConfig.locales['fr'] = {
         monthNames: [
@@ -64,17 +69,78 @@ function CalendarComponent(props: any) {
 
     LocaleConfig.locales['en'] = LocaleConfig.locales['fr'];
 
-    function buttonPressed() {
-        navigation.navigate("Calendar");
+    function itemPressed(item: any) {
+        if (itemModalData !== item) {
+            setItemModalData(item);
+            setItemModalVisible(true);
+        }
+    }
+
+    function buttonPressed(item: any) {
+        if (itemModalData !== item) {
+            setItemModalData(item);
+            setActionsModalVisible(true);
+        }
     }
 
     const renderItem = useCallback((item: any) => {
         return (
-            <CalendarItems item={item.item} onPressButton={buttonPressed} />
+            <CalendarItems
+                colorMode={colorMode}
+                item={item.item}
+                onPressCard={() => itemPressed(item)}
+                onPressButton={() => buttonPressed(item)}
+            />
         );
     }, [props.items]);
 
-    function displayEmptyAgenda() {
+    function displayItemModal(item: any) {
+        const title = item.item.title;
+        const processTitle = item.section.processTitle;
+        const stepDescription = item.section.stepDescription;
+        const date = item.section.title;
+
+        return (
+            <CalendarItemModal
+                modalVisible={itemModalVisible}
+                setModalVisible={setItemModalVisible}
+                title={title}
+                processTitle={processTitle}
+                stepDescription={stepDescription}
+                date={date}
+            />
+        )
+    }
+
+    function displayActionsModal(item: any) {
+        const title = item.item.title;
+        const userProcessId = item.section.userProcessId;
+        const stepId = item.section.stepId;
+
+        return (
+            <CalendarActionsModal
+                title={title}
+                userProcessId={userProcessId}
+                stepId={stepId}
+                modalVisible={actionsModalVisible}
+                setModalVisible={setActionsModalVisible}
+            />
+        )
+    }
+
+    function displayModals() {
+        if (itemModalData) {
+            if (itemModalVisible) {
+                return displayItemModal(itemModalData);
+            } else if (actionsModalVisible) {
+                return displayActionsModal(itemModalData);
+            } else {
+                return null;
+            }
+        }
+    }
+
+    function displayAgendaItems() {
         if (props.items.length === 0) {
             return (
                 <View style={props.styleEmpty}>
@@ -84,6 +150,7 @@ function CalendarComponent(props: any) {
         } else {
             return (
                 <AgendaList
+                    theme={colorMode === 'light' ? theme_light : theme_dark_secondary}
                     sections={props.items}
                     renderItem={renderItem}
                 />
@@ -96,13 +163,17 @@ function CalendarComponent(props: any) {
     }, [i18n.language]);
 
     return (
-        <CalendarProvider
-            date={Date()}
-            showTodayButton={true}
-            disabledOpacity={0.6}
-        >
-            {displayEmptyAgenda()}
-        </CalendarProvider>
+        <>
+            {displayModals()}
+            <CalendarProvider
+                date={Date()}
+                showTodayButton={false}
+                disabledOpacity={0.6}
+                testID="calendar"
+            >
+                {displayAgendaItems()}
+            </CalendarProvider>
+        </>
     );
 }
 

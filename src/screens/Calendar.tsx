@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { View } from "react-native";
+import { useColorScheme, View } from "react-native";
 import axios from "axios";
 
 import CalendarComponent from "../components/calendar/CalendarComponent";
+import LoadingComponent from "../components/LoadingComponent";
+
 import { getItem } from "../services/Storage";
 
 import { calendar, brightRed } from "../../styles/screen/calendar";
+import { loading_component } from "../../styles/components/loading_component";
 
 function Calendar() {
-    const [selected, setSelected] = useState('');
     const [items, setItems] = useState<any>([]);
     const [token, setToken] = useState('');
+    const [markedDatesState, setMarkedDatesState] = useState<any>({});
+    const [isLoading, setIsLoading] = useState(true);
 
+    const colorMode = useColorScheme();
     const selectedDotColor = brightRed;
     const url = process.env.EXPO_PUBLIC_BASE_URL;
 
@@ -54,27 +59,32 @@ function Calendar() {
             }
 
             setItems(list);
+            setDotMarkedDates();
+            setIsLoading(false);
         }).catch((error) => {
             setItems([]);
+            setIsLoading(false);
             console.error("Error axios get calendar : ", error.response);
         });
     }
 
     function setDotMarkedDates() {
+        let tmp: any = {};
+
         items.forEach((item: any) => {
             const date = item.title;
             const dotColor = item.data[0].color;
 
-            if (markedDates[date]) {
-                markedDates[date].dots = [
-                    ...markedDates[date].dots,
+            if (tmp[date]) {
+                tmp[date].dots = [
+                    ...tmp[date].dots,
                     {
                         color: dotColor,
                         selectedDotColor: selectedDotColor,
                     },
                 ];
             } else {
-                markedDates[date] = {
+                tmp[date] = {
                     dots: [
                         {
                             color: dotColor,
@@ -84,6 +94,9 @@ function Calendar() {
                 };
             }
         });
+
+        markedDates = tmp;
+        setMarkedDatesState(markedDates);
     }
 
     async function getLoginToken() {
@@ -103,24 +116,28 @@ function Calendar() {
         } else {
             interval = setInterval(() => {
                 getLoginToken();
-            }, 5000);
+            }, 3000);
         }
-        setDotMarkedDates();
-
         return () => clearInterval(interval);
-    }, [selected, items]);
+    }, []);
 
     return (
-        <View style={calendar.container}>
-            <CalendarComponent
-                style={calendar.container.calendar}
-                sectionStyle={calendar.container.section}
-                styleEmpty={calendar.container.empty}
-                styleEmptyText={calendar.container.empty.text}
-                markedDates={markedDates}
-                items={items}
-            />
-        </View >
+        <View style={colorMode === 'light' ? calendar.container : calendar.containerDark}>
+            {
+                isLoading ?
+                    <LoadingComponent styleContainer={loading_component.lightContainer} />
+                    :
+                    <CalendarComponent
+                        colorMode={colorMode}
+                        style={colorMode === 'light' ? calendar.container.calendar : calendar.containerDark.calendar}
+                        sectionStyle={colorMode === 'light' ? calendar.container.section : calendar.containerDark.section}
+                        styleEmpty={colorMode === 'light' ? calendar.container.empty : calendar.containerDark.empty}
+                        styleEmptyText={colorMode === 'light' ? calendar.container.empty.text : calendar.containerDark.empty.text}
+                        markedDates={markedDatesState}
+                        items={items}
+                    />
+            }
+        </View>
     );
 };
 

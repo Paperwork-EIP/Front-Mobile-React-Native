@@ -1,12 +1,26 @@
 import { StyleSheet } from 'react-native';
+import { darkSecondaryBackgroundColor, darkTextColor, lightSecondaryBackgroundColor, lightTextColor } from '../../colors';
 
 const calendar_items = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
-        borderBottomWidth: 1,
+        borderWidth: 1,
+        borderRightColor: 'lightgrey',
         borderBottomColor: 'lightgrey',
-        position: 'relative',
+        borderTopColor: 'lightgrey',
+        borderRadius: 8,
+        backgroundColor: lightSecondaryBackgroundColor,
+    },
+    containerDark: {
+        flex: 1,
+        padding: 20,
+        borderWidth: 1,
+        borderRightColor: lightTextColor,
+        borderBottomColor: lightTextColor,
+        borderTopColor: lightTextColor,
+        borderRadius: 8,
+        backgroundColor: darkSecondaryBackgroundColor,
     },
     item: {
         flexDirection: 'row',
@@ -14,9 +28,16 @@ const calendar_items = StyleSheet.create({
         alignItems: 'center',
 
         title: {
-            fontSize: 16,
+            fontSize: 14,
             fontWeight: 'bold',
             width: '85%',
+        },
+
+        titleDark: {
+            fontSize: 14,
+            fontWeight: 'bold',
+            width: '85%',
+            color: darkTextColor,
         },
 
         button: {

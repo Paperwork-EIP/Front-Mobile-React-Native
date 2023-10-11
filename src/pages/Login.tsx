@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, View, Image, TextInput, Text, StyleProp, ViewStyle } from "react-native";
+import { Alert, View, Image, TextInput, Text, StyleProp, ViewStyle, useColorScheme } from "react-native";
 import { useTranslation } from 'react-i18next';
 import { Picker } from "@react-native-picker/picker";
 import axios from "axios";
@@ -22,6 +22,8 @@ function Login({ navigation }: { navigation: any }) {
     const [password, setPassword] = useState('');
     const [hidePassword, setHidePassword] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
+
+    const colorMode = useColorScheme();
 
     function changeLanguage(language: string | undefined) {
         i18n.changeLanguage(language);
@@ -157,7 +159,7 @@ function Login({ navigation }: { navigation: any }) {
             {
                 isLoading ? <LoadingComponent /> : null
             }
-            <View style={login.container}>
+            <View style={colorMode === 'light' ? login.container : login.containerDark}>
                 <View style={login.center}>
                     <Image
                         source={require('../../assets/logo.png')}
@@ -166,25 +168,28 @@ function Login({ navigation }: { navigation: any }) {
                 </View>
                 <View style={login.content}>
                     <View style={login.form}>
-                        <Text style={login.title} >{t('login.title')}</Text>
+                        <Text style={colorMode === 'light' ? login.title : login.titleDark} >{t('login.title')}</Text>
                         <TextInput
-                            style={login.input}
+                            style={colorMode === 'light' ? login.input : login.inputDark}
+                            placeholderTextColor={colorMode === 'light' ? login.placeholder.color : login.placeholderDark.color}
                             onChangeText={handleEmailChange}
                             value={email}
                             placeholder="Email"
                             inputMode="email"
                             testID="emailInput"
                         />
-                        <View style={login.passwordContainer} >
+                        <View style={colorMode === 'light' ? login.passwordContainer : login.passwordContainerDark}>
                             <TextInput
-                                style={login.passwordContainer.input as StyleProp<ViewStyle>}
+                                style={colorMode === 'light' ? login.passwordContainer.input as StyleProp<ViewStyle> : login.passwordContainerDark.input as StyleProp<ViewStyle>}
                                 onChangeText={handlePasswordChange}
                                 value={password}
                                 secureTextEntry={hidePassword}
                                 placeholder={t('login.password')}
+                                placeholderTextColor={colorMode === 'light' ? login.placeholder.color : login.placeholderDark.color}
                                 testID="passwordInput"
                             />
                             <HidePasswordButton
+                                dark={colorMode === 'dark' ? true : false}
                                 icon={hidePassword ? 'hide_password' : 'show_password'}
                                 onPress={() => setHidePassword(!hidePassword)}
                                 testID="hidePasswordButton"
@@ -215,7 +220,7 @@ function Login({ navigation }: { navigation: any }) {
                                 descriptionText={t('login.register')}
                                 onPress={redirectToRegister}
                                 styleButton={login.bottom.noAccountButton}
-                                styleTitle={login.bottom.noAccountButton.text}
+                                styleTitle={colorMode === 'light' ? login.bottom.noAccountButton.text as StyleProp<ViewStyle> : login.bottom.noAccountButton.textDark as StyleProp<ViewStyle>}
                                 styleDescriptionText={login.bottom.noAccountButton.register}
                                 testID="registerButton"
                             />
@@ -223,9 +228,11 @@ function Login({ navigation }: { navigation: any }) {
                         <View style={login.center}>
                             <Picker
                                 selectedValue={i18n.language}
-                                style={login.bottom.picker}
                                 onValueChange={changeLanguage}
                                 testID="languagePicker"
+                                mode="dropdown"
+                                dropdownIconColor={colorMode === 'light' ? login.bottom.picker.color : login.bottom.pickerDark.color}
+                                style={colorMode === 'light' ? login.bottom.picker as StyleProp<ViewStyle> : login.bottom.pickerDark as StyleProp<ViewStyle>}
                             >
                                 <Picker.Item label="English" value="en" />
                                 <Picker.Item label="Français" value="fr" />

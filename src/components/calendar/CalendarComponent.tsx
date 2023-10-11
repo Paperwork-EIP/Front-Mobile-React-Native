@@ -7,13 +7,15 @@ import CalendarItems from "./CalendarItems";
 import AddButton from "../AddButton";
 import { CalendarActionsModal, CalendarAddModal, CalendarItemModal } from "./CalendarModals";
 
-import { calendar_component } from "../../../styles/components/calendar/calendar_component.js";
+import { calendar_component, theme_dark, theme_light } from "../../../styles/components/calendar/calendar_component.js";
 
 function CalendarComponent(props: any) {
     const [itemModalVisible, setItemModalVisible] = useState(false);
     const [actionsModalVisible, setActionsModalVisible] = useState(false);
     const [addModalVisible, setAddModalVisible] = useState(false);
     const [itemModalData, setItemModalData] = React.useState();
+
+    const colorMode = props.colorMode;
 
     const { t, i18n } = useTranslation();
 
@@ -90,6 +92,7 @@ function CalendarComponent(props: any) {
     const renderItem = useCallback((item: any) => {
         return (
             <CalendarItems
+                colorMode={colorMode}
                 item={item.item}
                 onPressCard={() => itemPressed(item)}
                 onPressButton={() => buttonPressed(item)}
@@ -106,10 +109,13 @@ function CalendarComponent(props: any) {
             );
         } else {
             return (
-                <AgendaList
-                    sections={props.items}
-                    renderItem={renderItem}
-                />
+                <View style={colorMode === 'light' ? calendar_component.agendaList : calendar_component.agendaListDark}>
+                    <AgendaList
+                        theme={colorMode === 'light' ? theme_light : theme_dark}
+                        sections={props.items}
+                        renderItem={renderItem}
+                    />
+                </View>
             );
         }
     }
@@ -158,7 +164,9 @@ function CalendarComponent(props: any) {
     }
 
     function displayModals() {
-        if (itemModalData) {
+        if (addModalVisible) {
+            return displayAddModal();
+        } else if (itemModalData) {
             if (itemModalVisible) {
                 return displayItemModal(itemModalData);
             } else if (actionsModalVisible) {
@@ -166,9 +174,6 @@ function CalendarComponent(props: any) {
             } else {
                 return null;
             }
-        }
-        if (addModalVisible) {
-            return displayAddModal();
         }
     }
 
@@ -181,7 +186,7 @@ function CalendarComponent(props: any) {
             {displayModals()}
             <CalendarProvider
                 date={Date()}
-                showTodayButton={true}
+                showTodayButton={false}
                 disabledOpacity={0.6}
                 testID="calendar"
             >
@@ -191,11 +196,12 @@ function CalendarComponent(props: any) {
                     markedDates={props.markedDates}
                     markingType="multi-dot"
                     testID="expandableCalendar"
+                    theme={colorMode === 'light' ? theme_light : theme_dark}
                 />
                 {displayAgendaItems()}
             </CalendarProvider>
             <AddButton
-                style={calendar_component.addButton}
+                style={colorMode === 'light' ? calendar_component.addButton : calendar_component.addButtonDark}
                 onPress={addButtonPressed}
             />
         </>

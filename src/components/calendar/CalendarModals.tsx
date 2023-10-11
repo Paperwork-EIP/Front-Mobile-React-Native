@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Modal, Text, Alert } from 'react-native';
+import { View, Modal, Text, Alert, useColorScheme, StyleProp, ViewStyle } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Picker } from '@react-native-picker/picker';
 import DatePicker from 'react-native-date-picker';
@@ -8,10 +8,12 @@ import moment from 'moment';
 
 import LongHorizontalButton from '../LongHorizontalButton';
 import CrossButton from '../CrossButton';
+import LoadingComponent from '../LoadingComponent';
 
 import { getItem } from "../../services/Storage";
 
 import { calendar_modal } from '../../../styles/components/calendar/calendar_modal';
+import { loading_component } from '../../../styles/components/loading_component';
 
 interface CalendarModalProps {
     title: string;
@@ -44,6 +46,8 @@ function CalendarItemModal(props: CalendarModalProps) {
 
     const { t } = useTranslation();
 
+    const colorMode = useColorScheme();
+
     function closeModal() {
         props.setModalVisible(!props.modalVisible);
     }
@@ -55,28 +59,28 @@ function CalendarItemModal(props: CalendarModalProps) {
             visible={props.modalVisible}
         >
             <View style={calendar_modal.item.centeredView as any}>
-                <View style={calendar_modal.item.modalView as any}>
+                <View style={colorMode === 'light' ? calendar_modal.item.modalView as any : calendar_modal.item.modalViewDark as any}>
                     <View style={calendar_modal.item.modalHeader as any}>
-                        <Text style={calendar_modal.item.modalHeader.text as any}>{processTitle}</Text>
+                        <Text style={colorMode === 'light' ? calendar_modal.item.modalHeader.text as any : calendar_modal.item.modalHeader.textDark as any}>{processTitle}</Text>
                     </View>
                     <View style={calendar_modal.item.modalContent as any}>
                         <View style={calendar_modal.item.modalContent.header as any}>
                             <View style={calendar_modal.item.modalContent.header.sectionLeft as any}>
-                                <Text style={calendar_modal.item.modalContent.header.sectionLeft.title as any}>{t('calendar.modal.date')}</Text>
-                                <Text style={calendar_modal.item.modalContent.header.sectionLeft.text}>{date}</Text>
+                                <Text style={colorMode === 'light' ? calendar_modal.item.modalContent.header.sectionLeft.title as any : calendar_modal.item.modalContent.header.sectionLeft.titleDark as any}>{t('calendar.modal.date')}</Text>
+                                <Text style={colorMode === 'light' ? calendar_modal.item.modalContent.header.sectionLeft.text : calendar_modal.item.modalContent.header.sectionLeft.textDark}>{date}</Text>
                             </View>
                             <View style={calendar_modal.item.modalContent.header.sectionRight as any}>
-                                <Text style={calendar_modal.item.modalContent.header.sectionRight.title as any}>{t('calendar.modal.hour')}</Text>
-                                <Text style={calendar_modal.item.modalContent.header.sectionRight.text}>{hour}</Text>
+                                <Text style={colorMode === 'light' ? calendar_modal.item.modalContent.header.sectionRight.title as any : calendar_modal.item.modalContent.header.sectionRight.titleDark as any}>{t('calendar.modal.hour')}</Text>
+                                <Text style={colorMode === 'light' ? calendar_modal.item.modalContent.header.sectionRight.text : calendar_modal.item.modalContent.header.sectionRight.textDark}>{hour}</Text>
                             </View>
                         </View>
                         <View style={calendar_modal.item.modalContent.section as any}>
-                            <Text style={calendar_modal.item.modalContent.section.title as any}>{t('calendar.modal.title')}</Text>
-                            <Text style={calendar_modal.item.modalContent.section.text}>{title}</Text>
+                            <Text style={colorMode === 'light' ? calendar_modal.item.modalContent.section.title as any : calendar_modal.item.modalContent.section.titleDark as any}>{t('calendar.modal.title')}</Text>
+                            <Text style={colorMode === 'light' ? calendar_modal.item.modalContent.section.text : calendar_modal.item.modalContent.section.textDark}>{title}</Text>
                         </View>
                         <View style={calendar_modal.item.modalContent.section as any}>
-                            <Text style={calendar_modal.item.modalContent.section.title as any}>{t('calendar.modal.description')}</Text>
-                            <Text style={calendar_modal.item.modalContent.section.text}>{stepDescription}</Text>
+                            <Text style={colorMode === 'light' ? calendar_modal.item.modalContent.section.title as any : calendar_modal.item.modalContent.section.titleDark as any}>{t('calendar.modal.description')}</Text>
+                            <Text style={colorMode === 'light' ? calendar_modal.item.modalContent.section.text : calendar_modal.item.modalContent.section.textDark}>{stepDescription}</Text>
                         </View>
                     </View>
                     <View style={calendar_modal.item.modalFooter as any}>
@@ -96,10 +100,12 @@ function CalendarItemModal(props: CalendarModalProps) {
 
 function CalendarActionsModal(props: CalendarActionsModalProps) {
     const [date, setDate] = useState(new Date());
+    const [isLoading, setIsLoading] = useState(false);
 
     const { t, i18n } = useTranslation();
 
     const url = process.env.EXPO_PUBLIC_BASE_URL;
+    const colorMode = useColorScheme();
 
     function formatDate(date: Date) {
         const formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss');
@@ -109,15 +115,15 @@ function CalendarActionsModal(props: CalendarActionsModalProps) {
 
     async function requestEditProcess() {
         if (props.userProcessId && props.stepId && date) {
+            setIsLoading(true);
             const convertedDate = formatDate(date);
-
-            console.log(convertedDate);
 
             await axios.post(`${url}/calendar/set`, {
                 'user_process_id': props.userProcessId,
                 'step_id': props.stepId,
                 'date': convertedDate
             }).then((response) => {
+                setIsLoading(false);
                 Alert.alert(
                     t('calendar.modal.edit.title'),
                     response.data.message,
@@ -129,6 +135,7 @@ function CalendarActionsModal(props: CalendarActionsModalProps) {
                     ]
                 );
             }).catch((error) => {
+                setIsLoading(false);
                 console.log(error.message);
             });
         }
@@ -149,8 +156,10 @@ function CalendarActionsModal(props: CalendarActionsModalProps) {
                         text: t('calendar.modal.delete.button'),
                         style: 'destructive',
                         onPress: async () => {
+                            setIsLoading(true);
                             await axios.get(`${url}/calendar/delete?user_process_id=${props.userProcessId}&step_id=${props.stepId}`)
                                 .then((response) => {
+                                    setIsLoading(false);
                                     Alert.alert(
                                         t('calendar.modal.delete.success'),
                                         response.data.message,
@@ -162,6 +171,7 @@ function CalendarActionsModal(props: CalendarActionsModalProps) {
                                         ]
                                     );
                                 }).catch((error) => {
+                                    setIsLoading(false);
                                     console.log(error);
                                 });
                         }
@@ -183,41 +193,55 @@ function CalendarActionsModal(props: CalendarActionsModalProps) {
             visible={props.modalVisible}
         >
             <View style={calendar_modal.actions.centeredView as any}>
-                <View style={calendar_modal.actions.modalView as any}>
-                    <View style={calendar_modal.actions.modalHeader as any}>
-                        <View style={calendar_modal.actions.modalHeader.containerTitle as any}>
-                            <Text style={calendar_modal.actions.modalHeader.containerTitle.title as any}>{t('calendar.modal.edit.title')}</Text>
+                {
+                    isLoading ?
+                        <View style={colorMode === 'light' ? calendar_modal.actions.modalView as any : calendar_modal.actions.modalViewDark as any}>
+                            <LoadingComponent styleContainer={loading_component.lightContainer} />
                         </View>
-                        <CrossButton onPress={closeModal} />
-                    </View>
-                    <View style={calendar_modal.actions.modalContent as any}>
-                        <DatePicker
-                            mode="datetime"
-                            minimumDate={new Date()}
-                            minuteInterval={5}
-                            date={date}
-                            onConfirm={setDate}
-                            onDateChange={setDate}
-                            locale={i18n.language}
-                        />
-                    </View>
-                    <View style={calendar_modal.actions.modalFooter as any}>
-                        <LongHorizontalButton
-                            title={t('calendar.modal.edit.button')}
-                            styleButton={calendar_modal.actions.modalFooter.buttonEdit}
-                            styleText={calendar_modal.actions.modalFooter.buttonEdit.text as any}
-                            onPress={requestEditProcess}
-                            testID="edit-action-modal-button"
-                        />
-                        <LongHorizontalButton
-                            title={t('calendar.modal.delete.button')}
-                            styleButton={calendar_modal.actions.modalFooter.buttonDelete}
-                            styleText={calendar_modal.actions.modalFooter.buttonDelete.text as any}
-                            onPress={requestDeleteProcess}
-                            testID="delete-action-modal-button"
-                        />
-                    </View>
-                </View>
+                        :
+                        <View style={colorMode === 'light' ? calendar_modal.actions.modalView as any : calendar_modal.actions.modalViewDark as any}>
+                            <View style={calendar_modal.actions.modalHeader as any}>
+                                <View style={calendar_modal.actions.modalHeader.containerTitle as any}>
+                                    <Text style={colorMode === 'light' ? calendar_modal.actions.modalHeader.containerTitle.title as any : calendar_modal.actions.modalHeader.containerTitle.titleDark as any}>{t('calendar.modal.edit.title')}</Text>
+                                </View>
+                                <CrossButton
+                                    colorMode={colorMode === 'light' ? calendar_modal.add.modalHeader.containerTitle.title.color : calendar_modal.add.modalHeader.containerTitle.titleDark.color}
+                                    onPress={closeModal}
+                                />
+                            </View>
+                            <View style={calendar_modal.actions.modalContent as any}>
+                                <View style={colorMode === 'light' ? calendar_modal.add.modalContent.section.datePicker as any : calendar_modal.add.modalContent.section.datePickerDark as any}>
+                                    <DatePicker
+                                        androidVariant='nativeAndroid'
+                                        mode="datetime"
+                                        minimumDate={new Date()}
+                                        minuteInterval={5}
+                                        date={date}
+                                        onConfirm={setDate}
+                                        onDateChange={setDate}
+                                        locale={i18n.language}
+                                        theme={colorMode === 'light' ? 'light' : 'dark'}
+                                    />
+                                </View>
+                            </View>
+                            <View style={calendar_modal.actions.modalFooter as any}>
+                                <LongHorizontalButton
+                                    title={t('calendar.modal.edit.button')}
+                                    styleButton={calendar_modal.actions.modalFooter.buttonEdit}
+                                    styleText={calendar_modal.actions.modalFooter.buttonEdit.text as any}
+                                    onPress={requestEditProcess}
+                                    testID="edit-action-modal-button"
+                                />
+                                <LongHorizontalButton
+                                    title={t('calendar.modal.delete.button')}
+                                    styleButton={calendar_modal.actions.modalFooter.buttonDelete}
+                                    styleText={calendar_modal.actions.modalFooter.buttonDelete.text as any}
+                                    onPress={requestDeleteProcess}
+                                    testID="delete-action-modal-button"
+                                />
+                            </View>
+                        </View>
+                }
             </View>
         </Modal>
     )
@@ -228,10 +252,12 @@ function CalendarAddModal(props: CalendarAddModaProps) {
     const [selectedUserProcessId, setSelectedUserProcessId] = useState(0);
     const [selectedStepId, setSelectedStepId] = useState(0);
     const [availableProcess, setAvailableProcess] = useState<any>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     const { t, i18n } = useTranslation();
 
     const url = process.env.EXPO_PUBLIC_BASE_URL;
+    const colorMode = useColorScheme();
 
     function formatDate(date: Date) {
         const formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss');
@@ -240,7 +266,11 @@ function CalendarAddModal(props: CalendarAddModaProps) {
     }
 
     async function requestAddProcess() {
+        console.log("Selected User Process ID : ", selectedUserProcessId);
+        console.log("Selected Step ID : ", selectedStepId);
+        console.log("Date : ", date);
         if (selectedUserProcessId && selectedStepId && date) {
+            setIsLoading(true);
             const convertedDate = formatDate(date);
 
             console.log("Date : ", convertedDate);
@@ -252,6 +282,7 @@ function CalendarAddModal(props: CalendarAddModaProps) {
                 'step_id': selectedStepId,
                 'date': convertedDate
             }).then((response) => {
+                setIsLoading(false);
                 Alert.alert(
                     t('calendar.modal.edit.title'),
                     response.data.message,
@@ -263,6 +294,7 @@ function CalendarAddModal(props: CalendarAddModaProps) {
                     ]
                 );
             }).catch((error) => {
+                setIsLoading(false);
                 console.log(error.response.data);
             });
         }
@@ -301,7 +333,6 @@ function CalendarAddModal(props: CalendarAddModaProps) {
         return listTitleProcess.map((item: any, index: number) => {
             return (
                 <Picker.Item
-                    style={calendar_modal.add.modalContent.section.picker.item.text as any}
                     label={item.title}
                     value={item.id}
                     key={index}
@@ -316,7 +347,6 @@ function CalendarAddModal(props: CalendarAddModaProps) {
                 if (item.userProcessId === selectedUserProcessId) {
                     return (
                         <Picker.Item
-                            style={calendar_modal.add.modalContent.section.picker.item.text as any}
                             label={item.stepTitle}
                             value={item.stepId}
                             key={index}
@@ -328,8 +358,11 @@ function CalendarAddModal(props: CalendarAddModaProps) {
     }
 
     async function getProcessDatas() {
+        setIsLoading(true);
+
         const token = await getItem('@loginToken');
         const url = process.env.EXPO_PUBLIC_BASE_URL;
+
         setAvailableProcess([]);
 
         if (token) {
@@ -355,15 +388,20 @@ function CalendarAddModal(props: CalendarAddModaProps) {
                                         stepId: stepId,
                                         stepTitle: stepTitle
                                     };
+                                    setSelectedStepId(newProcess.stepId);
+                                    setSelectedUserProcessId(newProcess.userProcessId);
                                     setAvailableProcess((availableProcess: any) => [...availableProcess, newProcess]);
                                 }
                             }
+                            setIsLoading(false);
                         }).catch((error) => {
+                            setIsLoading(false);
                             console.log(error.response.data);
                         })
                     }
                 }
             }).catch((error) => {
+                setIsLoading(false);
                 console.log(error);
             });
         }
@@ -380,54 +418,72 @@ function CalendarAddModal(props: CalendarAddModaProps) {
             visible={props.modalVisible}
         >
             <View style={calendar_modal.add.centeredView as any}>
-                <View style={calendar_modal.add.modalView as any}>
-                    <View style={calendar_modal.add.modalHeader as any}>
-                        <View style={calendar_modal.add.modalHeader.containerTitle as any}>
-                            <Text style={calendar_modal.add.modalHeader.containerTitle.title as any}>{t('calendar.modal.add.title')}</Text>
+                {
+                    isLoading ?
+                        <View style={colorMode === 'light' ? calendar_modal.add.modalView as any : calendar_modal.add.modalViewDark as any}>
+                            <LoadingComponent styleContainer={loading_component.lightContainer} />
                         </View>
-                        <CrossButton onPress={closeModal} />
-                    </View>
-                    <View style={calendar_modal.add.modalContent as any}>
-                        <View style={calendar_modal.add.modalContent.section as any}>
-                            <Text style={calendar_modal.add.modalContent.section.title as any}>{t('calendar.modal.add.process.title')}</Text>
-                            <Picker
-                                selectedValue={selectedUserProcessId}
-                                style={calendar_modal.add.modalContent.section.picker as any}
-                                onValueChange={(itemValue) => setSelectedUserProcessId(itemValue)}
-                            >
-                                {displayProcessTitleInPickeritem()}
-                            </Picker>
+                        :
+                        <View style={colorMode === 'light' ? calendar_modal.add.modalView as any : calendar_modal.add.modalViewDark as any}>
+                            <View style={calendar_modal.add.modalHeader as any}>
+                                <View style={calendar_modal.add.modalHeader.containerTitle as any}>
+                                    <Text style={colorMode === 'light' ? calendar_modal.add.modalHeader.containerTitle.title as any : calendar_modal.add.modalHeader.containerTitle.titleDark as any}>{t('calendar.modal.add.title')}</Text>
+                                </View>
+                                <CrossButton
+                                    colorMode={colorMode === 'light' ? calendar_modal.add.modalHeader.containerTitle.title.color : calendar_modal.add.modalHeader.containerTitle.titleDark.color}
+                                    onPress={closeModal}
+                                />
+                            </View>
+                            <View style={calendar_modal.add.modalContent as any}>
+                                <View style={calendar_modal.add.modalContent.section as any}>
+                                    <Text style={colorMode === 'light' ? calendar_modal.add.modalContent.section.title as any : calendar_modal.add.modalContent.section.titleDark as any}>{t('calendar.modal.add.process.title')}</Text>
+                                    <Picker
+                                        mode='dropdown'
+                                        selectedValue={selectedUserProcessId}
+                                        style={colorMode === 'light' ? calendar_modal.add.modalContent.section.picker as any : calendar_modal.add.modalContent.section.pickerDark as StyleProp<ViewStyle>}
+                                        dropdownIconColor={colorMode === 'light' ? calendar_modal.add.modalContent.section.picker.color : calendar_modal.add.modalContent.section.pickerDark.color}
+                                        onValueChange={(itemValue) => setSelectedUserProcessId(itemValue)}
+                                    >
+                                        {displayProcessTitleInPickeritem()}
+                                    </Picker>
+                                </View>
+                                <View style={calendar_modal.add.modalContent.section as any}>
+                                    <Text style={colorMode === 'light' ? calendar_modal.add.modalContent.section.title as any : calendar_modal.add.modalContent.section.titleDark as any}>{t('calendar.modal.add.step.title')}</Text>
+                                    <Picker
+                                        mode='dropdown'
+                                        selectedValue={selectedStepId}
+                                        style={colorMode === 'light' ? calendar_modal.add.modalContent.section.picker as any : calendar_modal.add.modalContent.section.pickerDark as StyleProp<ViewStyle>}
+                                        dropdownIconColor={colorMode === 'light' ? calendar_modal.add.modalContent.section.picker.color : calendar_modal.add.modalContent.section.pickerDark.color}
+                                        onValueChange={(itemValue) => setSelectedStepId(itemValue)}
+                                    >
+                                        {displayStepsInPickeritem()}
+                                    </Picker>
+                                </View>
+                                <View style={colorMode === 'light' ? calendar_modal.add.modalContent.section.datePicker as any : calendar_modal.add.modalContent.section.datePickerDark as any}>
+                                    <DatePicker
+                                        androidVariant='nativeAndroid'
+                                        mode="datetime"
+                                        minimumDate={new Date()}
+                                        minuteInterval={5}
+                                        date={date}
+                                        onConfirm={setDate}
+                                        onDateChange={setDate}
+                                        locale={i18n.language}
+                                        theme={colorMode === 'light' ? 'light' : 'dark'}
+                                    />
+                                </View>
+                            </View>
+                            <View style={calendar_modal.add.modalFooter as any}>
+                                <LongHorizontalButton
+                                    title={t('calendar.modal.add.button')}
+                                    styleButton={calendar_modal.add.modalFooter.buttonEdit}
+                                    styleText={calendar_modal.add.modalFooter.buttonEdit.text as any}
+                                    onPress={requestAddProcess}
+                                    testID="add-modal-button"
+                                />
+                            </View>
                         </View>
-                        <View style={calendar_modal.add.modalContent.section as any}>
-                            <Text style={calendar_modal.add.modalContent.section.title as any}>{t('calendar.modal.add.step.title')}</Text>
-                            <Picker
-                                selectedValue={selectedStepId}
-                                style={calendar_modal.add.modalContent.section.picker as any}
-                                onValueChange={(itemValue) => setSelectedStepId(itemValue)}
-                            >
-                                {displayStepsInPickeritem()}
-                            </Picker>
-                        </View>
-                        <DatePicker
-                            mode="datetime"
-                            minimumDate={new Date()}
-                            minuteInterval={5}
-                            date={date}
-                            onConfirm={setDate}
-                            onDateChange={setDate}
-                            locale={i18n.language}
-                        />
-                    </View>
-                    <View style={calendar_modal.add.modalFooter as any}>
-                        <LongHorizontalButton
-                            title={t('calendar.modal.add.button')}
-                            styleButton={calendar_modal.add.modalFooter.buttonEdit}
-                            styleText={calendar_modal.add.modalFooter.buttonEdit.text as any}
-                            onPress={requestAddProcess}
-                            testID="add-modal-button"
-                        />
-                    </View>
-                </View>
+                }
             </View>
         </Modal>
     )

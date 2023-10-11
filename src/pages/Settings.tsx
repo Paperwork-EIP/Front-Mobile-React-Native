@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { TouchableOpacity, View, Text, Switch, Modal, useColorScheme, Appearance, NativeModules, Alert } from "react-native";
 import { useTranslation } from 'react-i18next';
 import axios from "axios";
-import Ionicons from '@expo/vector-icons/Ionicons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { settingsLight, settingsDark } from "../../styles/pages/settings.js";
 import { getItem } from "../services/Storage";

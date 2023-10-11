@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Text, TouchableOpacity, View, Animated, Easing, Modal, Pressable, Image } from 'react-native';
+import { Text, TouchableOpacity, View, Animated, Easing, Modal, Pressable, Image, useColorScheme } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { headerLight, headerDark } from "../../styles/components/header.js";
 
-function Header({ navigation, isDarkMode }: { navigation: any }) {
+function Header({ navigation }: { navigation: any }) {
 
     const { t, i18n } = useTranslation();
     const [language, setLanguage] = useState("");
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [rotationValue] = useState(new Animated.Value(0));
+    
+    const colorMode = useColorScheme();
 
     useEffect(() => {
-        const rotateButton = isMenuOpen ? '90deg' : '0deg';
-
         Animated.timing(rotationValue, {
             toValue: isMenuOpen ? 1 : 0,
             duration: 300,
@@ -45,19 +44,19 @@ function Header({ navigation, isDarkMode }: { navigation: any }) {
 
     return (
         <>
-            <View style={isDarkMode ? headerDark.headerContainer : headerLight.headerContainer}>
+            <View style={colorMode === 'dark' ? headerDark.headerContainer : headerLight.headerContainer}>
                 <TouchableOpacity
                     onPress={() => navigation.navigate('Home')}
                     testID="backHomeBtn">
                     <Ionicons
                         name="home"
                         size={28}
-                        color={isDarkMode ? "white" : "black"}
+                        color={colorMode === 'dark' ? "white" : "black"}
                         testID="iconPageTitle"
                     />
                 </TouchableOpacity>
                 <Image
-                    style={isDarkMode ? headerDark.logo : headerLight.logo}
+                    style={colorMode === 'dark' ? headerDark.logo : headerLight.logo}
                     source={require('../../assets/logo.png')}
                   />
                 <TouchableOpacity
@@ -77,7 +76,7 @@ function Header({ navigation, isDarkMode }: { navigation: any }) {
                         <Ionicons
                             name="menu-outline"
                             size={28}
-                            color={isDarkMode ? "white" : "black"}
+                            color={colorMode === 'dark' ? "white" : "black"}
                             testID="iconDrawer"
                         />
                     </Animated.View>
@@ -91,29 +90,29 @@ function Header({ navigation, isDarkMode }: { navigation: any }) {
                     setIsMenuOpen(false);
                 }}>
                 <Pressable
-                     style={isDarkMode ? headerDark.modalContainer : headerLight.modalContainer}
+                     style={colorMode === 'dark' ? headerDark.modalContainer : headerLight.modalContainer}
                      onPress={() => {
                        setIsMenuOpen(false);
                      }}>
-                    <View style={isDarkMode ? headerDark.modalContainer : headerLight.modalContainer}>
-                        <View onPress={preventModalClose} style={isDarkMode ? headerDark.menuContainer : headerLight.menuContainer}>
+                    <View style={colorMode === 'dark' ? headerDark.modalContainer : headerLight.modalContainer}>
+                        <View onPress={preventModalClose} style={colorMode === 'dark' ? headerDark.menuContainer : headerLight.menuContainer}>
                             <Text
-                                style={isDarkMode ? headerDark.navTitle : headerLight.navTitle}
+                                style={colorMode === 'dark' ? headerDark.navTitle : headerLight.navTitle}
                                 onPress={preventModalClose}>{t('header.navigationQuestion')}</Text>
                             <TouchableOpacity
-                                style={isDarkMode ? headerDark.navButton : headerLight.navButton}
+                                style={colorMode === 'dark' ? headerDark.navButton : headerLight.navButton}
                                 onPress={() => navigateToScreen('Home', 'Home')}>
-                                <Text style={isDarkMode ? headerDark.navText : headerLight.navText}>{t('header.homePage')}</Text>
+                                <Text style={colorMode === 'dark' ? headerDark.navText : headerLight.navText}>{t('header.homePage')}</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
-                                style={isDarkMode ? headerDark.navButton : headerLight.navButton}
+                                style={colorMode === 'dark' ? headerDark.navButton : headerLight.navButton}
                                 onPress={() => navigateToScreen('Home', 'Profile')}>
-                                <Text style={isDarkMode ? headerDark.navText : headerLight.navText}>{t('header.profilePage')}</Text>
+                                <Text style={colorMode === 'dark' ? headerDark.navText : headerLight.navText}>{t('header.profilePage')}</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
-                                style={isDarkMode ? headerDark.navButton : headerLight.navButton}
+                                style={colorMode === 'dark' ? headerDark.navButton : headerLight.navButton}
                                 onPress={() => navigateToPage('Settings')}>
-                                <Text style={isDarkMode ? headerDark.navText : headerLight.navText}>{t('header.settingsPage')}</Text>
+                                <Text style={colorMode === 'dark' ? headerDark.navText : headerLight.navText}>{t('header.settingsPage')}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

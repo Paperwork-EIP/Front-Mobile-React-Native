@@ -8,9 +8,10 @@ const headerLight = StyleSheet.create({
         marginBottom: "5%",
         paddingTop: "15%",
         paddingHorizontal: '5%',
+        backgroundColor: 'white',
     },
     text: {
-        color: "black",
+        color: "red",
         fontSize: 24,
         fontWeight: 'bold',
     },
@@ -53,6 +54,7 @@ const headerLight = StyleSheet.create({
 const headerDark = StyleSheet.create({
     headerContainer: {
         ...headerLight.headerContainer,
+        backgroundColor: 'black',
     },
     text: {
         ...headerLight.text,

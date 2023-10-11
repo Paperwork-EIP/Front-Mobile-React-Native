@@ -11,16 +11,37 @@ import Lexicon from './src/pages/Lexicon';
 import Help from './src/pages/Help';
 import QuizzPage from './src/pages/QuizzPage';
 import Edit_info from './src/pages/Edit_info';
-import Result from './src/pages/Result';
+import Result  from './src/pages/Result';
+import Header from "./src/components/Header";
 
 import "./src/i18n/i18n";
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 function App() {
+
     const Stack = createNativeStackNavigator();
+
+    const [isDarkMode, setIsDarkMode] = useState(false);
+
+    const loadThemePreference = async () => {
+        try {
+            const storedTheme = await AsyncStorage.getItem('theme');
+            if (storedTheme) {
+                setIsDarkMode(storedTheme === 'dark');
+                console.log("isDarkMode = " + isDarkMode);
+            }
+        } catch (error) {
+            console.error('Error loading theme preference:', error);
+        }
+    };
+
+    useEffect(() => {
+        loadThemePreference();
+    }, []);
 
     return (
         <NavigationContainer>
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Navigator screenOptions={{ headerShown: true, header: (props) => <Header {...props} isDarkMode={isDarkMode} /> }}>
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Register" component={Register} />
                 <Stack.Screen name="Home" component={Home} />

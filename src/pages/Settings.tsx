@@ -3,12 +3,13 @@ import { TouchableOpacity, View, Text, Switch, Modal, useColorScheme, Appearance
 import { useTranslation } from 'react-i18next';
 import axios from "axios";
 import Ionicons from '@expo/vector-icons/Ionicons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { settingsLight, settingsDark } from "../../styles/pages/settings.js";
 import { getItem } from "../services/Storage";
 import DisconnectButton from "../components/DisconnectButton";
 import LongHorizontalButton from "../components/LongHorizontalButton";
-import { deleteItemAndRedirectTo } from '../services/Storage';
+import { deleteItemAndRedirectTo } from "../services/Storage";
 
 function Settings({ navigation }: { navigation: any }) {
 
@@ -95,24 +96,6 @@ function Settings({ navigation }: { navigation: any }) {
         <>
             <View style={colorMode === 'dark' ? settingsDark.container : settingsLight.container}>
                 <View style={colorMode === 'dark' ? settingsDark.content : settingsLight.content}>
-                    <View>
-                        <TouchableOpacity
-                            style={colorMode === 'dark' ? settingsDark.homeBtn : settingsLight.homeBtn}
-                            onPress={() => navigation.navigate('Home')}
-                            testID="backHomeBtn">
-                            <Ionicons
-                                name="chevron-back-outline"
-                                size={28}
-                                color={colorMode === 'dark' ? "white" : "black"}
-                                testID="iconPageTitle"
-                            />
-                            <Text
-                                style={colorMode === 'dark' ? settingsDark.homeBtn.text : settingsLight.homeBtn.text}
-                                testID="pageTitle"
-                            >
-                                {t('settings.pageTitle')}</Text>
-                        </TouchableOpacity>
-                    </View>
                     <View style={colorMode === 'dark' ? settingsDark.settingsContainer : settingsLight.settingsContainer}>
                         <View style={colorMode === 'dark' ? settingsDark.section : settingsLight.section}>
                             <Text

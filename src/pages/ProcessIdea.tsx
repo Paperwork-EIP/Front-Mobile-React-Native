@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import LongHorizontalButton from "../components/LongHorizontalButton";
 import { processIdeaLight, processIdeaDark } from "../../styles/pages/processidea.js";
 import { getItem } from "../services/Storage";
+import Header from "../components/Header";
 
 function ProcessIdea({ navigation }: { navigation: any }) {
 
@@ -22,7 +23,6 @@ function ProcessIdea({ navigation }: { navigation: any }) {
     const [token, setToken] = useState('');
 
     const api = process.env.EXPO_PUBLIC_BASE_URL;
-
 
     const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -130,15 +130,7 @@ function ProcessIdea({ navigation }: { navigation: any }) {
         <>
             <View style={isDarkMode ? processIdeaDark.container : processIdeaLight.container}>
                 <View style={isDarkMode ? processIdeaDark.content : processIdeaLight.content}>
-                    <View>
-                        <TouchableOpacity
-                            style={isDarkMode ? processIdeaDark.homebtn : processIdeaLight.homebtn}
-                            onPress={() => navigation.navigate('Home')}
-                            testID="backHomeBtn">
-                            <Ionicons name="chevron-back-outline" size={28} color={isDarkMode ? "white" : "black"} />
-                            <Text style={isDarkMode ? processIdeaDark.homebtn.text : processIdeaLight.homebtn.text}>{t('processidea.pagetitle')}</Text>
-                        </TouchableOpacity>
-                    </View>
+                    <Header navigation={navigation} isDarkMode={isDarkMode} />
                     <View style={isDarkMode ? processIdeaDark.form : processIdeaLight.form}>
                         <Text style={isDarkMode ? processIdeaDark.title : processIdeaLight.title} >{t('processidea.title')}</Text>
                         <TextInput

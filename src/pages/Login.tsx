@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, View, Image, TextInput, Text, StyleProp, ViewStyle, useColorScheme } from "react-native";
+import { Alert, View, Image, TextInput, Text, StyleProp, ViewStyle } from "react-native";
 import { useTranslation } from 'react-i18next';
 import { Picker } from "@react-native-picker/picker";
 import axios from "axios";
@@ -15,7 +15,7 @@ import { getItem, getUserData, storeItem } from "../services/Storage";
 
 import { login } from "../../styles/pages/login";
 
-function Login({ navigation }: { navigation: any }) {
+function Login({ navigation, route }: { navigation: any, route: any }) {
     const { t, i18n } = useTranslation();
 
     const [email, setEmail] = useState('');
@@ -23,7 +23,7 @@ function Login({ navigation }: { navigation: any }) {
     const [hidePassword, setHidePassword] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
 
-    const colorMode = useColorScheme();
+    const colorMode = route.params.colorMode;
 
     function changeLanguage(language: string | undefined) {
         i18n.changeLanguage(language);

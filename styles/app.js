@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
-import { lightBackgroundColor, darkBackgroundColor } from './colors';
+import { lightBackgroundColor, darkBackgroundColor, darkTextColor } from './colors';
+import { DefaultTheme } from '@react-navigation/native';
 
 const app = StyleSheet.create({
     container: {
@@ -11,4 +12,18 @@ const app = StyleSheet.create({
     }
 });
 
-export { app };
+const themeLight = DefaultTheme;
+
+const themeDark = {
+    ...DefaultTheme,
+    colors: {
+        ...DefaultTheme.colors,
+        background: darkBackgroundColor,
+        card: darkBackgroundColor,
+        text: darkTextColor,
+        border: 'white',
+        notification: 'white',
+    },
+};
+
+export { app, themeLight, themeDark };

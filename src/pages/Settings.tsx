@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { TouchableOpacity, View, Text, Switch, Modal, useColorScheme, Appearance, NativeModules, Alert } from "react-native";
+import React, { useCallback, useEffect, useState } from "react";
+import { TouchableOpacity, View, Text, Switch, Modal, NativeModules, Alert } from "react-native";
 import { useTranslation } from 'react-i18next';
 import axios from "axios";
 
-import { settingsLight, settingsDark } from "../../styles/pages/settings.js";
-import { getItem } from "../services/Storage";
 import DisconnectButton from "../components/DisconnectButton";
 import LongHorizontalButton from "../components/LongHorizontalButton";
-import { deleteItemAndRedirectTo } from "../services/Storage";
 
-function Settings({ navigation }: { navigation: any }) {
+import { deleteItemAndRedirectTo, getItem } from "../services/Storage";
+import { setColorModeInLocalStorage } from "../services/Parameters";
 
+import { settingsLight, settingsDark } from "../../styles/pages/settings.js";
+
+function Settings({ navigation, route }: { navigation: any, route: any }) {
     const { t, i18n } = useTranslation();
     const [language, setLanguage] = useState("");
     const [token, setToken] = useState('');
@@ -18,7 +19,11 @@ function Settings({ navigation }: { navigation: any }) {
 
     const [isConfirmationVisible, setConfirmationVisible] = useState(false);
 
-    const colorMode = useColorScheme();
+    const colorMode = route.params.colorMode;
+
+    const setColorModeCallback = useCallback(async (color: string) => {
+        await setColorModeInLocalStorage(color);
+    }, []);
 
     function toggleDarkMode() {
         Alert.alert(
@@ -27,9 +32,11 @@ function Settings({ navigation }: { navigation: any }) {
             [
                 {
                     text: "Ok",
-                    onPress: () => {
-                        Appearance.setColorScheme(colorMode === 'dark' ? 'light' : 'dark');
-                        NativeModules.DevSettings.reload();
+                    onPress: async () => {
+                        await setColorModeCallback(colorMode === 'dark' ? 'light' : 'dark').then(() => {
+                            console.log("Color mode changed to " + colorMode);
+                            NativeModules.DevSettings.reload();
+                        });
                     }
                 }
             ]

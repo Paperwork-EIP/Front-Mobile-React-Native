@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Text, TouchableOpacity, View, Animated, Easing, Modal, Pressable, Image, useColorScheme } from 'react-native';
+import { Text, TouchableOpacity, View, Animated, Easing, Modal, Pressable, Image } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 import { headerLight, headerDark } from "../../styles/components/header.js";
 
-function Header({ navigation }: { navigation: any }) {
+function Header({ navigation, theme }: { navigation: any, theme: any }) {
 
-    const { t, i18n } = useTranslation();
-    const [language, setLanguage] = useState("");
+    const { t } = useTranslation();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [rotationValue] = useState(new Animated.Value(0));
     
-    const colorMode = useColorScheme();
+    const colorMode = theme;
+    const iconSize = 24;
 
     useEffect(() => {
         Animated.timing(rotationValue, {
@@ -28,16 +28,16 @@ function Header({ navigation }: { navigation: any }) {
         setIsMenuOpen(!isMenuOpen);
     };
 
-    const preventModalClose = (event) => {
+    function preventModalClose(event: any) {
         event.stopPropagation();
     };
 
-    const navigateToPage = ( pageName ) => {
+    function navigateToPage(pageName: string) {
         navigation.navigate(pageName);
         setIsMenuOpen(false);
     }
 
-    const navigateToScreen = ( pageName, screenName ) => {
+    function navigateToScreen(pageName: string, screenName: string) {
         navigation.navigate(pageName, {screen: screenName})
         setIsMenuOpen(false);
     }
@@ -50,7 +50,7 @@ function Header({ navigation }: { navigation: any }) {
                     testID="backHomeBtn">
                     <Ionicons
                         name="home"
-                        size={28}
+                        size={iconSize}
                         color={colorMode === 'dark' ? "white" : "black"}
                         testID="iconPageTitle"
                     />
@@ -75,7 +75,7 @@ function Header({ navigation }: { navigation: any }) {
                         }}>
                         <Ionicons
                             name="menu-outline"
-                            size={28}
+                            size={iconSize}
                             color={colorMode === 'dark' ? "white" : "black"}
                             testID="iconDrawer"
                         />
@@ -95,7 +95,7 @@ function Header({ navigation }: { navigation: any }) {
                        setIsMenuOpen(false);
                      }}>
                     <View style={colorMode === 'dark' ? headerDark.modalContainer : headerLight.modalContainer}>
-                        <View onPress={preventModalClose} style={colorMode === 'dark' ? headerDark.menuContainer : headerLight.menuContainer}>
+                        <View style={colorMode === 'dark' ? headerDark.menuContainer : headerLight.menuContainer}>
                             <Text
                                 style={colorMode === 'dark' ? headerDark.navTitle : headerLight.navTitle}
                                 onPress={preventModalClose}>{t('header.navigationQuestion')}</Text>

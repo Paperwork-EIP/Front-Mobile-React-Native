@@ -7,7 +7,7 @@ import axios from "axios";
 import { getItem } from "../services/Storage";
 import { Text, View } from 'react-native';
 
-function Result({ navigation } : { navigation: any }) {
+function Result({ navigation, route }: { navigation: any, route: any }) {
 
     const url = process.env.EXPO_PUBLIC_BASE_URL;
     const [stepsAnswer, setStepsAnswer] = useState([]);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {  Alert, View, TextInput, Text, useColorScheme } from "react-native";
+import {  Alert, View, TextInput, Text } from "react-native";
 import { useTranslation } from 'react-i18next';
 import axios from "axios";
 
@@ -7,7 +7,7 @@ import LongHorizontalButton from "../components/LongHorizontalButton";
 import { processIdeaLight, processIdeaDark } from "../../styles/pages/processidea.js";
 import { getItem } from "../services/Storage";
 
-function ProcessIdea({ navigation }: { navigation: any }) {
+function ProcessIdea({ navigation, route }: { navigation: any, route: any }) {
 
     const { t, i18n } = useTranslation();
 
@@ -21,7 +21,7 @@ function ProcessIdea({ navigation }: { navigation: any }) {
 
     const api = process.env.EXPO_PUBLIC_BASE_URL;
     
-    const colorMode = useColorScheme();
+    const colorMode = route.params.colorMode;
 
     async function getLoginToken() {
         const loginToken = await getItem('@loginToken');

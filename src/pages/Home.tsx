@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, View, useColorScheme } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -41,9 +41,9 @@ function SwitchTabIcon(route: any, focused: boolean, color: string, size: number
     }
 }
 
-function Home({ navigation }: { navigation: any }) {
+function Home({ navigation, route }: { navigation: any, route: any }) {
     const Tab = createBottomTabNavigator();
-    const colorMode = useColorScheme();
+    const colorMode = route.params.colorMode;
 
     const activeTabColor = '#FC6976';
     const inactiveTabColor = 'grey';
@@ -62,24 +62,23 @@ function Home({ navigation }: { navigation: any }) {
                     },
                     tabBarActiveTintColor: activeTabColor,
                     tabBarInactiveTintColor: inactiveTabColor,
-                    headerRight: () => (
-                        <TouchableOpacity style={profile.settingsButton} onPress={() => { navigation.navigate('Settings') }}>
-                            <Ionicons style={colorMode === 'light' ? profile.settingsButton.icon : profile.settingsButton.iconDark} name={'settings-sharp'} size={24} color={'black'} />
-                        </TouchableOpacity>
-                    ),
+                    headerShown: false
                 })}
             >
                 <Tab.Screen
                     name="Main Menu"
                     component={MainMenu}
+                    initialParams={{ colorMode: colorMode }}
                 />
                 <Tab.Screen
                     name="Calendar"
                     component={Calendar}
+                    initialParams={{ colorMode: colorMode }}
                 />
                 <Tab.Screen
                     name="Profile"
                     component={Profile}
+                    initialParams={{ colorMode: colorMode }}
                 />
             </Tab.Navigator>
         </View>

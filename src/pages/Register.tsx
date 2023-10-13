@@ -14,7 +14,7 @@ import GoogleAuthButton from "../services/Google";
 
 import { register } from "../../styles/pages/register";
 
-function Register({ navigation }: { navigation: any }) {
+function Register({ navigation, route }: { navigation: any, route: any }) {
     const { t, i18n } = useTranslation();
 
     const [username, setUsername] = useState('');
@@ -25,7 +25,7 @@ function Register({ navigation }: { navigation: any }) {
     const [hideConfirmPassword, setHideConfirmPassword] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
 
-    const colorMode = useColorScheme();
+    const colorMode = route.params.colorMode;
 
     function changeLanguage(language: string | undefined) {
         i18n.changeLanguage(language);

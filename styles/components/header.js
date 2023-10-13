@@ -1,18 +1,18 @@
 import { StyleSheet } from "react-native";
+import { darkBackgroundColor, darkSecondaryBackgroundColor, darkTextColor, lightBackgroundColor, lightSecondaryBackgroundColor, lightTextColor } from '../colors';
 
 const headerLight = StyleSheet.create({
     headerContainer: {
+        height: 60,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginBottom: "5%",
-        paddingTop: "15%",
         paddingHorizontal: '5%',
-        backgroundColor: 'white',
+        backgroundColor: lightBackgroundColor,
     },
     text: {
-        color: "red",
-        fontSize: 24,
+        color: lightTextColor,
+        fontSize: 20,
         fontWeight: 'bold',
     },
     modalContainer: {
@@ -21,7 +21,7 @@ const headerLight = StyleSheet.create({
         justifyContent: 'center',
     },
     menuContainer: {
-        backgroundColor: 'white',
+        backgroundColor: lightSecondaryBackgroundColor,
         elevation: 5,
         padding: 25,
         justifyContent: 'center',
@@ -49,16 +49,14 @@ const headerLight = StyleSheet.create({
     }
 });
 
-// DARK MODE
-
 const headerDark = StyleSheet.create({
     headerContainer: {
         ...headerLight.headerContainer,
-        backgroundColor: 'black',
+        backgroundColor: darkBackgroundColor,
     },
     text: {
         ...headerLight.text,
-        color: 'white',
+        color: darkTextColor,
     },
     modalContainer: {
         ...headerLight.modalContainer,

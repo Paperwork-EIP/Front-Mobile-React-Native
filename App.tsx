@@ -29,6 +29,8 @@ function App() {
         const colorMode = await getColorModeFromLocalStorage();
         if (colorMode) {
             setColorMode(colorMode);
+        } else {
+            setColorMode("light");
         }
     }, []);
 

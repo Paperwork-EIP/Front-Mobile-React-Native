@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert, View, Image, TextInput, Text, StyleProp, ViewStyle, useColorScheme } from "react-native";
+import { Alert, View, Image, TextInput, Text, StyleProp, ViewStyle } from "react-native";
 import { useTranslation } from 'react-i18next';
 import { Picker } from "@react-native-picker/picker";
 import axios from "axios";

@@ -29,13 +29,14 @@ afterEach(() => {
 
 describe('ProcessIdea', () => {
     const navigation = { navigate: jest.fn(), reset: jest.fn() };
+    const route = { params: { colorMode: 'light' } };
 
     it('renders correctly', () => {
-        render(<ProcessIdea navigation={navigation} />);
+        render(<ProcessIdea navigation={navigation} route={route} />);
     });
 
     it('Button back to home page working correctly', () => {
-        const { getByTestId } = render(<ProcessIdea navigation={navigation} />);
+        const { getByTestId } = render(<ProcessIdea navigation={navigation} route={route} />);
 
         const backHomeBtn = getByTestId('backHomeBtn');
 
@@ -45,7 +46,7 @@ describe('ProcessIdea', () => {
     });
 
     it('Filling the form working corretly', () => {
-        const { getByTestId } = render(<ProcessIdea navigation={navigation} />);
+        const { getByTestId } = render(<ProcessIdea navigation={navigation} route={route} />);
 
         const titleInput = getByTestId('titleInput');
         const titleHelp = getByTestId('helpTitle');
@@ -70,7 +71,7 @@ describe('ProcessIdea', () => {
     });
 
     it('Not filling the form working corretly', () => {
-        const { getByTestId } = render(<ProcessIdea navigation={navigation} />);
+        const { getByTestId } = render(<ProcessIdea navigation={navigation} route={route} />);
 
         const titleInput = getByTestId('titleInput');
         const descriptionInput = getByTestId('descriptionInput');

@@ -37,8 +37,9 @@ afterEach(() => {
 
 describe('Calendar', () => {
     const navigation = { navigate: jest.fn(), reset: jest.fn() };
+    const route = { params: { colorMode: 'light' } };
 
-    it('renders correctly', async () => {
-        render(<Calendar navigation={navigation} />);
+    test('renders correctly', async () => {
+        render(<Calendar navigation={navigation} route={route} />);
     });
 });

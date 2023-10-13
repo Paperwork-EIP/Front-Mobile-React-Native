@@ -30,15 +30,16 @@ afterEach(() => {
 
 describe('Settings', () => {
     const navigation = { navigate: jest.fn(), reset: jest.fn() };
+    const route = { params: { colorMode: 'light' } };
 
     it('renders correctly', () => {
-        render(<Settings navigation={navigation} />);
+        render(<Settings navigation={navigation} route={route} />);
 
         expect(axios.get).toHaveBeenCalledTimes(1);
     });
 
     it('Verify if everything is rendering', () => {
-        const { getByTestId } = render(<Settings navigation={navigation} />);
+        const { getByTestId } = render(<Settings navigation={navigation} route={route} />);
 
         const darkModeText = getByTestId('darkModeText');
         const darkModeSwitch = getByTestId('darkModeSwitch');
@@ -60,7 +61,7 @@ describe('Settings', () => {
     });
 
     it('Verify if everything in modal is rendering after clicking on delete account button', () => {
-        const { getByTestId } = render(<Settings navigation={navigation} />);
+        const { getByTestId } = render(<Settings navigation={navigation} route={route} />);
 
         const deleteAccountButton = getByTestId('deleteAccountButton');
 
@@ -82,7 +83,7 @@ describe('Settings', () => {
     });
 
     it('Verify if everything is rendering in dark mode', () => {
-        const { getByTestId } = render(<Settings navigation={navigation} />);
+        const { getByTestId } = render(<Settings navigation={navigation} route={route} />);
 
         const darkModeSwitch = getByTestId('darkModeSwitch');
 
@@ -107,7 +108,7 @@ describe('Settings', () => {
     });
 
     it('Verify if everything in modal is rendering after clicking on delete account button in dark mode', () => {
-        const { getByTestId } = render(<Settings navigation={navigation} />);
+        const { getByTestId } = render(<Settings navigation={navigation} route={route} />);
 
         const darkModeSwitch = getByTestId('darkModeSwitch');
 
@@ -133,7 +134,7 @@ describe('Settings', () => {
     });
 
     it('Disconnect when clicking on disconnect button', () => {
-        const { getByTestId } = render(<Settings navigation={navigation} />);
+        const { getByTestId } = render(<Settings navigation={navigation} route={route} />);
 
         const disconnectButton = getByTestId('disconnectButton');
 
@@ -143,7 +144,7 @@ describe('Settings', () => {
     });
 
     it('Delete account modal - Open', () => {
-        const { getByTestId } = render(<Settings navigation={navigation} />);
+        const { getByTestId } = render(<Settings navigation={navigation} route={route} />);
 
         const deleteAccountButton = getByTestId('deleteAccountButton');
 
@@ -155,7 +156,7 @@ describe('Settings', () => {
     });
 
     it('Delete account modal - Open and Cancel', () => {
-        const { getByTestId } = render(<Settings navigation={navigation} />);
+        const { getByTestId } = render(<Settings navigation={navigation} route={route} />);
 
         const deleteAccountButton = getByTestId('deleteAccountButton');
         fireEvent.press(deleteAccountButton);
@@ -168,7 +169,7 @@ describe('Settings', () => {
     });
 
     it('Toggle dark mode', async () => {
-        const { getByTestId } = render(<Settings navigation={navigation} />);
+        const { getByTestId } = render(<Settings navigation={navigation} route={route} />);
         const darkModeSwitch = getByTestId('darkModeSwitch');
 
         // Vérifiez que le commutateur est initialement à false (mode clair)

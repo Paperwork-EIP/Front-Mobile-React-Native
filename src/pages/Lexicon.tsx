@@ -3,11 +3,9 @@ import { ScrollView, View, Text, TouchableOpacity, Image, Linking } from 'react-
 import { useTranslation } from 'react-i18next';
 import { lexicon } from "../../styles/pages/lexicon";
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native';
 
-const Lexicon: React.FC = () => {
+function Lexicon({ navigation, route }: { navigation: any, route: any }) {
   const { t, i18n } = useTranslation();
-  const navigation = useNavigation();
 
   function changeLanguage(language: string | undefined) {
       i18n.changeLanguage(language);

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert, View, Image, TextInput, Text, StyleProp, ViewStyle, useColorScheme } from "react-native";
+import { Alert, View, Image, TextInput, Text, StyleProp, ViewStyle } from "react-native";
 import { useTranslation } from 'react-i18next';
 import { Picker } from "@react-native-picker/picker";
 import axios from "axios";
@@ -14,7 +14,7 @@ import GoogleAuthButton from "../services/Google";
 
 import { register } from "../../styles/pages/register";
 
-function Register({ navigation }: { navigation: any }) {
+function Register({ navigation, route }: { navigation: any, route: any }) {
     const { t, i18n } = useTranslation();
 
     const [username, setUsername] = useState('');
@@ -25,7 +25,7 @@ function Register({ navigation }: { navigation: any }) {
     const [hideConfirmPassword, setHideConfirmPassword] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
 
-    const colorMode = useColorScheme();
+    const colorMode = route.params.colorMode;
 
     function changeLanguage(language: string | undefined) {
         i18n.changeLanguage(language);

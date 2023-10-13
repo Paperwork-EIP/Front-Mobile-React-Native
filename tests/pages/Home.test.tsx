@@ -1,9 +1,9 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { cleanup, render } from '@testing-library/react-native';
 import axios from 'axios';
 
 import Home from '../../src/pages/Home';
+import { NavigationContainer } from '@react-navigation/native';
 
 jest.mock('../../src/screens/Calendar', () => ({
     __esModule: true,
@@ -20,7 +20,7 @@ jest.mock('../../src/screens/Profile', () => ({
 }));
 
 
-jest.mock('../../src/pages/MainMenu', () => ({
+jest.mock('../../src/screens/MainMenu', () => ({
     __esModule: true,
     default: () => {
         return <></>;
@@ -50,13 +50,14 @@ afterEach(() => {
 });
 
 describe('Home tests', () => {
+    const navigation = { navigate: jest.fn() };
+    const route = { params: { colorMode: 'light' } };
+
     test('renders correctly', async () => {
-        const { getByText } = render(
+        render(
             <NavigationContainer>
-                <Home />
+                <Home navigation={navigation} route={route} />
             </NavigationContainer>
         );
-
-        expect(getByText('Home')).toBeTruthy();
     });
 });

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, Image, useColorScheme, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import axios from "axios";
 
@@ -12,12 +12,12 @@ import { mainmenu } from "../../styles/screen/mainmenu";
 import { calendar } from "../../styles/screen/calendar";
 import { loading_component } from '../../styles/components/loading_component';
 
-const MainMenu: React.FC = ({ navigation }: any) => {
+function MainMenu({ navigation, route }: { navigation: any, route: any }) {
     const [userProcessInfo, setUserProcessInfo]: any = useState([]);
     const [isLoadingCalendarAgendaList, setIsLoadingCalendarAgendaList] = useState(true);
     const [isLoadingProcessList, setIsLoadingProcessList] = useState(true);
 
-    const colorMode = useColorScheme();
+    const colorMode = route.params.colorMode;
 
     const { t } = useTranslation();
 

@@ -5,7 +5,6 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 
 import { getItem } from "../services/Storage";
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 import { View } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown'
 import { useTranslation } from 'react-i18next';
@@ -14,7 +13,7 @@ import LongHorizontalButton from "../components/LongHorizontalButton";
 
 import { quizzPage } from "../../styles/pages/quizzPage";
 
-function QuizzPage({ navigation } : { navigation: any }) {
+function QuizzPage({ navigation, route }: { navigation: any, route: any }) {
 
     const url = process.env.EXPO_PUBLIC_BASE_URL;
 

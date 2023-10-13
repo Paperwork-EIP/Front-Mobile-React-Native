@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Image, Linking } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Image } from 'react-native';
 import { help } from "../../styles/pages/help";
 import { useTranslation } from 'react-i18next';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native';
 
-const Help: React.FC = () => {
+function Help({ navigation, route }: { navigation: any, route: any }) {
   const { t, i18n } = useTranslation();
-  const navigation = useNavigation();
 
   function changeLanguage(language: string | undefined) {
       i18n.changeLanguage(language);

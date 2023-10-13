@@ -11,7 +11,7 @@ import LoadingComponent from "../components/LoadingComponent";
 import { profile } from "../../styles/screen/profile.js";
 import { loading_component } from "../../styles/components/loading_component";
 
-function Profile({ navigation }: { navigation: any }) {
+function Profile({ navigation, route }: { navigation: any, route: any }) {
 
     const url = process.env.EXPO_PUBLIC_BASE_URL;
     const [items, setItems] = useState<any>([]);
@@ -36,7 +36,7 @@ function Profile({ navigation }: { navigation: any }) {
     const colorInfoIcons = '#29c9b3';
     const sizeInfoIcons = 16;
 
-    const colorMode = useColorScheme();
+    const colorMode = route.params.colorMode;
 
     const propsCardInfo = [
         {

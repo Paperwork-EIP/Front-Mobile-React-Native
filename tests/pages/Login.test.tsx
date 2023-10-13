@@ -36,13 +36,14 @@ afterEach(() => {
 
 describe('Login', () => {
     const navigation = { navigate: jest.fn(), reset: jest.fn() };
+    const route = { params: { colorMode: 'light' } };
 
-    it('renders correctly', () => {
-        render(<Login navigation={navigation} />);
+    test('renders correctly', () => {
+        render(<Login navigation={navigation} route={route} />);
     });
 
-    it('submit login form and get 200 status code', () => {
-        const { getByTestId } = render(<Login navigation={navigation} />);
+    test('submit login form and get 200 status code', () => {
+        const { getByTestId } = render(<Login navigation={navigation} route={route} />);
 
         const emailInput = getByTestId('emailInput');
         const passwordInput = getByTestId('passwordInput');
@@ -57,7 +58,7 @@ describe('Login', () => {
         expect(axios.post).toHaveBeenCalledTimes(1);
     });
 
-    it('submit login form and and get not 200 status code', () => {
+    test('submit login form and and get not 200 status code', () => {
         axios.post = jest.fn().mockResolvedValue({
             response: {
                 status: 400,
@@ -67,7 +68,7 @@ describe('Login', () => {
             }
         });
 
-        const { getByTestId } = render(<Login navigation={navigation} />);
+        const { getByTestId } = render(<Login navigation={navigation} route={route} />);
 
         const emailInput = getByTestId('emailInput');
         const passwordInput = getByTestId('passwordInput');
@@ -82,7 +83,7 @@ describe('Login', () => {
         expect(axios.post).toHaveBeenCalledTimes(1);
     });
 
-    it('submit login form and get an error', () => {
+    test('submit login form and get an error', () => {
         axios.post = jest.fn().mockRejectedValue({
             response: {
                 status: 500,
@@ -92,7 +93,7 @@ describe('Login', () => {
             }
         });
 
-        const { getByTestId } = render(<Login navigation={navigation} />);
+        const { getByTestId } = render(<Login navigation={navigation} route={route} />);
 
         const emailInput = getByTestId('emailInput');
         const passwordInput = getByTestId('passwordInput');
@@ -107,8 +108,8 @@ describe('Login', () => {
         expect(axios.post).toHaveBeenCalledTimes(1);
     });
 
-    it('should not submit login form if all input are not filled', () => {
-        const { getByTestId } = render(<Login navigation={navigation} />);
+    test('should not submit login form if all input are not filled', () => {
+        const { getByTestId } = render(<Login navigation={navigation} route={route} />);
 
         const emailInput = getByTestId('emailInput');
         const passwordInput = getByTestId('passwordInput');
@@ -123,8 +124,8 @@ describe('Login', () => {
         expect(axios.post).toHaveBeenCalledTimes(0);
     });
 
-    it('should press on register button', () => {
-        const { getByTestId } = render(<Login navigation={navigation} />);
+    test('should press on register button', () => {
+        const { getByTestId } = render(<Login navigation={navigation} route={route} />);
 
         const button = getByTestId('registerButton');
 
@@ -133,8 +134,8 @@ describe('Login', () => {
         expect(button).toBeTruthy();
     });
 
-    it('should press on forgot password button', () => {
-        const { getByTestId } = render(<Login navigation={navigation} />);
+    test('should press on forgot password button', () => {
+        const { getByTestId } = render(<Login navigation={navigation} route={route} />);
 
         const button = getByTestId('forgotPasswordButton');
 
@@ -143,8 +144,8 @@ describe('Login', () => {
         expect(button).toBeTruthy();
     });
 
-    it('should press on hide password button', () => {
-        const { getByTestId } = render(<Login navigation={navigation} />);
+    test('should press on hide password button', () => {
+        const { getByTestId } = render(<Login navigation={navigation} route={route} />);
 
         const button = getByTestId('hidePasswordButton');
 
@@ -153,8 +154,8 @@ describe('Login', () => {
         expect(button).toBeTruthy();
     });
 
-    it('should press on language picker', () => {
-        const { getByTestId } = render(<Login navigation={navigation} />);
+    test('should press on language picker', () => {
+        const { getByTestId } = render(<Login navigation={navigation} route={route} />);
 
         const picker = getByTestId('languagePicker');
 

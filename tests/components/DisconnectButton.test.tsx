@@ -37,11 +37,11 @@ afterEach(() => {
 describe('DisconnectButton', () => {
     const navigation = { navigate: jest.fn(), reset: jest.fn() };
 
-    it('renders correctly', () => {
+    test('renders correctly', () => {
         render(<DisconnectButton navigation={navigation} text={''} />);
     });
 
-    it('disconnect', () => {
+    test('disconnect', () => {
         const { getByTestId } = render(<DisconnectButton navigation={navigation} text={''} />);
 
         const disconnectButton = getByTestId('disconnectButton');

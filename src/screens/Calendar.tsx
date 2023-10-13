@@ -10,13 +10,13 @@ import { getItem } from "../services/Storage";
 import { calendar, brightRed } from "../../styles/screen/calendar";
 import { loading_component } from "../../styles/components/loading_component";
 
-function Calendar() {
+function Calendar({ navigation, route }: { navigation: any, route: any }) {
     const [items, setItems] = useState<any>([]);
     const [token, setToken] = useState('');
     const [markedDatesState, setMarkedDatesState] = useState<any>({});
     const [isLoading, setIsLoading] = useState(true);
 
-    const colorMode = useColorScheme();
+    const colorMode = route.params.colorMode;
     const selectedDotColor = brightRed;
     const url = process.env.EXPO_PUBLIC_BASE_URL;
 

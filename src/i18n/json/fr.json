@@ -236,5 +236,12 @@
         "homePage": "Accueil",
         "profilePage": "Profil",
         "settingsPage": "Paramètres"
+    },
+    "quizzpage": {
+        "start": "Commencer",
+        "select": "Sélectionnez une procédure",
+        "yes": "Oui",
+        "no": "Non",
+        "toDo": "À faire"
     }
 }

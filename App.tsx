@@ -10,6 +10,7 @@ import Settings from './src/pages/Settings';
 import Lexicon from './src/pages/Lexicon';
 import Help from './src/pages/Help';
 import QuizzPage from './src/pages/QuizzPage';
+import QuizzQuestion from './src/pages/QuizzQuestion';
 import Edit_info from './src/pages/Edit_info';
 import Result from './src/pages/Result';
 
@@ -52,6 +53,7 @@ function App() {
                         <Stack.Screen name="Help" component={Help} initialParams={{ colorMode: colorMode }} />
                         <Stack.Screen name="Edit_info" component={Edit_info} initialParams={{ colorMode: colorMode }} />
                         <Stack.Screen name="QuizzPage" component={QuizzPage} initialParams={{ colorMode: colorMode }} />
+                        <Stack.Screen name="QuizzQuestion" component={QuizzQuestion} initialParams={{ colorMode: colorMode }}/>
                         <Stack.Screen name="Result" component={Result} initialParams={{ colorMode: colorMode }} />
                     </Stack.Navigator>
                     : null

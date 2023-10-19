@@ -237,5 +237,12 @@
         "homePage": "Home",
         "profilePage": "Profile",
         "settingsPage": "Settings"
+    },
+    "quizzpage": {
+        "start": "Start",
+        "select": "Select a process",
+        "yes": "Yes",
+        "no": "No",
+        "toDo": "to do"
     }
 }

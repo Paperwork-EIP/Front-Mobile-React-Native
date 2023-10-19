@@ -21,26 +21,37 @@ function QuizzPage({ navigation, route }: { navigation: any, route: any }) {
 
     const [posts, setPosts] = useState([{}]);
     const [processSelected, setProcessSelected] = useState("");
+    const [processStockedTittle, setProcessStockedTittle] = useState("");
     const [processValue, setProcessValue] = useState(0);
 
 
     // User informations
     const [language, setLanguage] = useState("");
-    const goToQuestion = () => navigation.navigate("quizz_question", {processSelected: processSelected, step: processValue});
+    const goToQuestion = () => navigation.navigate("QuizzQuestion", {processSelected: processSelected, processStockedTittle: processStockedTittle, step: processValue});
 
 
-    async function getLanguage() {
-        const token = await getItem('@loginToken');
-        axios.get(`${url}/user/getbytoken`, { params: { token: token } })
-        .then(res => {
-            setLanguage(res.data.language);
-        }).catch(err => {
-            console.log(err)
-        });
+    function getLanguage() {
+        switch(i18n.language) {
+            case 'en':
+              setLanguage('english');
+            case 'fr':
+              setLanguage('francais');
+            default:
+                setLanguage('english');
+          }
     }
 
     async function getProcedures() {
-        axios.get(`${url}/process/getAll`, { params: { language: language } })
+        let langTemp = "";
+        switch(i18n.language) {
+            case 'en':
+                langTemp = 'english';
+            case 'fr':
+                langTemp = 'english';
+            default:
+                langTemp = 'english';
+          }
+        axios.get(`${url}/process/getAll`, { params: { language: langTemp } })
             .then(res => {
                 var procedures = [];
                 // console.log(res.data);
@@ -59,36 +70,28 @@ function QuizzPage({ navigation, route }: { navigation: any, route: any }) {
     }
 
     useEffect(() => {
-        switch(i18n.language) {
-            case 'en':
-              setLanguage('english');
-            case 'fr':
-              setLanguage('francais');
-            default:
-                setLanguage('english');
-          }
+        getLanguage();
         getProcedures();
         console.log(posts);
-        
         }, [])
 
     const handleSubmit = () => {
         console.log("button pressed");
-        console.log(posts);
+        console.log(processStockedTittle);
+        goToQuestion();
     }                     
 
     return (
         <View style={quizzPage.container}>
             <SelectDropdown
             data={posts.map((item) => item.label)}
-            // defaultValueByIndex={1} // use default value by index or default value
-            // defaultValue={'Canada'} // use default value by index or default value
             onSelect={(selectedItem, index) => {
                 setProcessSelected(selectedItem);
                 setProcessValue(posts[index].value);
-                goToQuestion();
-              console.log(selectedItem, index);
+                setProcessStockedTittle(posts[index].stocked_title);
+                console.log(selectedItem, index);
             }}
+            defaultButtonText={t('quizzpage.select')}
             buttonTextAfterSelection={(selectedItem, index) => {
               return selectedItem;
             }}
@@ -97,7 +100,7 @@ function QuizzPage({ navigation, route }: { navigation: any, route: any }) {
             }}
           />
             <LongHorizontalButton
-                title={'Start'}
+                title={t('quizzpage.start')}
                 onPress={handleSubmit}
                 styleButton={quizzPage.button}
                 styleText={quizzPage.button.text}

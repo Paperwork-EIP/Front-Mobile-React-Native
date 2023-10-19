@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { darkBackgroundColor, darkSecondaryBackgroundColor, darkTextColor, lightBackgroundColor, lightSecondaryBackgroundColor, lightTextColor } from '../colors';
 
-const quizzPage = StyleSheet.create({
+const quizzQuestion = StyleSheet.create({
     container: {
         width: '100%',
         height: '100%',
@@ -10,46 +10,48 @@ const quizzPage = StyleSheet.create({
         justifyContent: 'center',
         // paddingTop: 50
     },
-    title: {
+    center: {
+        // width: '30%',
+        // height: '20%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        // backgroundColor: 'green',
+    },
+    text: {
         fontSize: 18,
         fontWeight: 'bold',
         color: 'black',
         marginTop: 15,
         marginLeft: 5
     },
-    center: {
+    button: {
+        alignContent: 'center',
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    buttonYes: {
         width: '30%',
-        height: '20%',
-        alignItems: 'center',
-        justifyContent: 'center',
-        // backgroundColor: 'green',
-    },
-    modifPicture: {
-        width: '100%',
-        height: '100%',
-        alignItems: 'center',
-        // backgroundColor: 'red',
-    },
-    profilePicture: {
-        width: '80%',
-        height: '60%',
-        marginTop: 30,
-        // backgroundColor: '#000000',
-        borderRadius: 100,
-    },
-    input: {
-        width: '90%',
-        backgroundColor: '#f2f2f2',
+        backgroundColor: '#29C9B3',
         color: 'gray',
         borderWidth: 0,
-        marginBottom: 12,
+        marginTop: 40,
+        marginBottom: 20,
+        marginHorizontal: 10,
         paddingVertical: 10,
         paddingHorizontal: 15,
         borderRadius: 15,
+        alignItems: 'center',
+        justifyContent: 'center',
+
+        text: {
+            color: 'white',
+            fontSize: 16,
+            fontWeight: 'bold'
+        }
     },
-    button: {
+    buttonNo: {
         width: '30%',
-        backgroundColor: '#29C9B3',
+        backgroundColor: '#FC6976',
         color: 'gray',
         borderWidth: 0,
         marginTop: 40,
@@ -68,4 +70,4 @@ const quizzPage = StyleSheet.create({
     },
 })
 
-export { quizzPage };
+export { quizzQuestion };

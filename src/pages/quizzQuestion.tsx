@@ -6,19 +6,26 @@ import axios from "axios";
 import { getItem } from "../services/Storage";
 import { useTranslation } from 'react-i18next';
 
-import "../../styles/pages/Quiz.scss";
-import { View } from 'react-native';
+import { quizzQuestion } from "../../styles/pages/quizzQuestion";
 
-function QuizzPage({ navigation } : { navigation: any }) {
+import LongHorizontalButton from "../components/LongHorizontalButton";
 
-    var { processSelected } = useRoute().params?.processSelected;
-    var { step } = useRoute().params?.step;
-    const nextStep = parseInt(step!) + 1;
+import { Text, View } from 'react-native';
+import { use } from 'i18next';
+
+function QuizzQuestion({ navigation } : { navigation: any }) {
+
     const url = process.env.EXPO_PUBLIC_BASE_URL;
+
+    const processSelected = useRoute().params/*?.processSelected*/;
+    // const  step = useRoute().params?.step;
+    // let nextStep = parseInt(processSelected?.step!) + 1;
+    const [nextStep, setNextStep] = useState(1);
     const [title, setTitle] = useState("");
     const [currentId, setCurrentId] = useState();
     const [currentQuestionAnswer, setCurrentQuestionAnswer] = useState();
     const [questions, setQuestions] = useState([{}]);
+    const [answer, setAnswer] = useState([{}]);
     const [update, setUpdate] = React.useState(false);
 
     // User informations
@@ -33,9 +40,9 @@ function QuizzPage({ navigation } : { navigation: any }) {
         const token = await getItem('@loginToken');
         axios.get(`${url}/userProcess/getUserProcesses`, { params: { user_token: token } })
         .then(res => {
-            console.log(res.data.response);
+            console.log('process get');
             res.data.response.map((item: any) => {
-                if (item.userProcess.stocked_title === processSelected)
+                if (item.userProcess.stocked_title === processSelected?.processStockedTittle)
                     setUpdate(true);
             });
         }).catch(err => {
@@ -43,21 +50,25 @@ function QuizzPage({ navigation } : { navigation: any }) {
         });
     }
 
-    useEffect(() => {
 
+
+    useEffect(() => {
+        console.log(processSelected);
+        getUserProcesses();
+        let langTemp = "";
         switch(i18n.language) {
             case 'en':
-              setLanguage('english');
+                langTemp = 'english';
             case 'fr':
-              setLanguage('francais');
+                langTemp = 'english';
             default:
-                setLanguage('english');
+                langTemp = 'english';
           }
 
-        axios.get(`${url}/processQuestions/get`, { params: { title: processSelected, language: language } })
+        axios.get(`${url}/processQuestions/get`, { params: { title: processSelected?.processStockedTittle, language: langTemp } })
         .then(res => {
-            console.log(res.data.questions);
-            setTitle(res.data.title);
+            console.log(res.data);
+            // setTitle(res.data.title);
             setCurrentId(res.data.questions[nextStep - 1].step_id);
             setCurrentQuestionAnswer(res.data.questions[nextStep - 1].question);
             setQuestions(res.data.questions);
@@ -68,67 +79,97 @@ function QuizzPage({ navigation } : { navigation: any }) {
         
     }, [nextStep, processSelected, language])
 
+    async function addProcess(responseTemp : any) {
+        console.log(responseTemp);
+        console.log(processSelected?.processStockedTittle);
+        const token = await getItem('@loginToken');
+        const post = { process_title: processSelected?.processStockedTittle, user_token: token, questions: responseTemp }
+        axios.post(`${url}/userProcess/add`, post)
+                .then(res => {
+                    // console.log(res);
+                    navigation.navigate("Result", {processSelected: processSelected?.processSelected, processStockedTittle: processSelected?.processStockedTittle});
+                    // window.location.href = `/processResult/${processSelected}`;
+                }).catch(err => {
+                    console.log(err)
+                });
+    }
+    async function updateProcess( responseTemp: any) {
+        console.log('update');
+        console.log(responseTemp);
+        console.log(processSelected?.processStockedTittle);
+        console.log(processSelected?.processSelected);
+        const token = await getItem('@loginToken');
+        const post = { process_title: processSelected?.processStockedTittle, user_token: token, questions: responseTemp }
+        console.log(post);
+        axios.post(`${url}/userProcess/update`, post)
+                .then(res => {
+                    // console.log(res);
+                    navigation.navigate("Result", {processSelected: processSelected?.processSelected, processStockedTittle: processSelected?.processStockedTittle});
+                    // window.location.href = `/processResult/${processSelected}`;
+                }).catch(err => {
+                    console.log(err)
+                });
+    }
+
     function handleClick(currentQuestionAnswer: string) {
-        const urlAnswers = window.location.search.substring(1);
-        if (nextStep < questions.length)
-        {
-            if (!urlAnswers)
-                window.location.href = `/quiz/${processSelected}/${nextStep}?${currentId}=${currentQuestionAnswer}`;
-            else
-                window.location.href = `/quiz/${processSelected}/${nextStep}?${urlAnswers}&${currentId}=${currentQuestionAnswer}`;
-        } else {
-
-            var queryStr = `?${urlAnswers}&${currentId}=${currentQuestionAnswer}`;
-            var queryArr = queryStr.replace('?','').split('&');
-            var queryParams = [];
-
-            for (var q = 0; q < queryArr.length; q++) {
-                var qArr = queryArr[q].split('=');
-                if (qArr[1] === 'true')
-                    queryParams.push({ step_id: parseInt(qArr[0]), response: true});
+        console.log(processSelected?.processStockedTittle);
+        if (nextStep < questions.length) {
+            if (nextStep === 1) {
+                if (currentQuestionAnswer === 'true')
+                    setAnswer([{ step_id: currentId, response: true}]);
                 else
-                    queryParams.push({ step_id: parseInt(qArr[0]), response: false});
-            }
-
-            const post = { process_title: processSelected, user_token: cookiesInfo.loginToken, questions: queryParams }
-            if (update === false)
-            {
-                axios.post(`${api}/userProcess/add`, post)
-                .then(res => {
-                    console.log(res);
-                    window.location.href = `/processResult/${processSelected}`;
-                }).catch(err => {
-                    console.log(err)
-                });
+                    setAnswer([{ step_id: currentId, response: false}]);
             } else {
-                axios.post(`${api}/userProcess/update`, post)
-                .then(res => {
-                    console.log(res);
-                    window.location.href = `/processResult/${processSelected}`;
-                }).catch(err => {
-                    console.log(err)
-                });
+                if (currentQuestionAnswer === 'true')
+                    setAnswer(answer => [...answer, { step_id: currentId, response: true} ]);
+                else
+                    setAnswer(answer => [...answer, { step_id: currentId, response: false} ]);
+            }
+            setNextStep(nextStep + 1);
+            console.log(nextStep);
+            setCurrentQuestionAnswer(questions[nextStep - 1].question);
+            setCurrentId(questions[nextStep - 1].step_id);
+        } else {
+            if (currentQuestionAnswer === 'true') {
+                // setAnswer(answer => [...answer, { step_id: currentId, response: true} ]);
+                var responseTemp = [...answer, { step_id: currentId, response: true}];
+            } else {
+                // setAnswer(answer => [...answer, { step_id: currentId, response: false} ]);
+                var responseTemp = [...answer, { step_id: currentId, response: false}];
+            }
+            if (update === false) {
+                addProcess(responseTemp);
+            } else {
+                updateProcess(responseTemp);
             }
         }
     }
 
     return (
-        <View></View>
-        // <>
-        //     <Header/>
+        <View style={quizzQuestion.container}>
+            {/* <Text>{title}</Text> */}
+            <View style={quizzQuestion.center}>
+                <Text style={quizzQuestion.text}>{currentQuestionAnswer}</Text>
+                <View style={quizzQuestion.button}>
+                    <LongHorizontalButton
+                    title={t('quizzpage.yes')}
+                    onPress={() => handleClick('true')}
+                    styleButton={quizzQuestion.buttonYes}
+                    styleText={quizzQuestion.buttonYes.text}
+                    testID="submitButton"
+                    />
+                    <LongHorizontalButton
+                    title={t('quizzpage.no')}
+                    onPress={() => handleClick('false')}
+                    styleButton={quizzQuestion.buttonNo}
+                    styleText={quizzQuestion.buttonNo.text}
+                    testID="submitButton"
+                    />
+                </View>
+            </View>
+        </View>
 
-        //     <div className={colorMode === "light" ? "Quiz Quiz-light" : "Quiz Quiz-dark"}>
-        //         <div className='Page-Title'>{title}</div>
-        //         <div className='Quiz-container'>
-        //             <div className='Question-Style'>{currentQuestionAnswer!}</div>
-        //             <div className='QuizQuestionBtn'>
-        //                 <button type="button" className='No-btn' data-testid="btn-no" onClick={() => handleClick('false')}>{translation.no}</button>
-        //                 <button type="button" className='Yes-btn' data-testid="btn-yes" onClick={() => handleClick('true')}>{translation.yes}</button>
-        //             </div>
-        //         </div>
-        //     </div>
-        // </>
     );
 }
 
-export default QuizQuestion;
+export default QuizzQuestion;

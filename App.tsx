@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -10,28 +10,54 @@ import Settings from './src/pages/Settings';
 import Lexicon from './src/pages/Lexicon';
 import Help from './src/pages/Help';
 import QuizzPage from './src/pages/QuizzPage';
+import QuizzQuestion from './src/pages/QuizzQuestion';
 import Edit_info from './src/pages/Edit_info';
-import Result  from './src/pages/Result';
+import Result from './src/pages/Result';
+
+import Header from "./src/components/Header";
+
+import { getColorModeFromLocalStorage } from "./src/services/Parameters";
+
+import { themeLight, themeDark } from "./styles/app";
 
 import "./src/i18n/i18n";
 
-const Stack = createNativeStackNavigator();
-
 function App() {
+    const [colorMode, setColorMode] = React.useState("");
+    const Stack = createNativeStackNavigator();
+
+    const getColorMode = useCallback(async () => {
+        const colorMode = await getColorModeFromLocalStorage();
+        if (colorMode) {
+            setColorMode(colorMode);
+        } else {
+            setColorMode("light");
+        }
+    }, []);
+
+    useEffect(() => {
+        getColorMode();
+    }, [getColorMode]);
+
     return (
-        <NavigationContainer>
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
-                <Stack.Screen name="Login" component={Login} />
-                <Stack.Screen name="Register" component={Register} />
-                <Stack.Screen name="Home" component={Home} />
-                <Stack.Screen name="ProcessIdea" component={ProcessIdea} />
-                <Stack.Screen name="Settings" component={Settings} />
-                <Stack.Screen name="Lexicon" component={Lexicon} />
-                <Stack.Screen name="Help" component={Help} />
-                <Stack.Screen name="Edit_info" component={Edit_info} />
-                <Stack.Screen name="QuizzPage" component={QuizzPage} />
-                <Stack.Screen name="Result" component={Result} />
-            </Stack.Navigator>
+        <NavigationContainer theme={colorMode === "dark" ? themeDark : themeLight}>
+            {
+                colorMode ?
+                    <Stack.Navigator screenOptions={{ headerShown: true, header: (props) => <Header {...props} theme={colorMode} /> }}>
+                        <Stack.Screen name="Login" component={Login} initialParams={{ colorMode: colorMode }} options={{ headerShown: false }} />
+                        <Stack.Screen name="Register" component={Register} initialParams={{ colorMode: colorMode }} options={{ headerShown: false }} />
+                        <Stack.Screen name="Home" component={Home} initialParams={{ colorMode: colorMode }} />
+                        <Stack.Screen name="ProcessIdea" component={ProcessIdea} initialParams={{ colorMode: colorMode }} />
+                        <Stack.Screen name="Settings" component={Settings} initialParams={{ colorMode: colorMode }} />
+                        <Stack.Screen name="Lexicon" component={Lexicon} initialParams={{ colorMode: colorMode }} />
+                        <Stack.Screen name="Help" component={Help} initialParams={{ colorMode: colorMode }} />
+                        <Stack.Screen name="Edit_info" component={Edit_info} initialParams={{ colorMode: colorMode }} />
+                        <Stack.Screen name="QuizzPage" component={QuizzPage} initialParams={{ colorMode: colorMode }} />
+                        <Stack.Screen name="QuizzQuestion" component={QuizzQuestion} initialParams={{ colorMode: colorMode }}/>
+                        <Stack.Screen name="Result" component={Result} initialParams={{ colorMode: colorMode }} />
+                    </Stack.Navigator>
+                    : null
+            }
         </NavigationContainer>
     );
 }

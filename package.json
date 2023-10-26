@@ -8,7 +8,9 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "build:android": "eas build --profile development --platform android",
+    "build:android": "eas build --profile production --platform android",
+    "build:development:android": "eas build --profile development --platform android",
+    "build:preview:android": "eas build --profile preview --platform android",
     "test": "jest",
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --silent --coverage=true",
@@ -17,6 +19,7 @@
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.19.3",
+    "@react-native-community/checkbox": "^0.5.16",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-google-signin/google-signin": "^10.0.1",
     "@react-native-picker/picker": "^2.5.0",

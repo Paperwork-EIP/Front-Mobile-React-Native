@@ -1,52 +1,47 @@
-import React, { useEffect, useRef, useState } from "react";
-import { TouchableOpacity, Icon, View, Text, Switch, Modal } from "react-native";
+import React, { useCallback, useEffect, useState } from "react";
+import { TouchableOpacity, View, Text, Switch, Modal, NativeModules, Alert } from "react-native";
 import { useTranslation } from 'react-i18next';
 import axios from "axios";
-import Ionicons from '@expo/vector-icons/Ionicons';
-import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import { settingsLight, settingsDark } from "../../styles/pages/settings.js";
-import { getItem } from "../services/Storage";
 import DisconnectButton from "../components/DisconnectButton";
 import LongHorizontalButton from "../components/LongHorizontalButton";
-import { deleteItemAndRedirectTo } from '../services/Storage';
 
-function Settings({ navigation }: { navigation: any }) {
+import { deleteItemAndRedirectTo, getItem } from "../services/Storage";
+import { setColorModeInLocalStorage } from "../services/Parameters";
 
+import { settingsLight, settingsDark } from "../../styles/pages/settings.js";
+
+function Settings({ navigation, route }: { navigation: any, route: any }) {
     const { t, i18n } = useTranslation();
     const [language, setLanguage] = useState("");
     const [token, setToken] = useState('');
     const api = process.env.EXPO_PUBLIC_BASE_URL;
 
-    const [isDarkMode, setIsDarkMode] = useState(false);
     const [isConfirmationVisible, setConfirmationVisible] = useState(false);
 
-    const toggleDarkMode = async () => {
-        try {
-            const newMode = !isDarkMode;
-            setIsDarkMode(newMode);
-            await AsyncStorage.setItem('theme', newMode ? 'dark' : 'light');
-        } catch (error) {
-            console.error('Error toggling dark mode:', error);
-        }
-    };
+    const colorMode = route.params.colorMode;
 
-    const loadThemePreference = async () => {
-        try {
-            const storedTheme = await AsyncStorage.getItem('theme');
-            if (storedTheme) {
-                setIsDarkMode(storedTheme === 'dark');
-            }
-        } catch (error) {
-            console.error('Error loading theme preference:', error);
-        }
-    };
-
-    useEffect(() => {
-        loadThemePreference();
+    const setColorModeCallback = useCallback(async (color: string) => {
+        await setColorModeInLocalStorage(color);
     }, []);
 
-    // ++++++++++++++++++++++++++++++++++++++++++++
+    function toggleDarkMode() {
+        Alert.alert(
+            t('settings.pageTitle'),
+            t('settings.restartMessage'),
+            [
+                {
+                    text: "Ok",
+                    onPress: async () => {
+                        await setColorModeCallback(colorMode === 'dark' ? 'light' : 'dark').then(() => {
+                            console.log("Color mode changed to " + colorMode);
+                            NativeModules.DevSettings.reload();
+                        });
+                    }
+                }
+            ]
+        );
+    };
 
     async function getLoginToken() {
         const loginToken = await getItem('@loginToken');
@@ -64,11 +59,11 @@ function Settings({ navigation }: { navigation: any }) {
 
     useEffect(() => {
         axios.get(`${api}/user/getbytoken`, { params: { token: token } })
-        .then(res => {
-            setLanguage(res.data.language);
-        }).catch(err => {
-            console.log(err)
-        });
+            .then(res => {
+                setLanguage(res.data.language);
+            }).catch(err => {
+                console.log(err)
+            });
     }, [token]);
 
     function changeLanguage(language: string | undefined) {
@@ -77,9 +72,11 @@ function Settings({ navigation }: { navigation: any }) {
 
     const handleConfirm = () => {
         setConfirmationVisible(false);
-        axios.get(`${api}/user/delete`, { params: {
-            token: token,
-        }}).then(res => {
+        axios.get(`${api}/user/delete`, {
+            params: {
+                token: token,
+            }
+        }).then(res => {
             console.log(res.data);
             alert(t('settings.deleteAccountSuccess'))
             deleteItemAndRedirectTo(navigation, '@loginToken', 'Login');
@@ -102,62 +99,44 @@ function Settings({ navigation }: { navigation: any }) {
 
     return (
         <>
-            <View style={isDarkMode ? settingsDark.container : settingsLight.container}>
-                <View style={isDarkMode ? settingsDark.content : settingsLight.content}>
-                    <View>
-                        <TouchableOpacity
-                            style={isDarkMode ? settingsDark.homeBtn : settingsLight.homeBtn}
-                            onPress={() => navigation.navigate('Home')}
-                            testID="backHomeBtn">
-                            <Ionicons
-                                name="chevron-back-outline"
-                                size={28}
-                                color={isDarkMode ? "white" : "black"}
-                                testID="iconPageTitle"
-                            />
+            <View style={colorMode === 'dark' ? settingsDark.container : settingsLight.container}>
+                <View style={colorMode === 'dark' ? settingsDark.content : settingsLight.content}>
+                    <View style={colorMode === 'dark' ? settingsDark.settingsContainer : settingsLight.settingsContainer}>
+                        <View style={colorMode === 'dark' ? settingsDark.section : settingsLight.section}>
                             <Text
-                                style={isDarkMode ? settingsDark.homeBtn.text : settingsLight.homeBtn.text}
-                                testID="pageTitle"
-                            >
-                            {t('settings.pageTitle')}</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={isDarkMode ? settingsDark.settingsContainer : settingsLight.settingsContainer}>
-                        <View style={isDarkMode ? settingsDark.section : settingsLight.section}>
-                            <Text
-                                style={isDarkMode ? settingsDark.title : settingsLight.title}
+                                style={colorMode === 'dark' ? settingsDark.title : settingsLight.title}
                                 testID="darkModeText"
                             >{t('settings.darkMode')}</Text>
                             <Switch
-                                value={isDarkMode}
+                                value={colorMode === 'dark'}
                                 onValueChange={toggleDarkMode}
                                 testID="darkModeSwitch"
                             />
                         </View>
-                        <View style={isDarkMode ? settingsDark.lineBetween : settingsLight.lineBetween}></View>
-                        <View style={isDarkMode ? settingsDark.section : settingsLight.section}>
+                        <View style={colorMode === 'dark' ? settingsDark.lineBetween : settingsLight.lineBetween}></View>
+                        <View style={colorMode === 'dark' ? settingsDark.section : settingsLight.section}>
                             <Text
-                                style={isDarkMode ? settingsDark.title : settingsLight.title}
+                                style={colorMode === 'dark' ? settingsDark.title : settingsLight.title}
                                 testID="disconnectText"
                             >{t('settings.disconnect')}</Text>
                             <DisconnectButton
-                                styleButton={isDarkMode ? settingsDark.disconnectButton : settingsLight.disconnectButton}
-                                styleText={isDarkMode ? settingsDark.disconnectButton.text : settingsLight.disconnectButton.text}
+                                styleButton={colorMode === 'dark' ? settingsDark.disconnectButton : settingsLight.disconnectButton}
+                                styleText={colorMode === 'dark' ? settingsDark.disconnectButton.text : settingsLight.disconnectButton.text}
                                 navigation={navigation}
                                 text="Disconnect"
                                 testID="disconnectButton"
                             />
                         </View>
-                        <View style={isDarkMode ? settingsDark.lineBetween : settingsLight.lineBetween}></View>
-                        <View style={isDarkMode ? settingsDark.section : settingsLight.section}>
+                        <View style={colorMode === 'dark' ? settingsDark.lineBetween : settingsLight.lineBetween}></View>
+                        <View style={colorMode === 'dark' ? settingsDark.section : settingsLight.section}>
                             <Text
-                                style={isDarkMode ? settingsDark.title : settingsLight.title}
+                                style={colorMode === 'dark' ? settingsDark.title : settingsLight.title}
                                 testID="deleteAccountText"
                             >{t('settings.deleteAccount')}</Text>
                             <LongHorizontalButton
                                 title={t('settings.delete')}
-                                styleButton={isDarkMode ? settingsDark.button : settingsLight.button}
-                                styleText={isDarkMode ? settingsDark.button.text : settingsLight.button.text}
+                                styleButton={colorMode === 'dark' ? settingsDark.button : settingsLight.button}
+                                styleText={colorMode === 'dark' ? settingsDark.button.text : settingsLight.button.text}
                                 onPress={() => setConfirmationVisible(true)}
                                 testID="deleteAccountButton"
                             />
@@ -170,30 +149,30 @@ function Settings({ navigation }: { navigation: any }) {
                                 }}
                                 testID="deleteAccountModal"
                             >
-                                <View style={isDarkMode ? settingsDark.modal : settingsLight.modal}>
-                                    <View style={isDarkMode ? settingsDark.modal.center : settingsLight.modal.center}>
+                                <View style={colorMode === 'dark' ? settingsDark.modal : settingsLight.modal}>
+                                    <View style={colorMode === 'dark' ? settingsDark.modal.center : settingsLight.modal.center}>
                                         <Text
-                                            style={isDarkMode ? settingsDark.modal.text : settingsLight.modal.text}
+                                            style={colorMode === 'dark' ? settingsDark.modal.text : settingsLight.modal.text}
                                             testID="deleteAccountQuestion"
                                         >{t('settings.deleteAccountQuestion')}</Text>
-                                        <View style={isDarkMode ? settingsDark.section : settingsLight.section}>
+                                        <View style={colorMode === 'dark' ? settingsDark.section : settingsLight.section}>
                                             <TouchableOpacity
-                                                style={isDarkMode ? settingsDark.cancelButton : settingsLight.cancelButton}
+                                                style={colorMode === 'dark' ? settingsDark.cancelButton : settingsLight.cancelButton}
                                                 onPress={handleCancel}
                                                 testID="modalCancelButton"
                                             >
                                                 <Text
-                                                    style={isDarkMode ? settingsDark.cancelButton.text : settingsLight.cancelButton.text}
+                                                    style={colorMode === 'dark' ? settingsDark.cancelButton.text : settingsLight.cancelButton.text}
                                                     testID="modalCancelText"
                                                 >{t('settings.cancel')}</Text>
                                             </TouchableOpacity>
                                             <TouchableOpacity
-                                                style={isDarkMode ? settingsDark.confirmButton : settingsLight.confirmButton}
+                                                style={colorMode === 'dark' ? settingsDark.confirmButton : settingsLight.confirmButton}
                                                 onPress={handleConfirm}
                                                 testID="modalConfirmButton"
                                             >
                                                 <Text
-                                                    style={isDarkMode ? settingsDark.confirmButton.text : settingsLight.confirmButton.text}
+                                                    style={colorMode === 'dark' ? settingsDark.confirmButton.text : settingsLight.confirmButton.text}
                                                     testID="modalConfirmText"
                                                 >{t('settings.confirm')}</Text>
                                             </TouchableOpacity>
@@ -202,14 +181,14 @@ function Settings({ navigation }: { navigation: any }) {
                                 </View>
                             </Modal>
                         </View>
-                        <View style={isDarkMode ? settingsDark.lineBetween : settingsLight.lineBetween}></View>
-                        <View style={isDarkMode ? settingsDark.section : settingsLight.section}>
+                        <View style={colorMode === 'dark' ? settingsDark.lineBetween : settingsLight.lineBetween}></View>
+                        <View style={colorMode === 'dark' ? settingsDark.section : settingsLight.section}>
                             <Text
-                                style={isDarkMode ? settingsDark.title : settingsLight.title}
+                                style={colorMode === 'dark' ? settingsDark.title : settingsLight.title}
                                 testID="versionText"
                             >{t('settings.version')}</Text>
                             <Text
-                                style={isDarkMode ? settingsDark.title : settingsLight.title}
+                                style={colorMode === 'dark' ? settingsDark.title : settingsLight.title}
                                 testID="versionNumber"
                             >1.0</Text>
                         </View>

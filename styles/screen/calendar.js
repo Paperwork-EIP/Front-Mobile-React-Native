@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { lightTextColor, lightBackgroundColor, darkTextColor, darkBackgroundColor } from '../colors';
 
 const brightRed = '#FC6976';
 const pastelRed = '#FDE0E6';
@@ -11,6 +12,7 @@ const calendar = StyleSheet.create({
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: lightBackgroundColor,
 
         calendar: {
             borderWidth: 0,
@@ -34,7 +36,41 @@ const calendar = StyleSheet.create({
 
             text: {
                 fontSize: 20,
-                color: '#999',
+                color: lightTextColor
+            },
+        },
+    },
+
+    containerDark: {
+        width: '100%',
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: darkBackgroundColor,
+
+        calendar: {
+            borderWidth: 0,
+            width: '100%',
+            flex: 1,
+        },
+        item: {
+            borderRadius: 5,
+            padding: 10,
+            marginRight: 10,
+            marginTop: 17,
+        },
+        section: {
+            textTransform: 'capitalize',
+        },
+
+        empty: {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+
+            text: {
+                fontSize: 20,
+                color: darkTextColor
             },
         },
     },

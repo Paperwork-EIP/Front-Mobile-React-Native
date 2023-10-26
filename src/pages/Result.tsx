@@ -4,22 +4,32 @@ import React, { useState, useEffect } from 'react';
 // Utils Import
 import axios from "axios";
 
+import { result } from "../../styles/pages/result";
+import { useTranslation } from 'react-i18next';
+
 import { getItem } from "../services/Storage";
 import { Text, View } from 'react-native';
+import Checkbox from '@react-native-community/checkbox';
 
-function Result({ navigation } : { navigation: any }) {
+import { useRoute } from '@react-navigation/native';
 
+function Result({ navigation, route }: { navigation: any, route: any }) {
+
+    const { t, i18n } = useTranslation();
     const url = process.env.EXPO_PUBLIC_BASE_URL;
+    const processSelected = useRoute().params
     const [stepsAnswer, setStepsAnswer] = useState([]);
     const [title, setTitle] = useState("");
-    const [processSelected, setProcessSelected] = useState("");
+    // const [processSelected, setProcessSelected] = useState("");
+
+    const [toggleCheckBox, setToggleCheckBox] = useState(false)
 
     // User informations
     const [language, setLanguage] = useState("");
 
 
     function getUserSteps() {
-        axios.get(`${url}/userProcess/getUserSteps`, { params: { process_title: processSelected, user_token: getItem('@loginToken') } })
+        axios.get(`${url}/userProcess/getUserSteps`, { params: { process_title: processSelected?.processStockedTittle, user_token: getItem('@loginToken') } })
                 .then(res => {
                     setStepsAnswer(res.data.response);
                     setTitle(res.data.title);
@@ -35,13 +45,14 @@ function Result({ navigation } : { navigation: any }) {
     }
 
     useEffect(() => {
-        axios.get(`${url}/user/getbytoken`, { params: { token: getItem('@loginToken') } })
-        .then(res => {
-            setLanguage(res.data.language);
-        }).catch(err => {
-            console.log(err)
-        });
-    }, [processSelected, url, stepsAnswer]);
+        // axios.get(`${url}/user/getbytoken`, { params: { token: getItem('@loginToken') } })
+        // .then(res => {
+        //     setLanguage(res.data.language);
+        // }).catch(err => {
+        //     console.log(err)
+        // });
+        getUserSteps();
+    },);
 
     const handleCheckboxClick = (step_id: any, is_done: any) => {
         var newStepsAnswer = [];
@@ -70,20 +81,20 @@ function Result({ navigation } : { navigation: any }) {
     }
 
     return (
-        <View>
+        <View style={result.container}>
 
-        <Text>Process Result</Text>
-        {/* //                         stepsAnswer?.map((item: any) => {
-        //                             return (
-        //                                 <div className='ProcessResult-output'>
-        //                                     <input className='ProcessResult-Checkbox' type="checkbox" data-testid={item.step_id} id={item.step_id} onClick={() => handleCheckboxClick(item.step_id, item.is_done)}></input>
-        //                                     <label htmlFor={item.step_id}> : {item.description} </label>
-        //                                     <a href={item.source} target='_blank'><BsLink /></a>
-        //                                 </div>
-        //                             )
-        //                         })
-        //                     } */}
-
+        <Text style={result.text}>{t('quizzpage.toDo')}</Text>
+            {stepsAnswer?.map((item: any) => {
+                return (
+                    <View style={result.checkboxContainer}>
+                        <Checkbox
+                            disabled={false}
+                            value={toggleCheckBox}
+                            onValueChange={(newValue) => setToggleCheckBox(newValue)}
+                        />
+                        <Text>Name of the step</Text>
+                    </View>)
+            })}
         </ View>
     );
 }

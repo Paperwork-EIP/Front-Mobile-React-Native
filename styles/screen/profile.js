@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { darkBackgroundColor, darkSecondaryBackgroundColor, darkTextColor, lightBackgroundColor, lightSecondaryBackgroundColor, lightTextColor } from '../colors';
 
 const profile = StyleSheet.create({
     container: {
@@ -8,7 +9,16 @@ const profile = StyleSheet.create({
         justifyContent: 'center',
         paddingVertical: 20,
         paddingHorizontal: 25,
-        backgroundColor: 'white',
+        backgroundColor: lightBackgroundColor
+    },
+    containerDark: {
+        width: '100%',
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 20,
+        paddingHorizontal: 25,
+        backgroundColor: darkBackgroundColor
     },
     content: {
         flex: 3,
@@ -16,6 +26,14 @@ const profile = StyleSheet.create({
     },
     settingsButton: {
         marginRight: 20,
+
+        icon: {
+            color: lightTextColor,
+        },
+
+        iconDark: {
+            color: darkTextColor,
+        },
     },
     editWrapper: {
         width: '100%',
@@ -31,10 +49,10 @@ const profile = StyleSheet.create({
     },
     profileWrapper: {
         width: '100%',
-        flex: 1,
         overflow: 'hidden',
         alignItems: 'center',
         justifyContent: 'center',
+        marginVertical: 20,
     },
     profilePictureWrapper: {
         elevation: 20,
@@ -58,10 +76,23 @@ const profile = StyleSheet.create({
         fontSize: 20,
         fontWeight: '500',
         letterSpacing: 0.8,
+        color: lightTextColor,
+    },
+    profileTextDark: {
+        fontSize: 20,
+        fontWeight: '500',
+        letterSpacing: 0.8,
+        color: darkTextColor,
     },
     profileTextUsername: {
         fontSize: 16,
         letterSpacing: 1.3,
+        color: lightTextColor,
+    },
+    profileTextUsernameDark: {
+        fontSize: 16,
+        letterSpacing: 1.3,
+        color: darkTextColor,
     },
     textsInfo: {
         width: '100%',
@@ -70,6 +101,8 @@ const profile = StyleSheet.create({
         flexDirection: 'row',
         paddingVertical: 9,
         paddingHorizontal: 12,
+        borderRadius: 15,
+        backgroundColor: 'transparent',
     },
     leftPartInfo: {
         flexDirection: 'row',
@@ -85,9 +118,19 @@ const profile = StyleSheet.create({
         fontSize: 12,
         fontWeight: '400',
     },
+    leftPartInfoTextDark: {
+        fontSize: 12,
+        fontWeight: '400',
+        color: darkTextColor,
+    },
     rightPartInfoText: {
         fontSize: 13,
         fontWeight: '500',
+    },
+    rightPartInfoTextDark: {
+        fontSize: 13,
+        fontWeight: '500',
+        color: darkTextColor,
     },
     noProcess: {
         marginTop: 10,
@@ -162,6 +205,12 @@ const profile = StyleSheet.create({
     title: {
         fontSize: 14,
         fontWeight: '600',
+        color: lightTextColor
+    },
+    titleDark: {
+        fontSize: 14,
+        fontWeight: '600',
+        color: darkTextColor
     },
     edit: {
         fontSize: 14,
@@ -169,7 +218,13 @@ const profile = StyleSheet.create({
         color: '#FC6976',
     },
     info: {
-        backgroundColor: '#e9ecef',
+        backgroundColor: lightSecondaryBackgroundColor,
+        borderRadius: 10,
+        marginTop: 10,
+        marginBottom: 30,
+    },
+    infoDark: {
+        backgroundColor: darkSecondaryBackgroundColor,
         borderRadius: 10,
         marginTop: 10,
         marginBottom: 30,

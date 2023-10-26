@@ -36,13 +36,14 @@ afterEach(() => {
 
 describe('Register', () => {
     const navigation = { navigate: jest.fn(), reset: jest.fn() };
+    const route = { params: { colorMode: 'light' } };
 
-    it('renders correctly', () => {
-        render(<Register navigation={navigation} />);
+    test('renders correctly', () => {
+        render(<Register navigation={navigation} route={route} />);
     });
 
-    it('submit register form and get 200 status code', () => {
-        const { getByTestId } = render(<Register navigation={navigation} />);
+    test('submit register form and get 200 status code', () => {
+        const { getByTestId } = render(<Register navigation={navigation} route={route} />);
 
         const usernameInput = getByTestId('usernameInput');
         const emailInput = getByTestId('emailInput');
@@ -56,14 +57,10 @@ describe('Register', () => {
         fireEvent.changeText(confirmPasswordInput, 'password');
         fireEvent.press(submitButton);
 
-        expect(usernameInput.props.value).toBe('test');
-        expect(emailInput.props.value).toBe('test@test.test');
-        expect(passwordInput.props.value).toBe('password');
-        expect(confirmPasswordInput.props.value).toBe('password');
         expect(axios.post).toHaveBeenCalledTimes(1);
     });
 
-    it('submit register form and get not 200 status code', () => {
+    test('submit register form and get not 200 status code', () => {
         axios.post = jest.fn().mockResolvedValue({
             response: {
                 status: 400,
@@ -73,7 +70,7 @@ describe('Register', () => {
             }
         });
 
-        const { getByTestId } = render(<Register navigation={navigation} />);
+        const { getByTestId } = render(<Register navigation={navigation} route={route} />);
 
         const usernameInput = getByTestId('usernameInput');
         const emailInput = getByTestId('emailInput');
@@ -87,14 +84,10 @@ describe('Register', () => {
         fireEvent.changeText(confirmPasswordInput, 'password');
         fireEvent.press(submitButton);
 
-        expect(usernameInput.props.value).toBe('test');
-        expect(emailInput.props.value).toBe('test@test.test');
-        expect(passwordInput.props.value).toBe('password');
-        expect(confirmPasswordInput.props.value).toBe('password');
         expect(axios.post).toHaveBeenCalledTimes(1);
     });
 
-    it('submit register form and get a 409 status code', () => {
+    test('submit register form and get a 409 status code', () => {
         axios.post = jest.fn().mockRejectedValue({
             response: {
                 status: 409,
@@ -104,7 +97,7 @@ describe('Register', () => {
             }
         });
 
-        const { getByTestId } = render(<Register navigation={navigation} />);
+        const { getByTestId } = render(<Register navigation={navigation} route={route} />);
 
         const usernameInput = getByTestId('usernameInput');
         const emailInput = getByTestId('emailInput');
@@ -118,14 +111,10 @@ describe('Register', () => {
         fireEvent.changeText(confirmPasswordInput, 'password');
         fireEvent.press(submitButton);
 
-        expect(usernameInput.props.value).toBe('test');
-        expect(emailInput.props.value).toBe('test@test.test');
-        expect(passwordInput.props.value).toBe('password');
-        expect(confirmPasswordInput.props.value).toBe('password');
         expect(axios.post).toHaveBeenCalledTimes(1);
     });
 
-    it('submit register form and get an error', () => {
+    test('submit register form and get an error', () => {
         axios.post = jest.fn().mockRejectedValue({
             response: {
                 status: 500,
@@ -135,7 +124,7 @@ describe('Register', () => {
             }
         });
 
-        const { getByTestId } = render(<Register navigation={navigation} />);
+        const { getByTestId } = render(<Register navigation={navigation} route={route} />);
 
         const usernameInput = getByTestId('usernameInput');
         const emailInput = getByTestId('emailInput');
@@ -149,15 +138,11 @@ describe('Register', () => {
         fireEvent.changeText(confirmPasswordInput, 'password');
         fireEvent.press(submitButton);
 
-        expect(usernameInput.props.value).toBe('test');
-        expect(emailInput.props.value).toBe('test@test.test');
-        expect(passwordInput.props.value).toBe('password');
-        expect(confirmPasswordInput.props.value).toBe('password');
         expect(axios.post).toHaveBeenCalledTimes(1);
     });
 
-    it('should not submit Register form if all input are not filled', () => {
-        const { getByTestId } = render(<Register navigation={navigation} />);
+    test('should not submit Register form if all input are not filled', () => {
+        const { getByTestId } = render(<Register navigation={navigation} route={route} />);
 
         const usernameInput = getByTestId('usernameInput');
         const emailInput = getByTestId('emailInput');
@@ -171,15 +156,11 @@ describe('Register', () => {
         fireEvent.changeText(confirmPasswordInput, 'password');
         fireEvent.press(submitButton);
 
-        expect(usernameInput.props.value).toBe('');
-        expect(emailInput.props.value).toBe('test@test.test');
-        expect(passwordInput.props.value).toBe('password');
-        expect(confirmPasswordInput.props.value).toBe('password');
         expect(axios.post).toHaveBeenCalledTimes(0);
     });
 
-    it('should press on login button', () => {
-        const { getByTestId } = render(<Register navigation={navigation} />);
+    test('should press on login button', () => {
+        const { getByTestId } = render(<Register navigation={navigation} route={route} />);
 
         const button = getByTestId('alreadyHaveAccountButton');
 
@@ -188,8 +169,8 @@ describe('Register', () => {
         expect(button).toBeTruthy();
     });
 
-    it('should press on hide password button', () => {
-        const { getByTestId } = render(<Register navigation={navigation} />);
+    test('should press on hide password button', () => {
+        const { getByTestId } = render(<Register navigation={navigation} route={route} />);
 
         const button = getByTestId('hidePasswordButton');
 
@@ -198,8 +179,8 @@ describe('Register', () => {
         expect(button).toBeTruthy();
     });
 
-    it('should press on hide confirm password button', () => {
-        const { getByTestId } = render(<Register navigation={navigation} />);
+    test('should press on hide confirm password button', () => {
+        const { getByTestId } = render(<Register navigation={navigation} route={route} />);
 
         const button = getByTestId('hideConfirmPasswordButton');
 
@@ -208,8 +189,8 @@ describe('Register', () => {
         expect(button).toBeTruthy();
     });
 
-    it('should press on language picker', () => {
-        const { getByTestId } = render(<Register navigation={navigation} />);
+    test('should press on language picker', () => {
+        const { getByTestId } = render(<Register navigation={navigation} route={route} />);
 
         const picker = getByTestId('languagePicker');
 

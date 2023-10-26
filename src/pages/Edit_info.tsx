@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Alert, View, Image, TextInput, Text, TouchableHighlight, TouchableOpacity, ScrollView } from "react-native";
+import React, { useEffect } from "react";
+import { Alert, View, Image, TextInput, Text, TouchableHighlight, TouchableOpacity } from "react-native";
 import { useTranslation } from 'react-i18next';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -16,7 +16,7 @@ import LongHorizontalButton from "../components/LongHorizontalButton";
 
 import { edit } from "../../styles/pages/edit_info";
 
-function Edit_info({ navigation }: { navigation: any }) {
+function Edit_info({ navigation, route }: { navigation: any, route: any }) {
 
     const url = process.env.EXPO_PUBLIC_BASE_URL;
 
@@ -41,7 +41,6 @@ function Edit_info({ navigation }: { navigation: any }) {
         'english',
     ];
 
-    const route = useRoute();
     const userInfo = route.params;
 
     function handleUsernameChange(text: React.SetStateAction<string>) {

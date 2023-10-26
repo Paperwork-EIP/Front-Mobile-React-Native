@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, cleanup } from '@testing-library/react-native';
+import { render, fireEvent, cleanup, waitFor } from '@testing-library/react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -30,29 +30,17 @@ afterEach(() => {
 
 describe('Settings', () => {
     const navigation = { navigate: jest.fn(), reset: jest.fn() };
+    const route = { params: { colorMode: 'light' } };
 
     it('renders correctly', () => {
-        render(<Settings navigation={navigation} />);
+        render(<Settings navigation={navigation} route={route} />);
 
         expect(axios.get).toHaveBeenCalledTimes(1);
     });
 
-    it('Button back to home page working correctly', () => {
-        const { getByTestId } = render(<Settings navigation={navigation} />);
-
-        const backHomeBtn = getByTestId('backHomeBtn');
-
-        fireEvent.press(backHomeBtn);
-
-        expect(backHomeBtn).toBeTruthy();
-    });
-
     it('Verify if everything is rendering', () => {
-        const { getByTestId } = render(<Settings navigation={navigation} />);
+        const { getByTestId } = render(<Settings navigation={navigation} route={route} />);
 
-        const backHomeBtn = getByTestId('backHomeBtn');
-        const iconPageTitle = getByTestId('iconPageTitle');
-        const pageTitle = getByTestId('pageTitle');
         const darkModeText = getByTestId('darkModeText');
         const darkModeSwitch = getByTestId('darkModeSwitch');
         const disconnectText = getByTestId('disconnectText');
@@ -62,9 +50,6 @@ describe('Settings', () => {
         const versionText = getByTestId('versionText');
         const versionNumber = getByTestId('versionNumber');
 
-        expect(backHomeBtn).toBeTruthy();
-        expect(iconPageTitle).toBeTruthy();
-        expect(pageTitle).toBeTruthy();
         expect(darkModeText).toBeTruthy();
         expect(darkModeSwitch).toBeTruthy();
         expect(disconnectText).toBeTruthy();
@@ -76,18 +61,18 @@ describe('Settings', () => {
     });
 
     it('Verify if everything in modal is rendering after clicking on delete account button', () => {
-        const { getByTestId } = render(<Settings navigation={navigation} />);
+        const { getByTestId } = render(<Settings navigation={navigation} route={route} />);
 
         const deleteAccountButton = getByTestId('deleteAccountButton');
 
         fireEvent.press(deleteAccountButton);
 
-        const deleteAccountModal = getByTestId('backHomeBtn');
-        const deleteAccountQuestion = getByTestId('iconPageTitle');
-        const modalCancelButton = getByTestId('pageTitle');
-        const modalCancelText = getByTestId('darkModeText');
-        const modalConfirmButton = getByTestId('darkModeSwitch');
-        const modalConfirmText = getByTestId('disconnectText');
+        const deleteAccountModal = getByTestId('deleteAccountModal');
+        const deleteAccountQuestion = getByTestId('deleteAccountQuestion');
+        const modalCancelButton = getByTestId('modalCancelButton');
+        const modalCancelText = getByTestId('modalCancelText');
+        const modalConfirmButton = getByTestId('modalConfirmButton');
+        const modalConfirmText = getByTestId('modalConfirmText');
 
         expect(deleteAccountModal).toBeTruthy();
         expect(deleteAccountQuestion).toBeTruthy();
@@ -98,15 +83,12 @@ describe('Settings', () => {
     });
 
     it('Verify if everything is rendering in dark mode', () => {
-        const { getByTestId } = render(<Settings navigation={navigation} />);
+        const { getByTestId } = render(<Settings navigation={navigation} route={route} />);
 
         const darkModeSwitch = getByTestId('darkModeSwitch');
 
         fireEvent.press(darkModeSwitch);
 
-        const backHomeBtn = getByTestId('backHomeBtn');
-        const iconPageTitle = getByTestId('iconPageTitle');
-        const pageTitle = getByTestId('pageTitle');
         const darkModeText = getByTestId('darkModeText');
         const disconnectText = getByTestId('disconnectText');
         const disconnectButton = getByTestId('disconnectButton');
@@ -115,9 +97,6 @@ describe('Settings', () => {
         const versionText = getByTestId('versionText');
         const versionNumber = getByTestId('versionNumber');
 
-        expect(backHomeBtn).toBeTruthy();
-        expect(iconPageTitle).toBeTruthy();
-        expect(pageTitle).toBeTruthy();
         expect(darkModeText).toBeTruthy();
         expect(darkModeSwitch).toBeTruthy();
         expect(disconnectText).toBeTruthy();
@@ -129,7 +108,7 @@ describe('Settings', () => {
     });
 
     it('Verify if everything in modal is rendering after clicking on delete account button in dark mode', () => {
-        const { getByTestId } = render(<Settings navigation={navigation} />);
+        const { getByTestId } = render(<Settings navigation={navigation} route={route} />);
 
         const darkModeSwitch = getByTestId('darkModeSwitch');
 
@@ -139,12 +118,12 @@ describe('Settings', () => {
 
         fireEvent.press(deleteAccountButton);
 
-        const deleteAccountModal = getByTestId('backHomeBtn');
-        const deleteAccountQuestion = getByTestId('iconPageTitle');
-        const modalCancelButton = getByTestId('pageTitle');
-        const modalCancelText = getByTestId('darkModeText');
-        const modalConfirmButton = getByTestId('darkModeSwitch');
-        const modalConfirmText = getByTestId('disconnectText');
+        const deleteAccountModal = getByTestId('deleteAccountModal');
+        const deleteAccountQuestion = getByTestId('deleteAccountQuestion');
+        const modalCancelButton = getByTestId('modalCancelButton');
+        const modalCancelText = getByTestId('modalCancelText');
+        const modalConfirmButton = getByTestId('modalConfirmButton');
+        const modalConfirmText = getByTestId('modalConfirmText');
 
         expect(deleteAccountModal).toBeTruthy();
         expect(deleteAccountQuestion).toBeTruthy();
@@ -155,7 +134,7 @@ describe('Settings', () => {
     });
 
     it('Disconnect when clicking on disconnect button', () => {
-        const { getByTestId } = render(<Settings navigation={navigation} />);
+        const { getByTestId } = render(<Settings navigation={navigation} route={route} />);
 
         const disconnectButton = getByTestId('disconnectButton');
 
@@ -165,7 +144,7 @@ describe('Settings', () => {
     });
 
     it('Delete account modal - Open', () => {
-        const { getByTestId } = render(<Settings navigation={navigation} />);
+        const { getByTestId } = render(<Settings navigation={navigation} route={route} />);
 
         const deleteAccountButton = getByTestId('deleteAccountButton');
 
@@ -177,7 +156,7 @@ describe('Settings', () => {
     });
 
     it('Delete account modal - Open and Cancel', () => {
-        const { getByTestId } = render(<Settings navigation={navigation} />);
+        const { getByTestId } = render(<Settings navigation={navigation} route={route} />);
 
         const deleteAccountButton = getByTestId('deleteAccountButton');
         fireEvent.press(deleteAccountButton);
@@ -187,5 +166,31 @@ describe('Settings', () => {
         const modalCancelButton = getByTestId('modalCancelButton');
         fireEvent.press(modalCancelButton);
         expect(axios.get).toHaveBeenCalledTimes(1);
+    });
+
+    it('Toggle dark mode', async () => {
+        const { getByTestId } = render(<Settings navigation={navigation} route={route} />);
+        const darkModeSwitch = getByTestId('darkModeSwitch');
+
+        // Vérifiez que le commutateur est initialement à false (mode clair)
+        expect(darkModeSwitch.props.value).toBe(false);
+
+        // Simulez le changement d'état du commutateur
+        fireEvent.changeText(darkModeSwitch, 'true');
+
+        // Attendez un bref instant pour que le changement soit pris en compte
+        await waitFor(() => {
+            // Vérifiez que le commutateur est désormais à true (mode sombre)
+            expect(darkModeSwitch.props.value).toBe(true);
+        });
+
+        // Simulez à nouveau le changement d'état du commutateur
+        fireEvent.changeText(darkModeSwitch, 'false');
+
+        // Attendez un bref instant pour que le changement soit pris en compte
+        await waitFor(() => {
+            // Vérifiez que le commutateur est désormais à false (mode clair)
+            expect(darkModeSwitch.props.value).toBe(false);
+        });
     });
 });

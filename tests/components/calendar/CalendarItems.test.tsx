@@ -8,13 +8,15 @@ describe('CalendarItems', () => {
         color: 'blue'
     };
 
-    it('renders correctly', () => {
+    test('renders correctly', () => {
         const mockPressCard = jest.fn();
         const mockPressButton = jest.fn();
+        const colorMode = 'light';
 
         const { getByText } = render(
             <CalendarItems
                 item={mockItem}
+                colorMode={colorMode}
                 onPressCard={mockPressCard}
                 onPressButton={mockPressButton}
             />

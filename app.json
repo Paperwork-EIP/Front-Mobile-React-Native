@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "paperwork-mobile",
-    "slug": "paperwork-mobile",
+    "name": "Paperwork",
+    "slug": "Paperwork",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"

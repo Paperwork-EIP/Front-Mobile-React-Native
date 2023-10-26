@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { View } from "react-native";
+import { useColorScheme, View } from "react-native";
 import axios from "axios";
 
 import CalendarComponent from "../components/calendar/CalendarComponent";
+import LoadingComponent from "../components/LoadingComponent";
+
 import { getItem } from "../services/Storage";
 
 import { calendar, brightRed } from "../../styles/screen/calendar";
+import { loading_component } from "../../styles/components/loading_component";
 
-function Calendar() {
+function Calendar({ navigation, route }: { navigation: any, route: any }) {
     const [items, setItems] = useState<any>([]);
     const [token, setToken] = useState('');
     const [markedDatesState, setMarkedDatesState] = useState<any>({});
+    const [isLoading, setIsLoading] = useState(true);
 
+    const colorMode = route.params.colorMode;
     const selectedDotColor = brightRed;
     const url = process.env.EXPO_PUBLIC_BASE_URL;
 
@@ -54,8 +59,11 @@ function Calendar() {
             }
 
             setItems(list);
+            setDotMarkedDates();
+            setIsLoading(false);
         }).catch((error) => {
             setItems([]);
+            setIsLoading(false);
             console.error("Error axios get calendar : ", error.response);
         });
     }
@@ -110,21 +118,25 @@ function Calendar() {
                 getLoginToken();
             }, 3000);
         }
-        setDotMarkedDates();
-
         return () => clearInterval(interval);
-    }, [items]);
+    }, []);
 
     return (
-        <View style={calendar.container}>
-            <CalendarComponent
-                style={calendar.container.calendar}
-                sectionStyle={calendar.container.section}
-                styleEmpty={calendar.container.empty}
-                styleEmptyText={calendar.container.empty.text}
-                markedDates={markedDatesState}
-                items={items}
-            />
+        <View style={colorMode === 'light' ? calendar.container : calendar.containerDark}>
+            {
+                isLoading ?
+                    <LoadingComponent styleContainer={loading_component.lightContainer} />
+                    :
+                    <CalendarComponent
+                        colorMode={colorMode}
+                        style={colorMode === 'light' ? calendar.container.calendar : calendar.containerDark.calendar}
+                        sectionStyle={colorMode === 'light' ? calendar.container.section : calendar.containerDark.section}
+                        styleEmpty={colorMode === 'light' ? calendar.container.empty : calendar.containerDark.empty}
+                        styleEmptyText={colorMode === 'light' ? calendar.container.empty.text : calendar.containerDark.empty.text}
+                        markedDates={markedDatesState}
+                        items={items}
+                    />
+            }
         </View>
     );
 };

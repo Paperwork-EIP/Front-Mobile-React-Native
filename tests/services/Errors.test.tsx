@@ -11,7 +11,7 @@ jest.mock('react-native', () => {
 });
 
 describe('AlertErrorSomethingWrong', () => {
-    it('should call Alert.alert with the correct arguments', () => {
+    test('should call Alert.alert with the correct arguments', () => {
         const error = { response: 'Some response' };
         const t = jest.fn();
 

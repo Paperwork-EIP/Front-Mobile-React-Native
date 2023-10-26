@@ -1,13 +1,13 @@
 import { StyleSheet } from "react-native";
+import { lightTextColor, darkTextColor } from "../colors";
 
 const hide_password_button = StyleSheet.create({
     button: {
-        color: 'gray',
+        color: lightTextColor,
+    },
 
-        image: {
-            width: 20,
-            height: 20,
-        }
+    buttonDark: {
+        color: darkTextColor,
     }
 });
 

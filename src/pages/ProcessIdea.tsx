@@ -1,15 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
-import { TouchableOpacity, Icon, Alert, View, TextInput, Text } from "react-native";
+import React, { useEffect, useState } from "react";
+import {  Alert, View, TextInput, Text } from "react-native";
 import { useTranslation } from 'react-i18next';
 import axios from "axios";
-import Ionicons from '@expo/vector-icons/Ionicons';
-import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import LongHorizontalButton from "../components/LongHorizontalButton";
 import { processIdeaLight, processIdeaDark } from "../../styles/pages/processidea.js";
 import { getItem } from "../services/Storage";
 
-function ProcessIdea({ navigation }: { navigation: any }) {
+function ProcessIdea({ navigation, route }: { navigation: any, route: any }) {
 
     const { t, i18n } = useTranslation();
 
@@ -22,25 +20,8 @@ function ProcessIdea({ navigation }: { navigation: any }) {
     const [token, setToken] = useState('');
 
     const api = process.env.EXPO_PUBLIC_BASE_URL;
-
-
-    const [isDarkMode, setIsDarkMode] = useState(false);
-
-    const loadThemePreference = async () => {
-        try {
-            const storedTheme = await AsyncStorage.getItem('theme');
-            if (storedTheme) {
-                setIsDarkMode(storedTheme === 'dark');
-                console.log("isDarkMode = " + isDarkMode);
-            }
-        } catch (error) {
-            console.error('Error loading theme preference:', error);
-        }
-    };
-
-    useEffect(() => {
-        loadThemePreference();
-    }, []);
+    
+    const colorMode = route.params.colorMode;
 
     async function getLoginToken() {
         const loginToken = await getItem('@loginToken');
@@ -128,21 +109,12 @@ function ProcessIdea({ navigation }: { navigation: any }) {
 
     return (
         <>
-            <View style={isDarkMode ? processIdeaDark.container : processIdeaLight.container}>
-                <View style={isDarkMode ? processIdeaDark.content : processIdeaLight.content}>
-                    <View>
-                        <TouchableOpacity
-                            style={isDarkMode ? processIdeaDark.homebtn : processIdeaLight.homebtn}
-                            onPress={() => navigation.navigate('Home')}
-                            testID="backHomeBtn">
-                            <Ionicons name="chevron-back-outline" size={28} color={isDarkMode ? "white" : "black"} />
-                            <Text style={isDarkMode ? processIdeaDark.homebtn.text : processIdeaLight.homebtn.text}>{t('processidea.pagetitle')}</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={isDarkMode ? processIdeaDark.form : processIdeaLight.form}>
-                        <Text style={isDarkMode ? processIdeaDark.title : processIdeaLight.title} >{t('processidea.title')}</Text>
+            <View style={colorMode === 'dark' ? processIdeaDark.container : processIdeaLight.container}>
+                <View style={colorMode === 'dark' ? processIdeaDark.content : processIdeaLight.content}>
+                    <View style={colorMode === 'dark' ? processIdeaDark.form : processIdeaLight.form}>
+                        <Text style={colorMode === 'dark' ? processIdeaDark.title : processIdeaLight.title} >{t('processidea.title')}</Text>
                         <TextInput
-                            style={isDarkMode ? processIdeaDark.input : processIdeaLight.input}
+                            style={colorMode === 'dark' ? processIdeaDark.input : processIdeaLight.input}
                             placeholder="Title"
                             placeholderTextColor="gray"
                             inputMode="text"
@@ -153,16 +125,16 @@ function ProcessIdea({ navigation }: { navigation: any }) {
                         />
                         {errors.title ?
                         <Text
-                            style={isDarkMode ? processIdeaDark.errorLabel : processIdeaLight.errorLabel}
+                            style={colorMode === 'dark' ? processIdeaDark.errorLabel : processIdeaLight.errorLabel}
                             testID="errorTitle"
                         >{errors.title}</Text> : null }
                         <Text
-                            style={isDarkMode ? processIdeaDark.helpLabel : processIdeaLight.helpLabel}
+                            style={colorMode === 'dark' ? processIdeaDark.helpLabel : processIdeaLight.helpLabel}
                             testID="helpTitle"
                         >{t('processidea.helpTitle')}</Text>
-                        <Text style={isDarkMode ? processIdeaDark.title : processIdeaLight.title} >{t('processidea.description')}</Text>
+                        <Text style={colorMode === 'dark' ? processIdeaDark.title : processIdeaLight.title} >{t('processidea.description')}</Text>
                         <TextInput
-                            style={isDarkMode ? processIdeaDark.input : processIdeaLight.input}
+                            style={colorMode === 'dark' ? processIdeaDark.input : processIdeaLight.input}
                             placeholder="Description"
                             placeholderTextColor="gray"
                             inputMode="text"
@@ -173,16 +145,16 @@ function ProcessIdea({ navigation }: { navigation: any }) {
                         />
                         {errors.description ?
                         <Text
-                            style={isDarkMode ? processIdeaDark.errorLabel : processIdeaLight.errorLabel}
+                            style={colorMode === 'dark' ? processIdeaDark.errorLabel : processIdeaLight.errorLabel}
                             testID="errorDescription"
                         >{errors.description}</Text> : null }
                         <Text
-                            style={isDarkMode ? processIdeaDark.helpLabel : processIdeaLight.helpLabel}
+                            style={colorMode === 'dark' ? processIdeaDark.helpLabel : processIdeaLight.helpLabel}
                             testID="helpDescription"
                         >{t('processidea.helpDescription')}</Text>
-                        <Text style={isDarkMode ? processIdeaDark.title : processIdeaLight.title} >{t('processidea.content')}</Text>
+                        <Text style={colorMode === 'dark' ? processIdeaDark.title : processIdeaLight.title} >{t('processidea.content')}</Text>
                         <TextInput
-                            style={isDarkMode ? processIdeaDark.input : processIdeaLight.input}
+                            style={colorMode === 'dark' ? processIdeaDark.input : processIdeaLight.input}
                             placeholder="Content"
                             placeholderTextColor="gray"
                             inputMode="text"
@@ -193,17 +165,17 @@ function ProcessIdea({ navigation }: { navigation: any }) {
                         />
                         {errors.content ?
                         <Text
-                            style={isDarkMode ? processIdeaDark.errorLabel : processIdeaLight.errorLabel}
+                            style={colorMode === 'dark' ? processIdeaDark.errorLabel : processIdeaLight.errorLabel}
                             testID="errorContent"
                         >{errors.content}</Text> : null }
                         <Text
-                            style={isDarkMode ? processIdeaDark.helpLabel : processIdeaLight.helpLabel}
+                            style={colorMode === 'dark' ? processIdeaDark.helpLabel : processIdeaLight.helpLabel}
                             testID="helpContent"
                         >{t('processidea.helpContent')}</Text>
                         <LongHorizontalButton
                             title={t('processidea.submit')}
-                            styleButton={isDarkMode ? processIdeaDark.button : processIdeaLight.button}
-                            styleText={isDarkMode ? processIdeaDark.button.text : processIdeaLight.button.text}
+                            styleButton={colorMode === 'dark' ? processIdeaDark.button : processIdeaLight.button}
+                            styleText={colorMode === 'dark' ? processIdeaDark.button.text : processIdeaLight.button.text}
                             onPress={handleSubmit}
                             testID="submitButton"
                         />

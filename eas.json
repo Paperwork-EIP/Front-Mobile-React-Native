@@ -15,17 +15,11 @@
       }
     },
     "apk": {
+      "developmentClient": true,
       "android": {
+        "gradleCommand": ":app:assembleRelease",
         "buildType": "apk"
       }
-    },
-    "preview2": {
-      "android": {
-        "gradleCommand": ":app:assembleRelease"
-      }
-    },
-    "preview3": {
-      "developmentClient": true
     }
   },
   "submit": {

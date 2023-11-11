@@ -27,7 +27,7 @@ function Profile({ navigation, route }: { navigation: any, route: any }) {
     const [email, setEmail] = React.useState("");
     const [address, setAddress] = React.useState("");
     const [phonenumber, setPhonenumber] = React.useState("");
-    const [profilePicture, setProfilePicture] = React.useState(require('../../assets/avatar/NoAvatar.png'));
+    const [profilePicture, setProfilePicture] = React.useState(require('../../assets/avatar/no_avatar.png'));
 
     const [isLoading, setIsLoading] = useState(true);
     const [userProcessInfo, setUserProcessInfo]: any = useState([]);
@@ -111,32 +111,32 @@ function Profile({ navigation, route }: { navigation: any, route: any }) {
 
     function getImagesFromAssetsByFilename(filename: string) {
         switch (filename) {
-            case '/assets/avatar/Avatar01.png':
-                setProfilePicture(require('../../assets/avatar/Avatar01.png'));
+            case '/assets/avatar/avatar01.png':
+                setProfilePicture(require('../../assets/avatar/avatar01.png'));
                 break;
-            case '/assets/avatar/Avatar02.png':
-                setProfilePicture(require('../../assets/avatar/Avatar02.png'));
+            case '/assets/avatar/avatar02.png':
+                setProfilePicture(require('../../assets/avatar/avatar02.png'));
                 break;
-            case '/assets/avatar/Avatar03.png':
-                setProfilePicture(require('../../assets/avatar/Avatar03.png'));
+            case '/assets/avatar/avatar03.png':
+                setProfilePicture(require('../../assets/avatar/avatar03.png'));
                 break;
-            case '/assets/avatar/Avatar04.png':
-                setProfilePicture(require('../../assets/avatar/Avatar04.png'));
+            case '/assets/avatar/avatar04.png':
+                setProfilePicture(require('../../assets/avatar/avatar04.png'));
                 break;
-            case '/assets/avatar/Avatar05.png':
-                setProfilePicture(require('../../assets/avatar/Avatar05.png'));
+            case '/assets/avatar/avatar05.png':
+                setProfilePicture(require('../../assets/avatar/avatar05.png'));
                 break;
-            case '/assets/avatar/Avatar06.png':
-                setProfilePicture(require('../../assets/avatar/Avatar06.png'));
+            case '/assets/avatar/avatar06.png':
+                setProfilePicture(require('../../assets/avatar/avatar06.png'));
                 break;
-            case '/assets/avatar/Avatar07.png':
-                setProfilePicture(require('../../assets/avatar/Avatar07.png'));
+            case '/assets/avatar/avatar07.png':
+                setProfilePicture(require('../../assets/avatar/avatar07.png'));
                 break;
-            case '/assets/avatar/Avatar08.png':
-                setProfilePicture(require('../../assets/avatar/Avatar08.png'));
+            case '/assets/avatar/avatar08.png':
+                setProfilePicture(require('../../assets/avatar/avatar08.png'));
                 break;
             default:
-                setProfilePicture(require('../../assets/avatar/NoAvatar.png'));
+                setProfilePicture(require('../../assets/avatar/no_avatar.png'));
                 break;
         }
     }

@@ -167,7 +167,7 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
             <Text style={edit.title}> {t('profile.editInfo.title')} </ Text>
             <View style={edit.center}>
                 <TouchableHighlight style={edit.modifPicture} onPress={() => { showAlert() }}>
-                    <Image source={userInfo?.profilePicture === null ? require('../../assets/avatar/NoAvatar.png') : userInfo?.profilePicture}
+                    <Image source={userInfo?.profilePicture === null ? require('../../assets/avatar/no_avatar.png') : userInfo?.profilePicture}
                         style={[edit.profilePicture]} />
                 </TouchableHighlight>
             </View>

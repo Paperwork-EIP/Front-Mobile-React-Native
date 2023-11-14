@@ -13,6 +13,7 @@ import QuizzPage from './src/pages/QuizzPage';
 import QuizzQuestion from './src/pages/QuizzQuestion';
 import Edit_info from './src/pages/Edit_info';
 import Result from './src/pages/Result';
+import ForgotPassword from './src/pages/ForgotPassword';
 
 import Header from "./src/components/Header";
 
@@ -55,6 +56,7 @@ function App() {
                         <Stack.Screen name="QuizzPage" component={QuizzPage} initialParams={{ colorMode: colorMode }} />
                         <Stack.Screen name="QuizzQuestion" component={QuizzQuestion} initialParams={{ colorMode: colorMode }}/>
                         <Stack.Screen name="Result" component={Result} initialParams={{ colorMode: colorMode }} />
+                        <Stack.Screen name="ForgotPassword" component={ForgotPassword} initialParams={{ colorMode: colorMode }} options={{ headerShown: false }}/>
                     </Stack.Navigator>
                     : null
             }

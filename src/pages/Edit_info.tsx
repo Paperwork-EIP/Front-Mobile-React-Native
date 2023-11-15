@@ -134,7 +134,7 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
 
     const showAlert = () =>
         Alert.alert(
-            'Alert Title',
+            'Choose a picture',
             'My Alert Msg',
             [
                 {
@@ -142,13 +142,18 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
                     onPress: () => Alert.alert('Cancel Pressed'),
                     style: 'cancel',
                 },
+                {
+                    text: 'Submit',
+                    onPress: () => Alert.alert('Submit Pressed'),
+                    style: 'cancel',
+                },
             ],
             {
                 cancelable: true,
-                onDismiss: () =>
-                    Alert.alert(
-                        'This alert was dismissed by tapping outside of the alert dialog.',
-                    ),
+                // onDismiss: () =>
+                //     Alert.alert(
+                //         'This alert was dismissed by tapping outside of the alert dialog.',
+                //     ),
             },
         );
 

@@ -23,6 +23,9 @@ const result = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 20,
     },
+    checkbox: {
+        alignSelf: "center",
+    },
 })
 
 export { result };

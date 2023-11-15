@@ -1,8 +1,6 @@
-// ForgotPassword.tsx
-
 import React, { useState } from "react";
 import { useTranslation } from 'react-i18next';
-import { View, TextInput, Text, TouchableOpacity } from "react-native";
+import { View, Image, TextInput, Text, TouchableOpacity } from "react-native";
 import ClickTextButtonWithDescription from "../components/ClickTextButtonWithDescription";
 import LongHorizontalButton from "../components/LongHorizontalButton";
 import axios from "axios";
@@ -27,38 +25,40 @@ function ForgotPassword({ navigation, route }: { navigation: any, route: any }) 
     }
 
     const handleSubmit = async () => {
-        // Basic email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             setError(t("Invalid email address"));
             return;
         }
 
-        // Send a request to the server for password recovery
         try {
-            const response = await axios.post("/api/forgot-password", { email });
-            setSuccess(response.data.message);
-            setError("");
+        await axios.get(process.env.EXPO_PUBLIC_BASE_URL + '/user/sendResetPasswordEmail', { params: { email: email } });
+            //toast t('login.emailSent');
+            console.log("email sent");
         } catch (error) {
-            setError(error.response.data.message);
-            setSuccess("");
+            //toast t('login.emailFail');
+            console.error(error);
         }
     };
 
     return (
         <View style={colorMode === 'light' ? forgotPassword.container : forgotPassword.containerDark}>
             <View style={forgotPassword.formContainer}>
-                <Text style={forgotPassword.title}>{t("Forgot Password(FAIRE IMAGE + LA GESTION MAIL + PAGE DE NEO MDP + GESTION + TU)")}</Text>
-                <TextInput
-                    style={forgotPassword.input}
-                    placeholder={t("Enter your email(TMP)")}
-                    value={email}
-                    onChangeText={handleEmailChange}
-                />
+            <Image source={require('../../assets/images/forgotPassword/ResetPassword-bro.png')} style={forgotPassword.Image} />
+                <Text style={colorMode === 'light' ? forgotPassword.title : forgotPassword.titleDark} >{t('forgotPassword.title')}</Text>
+                    <TextInput
+                        style={colorMode === 'light' ? forgotPassword.input : forgotPassword.inputDark}
+                        placeholderTextColor={colorMode === 'light' ? forgotPassword.placeholder.color : forgotPassword.placeholderDark.color}
+                        onChangeText={handleEmailChange}
+                        value={email}
+                        placeholder={t('forgotPassword.placeholder')}
+                        inputMode="text"
+                        testID="emailInput"
+                    />
                 {error ? <Text style={forgotPassword.errorText}>{error}</Text> : null}
                 {success ? <Text style={forgotPassword.successText}>{success}</Text> : null}
                 <LongHorizontalButton
-                    title={"SOUMETTRE(TMP)"}
+                    title={t('forgotPassword.submit')}
                     onPress={handleSubmit}
                     styleButton={forgotPassword.button}
                     styleText={forgotPassword.button.text}
@@ -67,7 +67,7 @@ function ForgotPassword({ navigation, route }: { navigation: any, route: any }) 
             </View>
             <View style={forgotPassword.center}>
                 <ClickTextButtonWithDescription
-                    title={t("Retour(TMP)")}
+                    title={t("forgotPassword.back")}
                     onPress={redirectToLogin}
                     styleButton={forgotPassword.bottom.returnToLogin}
                     styleTitle={colorMode === 'light' ? forgotPassword.bottom.returnToLogin.text as StyleProp<ViewStyle> : forgotPassword.bottom.returnToLogin.textDark as StyleProp<ViewStyle>}

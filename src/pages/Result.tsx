@@ -39,7 +39,6 @@ function Result({ navigation, route }: { navigation: any, route: any }) {
                     setRequeteSend(true);
                     setStepsAnswer(res.data.response);
                     setTitle(res.data.title);
-                    console.log(res.data);
                     stepsAnswer?.map((item: any) => {
                         if (item.is_done === true) {
                             // document.getElementById(item.step_id)?.setAttribute("checked", "checked");
@@ -100,15 +99,18 @@ function Result({ navigation, route }: { navigation: any, route: any }) {
         <Text style={result.text}>{t('quizzpage.toDo')}</Text>
             {stepsAnswer?.map((item, index) => {
                 console.log(item);
-                console.log(item.is_done);
                 return (
                     <View style={result.checkboxContainer}>
                         <CheckBox
-                        style={result.checkbox}
+                            // style={result.checkbox}
                             title={item.description}
                             disabled={false}
                             checked={item.is_done}
                             onPress={(newValue) => onValueChange(item, index)}
+                            iconType="material-community"
+                            checkedIcon="checkbox-marked"
+                            uncheckedIcon="checkbox-blank-outline"
+                            checkedColor="#29C9B3"
                         />
                         {/* Logo avec source */}
                         {/* <Text>Name of the step</Text> */}

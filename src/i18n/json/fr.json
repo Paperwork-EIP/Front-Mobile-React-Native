@@ -243,5 +243,11 @@
         "yes": "Oui",
         "no": "Non",
         "toDo": "À faire"
+    },
+    "forgotPassword": {
+        "title": "Mot de passe oublié ?\n",
+        "placeholder": "Email\n",
+        "submit": "Envoyer",
+        "back": "Retour"
     }
 }

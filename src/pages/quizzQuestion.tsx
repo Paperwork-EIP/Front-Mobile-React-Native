@@ -32,7 +32,7 @@ function QuizzQuestion({ navigation } : { navigation: any }) {
     const [language, setLanguage] = useState("");
     const { t, i18n } = useTranslation();
 
-    
+
 
     // Translation
     // const translation = getTranslation(language, "quiz");
@@ -76,7 +76,7 @@ function QuizzQuestion({ navigation } : { navigation: any }) {
             console.log(err)
         });
 
-        
+
     }, [nextStep, processSelected, language])
 
     async function addProcess(responseTemp : any) {

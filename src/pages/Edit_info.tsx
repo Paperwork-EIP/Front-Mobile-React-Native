@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Alert, View, Image, TextInput, Text, TouchableHighlight, TouchableOpacity } from "react-native";
+import { Alert, View, Image, TextInput, Text, TouchableHighlight, TouchableOpacity, ScrollView, ImageStyle } from "react-native";
 import { useTranslation } from 'react-i18next';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -43,6 +43,8 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
 
     const userInfo = route.params;
 
+    const colorMode = route.params.colorMode;
+     
     function handleUsernameChange(text: React.SetStateAction<string>) {
         setUsername(text);
     }
@@ -134,7 +136,7 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
 
     const showAlert = () =>
         Alert.alert(
-            'Alert Title',
+            'Choose a picture',
             'My Alert Msg',
             [
                 {
@@ -142,13 +144,18 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
                     onPress: () => Alert.alert('Cancel Pressed'),
                     style: 'cancel',
                 },
+                {
+                    text: 'Submit',
+                    onPress: () => Alert.alert('Submit Pressed'),
+                    style: 'cancel',
+                },
             ],
             {
                 cancelable: true,
-                onDismiss: () =>
-                    Alert.alert(
-                        'This alert was dismissed by tapping outside of the alert dialog.',
-                    ),
+                // onDismiss: () =>
+                //     Alert.alert(
+                //         'This alert was dismissed by tapping outside of the alert dialog.',
+                //     ),
             },
         );
 
@@ -156,34 +163,31 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
     }, []);
 
     return (
-        <View style={edit.container}>
-            <View>
-                <TouchableOpacity
-                    style={edit.homebtn}
-                    onPress={() => navigation.navigate('Home')}>
-                    <Ionicons name="chevron-back-outline" size={28} color={"black"} />
-                </TouchableOpacity>
-            </View>
-            <Text style={edit.title}> {t('profile.editInfo.title')} </ Text>
+        
+        <View style={colorMode === 'light' ? edit.container : edit.containerDark}>
+            <Text style={colorMode === 'light' ? edit.title : edit.titleDark}> {t('profile.editInfo.title')} </ Text>
             <View style={edit.center}>
                 <TouchableHighlight style={edit.modifPicture} onPress={() => { showAlert() }}>
-                    <Image source={userInfo?.profilePicture === null ? require('../../assets/avatar/NoAvatar.png') : userInfo?.profilePicture}
-                        style={[edit.profilePicture]} />
+                    <Image source={userInfo?.profilePicture === null ? require('../../assets/avatar/no_avatar.png') : userInfo?.profilePicture}
+                        style={edit.profilePicture as ImageStyle} />
                 </TouchableHighlight>
             </View>
+            <ScrollView >
             <TextInput
-                style={edit.input}
+                style={colorMode === 'light' ? edit.input : edit.inputDark}
                 onChangeText={handleUsernameChange}
                 value={usernameEdit}
                 placeholder={userInfo?.username}
+                placeholderTextColor={colorMode === 'light' ? '#454545' : '#cecece'}
                 // inputMode="Username"
                 testID="usernameInput"
             />
             <TextInput
-                style={edit.input}
+                style={colorMode === 'light' ? edit.input : edit.inputDark}
                 onChangeText={handleEmailChange}
                 value={emailEdit}
                 placeholder={userInfo?.email}
+                placeholderTextColor={colorMode === 'light' ? '#454545' : '#cecece'}
                 inputMode="email"
                 testID="emailInput"
             />
@@ -202,44 +206,46 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
                 rowTextForSelection={(item, index) => {
                     return item;
                 }}
-                // buttonStyle={edit.dropdown1BtnStyle}
-                // buttonTextStyle={edit.dropdown1BtnTxtStyle}
+                buttonStyle={colorMode === 'light' ? edit.dropdownStyle : edit.dropdownStyleDark}
+                buttonTextStyle={colorMode === 'light' ? edit.dropdownTxtStyle : edit.dropdownTxtStyleDark}
                 renderDropdownIcon={isOpened => {
-                    return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#444'} size={18} />;
+                    return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={colorMode === 'light' ? '#454545' : '#cecece'} size={18} />;
                 }}
                 dropdownIconPosition={'right'}
-                // dropdownStyle={edit.dropdown1DropdownStyle}
-                // rowStyle={edit.dropdown1RowStyle}
-                // rowTextStyle={edit.dropdown1RowTxtStyle}
+                dropdownStyle={colorMode === 'light' ? edit.dropdown1DropdownStyle : edit.dropdown1DropdownStyleDark}
+                rowStyle={colorMode === 'light' ? edit.dropdownRowStyle : edit.dropdownRowStyleDark}
+                rowTextStyle={colorMode === 'light' ? edit.dropdownRowTxtStyle :edit.dropdownRowTxtStyleDark}
             />
-            <View style={edit.passwordContainer} >
+            <View style={colorMode === 'light' ? edit.passwordContainer : edit.passwordContainerDark} >
                 <TextInput
-                    // style={profile.passwordContainer.input}
+                    style={colorMode === 'light' ? edit.passwordContainer.input : edit.passwordContainerDark.input}
                     onChangeText={handlePasswordChange}
                     value={password}
                     secureTextEntry={hidePassword}
                     placeholder={t('login.password')}
+                    placeholderTextColor={colorMode === 'light' ? '#454545' : '#cecece'}
                     testID="passwordInput"
                 />
                 <HidePasswordButton
-                    icon={hidePassword ? 'hide_password' : 'show_password'}
-                    onPress={() => setHidePassword(!hidePassword)}
-                    testID="hidePasswordButton"
-                />
+                        icon={hidePassword ? 'hide_password' : 'show_password'}
+                        onPress={() => setHidePassword(!hidePassword)}
+                        testID="hidePasswordButton" dark={colorMode === 'light' ? false : true}                />
             </View>
             <TextInput
-                style={edit.input}
+                style={colorMode === 'light' ? edit.input : edit.inputDark}
                 onChangeText={handleAddressChange}
                 value={addressEdit}
                 placeholder={userInfo?.address === null ? t('profile.editInfo.address') : userInfo?.address}
+                placeholderTextColor={colorMode === 'light' ? '#454545' : '#cecece'}
                 inputMode="email"
                 testID="emailInput"
             />
             <TextInput
-                style={edit.input}
+                style={colorMode === 'light' ? edit.input : edit.inputDark}
                 onChangeText={handleAgeChange}
                 value={ageEdit}
                 placeholder={userInfo?.age === null ? t('profile.editInfo.age') : userInfo?.age}
+                placeholderTextColor={colorMode === 'light' ? '#454545' : '#cecece'}
                 inputMode="email"
                 testID="emailInput"
             />
@@ -252,21 +258,24 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
                         testID="emailInput"
                     /> */}
             <TextInput
-                style={edit.input}
+                style={colorMode === 'light' ? edit.input : edit.inputDark}
                 onChangeText={handleNameChange}
                 value={nameEdit}
                 placeholder={userInfo?.name === null ? t('profile.editInfo.name') : userInfo?.name}
+                placeholderTextColor={colorMode === 'light' ? '#454545' : '#cecece'}
                 inputMode="email"
                 testID="emailInput"
             />
             <TextInput
-                style={edit.input}
+                style={colorMode === 'light' ? edit.input : edit.inputDark}
                 onChangeText={handlePhonenumberChange}
                 value={phonenumberEdit}
                 placeholder={userInfo?.phonenumber === null ? t('profile.editInfo.phoneNumber') : userInfo?.phonenumber}
+                placeholderTextColor={colorMode === 'light' ? '#454545' : '#cecece'}
                 inputMode="email"
                 testID="emailInput"
             />
+            </ScrollView>
             <LongHorizontalButton
                 title={t('profile.editInfo.submit')}
                 onPress={handleSubmit}
@@ -275,6 +284,7 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
                 testID="submitButton"
             />
         </View>
+        
     );
 };
 

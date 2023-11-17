@@ -168,7 +168,7 @@ function Login({ navigation, route }: { navigation: any, route: any }) {
                 </View>
                 <View style={login.content}>
                     <View style={login.form}>
-                        <Text style={colorMode === 'light' ? login.title : login.titleDark} >{t('login.title')}</Text>
+                        <Text style={colorMode === 'light' ? login.title : login.titleDark}>{t('login.title')}</Text>
                         <TextInput
                             style={colorMode === 'light' ? login.input : login.inputDark}
                             placeholderTextColor={colorMode === 'light' ? login.placeholder.color : login.placeholderDark.color}

@@ -243,7 +243,8 @@
         "select": "Select a process",
         "yes": "Yes",
         "no": "No",
-        "toDo": "to do"
+        "toDo": "To do",
+        "done": "Done"
     },
     "forgotPassword": {
         "title": "Forgot Password ?\n",

@@ -25,6 +25,10 @@ function MainMenu({ navigation, route }: { navigation: any, route: any }) {
         navigation.navigate("QuizzPage");
     };
 
+    function goToResultPage(processSelected: any, processStockedTittle: any) {
+        navigation.navigate("Result", {processSelected: processSelected, processStockedTittle: processStockedTittle});
+    };
+
     function goToLexiconPage() {
         navigation.navigate("Lexicon");
     };
@@ -39,9 +43,9 @@ function MainMenu({ navigation, route }: { navigation: any, route: any }) {
         const userProcessTmp = [];
         for (let j = 0; j < response.data.response.length; j++) {
             if (response.data.response[j]['pourcentage'] != null)
-                userProcessTmp.push({ process: response.data.response[j]['userProcess'].title, percentage: response.data.response[j]['pourcentage'] });
+                userProcessTmp.push({ process: response.data.response[j]['userProcess'].title, stocked_title: response.data.response[j]['userProcess'].stocked_title, percentage: response.data.response[j]['pourcentage'] });
             else
-                userProcessTmp.push({ process: response.data.response[j]['userProcess'].title, percentage: 0 });
+                userProcessTmp.push({ process: response.data.response[j]['userProcess'].title, stocked_title: response.data.response[j]['userProcess'].stocked_title, percentage: 0 });
         }
         setUserProcessInfo(userProcessTmp);
         setIsLoadingProcessList(false);
@@ -112,10 +116,13 @@ function MainMenu({ navigation, route }: { navigation: any, route: any }) {
     function displayProcessList() {
         if (userProcessInfo.length > 0) {
             return userProcessInfo.map((item: any, index: number) => (
-                <View key={index} style={mainmenu.processContainer}>
-                    <Text style={colorMode === 'light' ? mainmenu.processName : mainmenu.processNameDark}>{item.process}:</Text>
-                    <Text style={colorMode === 'light' ? mainmenu.processPercentage : mainmenu.processPercentageDark}>{`${item.percentage}%`}</Text>
-                </View>
+                <TouchableOpacity key={index} onPress={() => goToResultPage(item.process, item.stocked_title)}>
+                    <View style={mainmenu.processContainer}>
+                        <Text style={colorMode === 'light' ? mainmenu.processName : mainmenu.processNameDark}>{item.process}:</Text>
+                        <Text style={colorMode === 'light' ? mainmenu.processPercentage : mainmenu.processPercentageDark}>{`${item.percentage}%`}</Text>
+                    </View>
+                </TouchableOpacity>
+
             ))
         } else {
             return (

@@ -8,8 +8,10 @@ import { result } from "../../styles/pages/result";
 import { useTranslation } from 'react-i18next';
 
 import { getItem } from "../services/Storage";
-import { Text, View } from 'react-native';
-import Checkbox from '@react-native-community/checkbox';
+import { Text, View, TouchableHighlight, Linking, ScrollView } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { CheckBox } from '@rneui/themed'
+import LongHorizontalButton from "../components/LongHorizontalButton";
 
 import { useRoute } from '@react-navigation/native';
 
@@ -19,25 +21,14 @@ function Result({ navigation, route }: { navigation: any, route: any }) {
     const url = process.env.EXPO_PUBLIC_BASE_URL;
     const processSelected = useRoute().params
     const [stepsAnswer, setStepsAnswer] = useState([]);
-    const [title, setTitle] = useState("");
-    // const [processSelected, setProcessSelected] = useState("");
+    const [requeteSend, setRequeteSend] = useState(false);
 
-    const [toggleCheckBox, setToggleCheckBox] = useState(false)
-
-    // User informations
-    const [language, setLanguage] = useState("");
-
-
-    function getUserSteps() {
-        axios.get(`${url}/userProcess/getUserSteps`, { params: { process_title: processSelected?.processStockedTittle, user_token: getItem('@loginToken') } })
+    async function getUserSteps() {
+        const token = await getItem('@loginToken');
+        axios.get(`${url}/userProcess/getUserSteps`, { params: { process_title: processSelected?.processStockedTittle, user_token: token } })
                 .then(res => {
+                    setRequeteSend(true);
                     setStepsAnswer(res.data.response);
-                    setTitle(res.data.title);
-                    stepsAnswer?.map((item: any) => {
-                        if (item.is_done === true) {
-                            // document.getElementById(item.step_id)?.setAttribute("checked", "checked");
-                        }
-                    });
                 }).catch(err => {
                     console.log(err);
                 }
@@ -45,24 +36,13 @@ function Result({ navigation, route }: { navigation: any, route: any }) {
     }
 
     useEffect(() => {
-        // axios.get(`${url}/user/getbytoken`, { params: { token: getItem('@loginToken') } })
-        // .then(res => {
-        //     setLanguage(res.data.language);
-        // }).catch(err => {
-        //     console.log(err)
-        // });
-        getUserSteps();
+        if (requeteSend === false)
+            getUserSteps();
     },);
 
-    const handleCheckboxClick = (step_id: any, is_done: any) => {
+    async function handleClick () {
+        const token = await getItem('@loginToken');
         var newStepsAnswer = [];
-        newStepsAnswer = stepsAnswer;
-        newStepsAnswer?.map((item: any) => {
-            if (item.step_id === step_id) {
-                item.is_done = !is_done;
-            }
-        })
-        setStepsAnswer(newStepsAnswer);
         newStepsAnswer = stepsAnswer.map((item: any) => {
             return {
                 step_id: item.step_id,
@@ -70,31 +50,54 @@ function Result({ navigation, route }: { navigation: any, route: any }) {
             }
         })
         axios.post(`${url}/userProcess/update`, {
-            user_token: getItem('@loginToken'),
-            process_title: processSelected,
+            user_token: token,
+            process_title: processSelected?.processStockedTittle,
             questions: newStepsAnswer
         }).then(res => {
             console.log(res.data.response);
         }).catch(err => {
             console.log(err)
         })
+        navigation.navigate('Home');
+    }
+
+    const onValueChange = (item, index) => {
+        const newData = [...stepsAnswer];
+        newData[index].is_done = !item.is_done;
+        setStepsAnswer(newData);
     }
 
     return (
         <View style={result.container}>
-
-        <Text style={result.text}>{t('quizzpage.toDo')}</Text>
-            {stepsAnswer?.map((item: any) => {
-                return (
-                    <View style={result.checkboxContainer}>
-                        <Checkbox
-                            disabled={false}
-                            value={toggleCheckBox}
-                            onValueChange={(newValue) => setToggleCheckBox(newValue)}
-                        />
-                        <Text>Name of the step</Text>
-                    </View>)
-            })}
+            <Text style={result.text}>{t('quizzpage.toDo')}</Text>
+                <ScrollView style={result.scrollview}>
+                    {stepsAnswer?.map((item, index) => {
+                        console.log(item);
+                        return (
+                            <View style={result.checkboxContainer}>
+                                <CheckBox
+                                    title={item.description}
+                                    disabled={false}
+                                    checked={item.is_done}
+                                    onPress={(newValue) => onValueChange(item, index)}
+                                    iconType="material-community"
+                                    checkedIcon="checkbox-marked"
+                                    uncheckedIcon="checkbox-blank-outline"
+                                    checkedColor="#29C9B3"
+                                />
+                                <TouchableHighlight onPress={()=>{Linking.openURL(item.source)}}>
+                                    <Ionicons name="link" size={15} color="grey" />
+                                </TouchableHighlight>
+                            </View>)
+                    })}
+                </ScrollView>
+            <LongHorizontalButton
+                    title={t('quizzpage.done')}
+                    onPress={() => handleClick()}
+                    styleButton={result.doneButton}
+                    styleText={result.doneButton.text}
+                    testID="submitButton"
+                    />
         </ View>
     );
 }

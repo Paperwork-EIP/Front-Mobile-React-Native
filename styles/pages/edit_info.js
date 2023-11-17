@@ -1,10 +1,19 @@
 import { StyleSheet } from 'react-native';
+import { darkBackgroundColor, darkSecondaryBackgroundColor, darkTextColor, lightBackgroundColor, lightSecondaryBackgroundColor, lightTextColor } from '../colors';
 
 const edit = StyleSheet.create({
     container: {
         width: '100%',
         height: '100%',
-        backgroundColor: '#fff',
+        backgroundColor: lightBackgroundColor,
+        alignItems: 'center',
+        justifyContent: 'center',
+        // paddingTop: 50
+    },
+    containerDark: {
+        width: '100%',
+        height: '100%',
+        backgroundColor: darkBackgroundColor,
         alignItems: 'center',
         justifyContent: 'center',
         // paddingTop: 50
@@ -25,7 +34,14 @@ const edit = StyleSheet.create({
     title: {
         fontSize: 18,
         fontWeight: 'bold',
-        color: 'black',
+        color: lightTextColor,
+        marginTop: 15,
+        marginLeft: 5
+    },
+    titleDark: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: darkTextColor,
         marginTop: 15,
         marginLeft: 5
     },
@@ -50,10 +66,21 @@ const edit = StyleSheet.create({
         borderRadius: 100,
     },
     input: {
-        width: '90%',
-        backgroundColor: '#f2f2f2',
+        width: '95%',
+        backgroundColor: lightSecondaryBackgroundColor,
         color: 'gray',
         borderWidth: 0,
+        marginBottom: 12,
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        borderRadius: 15,
+    },
+    inputDark: {
+        width: '95%',
+        backgroundColor: darkSecondaryBackgroundColor,
+        color: darkTextColor,
+        borderColor: darkTextColor,
+        borderWidth: 2,
         marginBottom: 12,
         paddingVertical: 10,
         paddingHorizontal: 15,
@@ -63,8 +90,8 @@ const edit = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        width: '90%',
-        backgroundColor: '#f2f2f2',
+        width: '95%',
+        backgroundColor: lightSecondaryBackgroundColor,
         marginTop: 15,
         marginBottom: 12,
         paddingVertical: 10,
@@ -75,6 +102,28 @@ const edit = StyleSheet.create({
             width: '85%',
             color: 'gray',
             borderWidth: 0,
+            backgroundColor: lightSecondaryBackgroundColor,
+        },
+    },
+    passwordContainerDark: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        width: '95%',
+        backgroundColor: darkSecondaryBackgroundColor,
+        marginTop: 15,
+        marginBottom: 12,
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        borderRadius: 15,
+        borderWidth: 2,
+        borderColor: darkTextColor,
+        color: darkSecondaryBackgroundColor,
+
+        input: {
+            width: '85%',
+            color: darkSecondaryBackgroundColor,
+            backgroundColor: darkSecondaryBackgroundColor,
         },
     },
     button: {
@@ -104,37 +153,34 @@ const edit = StyleSheet.create({
         shadowRadius: 10,
         elevation: 10,
     },
-    // header: {
-    //     flexDirection: 'row',
-    //     width,
-    //     height: 50,
-    //     alignItems: 'center',
-    //     justifyContent: 'center',
-    //     backgroundColor: '#F6F6F6',
-    // },
-    // headerTitle: { color: '#000', fontWeight: 'bold', fontSize: 16 },
-    // saveAreaViewContainer: { flex: 1, backgroundColor: '#FFF' },
-    // viewContainer: { flex: 1, width, backgroundColor: '#FFF' },
-    // scrollViewContainer: {
-    //     flexGrow: 1,
-    //     justifyContent: 'space-between',
-    //     alignItems: 'center',
-    //     paddingVertical: '10%',
-    //     paddingBottom: '20%',
-    // },
-
-    // dropdown1BtnStyle: {
-    //     width: '80%',
-    //     height: 50,
-    //     backgroundColor: '#FFF',
-    //     borderRadius: 8,
-    //     borderWidth: 1,
-    //     borderColor: '#444',
-    // },
-    // dropdown1BtnTxtStyle: { color: '#444', textAlign: 'left' },
-    // dropdown1DropdownStyle: { backgroundColor: '#EFEFEF' },
-    // dropdown1RowStyle: { backgroundColor: '#EFEFEF', borderBottomColor: '#C5C5C5' },
-    // dropdown1RowTxtStyle: { color: '#444', textAlign: 'left' },
+    dropdown1BtnStyle: {
+        width: '80%',
+        height: 50,
+        backgroundColor: '#FFF',
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: '#444',
+    },
+    dropdownStyle: {
+        width: '50%',
+        height: 50,
+        backgroundColor:lightSecondaryBackgroundColor,
+        borderRadius: 8,
+    },
+    dropdownStyleDark: {
+        width: '50%',
+        height: 50,
+        backgroundColor: darkSecondaryBackgroundColor,
+        borderRadius: 8,
+    },
+    dropdownTxtStyle: { color: lightTextColor, textAlign: 'left' },
+    dropdownTxtStyleDark: { color: darkTextColor, textAlign: 'left' },
+    dropdown1DropdownStyle: { backgroundColor: '#EFEFEF', borderRadius: 10 },
+    dropdown1DropdownStyleDark: { backgroundColor: darkSecondaryBackgroundColor, borderWidth: 2, borderRadius: 10 },
+    dropdownRowStyle: { backgroundColor: 'white', borderBottomColor: '#C5C5C5' },
+    dropdownRowStyleDark: { backgroundColor: 'dark', borderBottomColor: '#C5C5C5' },
+    dropdownRowTxtStyle: { color: 'black', textAlign: 'left' },
+    dropdownRowTxtStyleDark: { color: 'white', textAlign: 'left' },
 })
 
 export { edit };

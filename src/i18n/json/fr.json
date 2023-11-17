@@ -242,7 +242,8 @@
         "select": "Sélectionnez une procédure",
         "yes": "Oui",
         "no": "Non",
-        "toDo": "À faire"
+        "toDo": "À faire",
+        "done": "Fait"
     },
     "forgotPassword": {
         "title": "Mot de passe oublié ?\n",

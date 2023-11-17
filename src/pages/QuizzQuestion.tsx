@@ -35,7 +35,6 @@ function QuizzQuestion({ navigation } : { navigation: any }) {
     
 
     // Translation
-    // const translation = getTranslation(language, "quiz");
     async function getUserProcesses() {
         const token = await getItem('@loginToken');
         axios.get(`${url}/userProcess/getUserProcesses`, { params: { user_token: token } })

@@ -206,15 +206,15 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
                 rowTextForSelection={(item, index) => {
                     return item;
                 }}
-                // buttonStyle={edit.dropdown1BtnStyle}
-                // buttonTextStyle={edit.dropdown1BtnTxtStyle}
+                buttonStyle={colorMode === 'light' ? edit.dropdownStyle : edit.dropdownStyleDark}
+                buttonTextStyle={colorMode === 'light' ? edit.dropdownTxtStyle : edit.dropdownTxtStyleDark}
                 renderDropdownIcon={isOpened => {
-                    return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#444'} size={18} />;
+                    return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={colorMode === 'light' ? '#454545' : '#cecece'} size={18} />;
                 }}
                 dropdownIconPosition={'right'}
-                // dropdownStyle={edit.dropdown1DropdownStyle}
-                // rowStyle={edit.dropdown1RowStyle}
-                // rowTextStyle={edit.dropdown1RowTxtStyle}
+                dropdownStyle={colorMode === 'light' ? edit.dropdown1DropdownStyle : edit.dropdown1DropdownStyleDark}
+                rowStyle={colorMode === 'light' ? edit.dropdownRowStyle : edit.dropdownRowStyleDark}
+                rowTextStyle={colorMode === 'light' ? edit.dropdownRowTxtStyle :edit.dropdownRowTxtStyleDark}
             />
             <View style={colorMode === 'light' ? edit.passwordContainer : edit.passwordContainerDark} >
                 <TextInput

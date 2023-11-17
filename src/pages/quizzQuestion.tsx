@@ -68,7 +68,6 @@ function QuizzQuestion({ navigation } : { navigation: any }) {
         axios.get(`${url}/processQuestions/get`, { params: { title: processSelected?.processStockedTittle, language: langTemp } })
         .then(res => {
             console.log(res.data);
-            // setTitle(res.data.title);
             setCurrentId(res.data.questions[nextStep - 1].step_id);
             setCurrentQuestionAnswer(res.data.questions[nextStep - 1].question);
             setQuestions(res.data.questions);
@@ -85,7 +84,6 @@ function QuizzQuestion({ navigation } : { navigation: any }) {
         axios.post(`${url}/userProcess/add`, post)
                 .then(res => {
                     navigation.navigate("Result", {processSelected: processSelected?.processSelected, processStockedTittle: processSelected?.processStockedTittle});
-                    // window.location.href = `/processResult/${processSelected}`;
                 }).catch(err => {
                     console.log(err)
                 });
@@ -119,10 +117,8 @@ function QuizzQuestion({ navigation } : { navigation: any }) {
             setCurrentId(questions[nextStep - 1].step_id);
         } else {
             if (currentQuestionAnswer === 'true') {
-                // setAnswer(answer => [...answer, { step_id: currentId, response: true} ]);
                 var responseTemp = [...answer, { step_id: currentId, response: true}];
             } else {
-                // setAnswer(answer => [...answer, { step_id: currentId, response: false} ]);
                 var responseTemp = [...answer, { step_id: currentId, response: false}];
             }
             if (update === false) {
@@ -135,7 +131,6 @@ function QuizzQuestion({ navigation } : { navigation: any }) {
 
     return (
         <View style={quizzQuestion.container}>
-            {/* <Text>{title}</Text> */}
             <View style={quizzQuestion.center}>
                 <Text style={quizzQuestion.text}>{currentQuestionAnswer}</Text>
                 <View style={quizzQuestion.button}>

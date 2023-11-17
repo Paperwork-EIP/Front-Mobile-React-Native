@@ -13,7 +13,7 @@ import LongHorizontalButton from "../components/LongHorizontalButton";
 import { Text, View } from 'react-native';
 import { use } from 'i18next';
 
-function QuizzQuestion({ navigation } : { navigation: any }) {
+function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) {
 
     const url = process.env.EXPO_PUBLIC_BASE_URL;
 
@@ -32,6 +32,7 @@ function QuizzQuestion({ navigation } : { navigation: any }) {
     const { t, i18n } = useTranslation();
 
     
+    const colorMode = route.params.colorMode;    
 
     // Translation
     async function getUserProcesses() {
@@ -128,9 +129,9 @@ function QuizzQuestion({ navigation } : { navigation: any }) {
     }
 
     return (
-        <View style={quizzQuestion.container}>
+        <View style={colorMode === 'light' ? quizzQuestion.container : quizzQuestion.containerDark }>
             <View style={quizzQuestion.center}>
-                <Text style={quizzQuestion.text}>{currentQuestionAnswer}</Text>
+                <Text style={colorMode === 'light' ? quizzQuestion.text : quizzQuestion.textDark}>{currentQuestionAnswer}</Text>
                 <View style={quizzQuestion.button}>
                     <LongHorizontalButton
                     title={t('quizzpage.yes')}

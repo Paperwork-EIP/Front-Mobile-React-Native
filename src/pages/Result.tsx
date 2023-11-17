@@ -22,6 +22,8 @@ function Result({ navigation, route }: { navigation: any, route: any }) {
     const processSelected = useRoute().params
     const [stepsAnswer, setStepsAnswer] = useState([]);
     const [requeteSend, setRequeteSend] = useState(false);
+    
+    const colorMode = route.params.colorMode; 
 
     async function getUserSteps() {
         const token = await getItem('@loginToken');
@@ -68,15 +70,17 @@ function Result({ navigation, route }: { navigation: any, route: any }) {
     }
 
     return (
-        <View style={result.container}>
-            <Text style={result.text}>{t('quizzpage.toDo')}</Text>
+        <View style={colorMode === 'light' ? result.container : result.containerDark}>
+            <Text style={colorMode === 'light' ? result.text : result.textDark}>{t('quizzpage.toDo')}</Text>
                 <ScrollView style={result.scrollview}>
                     {stepsAnswer?.map((item, index) => {
                         console.log(item);
                         return (
-                            <View style={result.checkboxContainer}>
+                            <View key={index} style={result.checkboxContainer}>
                                 <CheckBox
+                                    containerStyle ={{backgroundColor: 'transparent'}}
                                     title={item.description}
+                                    textStyle={colorMode === 'light' ? {color: 'black'} : {color: 'white'}}
                                     disabled={false}
                                     checked={item.is_done}
                                     onPress={(newValue) => onValueChange(item, index)}
@@ -84,6 +88,7 @@ function Result({ navigation, route }: { navigation: any, route: any }) {
                                     checkedIcon="checkbox-marked"
                                     uncheckedIcon="checkbox-blank-outline"
                                     checkedColor="#29C9B3"
+                                    
                                 />
                                 <TouchableHighlight onPress={()=>{Linking.openURL(item.source)}}>
                                     <Ionicons name="link" size={15} color="grey" />

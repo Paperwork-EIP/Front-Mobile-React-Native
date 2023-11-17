@@ -5,7 +5,15 @@ const quizzPage = StyleSheet.create({
     container: {
         width: '100%',
         height: '100%',
-        backgroundColor: '#fff',
+        backgroundColor: lightBackgroundColor,
+        alignItems: 'center',
+        justifyContent: 'center',
+        // paddingTop: 50
+    },
+    containerDark: {
+        width: '100%',
+        height: '100%',
+        backgroundColor: darkBackgroundColor,
         alignItems: 'center',
         justifyContent: 'center',
         // paddingTop: 50
@@ -18,27 +26,34 @@ const quizzPage = StyleSheet.create({
         marginLeft: 5
     },
     center: {
-        width: '30%',
+        width: '50%',
         height: '20%',
         alignItems: 'center',
         justifyContent: 'center',
         // backgroundColor: 'green',
     },
-    modifPicture: {
-        width: '100%',
-        height: '100%',
-        alignItems: 'center',
-        // backgroundColor: 'red',
+    dropdownStyle: {
+        width: '50%',
+        height: 50,
+        backgroundColor:lightSecondaryBackgroundColor,
+        borderRadius: 8,
     },
-    profilePicture: {
-        width: '80%',
-        height: '60%',
-        marginTop: 30,
-        // backgroundColor: '#000000',
-        borderRadius: 100,
+    dropdownStyleDark: {
+        width: '50%',
+        height: 50,
+        backgroundColor: darkSecondaryBackgroundColor,
+        borderRadius: 8,
     },
+    dropdownTxtStyle: { color: lightTextColor, textAlign: 'left' },
+    dropdownTxtStyleDark: { color: darkTextColor, textAlign: 'left' },
+    dropdown1DropdownStyle: { backgroundColor: '#EFEFEF', borderWidth: 2, borderRadius: 10 },
+    dropdown1DropdownStyleDark: { backgroundColor: darkSecondaryBackgroundColor, borderWidth: 2, borderRadius: 10 },
+    dropdownRowStyle: { backgroundColor: 'white', borderBottomColor: '#C5C5C5' },
+    dropdownRowStyleDark: { backgroundColor: 'dark', borderBottomColor: darkTextColor },
+    dropdownRowTxtStyle: { color: 'black', textAlign: 'left' },
+    dropdownRowTxtStyleDark: { color: 'white', textAlign: 'left' },
     input: {
-        width: '90%',
+        width: '100%',
         backgroundColor: '#f2f2f2',
         color: 'gray',
         borderWidth: 0,

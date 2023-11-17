@@ -80,13 +80,10 @@ function QuizzQuestion({ navigation } : { navigation: any }) {
     }, [nextStep, processSelected, language])
 
     async function addProcess(responseTemp : any) {
-        console.log(responseTemp);
-        console.log(processSelected?.processStockedTittle);
         const token = await getItem('@loginToken');
         const post = { process_title: processSelected?.processStockedTittle, user_token: token, questions: responseTemp }
         axios.post(`${url}/userProcess/add`, post)
                 .then(res => {
-                    // console.log(res);
                     navigation.navigate("Result", {processSelected: processSelected?.processSelected, processStockedTittle: processSelected?.processStockedTittle});
                     // window.location.href = `/processResult/${processSelected}`;
                 }).catch(err => {
@@ -94,25 +91,17 @@ function QuizzQuestion({ navigation } : { navigation: any }) {
                 });
     }
     async function updateProcess( responseTemp: any) {
-        console.log('update');
-        console.log(responseTemp);
-        console.log(processSelected?.processStockedTittle);
-        console.log(processSelected?.processSelected);
         const token = await getItem('@loginToken');
         const post = { process_title: processSelected?.processStockedTittle, user_token: token, questions: responseTemp }
-        console.log(post);
         axios.post(`${url}/userProcess/update`, post)
                 .then(res => {
-                    // console.log(res);
                     navigation.navigate("Result", {processSelected: processSelected?.processSelected, processStockedTittle: processSelected?.processStockedTittle});
-                    // window.location.href = `/processResult/${processSelected}`;
                 }).catch(err => {
                     console.log(err)
                 });
     }
 
     function handleClick(currentQuestionAnswer: string) {
-        console.log(processSelected?.processStockedTittle);
         if (nextStep < questions.length) {
             if (nextStep === 1) {
                 if (currentQuestionAnswer === 'true')
@@ -126,7 +115,6 @@ function QuizzQuestion({ navigation } : { navigation: any }) {
                     setAnswer(answer => [...answer, { step_id: currentId, response: false} ]);
             }
             setNextStep(nextStep + 1);
-            console.log(nextStep);
             setCurrentQuestionAnswer(questions[nextStep - 1].question);
             setCurrentId(questions[nextStep - 1].step_id);
         } else {

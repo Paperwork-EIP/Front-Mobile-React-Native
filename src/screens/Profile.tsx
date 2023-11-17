@@ -78,9 +78,9 @@ function Profile({ navigation, route }: { navigation: any, route: any }) {
         const userProcessTmp = [];
         for (let j = 0; j < response.data.response.length; j++) {
             if (response.data.response[j]['pourcentage'] != null)
-                userProcessTmp.push({ process: response.data.response[j]['userProcess'].title, percentage: response.data.response[j]['pourcentage'] });
+                userProcessTmp.push({ process: response.data.response[j]['userProcess'].title, stocked_title: response.data.response[j]['userProcess'].stocked_title, percentage: response.data.response[j]['pourcentage'] });
             else
-                userProcessTmp.push({ process: response.data.response[j]['userProcess'].title, percentage: 0 });
+                userProcessTmp.push({ process: response.data.response[j]['userProcess'].title, stocked_title: response.data.response[j]['userProcess'].stocked_title, percentage: 0 });
         }
         setUserProcessInfo(userProcessTmp);
     }
@@ -151,9 +151,14 @@ function Profile({ navigation, route }: { navigation: any, route: any }) {
             email: email,
             address: address,
             phonenumber: phonenumber,
-            profilePicture: profilePicture
+            profilePicture: profilePicture,
+            colorMode: colorMode
         })
     }
+    function goToResultPage(processSelected: any, processStockedTittle: any) {
+        navigation.navigate("Result", {processSelected: processSelected, processStockedTittle: processStockedTittle});
+    };
+
 
     useEffect(() => {
         getUserInfo();
@@ -221,32 +226,35 @@ function Profile({ navigation, route }: { navigation: any, route: any }) {
                                 <Text style={colorMode === 'light' ? profile.title : profile.titleDark}>{t('profile.ongoingProcess')}</ Text>
                                 {
                                     userProcessInfo.length > 0 ?
-                                        <View style={colorMode === 'light' ? profile.info : profile.infoDark}>
+                                        <View style={colorMode === 'light' ? profile.info : profile.infoDark}>                                             
                                             {
                                                 userProcessInfo.map((item: any, index: number) => (
                                                     <View key={index}>
-                                                        <View style={profile.textsInfo}>
-                                                            <View style={profile.leftPartInfo}>
-                                                                <Text style={colorMode === 'light' ? profile.leftPartInfoText : profile.leftPartInfoTextDark}>
-                                                                    {index + 1}.
-                                                                </Text>
-                                                                <Text style={colorMode === 'light' ? profile.leftPartInfoText : profile.leftPartInfoTextDark}>
-                                                                    {item.process}
-                                                                </Text>
-                                                            </View>
-                                                            <View style={profile.rightPartInfo}>
-                                                                <Text style={colorMode === 'light' ? profile.rightPartInfoText : profile.rightPartInfoTextDark}>
-                                                                    {item.percentage}%
-                                                                </Text>
-                                                            </View>
-                                                        </ View>
-                                                        {
-                                                            index + 1 !== userProcessInfo.length &&
-                                                            <View style={profile.line} />
-                                                        }
+                                                        <TouchableOpacity onPress={() => goToResultPage(item.process, item.stocked_title)}>
+                                                            <View style={profile.textsInfo}>
+                                                                <View style={profile.leftPartInfo}>
+                                                                    <Text style={colorMode === 'light' ? profile.leftPartInfoText : profile.leftPartInfoTextDark}>
+                                                                        {index + 1}.
+                                                                    </Text>
+                                                                    <Text style={colorMode === 'light' ? profile.leftPartInfoText : profile.leftPartInfoTextDark}>
+                                                                        {item.process}
+                                                                    </Text>
+                                                                </View>
+                                                                <View style={profile.rightPartInfo}>
+                                                                    <Text style={colorMode === 'light' ? profile.rightPartInfoText : profile.rightPartInfoTextDark}>
+                                                                        {item.percentage}%
+                                                                    </Text>
+                                                                </View>
+                                                            </ View>
+                                                            {
+                                                                index + 1 !== userProcessInfo.length &&
+                                                                <View style={profile.line} />
+                                                            }
+                                                        </TouchableOpacity> 
                                                     </View>
                                                 ))
                                             }
+                                                           
                                         </View>
                                         :
                                         <View style={profile.noProcess}>

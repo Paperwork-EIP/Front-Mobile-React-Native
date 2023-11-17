@@ -7,9 +7,6 @@ const result = StyleSheet.create({
         height: '100%',
         backgroundColor: '#fff',
         alignItems: 'center',
-        // justifyContent: 'center',
-        // paddingTop: 50
-        
     },
     text: {
             fontSize: 18,
@@ -18,13 +15,36 @@ const result = StyleSheet.create({
             marginTop: 15,
             marginLeft: 5
     },
+    scrollview: {
+
+    },
     checkboxContainer: {
-        flexDirection: "row",
+        flexDirection: "column",
         alignItems: 'center',
         marginBottom: 20,
     },
     checkbox: {
-        alignSelf: "center",
+        alignSelf: "left",
+    },
+    doneButton: {
+        width: '30%',
+        backgroundColor: '#29C9B3',
+        color: 'gray',
+        borderWidth: 0,
+        marginTop: 40,
+        marginBottom: 20,
+        marginHorizontal: 10,
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        borderRadius: 15,
+        alignItems: 'center',
+        justifyContent: 'center',
+
+        text: {
+            color: 'white',
+            fontSize: 16,
+            fontWeight: 'bold'
+        }
     },
 })
 

@@ -6,6 +6,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 function Help({ navigation, route }: { navigation: any, route: any }) {
   const { t, i18n } = useTranslation();
+  const colorMode = route.params.colorMode;
 
   function changeLanguage(language: string | undefined) {
       i18n.changeLanguage(language);
@@ -68,26 +69,26 @@ function Help({ navigation, route }: { navigation: any, route: any }) {
   };
 
   return (
-    <ScrollView style={help.container}>
+    <ScrollView style={colorMode === 'light' ?  help.container : help.containerDark}>
     <View>
         <TouchableOpacity
             style={help.homebtn}
             onPress={() => navigation.navigate('Home')}>
-            <Ionicons name="chevron-back-outline" size={28} color={"black"} />
+            <Ionicons name="chevron-back-outline" size={28} color={colorMode === 'light' ? "black" : "white"} />
         </TouchableOpacity>
     </View>
           <View style={help.content}>
-            <Image source={require('../../assets/images/help/FAQs-bro.png')} style={help.faqImage} />
+            <Image source={require('../../assets/images/help/FAQs-bro.png')} style={colorMode === 'light' ? help.faqImage : help.faqImage} />
             {faqs.map((faq, index) => (
-              <View key={index} style={help.faqContainer}>
+              <View key={index} style={colorMode === 'light' ? help.faqContainer : help.faqContainerDark}>
                 <TouchableOpacity onPress={() => toggleFAQ(index)}>
-                  <View style={help.faqHeader}>
-                    <Text style={help.faqQuestion}>{faq.question}</Text>
+                  <View style={colorMode === 'light' ? help.faqHeader : help.faqHeaderDark}>
+                    <Text style={colorMode === 'light' ? help.faqQuestion : help.faqQuestionDark}>{faq.question}</Text>
                   </View>
                 </TouchableOpacity>
                 {expandedIndex === index && (
                   <>
-                    <Text style={help.faqAnswer}>{faq.answer}</Text>
+                    <Text style={colorMode === 'light' ? help.faqAnswer : help.faqAnswerDark}>{faq.answer}</Text>
                     <TouchableOpacity onPress={() => navigation.navigate(faq.link)}>
                       <Image source={faq.image} style={help.faqImage} />
                     </TouchableOpacity>

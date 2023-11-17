@@ -1,10 +1,22 @@
 import { StyleSheet } from "react-native";
+import {
+  lightTextColor,
+  lightBackgroundColor,
+  darkTextColor,
+  darkBackgroundColor,
+  darkSecondaryBackgroundColor,
+} from '../colors';
 
 const lexicon = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
     backgroundColor: '#F7F7F7',
+  },
+  containerDark: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: darkBackgroundColor,
   },
   content: {
     marginBottom: 16,
@@ -15,12 +27,6 @@ const lexicon = StyleSheet.create({
       justifyContent: 'left',
       marginBottom: "5%",
       marginTop: "5%",
-
-      text: {
-          color: 'black',
-          fontSize: 24,
-          fontWeight: 'bold'
-      }
   },
   form: {
       alignItems: 'left',
@@ -42,6 +48,13 @@ const lexicon = StyleSheet.create({
     elevation: 2,
     padding: 16,
   },
+  faqContainerDark: {
+    marginBottom: 24,
+    backgroundColor: darkSecondaryBackgroundColor,
+    borderRadius: 8,
+    elevation: 2,
+    padding: 16,
+  },
   faqHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -51,10 +64,19 @@ const lexicon = StyleSheet.create({
     fontSize: 20,
     color: '#333',
   },
+  faqQuestionDark: {
+    fontSize: 20,
+    color: darkTextColor,
+  },
   faqAnswer: {
     marginTop: 12,
     fontSize: 16,
     color: '#666',
+  },
+  faqAnswerDark: {
+    marginTop: 12,
+    fontSize: 16,
+    color: darkTextColor,
   },
   faqImage: {
     width: '50%',

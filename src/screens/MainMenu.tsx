@@ -68,6 +68,21 @@ function MainMenu({ navigation, route }: { navigation: any, route: any }) {
         return listColor[index];
     }
 
+    function getPercentageClass(percentage: number) {
+        if (percentage <= 25) {
+            return "#FC6976";
+        }
+        else if (percentage <= 50) {
+            return "#fc9f69";
+        }
+        else if (percentage <= 75) {
+            return "#29c9c6";
+        }
+        else {
+            return "#29C9B3";
+        }
+    };
+
     async function updateItems(token: string) {
         await axios.get(`${url}/calendar/getAll?token=${token}`).then((response) => {
             let list: any = [];
@@ -119,6 +134,16 @@ function MainMenu({ navigation, route }: { navigation: any, route: any }) {
                 <TouchableOpacity key={index} onPress={() => goToResultPage(item.process, item.stocked_title)}>
                     <View style={mainmenu.processContainer}>
                         <Text style={colorMode === 'light' ? mainmenu.processName : mainmenu.processNameDark}>{item.process}:</Text>
+                        <View style={colorMode === 'light' ? mainmenu.progressContainer : mainmenu.progressContainerDark}>
+                            <View style={[{height: '100%', backgroundColor: getPercentageClass(item.percentage)},
+                            // mainmenu.progressValue,
+                                    { width: `${item.percentage}%` },
+                                    // getPercentageClass(item.percentage),
+                                ]}
+                            >
+                                
+                            </View>
+                        </View>
                         <Text style={colorMode === 'light' ? mainmenu.processPercentage : mainmenu.processPercentageDark}>{`${item.percentage}%`}</Text>
                     </View>
                 </TouchableOpacity>

@@ -104,7 +104,7 @@ function QuizzPage({ navigation, route }: { navigation: any, route: any }) {
             buttonStyle={colorMode === 'light' ? quizzPage.dropdownStyle : quizzPage.dropdownStyleDark}
             buttonTextStyle={colorMode === 'light' ? quizzPage.dropdownTxtStyle : quizzPage.dropdownTxtStyleDark}
             renderDropdownIcon={isOpened => {
-                return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={colorMode === 'light' ? '#454545' : '#cecece'} size={18} />;
+                return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={colorMode === 'light' ? '#454545' : '#cecece'} size={12} />;
             }}
             dropdownIconPosition={'right'}
             dropdownStyle={colorMode === 'light' ? quizzPage.dropdown1DropdownStyle : quizzPage.dropdown1DropdownStyleDark}

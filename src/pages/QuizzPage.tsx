@@ -10,6 +10,7 @@ import SelectDropdown from 'react-native-select-dropdown'
 import { useTranslation } from 'react-i18next';
 
 import LongHorizontalButton from "../components/LongHorizontalButton";
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import { quizzPage } from "../../styles/pages/quizzPage";
 
@@ -29,6 +30,8 @@ function QuizzPage({ navigation, route }: { navigation: any, route: any }) {
     const [language, setLanguage] = useState("");
     const goToQuestion = () => navigation.navigate("QuizzQuestion", {processSelected: processSelected, processStockedTittle: processStockedTittle, step: processValue});
 
+    
+    const colorMode = route.params.colorMode;
 
     function getLanguage() {
         switch(i18n.language) {
@@ -82,7 +85,7 @@ function QuizzPage({ navigation, route }: { navigation: any, route: any }) {
     }                     
 
     return (
-        <View style={quizzPage.container}>
+        <View style={colorMode === 'light' ? quizzPage.container : quizzPage.containerDark}>
             <SelectDropdown
             data={posts.map((item) => item.label)}
             onSelect={(selectedItem, index) => {
@@ -98,6 +101,15 @@ function QuizzPage({ navigation, route }: { navigation: any, route: any }) {
             rowTextForSelection={(item, index) => {
               return item;
             }}
+            buttonStyle={colorMode === 'light' ? quizzPage.dropdownStyle : quizzPage.dropdownStyleDark}
+            buttonTextStyle={colorMode === 'light' ? quizzPage.dropdownTxtStyle : quizzPage.dropdownTxtStyleDark}
+            renderDropdownIcon={isOpened => {
+                return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={colorMode === 'light' ? '#454545' : '#cecece'} size={18} />;
+            }}
+            dropdownIconPosition={'right'}
+            dropdownStyle={colorMode === 'light' ? quizzPage.dropdown1DropdownStyle : quizzPage.dropdown1DropdownStyleDark}
+            rowStyle={colorMode === 'light' ? quizzPage.dropdownRowStyle : quizzPage.dropdownRowStyleDark}
+            rowTextStyle={colorMode === 'light' ? quizzPage.dropdownRowTxtStyle :quizzPage.dropdownRowTxtStyleDark}
           />
             <LongHorizontalButton
                 title={t('quizzpage.start')}

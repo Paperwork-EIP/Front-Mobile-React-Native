@@ -5,26 +5,51 @@ const result = StyleSheet.create({
     container: {
         width: '100%',
         height: '100%',
-        backgroundColor: '#fff',
+        backgroundColor: lightBackgroundColor,
+        alignItems: 'center',
+    },
+    containerDark: {
+        width: '100%',
+        height: '100%',
+        backgroundColor: darkBackgroundColor,
         alignItems: 'center',
     },
     text: {
             fontSize: 18,
             fontWeight: 'bold',
-            color: 'black',
+            color: lightTextColor,
             marginTop: 15,
             marginLeft: 5
+    },
+    textDark: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: darkTextColor,
+        marginTop: 15,
+        marginLeft: 5
     },
     scrollview: {
 
     },
     checkboxContainer: {
+        // backgroundColor: lightSecondaryBackgroundColor,
+        flexDirection: "column",
+        alignItems: 'center',
+        marginBottom: 20,
+    },
+    checkboxContainerDark: {
+        // backgroundColor: darkBackgroundColor,
         flexDirection: "column",
         alignItems: 'center',
         marginBottom: 20,
     },
     checkbox: {
         alignSelf: "left",
+        backgroundColor: 'white'
+    },
+    checkboxDark: {
+        alignSelf: "left",
+        backgroundColor: 'black'
     },
     doneButton: {
         width: '30%',
@@ -44,7 +69,7 @@ const result = StyleSheet.create({
             color: 'white',
             fontSize: 16,
             fontWeight: 'bold'
-        }
+        },
     },
 })
 

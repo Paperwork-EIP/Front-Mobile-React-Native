@@ -175,10 +175,10 @@ const edit = StyleSheet.create({
     },
     dropdownTxtStyle: { color: lightTextColor, textAlign: 'left' },
     dropdownTxtStyleDark: { color: darkTextColor, textAlign: 'left' },
-    dropdown1DropdownStyle: { backgroundColor: '#EFEFEF', borderRadius: 10 },
+    dropdown1DropdownStyle: { backgroundColor: '#EFEFEF', borderWidth: 2, borderRadius: 10 },
     dropdown1DropdownStyleDark: { backgroundColor: darkSecondaryBackgroundColor, borderWidth: 2, borderRadius: 10 },
     dropdownRowStyle: { backgroundColor: 'white', borderBottomColor: '#C5C5C5' },
-    dropdownRowStyleDark: { backgroundColor: 'dark', borderBottomColor: '#C5C5C5' },
+    dropdownRowStyleDark: { backgroundColor: 'dark', borderBottomColor: darkTextColor },
     dropdownRowTxtStyle: { color: 'black', textAlign: 'left' },
     dropdownRowTxtStyleDark: { color: 'white', textAlign: 'left' },
 })

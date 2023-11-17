@@ -151,8 +151,7 @@ function Profile({ navigation, route }: { navigation: any, route: any }) {
             email: email,
             address: address,
             phonenumber: phonenumber,
-            profilePicture: profilePicture,
-            colorMode: colorMode
+            profilePicture: profilePicture
         })
     }
     function goToResultPage(processSelected: any, processStockedTittle: any) {

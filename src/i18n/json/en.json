@@ -245,5 +245,11 @@
         "no": "No",
         "toDo": "To do",
         "done": "Done"
+    },
+    "forgotPassword": {
+        "title": "Forgot Password ?\n",
+        "placeholder": "Email\n",
+        "submit": "Submit",
+        "back": "Back"
     }
 }

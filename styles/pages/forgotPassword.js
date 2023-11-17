@@ -56,8 +56,8 @@ const forgotPassword = StyleSheet.create({
     borderWidth: 0,
     marginTop: 20,
     marginBottom: 30,
-    paddingVertical: 15,
-    paddingHorizontal: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
     borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'center',
@@ -73,7 +73,7 @@ const forgotPassword = StyleSheet.create({
     width: '90%',
     backgroundColor: '#f2f2f2',
     borderWidth: 0,
-    paddingVertical: 12,
+    paddingVertical: 10,
     paddingHorizontal: 15,
     borderRadius: 15,
     fontSize: 16,
@@ -136,7 +136,7 @@ const forgotPassword = StyleSheet.create({
               marginRight: 10
           },
           textDark: {
-              color: darkTextColor,
+              color: "white",
               fontSize: 16,
               fontWeight: 'bold',
               marginRight: 10

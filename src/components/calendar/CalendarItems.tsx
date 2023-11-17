@@ -25,7 +25,7 @@ function CalendarItems(props: CalendarItemsProps) {
                     {props.item.title}
                 </Text>
                 <TouchableOpacity onPress={props.onPressButton} style={calendar_items.item.button}>
-                    <Ionicons name="chevron-forward-outline" size={15} color="white" />
+                    <Ionicons name="pencil" size={15} color="white" />
                 </TouchableOpacity>
             </TouchableOpacity>
 

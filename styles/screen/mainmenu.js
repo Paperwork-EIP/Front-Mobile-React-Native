@@ -106,7 +106,7 @@ const mainmenu = StyleSheet.create({
   progressContainer: {
     width: '50%',
     height: 10,
-    backgroundColor: 'grey',
+    backgroundColor: 'lightgrey',
     // borderWidth: 1,
     borderColor: lightTextColor, 
     borderRadius: 5, 

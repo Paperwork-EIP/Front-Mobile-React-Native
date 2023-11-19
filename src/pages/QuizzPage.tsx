@@ -22,7 +22,7 @@ function QuizzPage({ navigation, route }: { navigation: any, route: any }) {
 
     const [posts, setPosts] = useState([{}]);
     const [processSelected, setProcessSelected] = useState("");
-    const [processStockedTittle, setProcessStockedTittle] = useState("");
+    const [processStockedTittle, setProcessStockedTittle] = useState();
     const [processValue, setProcessValue] = useState(0);
 
 
@@ -80,8 +80,10 @@ function QuizzPage({ navigation, route }: { navigation: any, route: any }) {
 
     const handleSubmit = () => {
         console.log("button pressed");
-        console.log(processStockedTittle);
-        goToQuestion();
+        if(processStockedTittle!)
+            goToQuestion();
+        else
+            console.log(processStockedTittle);
     }                     
 
     return (

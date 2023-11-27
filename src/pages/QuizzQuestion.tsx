@@ -28,7 +28,6 @@ function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) 
     const [update, setUpdate] = React.useState(false);
 
     const [test, setTest] = useState([{}]);
-    const [underQuestion, setUnderQuestions] = useState();
     const [underAnswer, setUnderAnswer] = useState([{}]);
     const [nextUnder, setNextUnder] = useState(-1);
 
@@ -79,6 +78,14 @@ function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) 
         
     }, [nextStep, processSelected, language])
 
+    function checkUpdate(responseTemp: any) {
+        if (update === false) {
+            addProcess(responseTemp);
+        } else {
+            updateProcess(responseTemp);
+        }
+    }
+
     async function addProcess(responseTemp : any) {
         const token = await getItem('@loginToken');
         const post = { process_title: processSelected?.processStockedTittle, user_token: token, questions: responseTemp }
@@ -103,84 +110,117 @@ function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) 
     function handleClick(currentQuestionAnswer: string) {
         if (nextStep < questions.length) {
             if (nextStep === 1) {
-                if (questions[nextStep - 1].underQuestions && currentQuestionAnswer === 'true')
+                if (questions[nextStep - 1].underQuestions && currentQuestionAnswer === 'true' && nextUnder === -1) {
                     setAnswer([{ step_id: currentId, response: currentQuestionAnswer === 'true', underQuestions: questions[nextStep - 1].underQuestions.map((item: any, index: number) => {
                         return (
                             {step_id: item.step_id, response: true}
                         )
                     })}]);
-                // else if (questions[nextStep - 1].underQuestions!)
-                //     setAnswer([{ step_id: currentId, response: currentQuestionAnswer === 'true'}]);
-                else
+                } else if (questions[nextStep - 1].underQuestions) {
+                    if (nextUnder === -1) {
+                        setNextUnder(nextUnder + 1);
+                        setCurrentQuestion(questions[nextStep - 1].underQuestions[nextUnder + 1].question);
+                    } else if (nextUnder === 0) {
+                        setNextUnder(nextUnder + 1);
+                        setCurrentQuestion(questions[nextStep - 1].underQuestions[nextUnder + 1].question);
+                        setUnderAnswer([{ step_id: currentId, response: currentQuestionAnswer === 'true'}]);
+                    } else if (nextUnder < questions[nextStep - 1].underQuestions.length - 1) {
+                        setNextUnder(nextUnder + 1);
+                        setCurrentQuestion(questions[nextStep - 1].underQuestions[nextUnder + 1].question);
+                        setUnderAnswer(underAnswer => [...underAnswer, { step_id: currentId, response: currentQuestionAnswer === 'true'}]);
+                    } else {
+                        setNextUnder(-1);
+                        var responseTemp = [...underAnswer, { step_id: currentId, response: currentQuestionAnswer === 'true'}];
+                        setAnswer([{ step_id: currentId, response: false, underQuestions: responseTemp}]);
+                        setNextStep(nextStep + 1);
+                        setCurrentQuestion(questions[nextStep - 1].question);
+                        setCurrentId(questions[nextStep - 1].step_id);
+                    }
+                } else {
                     setAnswer([{ step_id: currentId, response: currentQuestionAnswer === 'true'}]);
-            } else
-                if (questions[nextStep - 1].underQuestions && currentQuestionAnswer === 'true')
+                    setNextStep(nextStep + 1);
+                    setCurrentQuestion(questions[nextStep].question);
+                    setCurrentId(questions[nextStep].step_id);
+                }
+            } else {
+                if (questions[nextStep - 1].underQuestions && currentQuestionAnswer === 'true' && nextUnder === -1) {
                     setAnswer(answer => [...answer, { step_id: currentId, response: currentQuestionAnswer === 'true', underQuestions: questions[nextStep - 1].underQuestions.map((item: any, index: number) => {
                         return (
                             {step_id: item.step_id, response: true}
                         )
                     })}]);
-                // else if (questions[nextStep - 1].underQuestions)
-                //     setAnswer(answer => [...answer, { step_id: currentId, response: currentQuestionAnswer === 'true'}]);
-                else
+                } else if (questions[nextStep - 1].underQuestions) {
+                    if (nextUnder === -1) {
+                        setNextUnder(nextUnder + 1);
+                        setCurrentQuestion(questions[nextStep - 1].underQuestions[nextUnder + 1].question);
+                    } else if (nextUnder === 0) {
+                        setNextUnder(nextUnder + 1);
+                        setCurrentQuestion(questions[nextStep - 1].underQuestions[nextUnder + 1].question);
+                        setUnderAnswer([{ step_id: currentId, response: currentQuestionAnswer === 'true'}]);
+                    } else if (nextUnder < questions[nextStep - 1].underQuestions.length - 1) {
+                        setNextUnder(nextUnder + 1);
+                        setCurrentQuestion(questions[nextStep - 1].underQuestions[nextUnder + 1].question);
+                        setUnderAnswer(underAnswer => [...underAnswer, { step_id: currentId, response: currentQuestionAnswer === 'true'}]);
+                    } else {
+                        setNextUnder(-1);
+                        var responseTemp = [...underAnswer, { step_id: currentId, response: currentQuestionAnswer === 'true'}];
+                        setAnswer(answer => [...answer, { step_id: currentId, response: false, underQuestions: responseTemp}]);
+                        setNextStep(nextStep + 1);
+                        setCurrentQuestion(questions[nextStep].question);
+                        setCurrentId(questions[nextStep].step_id);
+                    }
+                } else {
                     setAnswer(answer => [...answer, { step_id: currentId, response: currentQuestionAnswer === 'true'} ]);
-            setNextStep(nextStep + 1);
-            setCurrentQuestion(questions[nextStep - 1].question);
-            setCurrentId(questions[nextStep - 1].step_id);
+                    setNextStep(nextStep + 1);
+                    setCurrentQuestion(questions[nextStep - 1].question);
+                    setCurrentId(questions[nextStep - 1].step_id);}
+            }
         } else {
-            if (questions[nextStep - 1].underQuestions && currentQuestionAnswer === 'true')
-            var responseTemp = [...answer, { step_id: currentId, response: currentQuestionAnswer === 'true', underQuestions: questions[nextStep - 1].underQuestions.map((item: any, index: number) => {
+            if (questions[nextStep - 1].underQuestions && currentQuestionAnswer === 'true' && nextUnder === -1) {
+                var responseTemp = [...answer, { step_id: currentId, response: currentQuestionAnswer === 'true', underQuestions: questions[nextStep - 1].underQuestions.map((item: any, index: number) => {
                     return (
                         {step_id: item.step_id, response: true}
                     )
                 })}];
-            // else if (questions[nextStep - 1].underQuestions)
-            //     var responseTemp = [...answer, { step_id: currentId, response: currentQuestionAnswer === 'true'}];
-            else
-                var responseTemp = [...answer, { step_id: currentId, response: currentQuestionAnswer === 'true'}];
-            if (update === false) {
-                addProcess(responseTemp);
+                checkUpdate(responseTemp);
+                // if (update === false) {
+                //     addProcess(responseTemp);
+                // } else {
+                //     updateProcess(responseTemp);
+                // }
+            }  else if (questions[nextStep - 1].underQuestions) {
+                if (nextUnder === -1) {
+                    setNextUnder(nextUnder + 1);
+                    setCurrentQuestion(questions[nextStep - 1].underQuestions[nextUnder + 1].question);
+                } else if (nextUnder === 0) {
+                    setNextUnder(nextUnder + 1);
+                    setCurrentQuestion(questions[nextStep - 1].underQuestions[nextUnder + 1].question);
+                    setUnderAnswer([{ step_id: currentId, response: currentQuestionAnswer === 'true'}]);
+                } else if (nextUnder < questions[nextStep - 1].underQuestions.length - 1) {
+                    setNextUnder(nextUnder + 1);
+                    setCurrentQuestion(questions[nextStep - 1].underQuestions[nextUnder + 1].question);
+                    setUnderAnswer(underAnswer => [...underAnswer, { step_id: currentId, response: currentQuestionAnswer === 'true'}]);
+                } else {
+                    setNextUnder(-1);
+                    var underResponseTemp = [...underAnswer, { step_id: currentId, response: currentQuestionAnswer === 'true'}];
+                    var responseTemp = [...answer, { step_id: currentId, response: false, underQuestions: underResponseTemp}];
+                    checkUpdate(responseTemp);
+                    // if (update === false) {
+                    //     addProcess(responseTemp);
+                    // } else {
+                    //     updateProcess(responseTemp);
+                    // }
+                }
             } else {
-                updateProcess(responseTemp);
+                var responseTemp = [...answer, { step_id: currentId, response: currentQuestionAnswer === 'true'}];
+                checkUpdate(responseTemp);
+                // if (update === false) {
+                //     addProcess(responseTemp);
+                // } else {
+                //     updateProcess(responseTemp);
+                // }
             }
         }
-
-        // test part
-        // if (questions[nextStep - 1].underQuestions && currentQuestionAnswer === 'false') {
-        //     // etape 1 = creer la variable de reponse
-        //     // etape 2 = utiliser currentId pour rester dans les sous question
-        //     // etape 3 = afficher les sous questions
-        //     // etape 4 = envoyer les reponse des sous questions dans la variable answer et mettre la main question en faux
-        //     if (nextUnder === -1) {
-        //         setUnderQuestions(questions[nextStep - 1].underQuestions);
-        //         setNextUnder(nextUnder + 1);
-        //         setCurrentQuestion(questions[nextStep - 1].underQuestions[nextUnder + 1].question);
-        //     } else if (nextUnder === 0) {
-        //         setNextUnder(nextUnder + 1);
-        //         setCurrentQuestion(questions[nextStep - 1].underQuestions[nextUnder + 1].question);
-        //         setUnderAnswer([{ step_id: currentId, response: currentQuestionAnswer === 'true'}]);
-        //     } else if (nextUnder < questions[nextStep - 1].underQuestions.length - 1) {
-        //         setNextUnder(nextUnder + 1);
-        //         setCurrentQuestion(questions[nextStep - 1].underQuestions[nextUnder + 1].question);
-        //         setUnderAnswer(answer => [...answer, { step_id: currentId, response: currentQuestionAnswer === 'true'}]);
-        //     } else {
-        //         setNextUnder(-1);
-        //         setAnswer(answer => [...answer, { step_id: currentId, response: currentQuestionAnswer === 'true'}]);
-        //         setNextStep(nextStep + 1);
-        //         setCurrentQuestion(questions[nextStep - 1].question);
-        //         setCurrentId(questions[nextStep - 1].step_id);
-        //     }
-        //     console.log(questions[nextStep - 1].underQuestions);
-        //     // setTest([{step_id: currentId, response: false, underQuestions: questions[nextStep - 1].underQuestions.map((item: any, index: number) => {
-        //     //     // console.log(item);
-        //     //     return (
-        //     //         {step_id: item.step_id, response: true}
-        //     //     )
-        //     // })}]);
-        // }
-        // else {
-        //     console.log("Current question = " + currentQuestion);
-        // }
     }
 
     return (

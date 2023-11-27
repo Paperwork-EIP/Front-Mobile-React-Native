@@ -57,7 +57,6 @@ function QuizzPage({ navigation, route }: { navigation: any, route: any }) {
         axios.get(`${url}/process/getAll`, { params: { language: langTemp } })
             .then(res => {
                 var procedures = [];
-                // console.log(res.data);
                 for (var i = 0; i < res.data.response.length; i++)
                 {
                     procedures.push({
@@ -75,11 +74,9 @@ function QuizzPage({ navigation, route }: { navigation: any, route: any }) {
     useEffect(() => {
         getLanguage();
         getProcedures();
-        console.log(posts);
         }, [])
 
     const handleSubmit = () => {
-        console.log("button pressed");
         if(processStockedTittle!)
             goToQuestion();
         else
@@ -94,7 +91,6 @@ function QuizzPage({ navigation, route }: { navigation: any, route: any }) {
                 setProcessSelected(selectedItem);
                 setProcessValue(posts[index].value);
                 setProcessStockedTittle(posts[index].stocked_title);
-                console.log(selectedItem, index);
             }}
             defaultButtonText={t('quizzpage.select')}
             buttonTextAfterSelection={(selectedItem, index) => {

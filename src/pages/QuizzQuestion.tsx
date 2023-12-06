@@ -60,10 +60,13 @@ function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) 
         switch(i18n.language) {
             case 'en':
                 langTemp = 'english';
+                break;
             case 'fr':
-                langTemp = 'english';
+                langTemp = 'français';
+                break;
             default:
                 langTemp = 'english';
+                break;
           }
 
         axios.get(`${url}/processQuestions/get`, { params: { title: processSelected?.processStockedTittle, language: langTemp } })
@@ -71,6 +74,7 @@ function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) 
             setCurrentId(res.data.questions[nextStep - 1].step_id);
             setCurrentQuestion(res.data.questions[nextStep - 1].question);
             setQuestions(res.data.questions);
+            console.log(JSON.stringify(res.data.questions));
         }).catch(err => {
             console.log(err)
         });
@@ -98,13 +102,25 @@ function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) 
     }
     async function updateProcess( responseTemp: any) {
         const token = await getItem('@loginToken');
+        console.log(processSelected?.processStockedTittle);
         const post = { process_title: processSelected?.processStockedTittle, user_token: token, questions: responseTemp }
-        axios.post(`${url}/userProcess/update`, post)
+        axios.get(`${url}/userProcess/delete`, { params: { process_title: processSelected?.processStockedTittle, user_token: token } })
+        axios.post(`${url}/userProcess/add`, post)
                 .then(res => {
+                    console.log("response = " + res.data.response);
+                    console.log("post = " + JSON.stringify(post));
                     navigation.navigate("Result", {processSelected: processSelected?.processSelected, processStockedTittle: processSelected?.processStockedTittle});
                 }).catch(err => {
                     console.log(err)
                 });
+        // axios.post(`${url}/userProcess/update`, post)
+        //         .then(res => {
+        //             console.log("response = " + res.data.response);
+        //             console.log("post = " + JSON.stringify(post));
+        //             navigation.navigate("Result", {processSelected: processSelected?.processSelected, processStockedTittle: processSelected?.processStockedTittle});
+        //         }).catch(err => {
+        //             console.log(err)
+        //         });
     }
 
     function handleClick(currentQuestionAnswer: string) {
@@ -113,9 +129,12 @@ function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) 
                 if (questions[nextStep - 1].underQuestions && currentQuestionAnswer === 'true' && nextUnder === -1) {
                     setAnswer([{ step_id: currentId, response: currentQuestionAnswer === 'true', underQuestions: questions[nextStep - 1].underQuestions.map((item: any, index: number) => {
                         return (
-                            {step_id: item.step_id, response: true}
+                            {id: item.step_id, response: true}
                         )
                     })}]);
+                    setNextStep(nextStep + 1);
+                    setCurrentQuestion(questions[nextStep].question);
+                    setCurrentId(questions[nextStep].step_id);
                 } else if (questions[nextStep - 1].underQuestions) {
                     if (nextUnder === -1) {
                         setNextUnder(nextUnder + 1);
@@ -123,15 +142,15 @@ function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) 
                     } else if (nextUnder === 0) {
                         setNextUnder(nextUnder + 1);
                         setCurrentQuestion(questions[nextStep - 1].underQuestions[nextUnder + 1].question);
-                        setUnderAnswer([{ step_id: currentId, response: currentQuestionAnswer === 'true'}]);
+                        setUnderAnswer([{ id: currentId, response: currentQuestionAnswer === 'true'}]);
                     } else if (nextUnder < questions[nextStep - 1].underQuestions.length - 1) {
                         setNextUnder(nextUnder + 1);
                         setCurrentQuestion(questions[nextStep - 1].underQuestions[nextUnder + 1].question);
-                        setUnderAnswer(underAnswer => [...underAnswer, { step_id: currentId, response: currentQuestionAnswer === 'true'}]);
+                        setUnderAnswer(underAnswer => [...underAnswer, { id: currentId, response: currentQuestionAnswer === 'true'}]);
                     } else {
                         setNextUnder(-1);
-                        var responseTemp = [...underAnswer, { step_id: currentId, response: currentQuestionAnswer === 'true'}];
-                        setAnswer([{ step_id: currentId, response: false, underQuestions: responseTemp}]);
+                        var responseTemp = [...underAnswer, { id: currentId, response: currentQuestionAnswer === 'true'}];
+                        setAnswer([{ id: currentId, response: false, underQuestions: responseTemp}]);
                         setNextStep(nextStep + 1);
                         setCurrentQuestion(questions[nextStep - 1].question);
                         setCurrentId(questions[nextStep - 1].step_id);
@@ -146,9 +165,12 @@ function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) 
                 if (questions[nextStep - 1].underQuestions && currentQuestionAnswer === 'true' && nextUnder === -1) {
                     setAnswer(answer => [...answer, { step_id: currentId, response: currentQuestionAnswer === 'true', underQuestions: questions[nextStep - 1].underQuestions.map((item: any, index: number) => {
                         return (
-                            {step_id: item.step_id, response: true}
+                            {id: item.step_id, response: true}
                         )
                     })}]);
+                    setNextStep(nextStep + 1);
+                    setCurrentQuestion(questions[nextStep].question);
+                    setCurrentId(questions[nextStep].step_id);
                 } else if (questions[nextStep - 1].underQuestions) {
                     if (nextUnder === -1) {
                         setNextUnder(nextUnder + 1);
@@ -156,11 +178,11 @@ function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) 
                     } else if (nextUnder === 0) {
                         setNextUnder(nextUnder + 1);
                         setCurrentQuestion(questions[nextStep - 1].underQuestions[nextUnder + 1].question);
-                        setUnderAnswer([{ step_id: currentId, response: currentQuestionAnswer === 'true'}]);
+                        setUnderAnswer([{ id: currentId, response: currentQuestionAnswer === 'true'}]);
                     } else if (nextUnder < questions[nextStep - 1].underQuestions.length - 1) {
                         setNextUnder(nextUnder + 1);
                         setCurrentQuestion(questions[nextStep - 1].underQuestions[nextUnder + 1].question);
-                        setUnderAnswer(underAnswer => [...underAnswer, { step_id: currentId, response: currentQuestionAnswer === 'true'}]);
+                        setUnderAnswer(underAnswer => [...underAnswer, { id: currentId, response: currentQuestionAnswer === 'true'}]);
                     } else {
                         setNextUnder(-1);
                         var responseTemp = [...underAnswer, { step_id: currentId, response: currentQuestionAnswer === 'true'}];
@@ -195,14 +217,14 @@ function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) 
                 } else if (nextUnder === 0) {
                     setNextUnder(nextUnder + 1);
                     setCurrentQuestion(questions[nextStep - 1].underQuestions[nextUnder + 1].question);
-                    setUnderAnswer([{ step_id: currentId, response: currentQuestionAnswer === 'true'}]);
+                    setUnderAnswer([{ id: currentId, response: currentQuestionAnswer === 'true'}]);
                 } else if (nextUnder < questions[nextStep - 1].underQuestions.length - 1) {
                     setNextUnder(nextUnder + 1);
                     setCurrentQuestion(questions[nextStep - 1].underQuestions[nextUnder + 1].question);
-                    setUnderAnswer(underAnswer => [...underAnswer, { step_id: currentId, response: currentQuestionAnswer === 'true'}]);
+                    setUnderAnswer(underAnswer => [...underAnswer, { id: currentId, response: currentQuestionAnswer === 'true'}]);
                 } else {
                     setNextUnder(-1);
-                    var underResponseTemp = [...underAnswer, { step_id: currentId, response: currentQuestionAnswer === 'true'}];
+                    var underResponseTemp = [...underAnswer, { id: currentId, response: currentQuestionAnswer === 'true'}];
                     var responseTemp = [...answer, { step_id: currentId, response: false, underQuestions: underResponseTemp}];
                     checkUpdate(responseTemp);
                     // if (update === false) {

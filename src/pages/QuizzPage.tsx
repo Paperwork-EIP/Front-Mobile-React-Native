@@ -49,10 +49,13 @@ function QuizzPage({ navigation, route }: { navigation: any, route: any }) {
         switch(i18n.language) {
             case 'en':
                 langTemp = 'english';
-            case 'fr':
-                langTemp = 'english';
+                break;
+            case "fr":
+                langTemp = 'français';
+                break;
             default:
                 langTemp = 'english';
+                break;
           }
         axios.get(`${url}/process/getAll`, { params: { language: langTemp } })
             .then(res => {

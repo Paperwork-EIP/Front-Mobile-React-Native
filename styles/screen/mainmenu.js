@@ -104,7 +104,7 @@ const mainmenu = StyleSheet.create({
     color: lightTextColor,
   },
   progressContainer: {
-    width: '50%',
+    width: '40%',
     height: 10,
     backgroundColor: 'lightgrey',
     // borderWidth: 1,

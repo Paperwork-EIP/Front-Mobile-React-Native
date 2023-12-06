@@ -38,13 +38,13 @@ function ProcessIdea({ navigation, route }: { navigation: any, route: any }) {
     });
 
     useEffect(() => {
-        axios.get(`${api}/user/getbytoken`, { params: { token: token } })
-        .then(res => {
-            setLanguage(res.data.language);
-        }).catch(err => {
-            console.log(err)
-        });
-    }, [token]);
+        // axios.get(`${api}/user/getbytoken`, { params: { token: token } })
+        // .then(res => {
+        //     setLanguage(res.data.language);
+        // }).catch(err => {
+        //     console.log(err)
+        // });
+    }, /*[token]*/);
 
     const handleSubmit = () => {
         const newErrors = {};
@@ -115,8 +115,8 @@ function ProcessIdea({ navigation, route }: { navigation: any, route: any }) {
                         <Text style={colorMode === 'dark' ? processIdeaDark.title : processIdeaLight.title} >{t('processidea.title')}</Text>
                         <TextInput
                             style={colorMode === 'dark' ? processIdeaDark.input : processIdeaLight.input}
-                            placeholder="Title"
-                            placeholderTextColor="gray"
+                            placeholder={t('processidea.title')}
+                            placeholderTextColor={colorMode === 'dark' ? processIdeaDark.placeholder.color : "#454545"}
                             inputMode="text"
                             aria-label="title"
                             value={title}
@@ -135,8 +135,8 @@ function ProcessIdea({ navigation, route }: { navigation: any, route: any }) {
                         <Text style={colorMode === 'dark' ? processIdeaDark.title : processIdeaLight.title} >{t('processidea.description')}</Text>
                         <TextInput
                             style={colorMode === 'dark' ? processIdeaDark.input : processIdeaLight.input}
-                            placeholder="Description"
-                            placeholderTextColor="gray"
+                            placeholder={t('processidea.description')}
+                            placeholderTextColor={colorMode === 'dark' ? processIdeaDark.placeholder.color : "#454545"}
                             inputMode="text"
                             aria-label="description"
                             value={description}
@@ -155,8 +155,8 @@ function ProcessIdea({ navigation, route }: { navigation: any, route: any }) {
                         <Text style={colorMode === 'dark' ? processIdeaDark.title : processIdeaLight.title} >{t('processidea.content')}</Text>
                         <TextInput
                             style={colorMode === 'dark' ? processIdeaDark.input : processIdeaLight.input}
-                            placeholder="Content"
-                            placeholderTextColor="gray"
+                            placeholder={t('processidea.content')}
+                            placeholderTextColor={colorMode === 'dark' ? processIdeaDark.placeholder.color : "#454545"}
                             inputMode="text"
                             aria-label="content"
                             value={content}

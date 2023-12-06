@@ -63,7 +63,7 @@ const quizzPage = StyleSheet.create({
         borderRadius: 15,
     },
     button: {
-        width: '30%',
+        width: '40%',
         backgroundColor: '#29C9B3',
         color: 'gray',
         borderWidth: 0,

@@ -19,7 +19,9 @@ function MainMenu({ navigation, route }: { navigation: any, route: any }) {
 
     const colorMode = route.params.colorMode;
 
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+    
+    const [done, setDone] = React.useState(false);
 
     function goToQuizzPage() {
         navigation.navigate("QuizzPage");
@@ -36,6 +38,26 @@ function MainMenu({ navigation, route }: { navigation: any, route: any }) {
     function goToHelpPage() {
         navigation.navigate("Help");
     };
+
+    async function getLanguage() {
+        const token = await getItem('@loginToken');
+        axios.get(`${url}/user/getbytoken`, { params: { token: token } })
+            .then(res => {
+                switch(res.data.language) {
+                    case 'english':
+                      i18n.changeLanguage('en');
+                      break;
+                    case 'français':
+                      i18n.changeLanguage('fr');
+                      break;
+                    default:
+                        i18n.changeLanguage('en');
+                        break;
+                }
+            }).catch(err => {
+                console.log(err)
+            });
+    }
 
     async function getProcess(token: string) {
         const response = await axios.get(`${url}/userProcess/getUserProcesses?user_token=${token}`);
@@ -168,9 +190,13 @@ function MainMenu({ navigation, route }: { navigation: any, route: any }) {
                 getLoginToken();
             }, 5000);
         }
+        if (done === false) {
+            getLanguage();
+            setDone(true);
+        }
 
         return () => clearInterval(interval);
-    }, [items]);
+    }, [items, done]);
 
     return (
         <View style={colorMode === 'light' ? mainmenu.container : mainmenu.containerDark}>

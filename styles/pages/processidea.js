@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { lightTextColor, lightBackgroundColor, darkTextColor, darkBackgroundColor, darkSecondaryBackgroundColor } from '../colors';
 
 const processIdeaLight = StyleSheet.create({
     container: {
@@ -105,7 +106,7 @@ const processIdeaDark = StyleSheet.create({
     },
     title: {
         ...processIdeaLight.title,
-        color: 'gray',
+        color: darkTextColor,
     },
     helpLabel: {
         ...processIdeaLight.helpLabel,
@@ -116,6 +117,12 @@ const processIdeaDark = StyleSheet.create({
     },
     input: {
         ...processIdeaLight.input,
+        color: darkTextColor,
+        backgroundColor: darkSecondaryBackgroundColor,
+        borderColor: darkTextColor,
+    },
+    placeholder: {
+        color: darkTextColor
     },
     button: {
         ...processIdeaLight.button,

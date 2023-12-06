@@ -99,6 +99,14 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
         checkAndAssign(addressEdit, userInfo?.address, 'address');
         checkAndAssign(phonenumberEdit, userInfo?.phonenumber, 'number_phone');
 
+        console.log('language edit = ' + languageEdit);
+        if (languageEdit.includes('français' as never)) {
+            i18n.changeLanguage("fr");
+        } else if (languageEdit.includes('english' as never)) {
+            i18n.changeLanguage("en");
+        }
+        // 
+
         if (isAnyNewValue) {
             console.log(parameters);
             axios.post(`${url}/user/modifyDatas`, parameters)

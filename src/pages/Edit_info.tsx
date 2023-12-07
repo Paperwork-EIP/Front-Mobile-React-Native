@@ -29,7 +29,7 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
     const [usernameEdit, setUsername] = React.useState("");
     const [nameEdit, setName] = React.useState("");
     // const [firstnameEdit, setFirstname] = React.useState("");
-    const [languageEdit, setLanguage] = React.useState([]);
+    const [languageEdit, setLanguage] = React.useState("");
     const [ageEdit, setAge] = React.useState("");
     const [emailEdit, setEmail] = React.useState("");
     const [addressEdit, setAddress] = React.useState("");
@@ -39,6 +39,10 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
     const languageValue = [
         'français',
         'english',
+        'deutsch',
+        'español',
+        'bahasa indonesia',
+        '한국인',
     ];
 
     const userInfo = route.params;
@@ -99,11 +103,35 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
         checkAndAssign(addressEdit, userInfo?.address, 'address');
         checkAndAssign(phonenumberEdit, userInfo?.phonenumber, 'number_phone');
 
-        if (languageEdit.includes('français' as never)) {
-            i18n.changeLanguage("fr");
-        } else if (languageEdit.includes('english' as never)) {
-            i18n.changeLanguage("en");
+        switch (languageEdit) {
+            case 'français':
+                i18n.changeLanguage("fr");
+                break;
+            case 'english':
+                i18n.changeLanguage("en");
+                break;
+            case 'deutsch':
+                i18n.changeLanguage("de");
+                break;
+            case 'español':
+                i18n.changeLanguage("es");
+                break;
+            case 'bahasa indonesia':
+                i18n.changeLanguage("id");
+                break;
+            case '한국인':
+                i18n.changeLanguage("ko");
+                break;
+            default:
+                i18n.changeLanguage("en");
+                break;
+
         }
+        // if (languageEdit.includes('français' as never)) {
+        //     i18n.changeLanguage("fr");
+        // } else if (languageEdit.includes('english' as never)) {
+        //     i18n.changeLanguage("en");
+        // }
         // 
 
         if (isAnyNewValue) {
@@ -198,9 +226,8 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
             />
             <SelectDropdown
                 data={languageValue}
-                // defaultValueByIndex={1}
-                // defaultValue={'Egypt'}
                 onSelect={(selectedItem, index) => {
+                    console.log("selectitem " + selectedItem)
                     setLanguage(selectedItem);
                 }}
                 defaultButtonText={t('profile.editInfo.selectLanguage')}

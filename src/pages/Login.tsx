@@ -229,6 +229,10 @@ function Login({ navigation, route }: { navigation: any, route: any }) {
                             >
                                 <Picker.Item label="English" value="en" />
                                 <Picker.Item label="Français" value="fr" />
+                                <Picker.Item label="Español" value="es" />
+                                <Picker.Item label="Deutsche" value="de" />
+                                <Picker.Item label="bahasa Indonesia" value="id" />
+                                <Picker.Item label="한국인" value="ko" />
                             </Picker>
                         </View>
                     </View>

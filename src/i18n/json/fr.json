@@ -93,6 +93,7 @@
             "hour": "Heure",
             "add": {
                 "title": "Ajouter un événement",
+                "message": "Evénement ajouté avec succès",
                 "button": "Ajouter",
                 "ok": "OK",
                 "process": {

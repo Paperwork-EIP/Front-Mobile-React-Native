@@ -275,13 +275,15 @@ function CalendarAddModal(props: any) {
                 'step_id': selectedStepId,
                 'date': convertedDate
             }).then((response) => {
+                console.log(response.status);
+                console.log("user_process_id = " + selectedUserProcessId + " step_id = " + selectedStepId + " date = " + convertedDate)
                 setIsLoading(false);
                 Alert.alert(
-                    t('calendar.modal.edit.title'),
-                    response.data.message,
+                    t('calendar.modal.add.title'),
+                    t('calendar.modal.add.message'),
                     [
                         {
-                            text: t('calendar.modal.edit.ok'),
+                            text: t('calendar.modal.add.ok'),
                             onPress: () => props.setModalVisible(!props.modalVisible)
                         }
                     ]

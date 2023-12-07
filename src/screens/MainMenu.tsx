@@ -50,6 +50,18 @@ function MainMenu({ navigation, route }: { navigation: any, route: any }) {
                     case 'français':
                       i18n.changeLanguage('fr');
                       break;
+                    case 'español':
+                        i18n.changeLanguage('es');
+                        break;
+                    case 'deutsch':
+                        i18n.changeLanguage('de');
+                        break;
+                    case 'bahasa indonesia':
+                        i18n.changeLanguage('id');
+                        break;
+                    case '한국인':
+                        i18n.changeLanguage('ko');
+                        break;
                     default:
                         i18n.changeLanguage('en');
                         break;

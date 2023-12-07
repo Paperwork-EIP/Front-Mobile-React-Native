@@ -266,16 +266,9 @@ function CalendarAddModal(props: any) {
     }
 
     async function requestAddProcess() {
-        console.log("Selected User Process ID : ", selectedUserProcessId);
-        console.log("Selected Step ID : ", selectedStepId);
-        console.log("Date : ", date);
         if (selectedUserProcessId && selectedStepId && date) {
             setIsLoading(true);
             const convertedDate = formatDate(date);
-
-            console.log("Date : ", convertedDate);
-            console.log("User Process ID : ", selectedUserProcessId);
-            console.log("Step ID : ", selectedStepId);
 
             await axios.post(`${url}/calendar/set`, {
                 'user_process_id': selectedUserProcessId,

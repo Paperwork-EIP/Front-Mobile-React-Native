@@ -58,13 +58,7 @@ function Settings({ navigation, route }: { navigation: any, route: any }) {
     });
 
     useEffect(() => {
-        // axios.get(`${api}/user/getbytoken`, { params: { token: token } })
-        //     .then(res => {
-        //         setLanguage(res.data.language);
-        //     }).catch(err => {
-        //         console.log(err)
-        //     });
-    }, /*[token]*/);
+    }, []);
 
     function changeLanguage(language: string | undefined) {
         i18n.changeLanguage(language);

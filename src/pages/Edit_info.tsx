@@ -99,7 +99,6 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
         checkAndAssign(addressEdit, userInfo?.address, 'address');
         checkAndAssign(phonenumberEdit, userInfo?.phonenumber, 'number_phone');
 
-        console.log('language edit = ' + languageEdit);
         if (languageEdit.includes('français' as never)) {
             i18n.changeLanguage("fr");
         } else if (languageEdit.includes('english' as never)) {
@@ -108,10 +107,8 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
         // 
 
         if (isAnyNewValue) {
-            console.log(parameters);
             axios.post(`${url}/user/modifyDatas`, parameters)
                 .then(res => {
-                    console.log(res.data);
                     navigation.goBack();
                 })
                 .catch(err => {
@@ -204,7 +201,6 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
                 // defaultValueByIndex={1}
                 // defaultValue={'Egypt'}
                 onSelect={(selectedItem, index) => {
-                    console.log(selectedItem, index);
                     setLanguage(selectedItem);
                 }}
                 defaultButtonText={t('profile.editInfo.selectLanguage')}

@@ -38,13 +38,8 @@ function ProcessIdea({ navigation, route }: { navigation: any, route: any }) {
     });
 
     useEffect(() => {
-        // axios.get(`${api}/user/getbytoken`, { params: { token: token } })
-        // .then(res => {
-        //     setLanguage(res.data.language);
-        // }).catch(err => {
-        //     console.log(err)
-        // });
-    }, /*[token]*/);
+
+    }, []);
 
     const handleSubmit = () => {
         const newErrors = {};
@@ -66,14 +61,12 @@ function ProcessIdea({ navigation, route }: { navigation: any, route: any }) {
         if (doWeHaveError == true)
             console.log("there is some errors");
         else {
-            console.log("there is no errors");
             axios.post(`${api}/processProposal/add`, {
                 title: title,
                 description: description,
                 content: content,
                 user_token: token
             }).then(res => {
-                console.log("res = " + res)
                 Alert.alert(
                   t('processidea.wSuccess'),
                   t('processidea.success'),

@@ -57,7 +57,6 @@ function Result({ navigation, route }: { navigation: any, route: any }) {
                     step_id: item.step_id,
                     response: item.is_done,
                     underQuestions: item.under_steps.map((underStep: any) => {
-                        console.log(underStep);
                         return {
                             id: underStep.id,
                             response: underStep.is_done

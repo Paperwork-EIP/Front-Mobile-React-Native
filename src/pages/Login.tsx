@@ -85,9 +85,6 @@ function Login({ navigation, route }: { navigation: any, route: any }) {
 
                 console.log("<--------------------------->");
                 console.log('Login check token : ', checkToken);
-                console.log('Login check userEmail : ', userEmail);
-                console.log('Login check userPassword : ', userPassword);
-                console.log('Login check user : ', checkUser);
                 console.log("<--------------------------->");
 
                 if (checkToken && checkUser && userEmail && userPassword) {
@@ -136,10 +133,6 @@ function Login({ navigation, route }: { navigation: any, route: any }) {
 
             console.log("<--------------------------->");
             console.log('Login start token : ', token);
-            console.log('Login start userEmail : ', userEmail);
-            console.log('Login start userPassword : ', userPassword);
-            console.log('Login start user : ', checkUser);
-            console.log('Login start oauth : ', oauth);
             console.log("<--------------------------->");
 
             if (token && oauth) {

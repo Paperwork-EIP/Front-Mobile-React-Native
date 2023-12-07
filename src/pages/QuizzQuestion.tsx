@@ -74,7 +74,6 @@ function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) 
             setCurrentId(res.data.questions[nextStep - 1].step_id);
             setCurrentQuestion(res.data.questions[nextStep - 1].question);
             setQuestions(res.data.questions);
-            console.log(JSON.stringify(res.data.questions));
         }).catch(err => {
             console.log(err)
         });
@@ -102,25 +101,14 @@ function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) 
     }
     async function updateProcess( responseTemp: any) {
         const token = await getItem('@loginToken');
-        console.log(processSelected?.processStockedTittle);
         const post = { process_title: processSelected?.processStockedTittle, user_token: token, questions: responseTemp }
-        axios.get(`${url}/userProcess/delete`, { params: { process_title: processSelected?.processStockedTittle, user_token: token } })
-        axios.post(`${url}/userProcess/add`, post)
+        await axios.get(`${url}/userProcess/delete`, { params: { process_title: processSelected?.processStockedTittle, user_token: token } })
+        await axios.post(`${url}/userProcess/add`, post)
                 .then(res => {
-                    console.log("response = " + res.data.response);
-                    console.log("post = " + JSON.stringify(post));
                     navigation.navigate("Result", {processSelected: processSelected?.processSelected, processStockedTittle: processSelected?.processStockedTittle});
                 }).catch(err => {
                     console.log(err)
                 });
-        // axios.post(`${url}/userProcess/update`, post)
-        //         .then(res => {
-        //             console.log("response = " + res.data.response);
-        //             console.log("post = " + JSON.stringify(post));
-        //             navigation.navigate("Result", {processSelected: processSelected?.processSelected, processStockedTittle: processSelected?.processStockedTittle});
-        //         }).catch(err => {
-        //             console.log(err)
-        //         });
     }
 
     function handleClick(currentQuestionAnswer: string) {

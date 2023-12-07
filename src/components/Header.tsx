@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Text, TouchableOpacity, View, Animated, Easing, Modal, Pressable, Image } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import LongHorizontalButton from "../components/LongHorizontalButton";
 
 import { headerLight, headerDark } from "../../styles/components/header.js";
 
@@ -85,7 +86,7 @@ function Header({ navigation, theme }: { navigation: any, theme: any }) {
             <Modal
                 visible={isMenuOpen}
                 transparent={true}
-                animationType="slide"
+                animationType="fade"
                 onRequestClose={() => {
                     setIsMenuOpen(false);
                 }}>
@@ -99,21 +100,30 @@ function Header({ navigation, theme }: { navigation: any, theme: any }) {
                             <Text
                                 style={colorMode === 'dark' ? headerDark.navTitle : headerLight.navTitle}
                                 onPress={preventModalClose}>{t('header.navigationQuestion')}</Text>
-                            <TouchableOpacity
-                                style={colorMode === 'dark' ? headerDark.navButton : headerLight.navButton}
-                                onPress={() => navigateToScreen('Home', 'Home')}>
-                                <Text style={colorMode === 'dark' ? headerDark.navText : headerLight.navText}>{t('header.homePage')}</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={colorMode === 'dark' ? headerDark.navButton : headerLight.navButton}
-                                onPress={() => navigateToScreen('Home', 'Profile')}>
-                                <Text style={colorMode === 'dark' ? headerDark.navText : headerLight.navText}>{t('header.profilePage')}</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={colorMode === 'dark' ? headerDark.navButton : headerLight.navButton}
-                                onPress={() => navigateToPage('Settings')}>
-                                <Text style={colorMode === 'dark' ? headerDark.navText : headerLight.navText}>{t('header.settingsPage')}</Text>
-                            </TouchableOpacity>
+                            <LongHorizontalButton
+                                title={t('header.homePage')}
+                                styleButton={colorMode === 'dark' ? headerDark.button : headerLight.button}
+                                styleText={colorMode === 'dark' ? headerDark.button.text : headerLight.button.text}
+                                onPress={() => navigateToScreen('Home', 'Home')}
+                                iconName="home"
+                                light={colorMode === 'dark' ? true : false}
+                            />
+                            <LongHorizontalButton
+                                title={t('header.profilePage')}
+                                styleButton={colorMode === 'dark' ? headerDark.button : headerLight.button}
+                                styleText={colorMode === 'dark' ? headerDark.button.text : headerLight.button.text}
+                                onPress={() => navigateToScreen('Home', 'Profile')}
+                                iconName="person"
+                                light={colorMode === 'dark' ? true : false}
+                            />
+                            <LongHorizontalButton
+                                title={t('header.settingsPage')}
+                                styleButton={colorMode === 'dark' ? headerDark.button : headerLight.button}
+                                styleText={colorMode === 'dark' ? headerDark.button.text : headerLight.button.text}
+                                onPress={() => navigateToScreen('Settings')}
+                                iconName="settings"
+                                light={colorMode === 'dark' ? true : false}
+                            />
                         </View>
                     </View>
                 </Pressable>

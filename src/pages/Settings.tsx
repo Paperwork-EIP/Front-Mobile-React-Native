@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { TouchableOpacity, View, Text, Switch, Modal, NativeModules, Alert } from "react-native";
 import { useTranslation } from 'react-i18next';
 import axios from "axios";
-
+import Ionicons from '@expo/vector-icons/Ionicons';
 import DisconnectButton from "../components/DisconnectButton";
 import LongHorizontalButton from "../components/LongHorizontalButton";
 
@@ -20,6 +20,7 @@ function Settings({ navigation, route }: { navigation: any, route: any }) {
     const [isConfirmationVisible, setConfirmationVisible] = useState(false);
 
     const colorMode = route.params.colorMode;
+    const iconSize = 24;
 
     const setColorModeCallback = useCallback(async (color: string) => {
         await setColorModeInLocalStorage(color);
@@ -95,45 +96,39 @@ function Settings({ navigation, route }: { navigation: any, route: any }) {
         <>
             <View style={colorMode === 'dark' ? settingsDark.container : settingsLight.container}>
                 <View style={colorMode === 'dark' ? settingsDark.content : settingsLight.content}>
+                <Text
+                    style={colorMode === 'dark' ? settingsDark.pageTitle : settingsLight.pageTitle}
+                    testID="darkModeText"
+                >{t('settings.pageTitle')}</Text>
                     <View style={colorMode === 'dark' ? settingsDark.settingsContainer : settingsLight.settingsContainer}>
                         <View style={colorMode === 'dark' ? settingsDark.section : settingsLight.section}>
-                            <Text
-                                style={colorMode === 'dark' ? settingsDark.title : settingsLight.title}
-                                testID="darkModeText"
-                            >{t('settings.darkMode')}</Text>
-                            <Switch
-                                value={colorMode === 'dark'}
-                                onValueChange={toggleDarkMode}
-                                testID="darkModeSwitch"
+                            <LongHorizontalButton
+                              title={colorMode === 'dark' ? t('settings.lightMode') : t('settings.darkMode')}
+                              styleButton={colorMode === 'dark' ? settingsDark.darkButton : settingsLight.darkButton}
+                              styleText={colorMode === 'dark' ? settingsDark.darkButton.text : settingsLight.darkButton.text}
+                              onPress={toggleDarkMode}
+                              iconName={colorMode === 'dark' ? "sunny-outline" : "moon-outline"}
+                              light={colorMode === 'dark' ? false : true}
                             />
-                        </View>
-                        <View style={colorMode === 'dark' ? settingsDark.lineBetween : settingsLight.lineBetween}></View>
-                        <View style={colorMode === 'dark' ? settingsDark.section : settingsLight.section}>
-                            <Text
-                                style={colorMode === 'dark' ? settingsDark.title : settingsLight.title}
-                                testID="disconnectText"
-                            >{t('settings.disconnect')}</Text>
                             <DisconnectButton
                                 styleButton={colorMode === 'dark' ? settingsDark.disconnectButton : settingsLight.disconnectButton}
                                 styleText={colorMode === 'dark' ? settingsDark.disconnectButton.text : settingsLight.disconnectButton.text}
                                 navigation={navigation}
                                 text={t('settings.disconnect')}
                                 testID="disconnectButton"
+                                iconName="power"
+                                light={colorMode === 'dark' ? true : false}
                             />
-                        </View>
-                        <View style={colorMode === 'dark' ? settingsDark.lineBetween : settingsLight.lineBetween}></View>
-                        <View style={colorMode === 'dark' ? settingsDark.section : settingsLight.section}>
-                            <Text
-                                style={colorMode === 'dark' ? settingsDark.title : settingsLight.title}
-                                testID="deleteAccountText"
-                            >{t('settings.deleteAccount')}</Text>
                             <LongHorizontalButton
-                                title={t('settings.delete')}
+                                title={t('settings.deleteAccount')}
                                 styleButton={colorMode === 'dark' ? settingsDark.button : settingsLight.button}
                                 styleText={colorMode === 'dark' ? settingsDark.button.text : settingsLight.button.text}
                                 onPress={() => setConfirmationVisible(true)}
                                 testID="deleteAccountButton"
+                                iconName="trash"
+                                light={colorMode === 'dark' ? true : false}
                             />
+
                             <Modal
                                 animationType="slide"
                                 transparent={true}
@@ -149,7 +144,7 @@ function Settings({ navigation, route }: { navigation: any, route: any }) {
                                             style={colorMode === 'dark' ? settingsDark.modal.text : settingsLight.modal.text}
                                             testID="deleteAccountQuestion"
                                         >{t('settings.deleteAccountQuestion')}</Text>
-                                        <View style={colorMode === 'dark' ? settingsDark.section : settingsLight.section}>
+                                        <View style={colorMode === 'dark' ? settingsDark.sectionModal : settingsLight.sectionModal}>
                                             <TouchableOpacity
                                                 style={colorMode === 'dark' ? settingsDark.cancelButton : settingsLight.cancelButton}
                                                 onPress={handleCancel}

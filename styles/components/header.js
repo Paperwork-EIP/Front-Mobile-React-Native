@@ -31,7 +31,10 @@ const headerLight = StyleSheet.create({
         borderRadius: 5,
     },
     navTitle: {
-        fontSize: 18,
+        fontSize: 20,
+        marginBottom: "10%",
+        fontWeight: 'bold',
+        justifyContent: 'center',
     },
     navText: {
         fontSize: 16,
@@ -46,7 +49,22 @@ const headerLight = StyleSheet.create({
         alignSelf: 'center',
         resizeMode: 'contain',
         aspectRatio: 1,
-    }
+    },
+    button: {
+        backgroundColor: lightBackgroundColor,
+        borderRadius: 10,
+        paddingVertical: 20,
+        paddingHorizontal: 12,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+        marginBottom: "5%",
+        text: {
+            color: lightTextColor,
+            fontSize: 16,
+            fontWeight: 'bold'
+        }
+    },
 });
 
 const headerDark = StyleSheet.create({
@@ -63,9 +81,12 @@ const headerDark = StyleSheet.create({
     },
     menuContainer: {
         ...headerLight.menuContainer,
+        backgroundColor: darkBackgroundColor,
+
     },
     navTitle: {
         ...headerLight.navTitle,
+        color: darkTextColor
     },
     navText: {
         ...headerLight.navText,
@@ -75,6 +96,14 @@ const headerDark = StyleSheet.create({
     },
     logo: {
         ...headerLight.logo,
+    },
+    button: {
+        ...headerLight.button,
+        backgroundColor: darkSecondaryBackgroundColor,
+        text: {
+            ...headerLight.button.text,
+            color: darkTextColor,
+        }
     },
 });
 

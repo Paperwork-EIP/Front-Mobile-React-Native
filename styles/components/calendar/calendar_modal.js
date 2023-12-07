@@ -406,9 +406,13 @@ const calendar_modal = StyleSheet.create({
                     color: lightTextColor,
 
                     item: {
+                        backgroundColor: lightSecondaryBackgroundColor,
                         text: {
                             fontSize: 12,
                         },
+                    },
+                    container : {
+                        backgroundColor: lightSecondaryBackgroundColor,
                     },
                 },
                 pickerDark: {
@@ -417,9 +421,13 @@ const calendar_modal = StyleSheet.create({
                     color: darkTextColor,
 
                     item: {
+                        backgroundColor: darkSecondaryBackgroundColor,
                         text: {
                             fontSize: 12,
                         },
+                    },
+                    container : {
+                        backgroundColor: darkSecondaryBackgroundColor,
                     },
                 },
 

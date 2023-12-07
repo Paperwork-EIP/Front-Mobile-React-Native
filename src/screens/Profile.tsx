@@ -179,7 +179,7 @@ function Profile({ navigation, route }: { navigation: any, route: any }) {
                                 />
                             </View>
                             <View style={profile.profileTexts}>
-                                <Text style={colorMode === 'light' ? profile.profileText : profile.profileTextDark}>{firstname ? firstname : t('profile.noInfo')} </ Text>
+                                <Text style={colorMode === 'light' ? profile.profileText : profile.profileTextDark}>{firstname ? firstname : null} </ Text>
                                 <Text style={colorMode === 'light' ? profile.profileText : profile.profileTextDark}>{name ? name : t('profile.noInfo')} </ Text>
                             </View>
                             <View style={profile.profileTexts}>

@@ -59,13 +59,7 @@ function Settings({ navigation, route }: { navigation: any, route: any }) {
     });
 
     useEffect(() => {
-        axios.get(`${api}/user/getbytoken`, { params: { token: token } })
-            .then(res => {
-                setLanguage(res.data.language);
-            }).catch(err => {
-                console.log(err)
-            });
-    }, [token]);
+    }, []);
 
     function changeLanguage(language: string | undefined) {
         i18n.changeLanguage(language);
@@ -120,7 +114,7 @@ function Settings({ navigation, route }: { navigation: any, route: any }) {
                                 styleButton={colorMode === 'dark' ? settingsDark.disconnectButton : settingsLight.disconnectButton}
                                 styleText={colorMode === 'dark' ? settingsDark.disconnectButton.text : settingsLight.disconnectButton.text}
                                 navigation={navigation}
-                                text="Disconnect"
+                                text={t('settings.disconnect')}
                                 testID="disconnectButton"
                                 iconName="power"
                                 light={colorMode === 'dark' ? true : false}

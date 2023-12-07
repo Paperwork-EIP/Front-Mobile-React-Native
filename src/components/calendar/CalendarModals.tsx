@@ -37,7 +37,7 @@ interface CalendarAddModaProps {
     setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function CalendarItemModal(props: CalendarModalProps) {
+function CalendarItemModal(props: any) {
     const hour = props.title.split('-')[0];
     const title = props.title.split('-')[1];
     const processTitle = props.processTitle;
@@ -46,7 +46,7 @@ function CalendarItemModal(props: CalendarModalProps) {
 
     const { t } = useTranslation();
 
-    const colorMode = useColorScheme();
+    const colorMode = props.colorMode;
 
     function closeModal() {
         props.setModalVisible(!props.modalVisible);
@@ -98,14 +98,14 @@ function CalendarItemModal(props: CalendarModalProps) {
     )
 }
 
-function CalendarActionsModal(props: CalendarActionsModalProps) {
+function CalendarActionsModal(props: any) {
     const [date, setDate] = useState(new Date());
     const [isLoading, setIsLoading] = useState(false);
 
     const { t, i18n } = useTranslation();
 
     const url = process.env.EXPO_PUBLIC_BASE_URL;
-    const colorMode = useColorScheme();
+    const colorMode = props.colorMode;
 
     function formatDate(date: Date) {
         const formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss');
@@ -247,7 +247,7 @@ function CalendarActionsModal(props: CalendarActionsModalProps) {
     )
 }
 
-function CalendarAddModal(props: CalendarAddModaProps) {
+function CalendarAddModal(props: any) {
     const [date, setDate] = useState(new Date());
     const [selectedUserProcessId, setSelectedUserProcessId] = useState(0);
     const [selectedStepId, setSelectedStepId] = useState(0);
@@ -257,7 +257,7 @@ function CalendarAddModal(props: CalendarAddModaProps) {
     const { t, i18n } = useTranslation();
 
     const url = process.env.EXPO_PUBLIC_BASE_URL;
-    const colorMode = useColorScheme();
+    const colorMode = props.colorMode;
 
     function formatDate(date: Date) {
         const formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss');
@@ -266,29 +266,24 @@ function CalendarAddModal(props: CalendarAddModaProps) {
     }
 
     async function requestAddProcess() {
-        console.log("Selected User Process ID : ", selectedUserProcessId);
-        console.log("Selected Step ID : ", selectedStepId);
-        console.log("Date : ", date);
         if (selectedUserProcessId && selectedStepId && date) {
             setIsLoading(true);
             const convertedDate = formatDate(date);
-
-            console.log("Date : ", convertedDate);
-            console.log("User Process ID : ", selectedUserProcessId);
-            console.log("Step ID : ", selectedStepId);
 
             await axios.post(`${url}/calendar/set`, {
                 'user_process_id': selectedUserProcessId,
                 'step_id': selectedStepId,
                 'date': convertedDate
             }).then((response) => {
+                console.log(response.status);
+                console.log("user_process_id = " + selectedUserProcessId + " step_id = " + selectedStepId + " date = " + convertedDate)
                 setIsLoading(false);
                 Alert.alert(
-                    t('calendar.modal.edit.title'),
-                    response.data.message,
+                    t('calendar.modal.add.title'),
+                    t('calendar.modal.add.message'),
                     [
                         {
-                            text: t('calendar.modal.edit.ok'),
+                            text: t('calendar.modal.add.ok'),
                             onPress: () => props.setModalVisible(!props.modalVisible)
                         }
                     ]
@@ -441,6 +436,7 @@ function CalendarAddModal(props: CalendarAddModaProps) {
                                         mode='dropdown'
                                         selectedValue={selectedUserProcessId}
                                         style={colorMode === 'light' ? calendar_modal.add.modalContent.section.picker as any : calendar_modal.add.modalContent.section.pickerDark as StyleProp<ViewStyle>}
+                                        // itemStyle={colorMode === 'light' ? calendar_modal.add.modalContent.section.picker.item as any : calendar_modal.add.modalContent.section.pickerDark.item as StyleProp<ViewStyle>}
                                         dropdownIconColor={colorMode === 'light' ? calendar_modal.add.modalContent.section.picker.color : calendar_modal.add.modalContent.section.pickerDark.color}
                                         onValueChange={(itemValue) => setSelectedUserProcessId(itemValue)}
                                     >

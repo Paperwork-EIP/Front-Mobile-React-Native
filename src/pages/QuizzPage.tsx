@@ -22,7 +22,7 @@ function QuizzPage({ navigation, route }: { navigation: any, route: any }) {
 
     const [posts, setPosts] = useState([{}]);
     const [processSelected, setProcessSelected] = useState("");
-    const [processStockedTittle, setProcessStockedTittle] = useState("");
+    const [processStockedTittle, setProcessStockedTittle] = useState();
     const [processValue, setProcessValue] = useState(0);
 
 
@@ -49,15 +49,17 @@ function QuizzPage({ navigation, route }: { navigation: any, route: any }) {
         switch(i18n.language) {
             case 'en':
                 langTemp = 'english';
-            case 'fr':
-                langTemp = 'english';
+                break;
+            case "fr":
+                langTemp = 'français';
+                break;
             default:
                 langTemp = 'english';
+                break;
           }
         axios.get(`${url}/process/getAll`, { params: { language: langTemp } })
             .then(res => {
                 var procedures = [];
-                // console.log(res.data);
                 for (var i = 0; i < res.data.response.length; i++)
                 {
                     procedures.push({
@@ -75,13 +77,13 @@ function QuizzPage({ navigation, route }: { navigation: any, route: any }) {
     useEffect(() => {
         getLanguage();
         getProcedures();
-        console.log(posts);
         }, [])
 
     const handleSubmit = () => {
-        console.log("button pressed");
-        console.log(processStockedTittle);
-        goToQuestion();
+        if(processStockedTittle!)
+            goToQuestion();
+        else
+            console.log(processStockedTittle);
     }                     
 
     return (
@@ -92,7 +94,6 @@ function QuizzPage({ navigation, route }: { navigation: any, route: any }) {
                 setProcessSelected(selectedItem);
                 setProcessValue(posts[index].value);
                 setProcessStockedTittle(posts[index].stocked_title);
-                console.log(selectedItem, index);
             }}
             defaultButtonText={t('quizzpage.select')}
             buttonTextAfterSelection={(selectedItem, index) => {

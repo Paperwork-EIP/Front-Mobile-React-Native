@@ -29,27 +29,37 @@ const result = StyleSheet.create({
         marginLeft: 5
     },
     scrollview: {
-
+        height: '80%',
+    },
+    itemCheckboxContainer: {
+        flexDirection: "column",
     },
     checkboxContainer: {
         // backgroundColor: lightSecondaryBackgroundColor,
-        flexDirection: "column",
+        width: '100%',
+        flexDirection: "row",
         alignItems: 'center',
-        marginBottom: 20,
     },
     checkboxContainerDark: {
         // backgroundColor: darkBackgroundColor,
-        flexDirection: "column",
+        width: '100%',
+        flexDirection: "row",
         alignItems: 'center',
-        marginBottom: 20,
+        marginBottom: 10,
     },
     checkbox: {
-        alignSelf: "left",
-        backgroundColor: 'white'
+        // alignSelf: "left",
+        width: '85%',
+        backgroundColor: 'transparent',
     },
-    checkboxDark: {
-        alignSelf: "left",
-        backgroundColor: 'black'
+    link: {
+        width: '5%',
+    },
+    underSteps: {
+        alignItems: 'center',
+        width: '70%',
+        marginLeft: '15%',
+        backgroundColor: 'transparent',
     },
     doneButton: {
         width: '30%',

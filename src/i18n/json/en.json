@@ -148,6 +148,7 @@
     "settings": {
         "pageTitle": "Settings",
         "darkMode": "Dark mode",
+        "lightMode": "Light mode",
         "version": "Version",
         "disconnect": "Disconnect",
         "deleteAccount": "Delete account",

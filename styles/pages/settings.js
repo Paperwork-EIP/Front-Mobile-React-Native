@@ -4,15 +4,13 @@ import { darkBackgroundColor, lightBackgroundColor, lightTextColor, lightSeconda
 const settingsLight = StyleSheet.create({
     container: {
         width: '100%',
-        height: '100%',
         alignItems: 'center',
-        paddingVertical: "20%",
         color: lightTextColor,
         backgroundColor: lightBackgroundColor,
     },
     content: {
         width: '100%',
-        paddingHorizontal: '5%',
+        paddingHorizontal: '0%',
         alignItems: 'left',
         justifyContent: 'center',
     },
@@ -33,6 +31,14 @@ const settingsLight = StyleSheet.create({
         fontWeight: 'bold',
         color: lightTextColor,
     },
+    pageTitle: {
+        fontSize: 38,
+        paddingHorizontal: '5%',
+        paddingTop: '10%',
+        paddingBottom: '5%',
+        fontWeight: 'bold',
+        color: lightTextColor,
+    },
     settingsContainer: {
         width: '100%',
         alignItems: 'center',
@@ -41,41 +47,67 @@ const settingsLight = StyleSheet.create({
     },
     section: {
         width: '100%',
-        flexDirection: 'row',
+        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'space-between',
         paddingVertical: 16,
         paddingHorizontal: 24,
     },
+    sectionModal: {
+            width: '100%',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            paddingVertical: 16,
+            paddingHorizontal: 24,
+        },
     lineBetween: {
         width: "100%",
         borderBottomWidth: 1,
         borderBottomColor: lightTextColor,
     },
     disconnectButton: {
-        backgroundColor: "#FC6976",
+        backgroundColor: lightBackgroundColor,
         borderRadius: 10,
-        paddingVertical: 9,
+        paddingVertical: 20,
         paddingHorizontal: 12,
-        alignItems: 'center',
+        alignItems: 'left',
         justifyContent: 'center',
-
+        width: '100%',
+        marginBottom: "5%",
         text: {
-            color: 'white',
+            color: lightTextColor,
             fontSize: 16,
             fontWeight: 'bold'
         }
     },
+    darkButton: {
+            backgroundColor: darkBackgroundColor,
+            borderRadius: 10,
+            paddingVertical: 20,
+            paddingHorizontal: 12,
+            alignItems: 'left',
+            justifyContent: 'center',
+            width: '100%',
+            marginBottom: "5%",
+            marginTop: "5%",
+            text: {
+                color: darkTextColor,
+                fontSize: 16,
+                fontWeight: 'bold'
+            }
+        },
     button: {
-        backgroundColor: '#FC6976',
+        backgroundColor: lightBackgroundColor,
         borderRadius: 10,
-        paddingVertical: 9,
+        paddingVertical: 20,
         paddingHorizontal: 12,
-        alignItems: 'center',
+        alignItems: 'left',
         justifyContent: 'center',
-
+        width: '100%',
+        marginBottom: "5%",
         text: {
-            color: 'white',
+            color: lightTextColor,
             fontSize: 16,
             fontWeight: 'bold'
         }
@@ -133,7 +165,7 @@ const settingsLight = StyleSheet.create({
 const settingsDark = StyleSheet.create({
     container: {
         ...settingsLight.container,
-        backgroundColor: darkBackgroundColor,
+        backgroundColor: darkSecondaryBackgroundColor,
         color: darkTextColor,
     },
     content: {
@@ -151,12 +183,19 @@ const settingsDark = StyleSheet.create({
         ...settingsLight.title,
         color: darkTextColor,
     },
+    pageTitle: {
+        ...settingsLight.pageTitle,
+        color: darkTextColor,
+    },
     settingsContainer: {
         ...settingsLight.settingsContainer,
-        backgroundColor: darkSecondaryBackgroundColor,
+        backgroundColor: darkBackgroundColor,
     },
     section: {
         ...settingsLight.section,
+    },
+    sectionModal: {
+        ...settingsLight.sectionModal,
     },
     lineBetween: {
         ...settingsLight.lineBetween,
@@ -164,18 +203,29 @@ const settingsDark = StyleSheet.create({
     },
     disconnectButton: {
         ...settingsLight.disconnectButton,
+        backgroundColor: darkSecondaryBackgroundColor,
 
         text: {
-            ...settingsLight.disconnectButton.text
+            ...settingsLight.disconnectButton.text,
+            color: darkTextColor,
         }
     },
     button: {
         ...settingsLight.button,
-
+        backgroundColor: darkSecondaryBackgroundColor,
         text: {
             ...settingsLight.button.text,
+            color: darkTextColor,
         }
     },
+    darkButton: {
+            ...settingsLight.darkButton,
+            backgroundColor: lightBackgroundColor,
+            text: {
+                ...settingsLight.darkButton.text,
+                color: lightTextColor,
+            }
+        },
     cancelButton: {
         ...settingsLight.cancelButton,
 
@@ -195,10 +245,12 @@ const settingsDark = StyleSheet.create({
 
         center: {
             ...settingsLight.modal.center,
+            backgroundColor: darkSecondaryBackgroundColor,
         },
 
         text: {
             ...settingsLight.modal.text,
+            color: darkTextColor,
         }
     }
 });

@@ -126,7 +126,8 @@
             "title": "오류",
             "message": "문제가 발생했습니다. 나중에 다시 시도해주세요",
             "button": "확인"
-        }
+        },
+        "noEvent": "예정된 이벤트 없음"
     },
     "processidea": {
         "pagetitle": "새로운 프로세스 아이디어",

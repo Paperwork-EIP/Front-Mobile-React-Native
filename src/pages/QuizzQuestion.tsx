@@ -64,6 +64,18 @@ function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) 
             case 'fr':
                 langTemp = 'français';
                 break;
+            case "de":
+                langTemp = 'german';
+                break;
+            case "es":
+                langTemp = 'spanish';
+                break;
+            case "id":
+                langTemp = 'indonesian';
+                break;
+            case "ko":
+                langTemp = 'korean';
+                break;
             default:
                 langTemp = 'english';
                 break;

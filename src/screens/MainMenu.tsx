@@ -47,19 +47,19 @@ function MainMenu({ navigation, route }: { navigation: any, route: any }) {
                     case 'english':
                       i18n.changeLanguage('en');
                       break;
-                    case 'français':
+                    case 'french':
                       i18n.changeLanguage('fr');
                       break;
-                    case 'español':
+                    case 'spanish':
                         i18n.changeLanguage('es');
                         break;
-                    case 'deutsch':
+                    case 'german':
                         i18n.changeLanguage('de');
                         break;
-                    case 'bahasa indonesia':
+                    case 'indonesian':
                         i18n.changeLanguage('id');
                         break;
-                    case '한국인':
+                    case 'korean':
                         i18n.changeLanguage('ko');
                         break;
                     default:

@@ -127,7 +127,8 @@
             "title": "Error",
             "message": "Something went wrong, please try again later",
             "button": "OK"
-        }
+        },
+        "noEvent": "No event planned"
     },
     "processidea": {
         "pagetitle": "New process idea",

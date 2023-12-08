@@ -126,7 +126,8 @@
             "title": "Erreur",
             "message": "Une erreur est survenue, veuillez réessayer plus tard",
             "button": "OK"
-        }
+        },
+        "noEvent": "pas d'événement plannifié"
     },
     "processidea": {
         "pagetitle": "Nouvelle idée de procédure",

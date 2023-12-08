@@ -19,7 +19,7 @@ function CalendarComponent(props: any) {
 
     const { t, i18n } = useTranslation();
 
-    LocaleConfig.locales['fr'] = {
+    LocaleConfig.locales[i18n.language] = {
         monthNames: [
             t('calendar.months.january'),
             t('calendar.months.february'),
@@ -69,7 +69,7 @@ function CalendarComponent(props: any) {
         today: t('calendar.today')
     };
 
-    LocaleConfig.locales['en'] = LocaleConfig.locales['fr'];
+    LocaleConfig.locales[i18n.language] = LocaleConfig.locales['fr'];
 
     function itemPressed(item: any) {
         if (itemModalData !== item) {
@@ -104,17 +104,17 @@ function CalendarComponent(props: any) {
         if (props.items.length === 0) {
             return (
                 <View style={props.styleEmpty}>
-                    <Text style={props.styleEmptyText}>No event planned</Text>
+                    <Text style={props.styleEmptyText}>{t("calendar.noEvent")}</Text>
                 </View>
             );
         } else {
             return (
                 <View style={colorMode === 'light' ? calendar_component.agendaList : calendar_component.agendaListDark}>
-                    <AgendaList
+                    {/* <AgendaList
                         theme={colorMode === 'light' ? theme_light : theme_dark}
                         sections={props.items}
                         renderItem={renderItem}
-                    />
+                    /> */}
                 </View>
             );
         }

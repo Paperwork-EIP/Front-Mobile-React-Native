@@ -133,6 +133,7 @@ function Login({ navigation, route }: { navigation: any, route: any }) {
 
             console.log("<--------------------------->");
             console.log('Login start token : ', token);
+            console.log("i18n.language: ", i18n.language);
             console.log("<--------------------------->");
 
             if (token && oauth) {

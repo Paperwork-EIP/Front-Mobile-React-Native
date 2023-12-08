@@ -36,11 +36,26 @@ function QuizzPage({ navigation, route }: { navigation: any, route: any }) {
     function getLanguage() {
         switch(i18n.language) {
             case 'en':
-              setLanguage('english');
+                setLanguage('english');
+                break;
             case 'fr':
-              setLanguage('francais');
+                setLanguage('french');
+                break;
+            case 'de':
+                setLanguage('german');
+                break;
+            case 'es':
+                setLanguage('spanish');
+                break;
+            case 'id':
+                setLanguage('indonesian');
+                break;
+            case 'ko':
+                setLanguage('korean');
+                break;
             default:
                 setLanguage('english');
+                break;
           }
     }
 
@@ -52,6 +67,18 @@ function QuizzPage({ navigation, route }: { navigation: any, route: any }) {
                 break;
             case "fr":
                 langTemp = 'français';
+                break;
+            case "de":
+                langTemp = 'german';
+                break;
+            case "es":
+                langTemp = 'spanish';
+                break;
+            case "id":
+                langTemp = 'indonesian';
+                break;
+            case "ko":
+                langTemp = 'korean';
                 break;
             default:
                 langTemp = 'english';

@@ -181,6 +181,132 @@ const edit = StyleSheet.create({
     dropdownRowStyleDark: { backgroundColor: 'dark', borderBottomColor: darkTextColor },
     dropdownRowTxtStyle: { color: 'black', textAlign: 'left' },
     dropdownRowTxtStyleDark: { color: 'white', textAlign: 'left' },
+
+    add: {
+        flex: 1,
+
+        centeredView: {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        },
+        modalView: {
+            margin: 20,
+            backgroundColor: lightBackgroundColor,
+            borderRadius: 10,
+            padding: 15,
+            height: "80%",
+            width: "90%",
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            shadowColor: 'black',
+            shadowOffset: {
+                width: 0,
+                height: 2,
+            },
+            shadowOpacity: 0.55,
+            shadowRadius: 4,
+            elevation: 5,
+        },
+        modalViewDark: {
+            margin: 20,
+            backgroundColor: darkBackgroundColor,
+            borderRadius: 10,
+            padding: 15,
+            height: "80%",
+            width: "90%",
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            shadowColor: 'black',
+            shadowOffset: {
+                width: 0,
+                height: 2,
+            },
+            shadowOpacity: 0.55,
+            shadowRadius: 4,
+            elevation: 5,
+        },
+
+        modalHeader: {
+            width: "100%",
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+
+            containerTitle: {
+                width: "60%",
+
+                title: {
+                    fontSize: 20,
+                    color: lightTextColor,
+                    paddingLeft: 10,
+                },
+
+                titleDark: {
+                    fontSize: 20,
+                    color: darkTextColor,
+                    paddingLeft: 10,
+                },
+            }
+        },
+        modalContent: {
+            width: "100%",
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
+
+            section: {
+                flexDirection: 'row',
+                alignItems: 'center',
+            },
+            image: {
+                height: 100,
+                width: 100,
+                borderRadius: 40,
+            }
+        },
+
+        modalFooter: {
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            paddingTop: 15,
+
+            buttonEdit: {
+                borderRadius: 20,
+                padding: 10,
+                height: 40,
+                width: 100,
+                elevation: 3,
+                backgroundColor: "#29C9B3",
+
+                text: {
+                    color: 'white',
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                }
+            },
+
+            buttonDelete: {
+                borderRadius: 20,
+                padding: 10,
+                height: 40,
+                width: 100,
+                elevation: 3,
+                marginLeft: 20,
+                backgroundColor: "#E74C3C",
+
+                text: {
+                    color: 'white',
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                }
+            },
+        }
+    }
 })
 
 export { edit };

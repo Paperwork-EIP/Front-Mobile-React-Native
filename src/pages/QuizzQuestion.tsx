@@ -62,7 +62,7 @@ function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) 
                 langTemp = 'english';
                 break;
             case 'fr':
-                langTemp = 'français';
+                langTemp = 'french';
                 break;
             case "de":
                 langTemp = 'german';
@@ -227,20 +227,10 @@ function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) 
                     var underResponseTemp = [...underAnswer, { id: currentId, response: currentQuestionAnswer === 'true'}];
                     var responseTemp = [...answer, { step_id: currentId, response: false, underQuestions: underResponseTemp}];
                     checkUpdate(responseTemp);
-                    // if (update === false) {
-                    //     addProcess(responseTemp);
-                    // } else {
-                    //     updateProcess(responseTemp);
-                    // }
                 }
             } else {
                 var responseTemp = [...answer, { step_id: currentId, response: currentQuestionAnswer === 'true'}];
                 checkUpdate(responseTemp);
-                // if (update === false) {
-                //     addProcess(responseTemp);
-                // } else {
-                //     updateProcess(responseTemp);
-                // }
             }
         }
     }

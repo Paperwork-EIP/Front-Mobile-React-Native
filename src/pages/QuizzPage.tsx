@@ -66,7 +66,7 @@ function QuizzPage({ navigation, route }: { navigation: any, route: any }) {
                 langTemp = 'english';
                 break;
             case "fr":
-                langTemp = 'français';
+                langTemp = 'french';
                 break;
             case "de":
                 langTemp = 'german';

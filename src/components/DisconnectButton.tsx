@@ -9,6 +9,9 @@ interface DisconnectButtonProps {
     text: string;
     styleButton?: any;
     styleText?: any;
+    testID?: string;
+    iconName: string;
+    light: boolean;
 }
 
 function DisconnectButton(props: DisconnectButtonProps) {

@@ -232,7 +232,8 @@
             "name": "Name",
             "phoneNumber": "Phone number",
             "submit": "Submit",
-            "selectLanguage": "Select language"
+            "selectLanguage": "Select language",
+            "picture":"Choose an avatar"
         }
     },
     "header": {

@@ -165,8 +165,8 @@ function Profile({ navigation, route }: { navigation: any, route: any }) {
             profilePicture: profilePictureTemp,
         })
     }
-    function goToResultPage(processSelected: any, processStockedTittle: any) {
-        navigation.navigate("Result", {processSelected: processSelected, processStockedTittle: processStockedTittle});
+    function goToResultPage(processStockedTittle: any) {
+        navigation.navigate("Result", {processStockedTittle: processStockedTittle});
     };
 
 
@@ -240,7 +240,7 @@ function Profile({ navigation, route }: { navigation: any, route: any }) {
                                             {
                                                 userProcessInfo.map((item: any, index: number) => (
                                                     <View key={index}>
-                                                        <TouchableOpacity onPress={() => goToResultPage(item.process, item.stocked_title)}>
+                                                        <TouchableOpacity onPress={() => goToResultPage(item.stocked_title)}>
                                                             <View style={profile.textsInfo}>
                                                                 <View style={profile.leftPartInfo}>
                                                                     <Text style={colorMode === 'light' ? profile.leftPartInfoText : profile.leftPartInfoTextDark}>

@@ -28,7 +28,7 @@ function QuizzPage({ navigation, route }: { navigation: any, route: any }) {
 
     // User informations
     const [language, setLanguage] = useState("");
-    const goToQuestion = () => navigation.navigate("QuizzQuestion", {processSelected: processSelected, processStockedTittle: processStockedTittle, step: processValue});
+    const goToQuestion = () => navigation.navigate("QuizzQuestion", {processStockedTittle: processStockedTittle});
 
     
     const colorMode = route.params.colorMode;

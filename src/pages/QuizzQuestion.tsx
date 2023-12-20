@@ -106,7 +106,7 @@ function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) 
         const post = { process_title: processSelected?.processStockedTittle, user_token: token, questions: responseTemp }
         axios.post(`${url}/userProcess/add`, post)
                 .then(res => {
-                    navigation.navigate("Result", {processSelected: processSelected?.processSelected, processStockedTittle: processSelected?.processStockedTittle});
+                    navigation.navigate("Result", {processStockedTittle: processSelected?.processStockedTittle});
                 }).catch(err => {
                     console.log(err)
                 });
@@ -117,7 +117,7 @@ function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) 
         await axios.get(`${url}/userProcess/delete`, { params: { process_title: processSelected?.processStockedTittle, user_token: token } })
         await axios.post(`${url}/userProcess/add`, post)
                 .then(res => {
-                    navigation.navigate("Result", {processSelected: processSelected?.processSelected, processStockedTittle: processSelected?.processStockedTittle});
+                    navigation.navigate("Result", {processStockedTittle: processSelected?.processStockedTittle});
                 }).catch(err => {
                     console.log(err)
                 });

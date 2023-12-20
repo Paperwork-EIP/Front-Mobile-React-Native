@@ -27,8 +27,8 @@ function MainMenu({ navigation, route }: { navigation: any, route: any }) {
         navigation.navigate("QuizzPage");
     };
 
-    function goToResultPage(processSelected: any, processStockedTittle: any) {
-        navigation.navigate("Result", {processSelected: processSelected, processStockedTittle: processStockedTittle});
+    function goToResultPage(processStockedTittle: any) {
+        navigation.navigate("Result", {processStockedTittle: processStockedTittle});
     };
 
     function goToLexiconPage() {
@@ -165,7 +165,7 @@ function MainMenu({ navigation, route }: { navigation: any, route: any }) {
     function displayProcessList() {
         if (userProcessInfo.length > 0) {
             return userProcessInfo.map((item: any, index: number) => (
-                <TouchableOpacity key={index} onPress={() => goToResultPage(item.process, item.stocked_title)}>
+                <TouchableOpacity key={index} onPress={() => goToResultPage(item.stocked_title)}>
                     <View style={mainmenu.processContainer}>
                         <Text style={colorMode === 'light' ? mainmenu.processName : mainmenu.processNameDark}>{item.process}:</Text>
                         <View style={colorMode === 'light' ? mainmenu.progressContainer : mainmenu.progressContainerDark}>

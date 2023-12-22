@@ -115,7 +115,6 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
         checkAndAssign(addressEdit, userInfo?.address, 'address');
         checkAndAssign(phonenumberEdit, userInfo?.phonenumber, 'number_phone');
         checkAndAssignPicture(profilePictureEdit, userInfo?.profilePicture, 'profile_picture');
-        console.log("newvalueChange " + profilePictureEdit + " oldvalue " + userInfo?.profilePicture)
 
         switch (languageEdit) {
             case 'french':

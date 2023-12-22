@@ -243,7 +243,7 @@ function MainMenu({ navigation, route }: { navigation: any, route: any }) {
                         />
                 }
             </View>
-            <View style={colorMode === 'light' ? mainmenu.sectionContainerFlex1 : mainmenu.sectionContainerDarkFlex1}>
+            <View style={colorMode === 'light' ? mainmenu.sectionContainerFlex3 : mainmenu.sectionContainerDarkFlex3}>
                 <Text style={colorMode === 'light' ? mainmenu.title : mainmenu.titleDark}>{t('mainmenu.needHelp')}</Text>
                 <View style={mainmenu.buttonContainerWrapper}>
                     <View style={colorMode === 'light' ? mainmenu.buttonContainer : mainmenu.buttonContainerDark}>

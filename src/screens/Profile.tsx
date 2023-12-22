@@ -101,7 +101,6 @@ function Profile({ navigation, route }: { navigation: any, route: any }) {
                 setPhonenumber(res.data.number_phone);
 
                 if (res.data.profile_picture != null) {
-                    console.log(res.data.profile_picture);
                     getImagesFromAssetsByFilename(res.data.profile_picture);
                 }
                 setIsLoading(false);
@@ -171,9 +170,12 @@ function Profile({ navigation, route }: { navigation: any, route: any }) {
 
 
     useEffect(() => {
-        getUserInfo();
-        getProcess();
-    }, [items]);
+        let interval = setInterval(() => {
+            getUserInfo();
+            getProcess();
+        }, 20000);
+        return () => clearInterval(interval);        
+    }, []);
 
     return (
         <View style={colorMode === 'light' ? profile.container : profile.containerDark}>

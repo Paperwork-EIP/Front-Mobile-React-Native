@@ -109,6 +109,24 @@ function Calendar({ navigation, route }: { navigation: any, route: any }) {
     }
 
     useEffect(() => {
+        items.map((item: any) => {
+            const eventDate = new Date(item.title);
+            const today = new Date();
+            const threeDays = new Date();
+            threeDays.setDate(today.getDate() - 3);
+
+            if (eventDate < threeDays) {
+                axios.get(`${url}/calendar/delete?user_process_id=${item.userProcessId}&step_id=${item.stepId}`, {
+                }).then(() => {
+                    console.log("Delete calendar item");
+                }).catch(err => {
+                    console.error(err);
+                })
+            }
+        })
+    }, [items]);
+
+    useEffect(() => {
         let interval: any;
 
         if (!token || items.length === 0) {

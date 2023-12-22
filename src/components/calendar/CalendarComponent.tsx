@@ -110,11 +110,11 @@ function CalendarComponent(props: any) {
         } else {
             return (
                 <View style={colorMode === 'light' ? calendar_component.agendaList : calendar_component.agendaListDark}>
-                    {/* <AgendaList
+                    <AgendaList
                         theme={colorMode === 'light' ? theme_light : theme_dark}
                         sections={props.items}
                         renderItem={renderItem}
-                    /> */}
+                    />
                 </View>
             );
         }

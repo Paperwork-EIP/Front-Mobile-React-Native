@@ -1,6 +1,5 @@
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import Ionicons from '@expo/vector-icons/Ionicons';
 
 interface Props {
     onPress: () => void;
@@ -8,21 +7,16 @@ interface Props {
     styleButton: object;
     styleText: object;
     testID: string;
-    iconName: string;
-    light: bool;
 }
 
-const LongHorizontalButton: React.FC<Props> = ({ onPress, title, styleButton, styleText, testID, iconName, light }) => {
+const LongHorizontalButton: React.FC<Props> = ({ onPress, title, styleButton, styleText, testID }) => {
     return (
         <TouchableOpacity
             style={styleButton}
             onPress={onPress}
             testID={testID}
         >
-           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                   <Ionicons name={iconName} size={24} color={light ? "white" : "black"} style={{ marginRight: 10 }} />
                    <Text style={styleText}>{title}</Text>
-                 </View>
         </TouchableOpacity>
     );
 }

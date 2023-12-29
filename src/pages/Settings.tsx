@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import axios from "axios";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import DisconnectButton from "../components/DisconnectButton";
-import LongHorizontalButton from "../components/LongHorizontalButton";
+import LongIconButton from "../components/LongIconButton";
 
 import { deleteItemAndRedirectTo, getItem } from "../services/Storage";
 import { setColorModeInLocalStorage } from "../services/Parameters";
@@ -102,11 +102,12 @@ function Settings({ navigation, route }: { navigation: any, route: any }) {
                 >{t('settings.pageTitle')}</Text>
                     <View style={colorMode === 'dark' ? settingsDark.settingsContainer : settingsLight.settingsContainer}>
                         <View style={colorMode === 'dark' ? settingsDark.section : settingsLight.section}>
-                            <LongHorizontalButton
+                            <LongIconButton
                               title={colorMode === 'dark' ? t('settings.lightMode') : t('settings.darkMode')}
                               styleButton={colorMode === 'dark' ? settingsDark.darkButton : settingsLight.darkButton}
                               styleText={colorMode === 'dark' ? settingsDark.darkButton.text : settingsLight.darkButton.text}
                               onPress={toggleDarkMode}
+                              testID="darkModeButton"
                               iconName={colorMode === 'dark' ? "sunny-outline" : "moon-outline"}
                               light={colorMode === 'dark' ? false : true}
                             />
@@ -119,7 +120,7 @@ function Settings({ navigation, route }: { navigation: any, route: any }) {
                                 iconName="power"
                                 light={colorMode === 'dark' ? true : false}
                             />
-                            <LongHorizontalButton
+                            <LongIconButton
                                 title={t('settings.deleteAccount')}
                                 styleButton={colorMode === 'dark' ? settingsDark.button : settingsLight.button}
                                 styleText={colorMode === 'dark' ? settingsDark.button.text : settingsLight.button.text}

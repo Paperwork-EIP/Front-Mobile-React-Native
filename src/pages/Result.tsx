@@ -5,13 +5,14 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 
 import { result } from "../../styles/pages/result";
+import { loading_component } from "../../styles/components/loading_component";
 import { useTranslation } from 'react-i18next';
 
 import { getItem } from "../services/Storage";
 import { Text, View, TouchableHighlight, Linking, ScrollView } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { CheckBox } from '@rneui/themed'
-// import CheckboxTree from 'react-checkbox-tree';
+import { CheckBox } from '@rneui/themed';
+import LoadingComponent from "../components/LoadingComponent";
 import LongHorizontalButton from "../components/LongHorizontalButton";
 
 import { useRoute } from '@react-navigation/native';
@@ -24,6 +25,8 @@ function Result({ navigation, route }: { navigation: any, route: any }) {
     const [stepsAnswer, setStepsAnswer] = useState([]);
     const [requeteSend, setRequeteSend] = useState(false);
 
+    const [isLoading, setIsLoading] = useState(true);
+
     const colorMode = route.params.colorMode;
 
     async function getUserSteps() {
@@ -32,6 +35,7 @@ function Result({ navigation, route }: { navigation: any, route: any }) {
             .then(res => {
                 setRequeteSend(true);
                 setStepsAnswer(res.data.response);
+                setIsLoading(false);
             }).catch(err => {
                 console.log(err);
             }
@@ -103,32 +107,18 @@ function Result({ navigation, route }: { navigation: any, route: any }) {
 
     return (
         <View style={colorMode === 'light' ? result.container : result.containerDark}>
-            <Text style={colorMode === 'light' ? result.text : result.textDark}>{t('quizzpage.toDo')}</Text>
-            <View style={result.scrollview}>
-                <ScrollView style={result.scrollview}>
-                    {stepsAnswer?.map((item, index) => {
-                        if (item.under_steps.length === 0) {
-                            return (
-                                <View key={index} style={result.checkboxContainer}>
-                                    <CheckBox
-                                        containerStyle={result.checkbox /*{backgroundColor: 'transparent'}*/}
-                                        title={item.description}
-                                        textStyle={colorMode === 'light' ? { color: 'black', fontSize: 13 } : { color: 'white', fontSize: 13 }}
-                                        disabled={false}
-                                        checked={item.is_done}
-                                        onPress={(newValue) => onValueChange(item, index)}
-                                        iconType="material-community"
-                                        checkedIcon="checkbox-marked"
-                                        uncheckedIcon="checkbox-blank-outline"
-                                        checkedColor="#29C9B3"
-                                    />
-                                    <TouchableHighlight onPress={() => { Linking.openURL(item.source) }}>
-                                        <Ionicons name="link" size={15} color="grey" />
-                                    </TouchableHighlight>
-                                </View>)
-                        } else {
-                            return (
-                                <View key={index} style={result.itemCheckboxContainer}>
+            {
+                isLoading ?
+                    <LoadingComponent styleContainer={loading_component.lightContainer} />
+                :
+                <>
+                
+                <Text style={colorMode === 'light' ? result.text : result.textDark}>{t('quizzpage.toDo')}</Text>
+                <View style={result.scrollview}>
+                    <ScrollView style={result.scrollview}>
+                        {stepsAnswer?.map((item, index) => {
+                            if (item.under_steps.length === 0) {
+                                return (
                                     <View key={index} style={result.checkboxContainer}>
                                         <CheckBox
                                             containerStyle={result.checkbox /*{backgroundColor: 'transparent'}*/}
@@ -136,53 +126,76 @@ function Result({ navigation, route }: { navigation: any, route: any }) {
                                             textStyle={colorMode === 'light' ? { color: 'black', fontSize: 13 } : { color: 'white', fontSize: 13 }}
                                             disabled={false}
                                             checked={item.is_done}
-                                            onPress={(newValue) => onMainValueChange(item, index)}
+                                            onPress={(newValue) => onValueChange(item, index)}
                                             iconType="material-community"
                                             checkedIcon="checkbox-marked"
                                             uncheckedIcon="checkbox-blank-outline"
                                             checkedColor="#29C9B3"
                                         />
-                                        <TouchableHighlight style={result.link} onPress={() => { Linking.openURL(item.source) }}>
+                                        <TouchableHighlight onPress={() => { Linking.openURL(item.source) }}>
                                             <Ionicons name="link" size={15} color="grey" />
                                         </TouchableHighlight>
+                                    </View>)
+                            } else {
+                                return (
+                                    <View key={index} style={result.itemCheckboxContainer}>
+                                        <View key={index} style={result.checkboxContainer}>
+                                            <CheckBox
+                                                containerStyle={result.checkbox /*{backgroundColor: 'transparent'}*/}
+                                                title={item.description}
+                                                textStyle={colorMode === 'light' ? { color: 'black', fontSize: 13 } : { color: 'white', fontSize: 13 }}
+                                                disabled={false}
+                                                checked={item.is_done}
+                                                onPress={(newValue) => onMainValueChange(item, index)}
+                                                iconType="material-community"
+                                                checkedIcon="checkbox-marked"
+                                                uncheckedIcon="checkbox-blank-outline"
+                                                checkedColor="#29C9B3"
+                                            />
+                                            <TouchableHighlight style={result.link} onPress={() => { Linking.openURL(item.source) }}>
+                                                <Ionicons name="link" size={15} color="grey" />
+                                            </TouchableHighlight>
+                                        </View>
+                                        <View style={result.underSteps}>
+                                            {item.under_steps.map((underStep, underIndex) => {
+                                                return (
+                                                    <View key={underIndex} style={result.checkboxContainer}>
+                                                        <CheckBox
+                                                            containerStyle={/*result.checkbox*/{ backgroundColor: 'transparent' }}
+                                                            title={underStep.description}
+                                                            textStyle={colorMode === 'light' ? { color: 'black', fontSize: 11 } : { color: 'white', fontSize: 11 }}
+                                                            disabled={false}
+                                                            checked={underStep.is_done}
+                                                            onPress={(newValue) => onUnderValueChange(underStep, index, underIndex)}
+                                                            iconType="material-community"
+                                                            checkedIcon="checkbox-marked"
+                                                            uncheckedIcon="checkbox-blank-outline"
+                                                            checkedColor="#29C9B3"
+                                                        />
+                                                        <TouchableHighlight onPress={() => { Linking.openURL(underStep.source) }}>
+                                                            <Ionicons name="link" size={15} color="grey" />
+                                                        </TouchableHighlight>
+                                                    </View>
+    
+                                                )
+                                            })}
+                                        </View>
                                     </View>
-                                    <View style={result.underSteps}>
-                                        {item.under_steps.map((underStep, underIndex) => {
-                                            return (
-                                                <View key={underIndex} style={result.checkboxContainer}>
-                                                    <CheckBox
-                                                        containerStyle={/*result.checkbox*/{ backgroundColor: 'transparent' }}
-                                                        title={underStep.description}
-                                                        textStyle={colorMode === 'light' ? { color: 'black', fontSize: 11 } : { color: 'white', fontSize: 11 }}
-                                                        disabled={false}
-                                                        checked={underStep.is_done}
-                                                        onPress={(newValue) => onUnderValueChange(underStep, index, underIndex)}
-                                                        iconType="material-community"
-                                                        checkedIcon="checkbox-marked"
-                                                        uncheckedIcon="checkbox-blank-outline"
-                                                        checkedColor="#29C9B3"
-                                                    />
-                                                    <TouchableHighlight onPress={() => { Linking.openURL(underStep.source) }}>
-                                                        <Ionicons name="link" size={15} color="grey" />
-                                                    </TouchableHighlight>
-                                                </View>
-
-                                            )
-                                        })}
-                                    </View>
-                                </View>
-                            )
-                        }
-                    })}
-                </ScrollView>
-            </View>
-            <LongHorizontalButton
-                title={t('quizzpage.done')}
-                onPress={() => handleClick()}
-                styleButton={result.doneButton}
-                styleText={result.doneButton.text}
-                testID="submitButton"
-            />
+                                )
+                            }
+                        })}
+                    </ScrollView>
+                </View>
+                <LongHorizontalButton
+                    title={t('quizzpage.done')}
+                    onPress={() => handleClick()}
+                    styleButton={result.doneButton}
+                    styleText={result.doneButton.text}
+                    testID="submitButton"
+                />
+            </>
+            }
+            
         </ View>
     );
 }

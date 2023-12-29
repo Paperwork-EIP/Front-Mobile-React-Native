@@ -196,7 +196,7 @@ const edit = StyleSheet.create({
             backgroundColor: lightBackgroundColor,
             borderRadius: 10,
             padding: 15,
-            height: "80%",
+            height: "75%",
             width: "90%",
             flexDirection: 'column',
             alignItems: 'center',
@@ -215,7 +215,7 @@ const edit = StyleSheet.create({
             backgroundColor: darkBackgroundColor,
             borderRadius: 10,
             padding: 15,
-            height: "80%",
+            height: "75%",
             width: "90%",
             flexDirection: 'column',
             alignItems: 'center',
@@ -261,11 +261,15 @@ const edit = StyleSheet.create({
             section: {
                 flexDirection: 'row',
                 alignItems: 'center',
+                justifyContent: 'space-between',
             },
             image: {
                 height: 100,
                 width: 100,
                 borderRadius: 40,
+                marginRight: 10,
+                marginLeft: 10,
+                marginBottom: 10,
             }
         },
 
@@ -282,22 +286,6 @@ const edit = StyleSheet.create({
                 width: 100,
                 elevation: 3,
                 backgroundColor: "#29C9B3",
-
-                text: {
-                    color: 'white',
-                    fontWeight: 'bold',
-                    textAlign: 'center',
-                }
-            },
-
-            buttonDelete: {
-                borderRadius: 20,
-                padding: 10,
-                height: 40,
-                width: 100,
-                elevation: 3,
-                marginLeft: 20,
-                backgroundColor: "#E74C3C",
 
                 text: {
                     color: 'white',

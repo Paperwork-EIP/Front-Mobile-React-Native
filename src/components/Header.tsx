@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Text, TouchableOpacity, View, Animated, Easing, Modal, Pressable, Image } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import LongHorizontalButton from "../components/LongHorizontalButton";
+import LongIconButton from "../components/LongIconButton";
 
 import { headerLight, headerDark } from "../../styles/components/header.js";
 
@@ -100,27 +100,30 @@ function Header({ navigation, theme }: { navigation: any, theme: any }) {
                             <Text
                                 style={colorMode === 'dark' ? headerDark.navTitle : headerLight.navTitle}
                                 onPress={preventModalClose}>{t('header.navigationQuestion')}</Text>
-                            <LongHorizontalButton
+                            <LongIconButton
                                 title={t('header.homePage')}
                                 styleButton={colorMode === 'dark' ? headerDark.button : headerLight.button}
                                 styleText={colorMode === 'dark' ? headerDark.button.text : headerLight.button.text}
                                 onPress={() => navigateToScreen('Home', 'Home')}
+                                testID='homeButton'
                                 iconName="home"
                                 light={colorMode === 'dark' ? true : false}
                             />
-                            <LongHorizontalButton
+                            <LongIconButton
                                 title={t('header.profilePage')}
                                 styleButton={colorMode === 'dark' ? headerDark.button : headerLight.button}
                                 styleText={colorMode === 'dark' ? headerDark.button.text : headerLight.button.text}
                                 onPress={() => navigateToScreen('Home', 'Profile')}
+                                testID='profileButton'
                                 iconName="person"
                                 light={colorMode === 'dark' ? true : false}
                             />
-                            <LongHorizontalButton
+                            <LongIconButton
                                 title={t('header.settingsPage')}
                                 styleButton={colorMode === 'dark' ? headerDark.button : headerLight.button}
                                 styleText={colorMode === 'dark' ? headerDark.button.text : headerLight.button.text}
-                                onPress={() => navigateToScreen('Settings')}
+                                onPress={() => navigateToPage('Settings')}
+                                testID='settingsButton'
                                 iconName="settings"
                                 light={colorMode === 'dark' ? true : false}
                             />

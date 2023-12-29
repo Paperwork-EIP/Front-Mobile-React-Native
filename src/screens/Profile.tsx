@@ -28,6 +28,7 @@ function Profile({ navigation, route }: { navigation: any, route: any }) {
     const [address, setAddress] = React.useState("");
     const [phonenumber, setPhonenumber] = React.useState("");
     const [profilePicture, setProfilePicture] = React.useState(require('../../assets/avatar/no_avatar.png'));
+    const [profilePictureTemp, setProfilePictureTemp] = React.useState('../../assets/avatar/no_avatar.png');
 
     const [isLoading, setIsLoading] = useState(true);
     const [userProcessInfo, setUserProcessInfo]: any = useState([]);
@@ -112,30 +113,39 @@ function Profile({ navigation, route }: { navigation: any, route: any }) {
     function getImagesFromAssetsByFilename(filename: string) {
         switch (filename) {
             case '/assets/avatar/avatar01.png':
+                setProfilePictureTemp('/assets/avatar/avatar01.png');
                 setProfilePicture(require('../../assets/avatar/avatar01.png'));
                 break;
             case '/assets/avatar/avatar02.png':
+                setProfilePictureTemp('/assets/avatar/avatar02.png');
                 setProfilePicture(require('../../assets/avatar/avatar02.png'));
                 break;
             case '/assets/avatar/avatar03.png':
+                setProfilePictureTemp('/assets/avatar/avatar03.png');
                 setProfilePicture(require('../../assets/avatar/avatar03.png'));
                 break;
             case '/assets/avatar/avatar04.png':
+                setProfilePictureTemp('/assets/avatar/avatar04.png');
                 setProfilePicture(require('../../assets/avatar/avatar04.png'));
                 break;
             case '/assets/avatar/avatar05.png':
+                setProfilePictureTemp('/assets/avatar/avatar05.png');
                 setProfilePicture(require('../../assets/avatar/avatar05.png'));
                 break;
             case '/assets/avatar/avatar06.png':
+                setProfilePictureTemp('/assets/avatar/avatar06.png');
                 setProfilePicture(require('../../assets/avatar/avatar06.png'));
                 break;
             case '/assets/avatar/avatar07.png':
+                setProfilePictureTemp('/assets/avatar/avatar07.png');
                 setProfilePicture(require('../../assets/avatar/avatar07.png'));
                 break;
             case '/assets/avatar/avatar08.png':
+                setProfilePictureTemp('/assets/avatar/avatar08.png');
                 setProfilePicture(require('../../assets/avatar/avatar08.png'));
                 break;
             default:
+                setProfilePictureTemp('/assets/avatar/no_avatar.png');
                 setProfilePicture(require('../../assets/avatar/no_avatar.png'));
                 break;
         }
@@ -151,18 +161,21 @@ function Profile({ navigation, route }: { navigation: any, route: any }) {
             email: email,
             address: address,
             phonenumber: phonenumber,
-            profilePicture: profilePicture
+            profilePicture: profilePictureTemp,
         })
     }
-    function goToResultPage(processSelected: any, processStockedTittle: any) {
-        navigation.navigate("Result", {processSelected: processSelected, processStockedTittle: processStockedTittle});
+    function goToResultPage(processStockedTittle: any) {
+        navigation.navigate("Result", {processStockedTittle: processStockedTittle});
     };
 
 
     useEffect(() => {
-        getUserInfo();
-        getProcess();
-    }, [items]);
+        let interval = setInterval(() => {
+            getUserInfo();
+            getProcess();
+        }, 20000);
+        return () => clearInterval(interval);        
+    }, []);
 
     return (
         <View style={colorMode === 'light' ? profile.container : profile.containerDark}>
@@ -229,7 +242,7 @@ function Profile({ navigation, route }: { navigation: any, route: any }) {
                                             {
                                                 userProcessInfo.map((item: any, index: number) => (
                                                     <View key={index}>
-                                                        <TouchableOpacity onPress={() => goToResultPage(item.process, item.stocked_title)}>
+                                                        <TouchableOpacity onPress={() => goToResultPage(item.stocked_title)}>
                                                             <View style={profile.textsInfo}>
                                                                 <View style={profile.leftPartInfo}>
                                                                     <Text style={colorMode === 'light' ? profile.leftPartInfoText : profile.leftPartInfoTextDark}>

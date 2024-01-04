@@ -9,7 +9,7 @@ import { loading_component } from "../../styles/components/loading_component";
 import { useTranslation } from 'react-i18next';
 
 import { getItem } from "../services/Storage";
-import { Text, View, TouchableHighlight, Linking, ScrollView } from 'react-native';
+import { Text, View, TouchableHighlight, Linking, ScrollView, ToastAndroid } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { CheckBox } from '@rneui/themed';
 import LoadingComponent from "../components/LoadingComponent";
@@ -37,9 +37,9 @@ function Result({ navigation, route }: { navigation: any, route: any }) {
                 setStepsAnswer(res.data.response);
                 setIsLoading(false);
             }).catch(err => {
+                ToastAndroid.show(t('error.result'), ToastAndroid.SHORT);
                 console.log(err);
-            }
-            );
+            });
     }
 
     useEffect(() => {
@@ -73,8 +73,10 @@ function Result({ navigation, route }: { navigation: any, route: any }) {
             process_title: processSelected?.processStockedTittle,
             questions: newStepsAnswer
         }).then(res => {
+            ToastAndroid.show(t('quizzpage.uploadResult'), ToastAndroid.SHORT);
             console.log(res.data.response);
         }).catch(err => {
+            ToastAndroid.show(t('error.uploadResult'), ToastAndroid.SHORT);
             console.log(err)
         })
         navigation.navigate('Home');

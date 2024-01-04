@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Image, Text, TouchableOpacity, useColorScheme } from "react-native";
+import { View, Image, Text, TouchableOpacity, useColorScheme, ToastAndroid } from "react-native";
 import { useTranslation } from 'react-i18next';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import axios from "axios";
@@ -99,13 +99,11 @@ function Profile({ navigation, route }: { navigation: any, route: any }) {
                 setEmail(res.data.email);
                 setAddress(res.data.address);
                 setPhonenumber(res.data.number_phone);
-
-                if (res.data.profile_picture != null) {
-                    getImagesFromAssetsByFilename(res.data.profile_picture);
-                }
+                getImagesFromAssetsByFilename(res.data.profile_picture);
                 setIsLoading(false);
             }).catch(err => {
                 setIsLoading(false);
+                ToastAndroid.show(t("error.profile"), ToastAndroid.SHORT);
                 console.log(err)
             });
     }
@@ -173,7 +171,7 @@ function Profile({ navigation, route }: { navigation: any, route: any }) {
         let interval = setInterval(() => {
             getUserInfo();
             getProcess();
-        }, 20000);
+        }, 3000);
         return () => clearInterval(interval);        
     }, []);
 

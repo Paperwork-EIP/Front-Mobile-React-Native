@@ -10,6 +10,8 @@
         "facebook": "Facebook",
         "noAccount": "Pas encore de compte ?",
         "register": "Inscrivez-vous",
+        "emailSent": "Email envoyé avec succès !",
+        "emailFail": "Échec de l'envoi de l'email de vérification",
         "error": {
             "title": "Erreur",
             "message": "Email ou mot de passe incorrect",
@@ -230,7 +232,10 @@
             "name": "Noms",
             "phoneNumber": "Numéro de téléphone",
             "submit": "Envoyé",
-            "selectLanguage": "Sélectionnez votre langue"
+            "selectLanguage": "Sélectionnez votre langue",
+            "picture": "Choisissez un avatar",
+            "noChange": "Aucun changement",
+            "updatedSuccess": "Vos informations ont été mises à jour avec succès"
         }
     },
     "header": {
@@ -245,12 +250,32 @@
         "yes": "Oui",
         "no": "Non",
         "toDo": "À faire",
-        "done": "Fait"
+        "done": "Fait",
+        "uploadResult": "Resultat envoyé"
     },
     "forgotPassword": {
         "title": "Mot de passe oublié ?\n",
         "placeholder": "Email\n",
         "submit": "Envoyer",
         "back": "Retour"
+    },
+    "error": {
+        "profile": "Erreur lors du chargement du profil",
+        "mainmenu": "Erreur lors du chargement du menu principal",
+        "mainmenuCalendar": "Erreur lors du chargement du calendrier du menu principal",
+        "calendar": "Erreur lors du chargement du calendrier",
+        "calendarDelete": "Erreur lors de la suppression de l'événement",
+        "alertMissingToken": "Erreur : Jeton manquant.",
+        "alertSystemError": "Erreur : Erreur système.",
+        "alertUserNotFound": "Erreur : Utilisateur non trouvé.",
+        "uploadResult": "Erreur lors du téléchargement",
+        "result": "Erreur lors du chargement du résultat",
+        "question": "Erreur lors du chargement de la question",
+        "process": "Erreur lors du chargement du processus",
+        "editInfoFail": "Échec de la mise à jour",
+        "calendarProcess": "Erreur lors du chargement du processus",
+        "calendarStep": "Erreur lors du chargement de l'étape",
+        "calendarAdd": "Erreur lors de l'ajout de l'événement",
+        "calendarEdit": "Erreur lors de l'édition de l'événement"
     }
 }

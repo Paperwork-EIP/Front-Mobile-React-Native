@@ -10,7 +10,7 @@ import { quizzQuestion } from "../../styles/pages/quizzQuestion";
 
 import LongHorizontalButton from "../components/LongHorizontalButton";
 
-import { Text, View } from 'react-native';
+import { Text, View, ToastAndroid } from 'react-native';
 import { exists, use } from 'i18next';
 
 function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) {
@@ -48,6 +48,7 @@ function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) 
                     setUpdate(true);
             });
         }).catch(err => {
+            ToastAndroid.show(t('error.process'), ToastAndroid.SHORT);
             console.log(err)
         });
     }
@@ -87,6 +88,7 @@ function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) 
             setCurrentQuestion(res.data.questions[nextStep - 1].question);
             setQuestions(res.data.questions);
         }).catch(err => {
+            ToastAndroid.show(t('error.question'), ToastAndroid.SHORT);
             console.log(err)
         });
 
@@ -108,6 +110,7 @@ function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) 
                 .then(res => {
                     navigation.navigate("Result", {processStockedTittle: processSelected?.processStockedTittle});
                 }).catch(err => {
+                    ToastAndroid.show(t('error.uploadResult'), ToastAndroid.SHORT);
                     console.log(err)
                 });
     }
@@ -119,6 +122,7 @@ function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) 
                 .then(res => {
                     navigation.navigate("Result", {processStockedTittle: processSelected?.processStockedTittle});
                 }).catch(err => {
+                    ToastAndroid.show(t('error.uploadResult'), ToastAndroid.SHORT);
                     console.log(err)
                 });
     }
@@ -205,11 +209,6 @@ function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) 
                     )
                 })}];
                 checkUpdate(responseTemp);
-                // if (update === false) {
-                //     addProcess(responseTemp);
-                // } else {
-                //     updateProcess(responseTemp);
-                // }
             }  else if (questions[nextStep - 1].underQuestions) {
                 if (nextUnder === -1) {
                     setNextUnder(nextUnder + 1);

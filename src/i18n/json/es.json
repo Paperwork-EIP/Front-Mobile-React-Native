@@ -10,6 +10,8 @@
         "facebook": "Facebook",
         "noAccount": "¿No tienes una cuenta?",
         "register": "Registrarse",
+        "emailSent": "¡Correo electrónico enviado con éxito!",
+        "emailFail": "Error al enviar el correo electrónico de verificación",
         "error": {
             "title": "Error",
             "message": "Correo electrónico o contraseña no válidos",
@@ -230,7 +232,10 @@
             "name": "Apellido",
             "phoneNumber": "Número de Teléfono",
             "submit": "Enviar",
-            "selectLanguage": "Seleccionar Idioma"
+            "selectLanguage": "Seleccionar Idioma",
+            "picture": "Elija un avatar",
+            "noChange": "No hay cambios",
+            "updatedSuccess": "Tus informaciones se han actualizado con éxito"
         }
     },
     "header": {
@@ -245,13 +250,33 @@
         "yes": "Sí",
         "no": "No",
         "toDo": "Por Hacer",
-        "done": "Hecho"
+        "done": "Hecho",
+        "uploadResult": "Carga exitosa"
     },
     "forgotPassword": {
         "title": "¿Olvidaste tu Contraseña?\n",
         "placeholder": "Correo Electrónico\n",
         "submit": "Enviar",
         "back": "Volver"
+    },
+    "error": {
+        "profile": "Error al cargar el perfil",
+        "mainmenu": "Error al cargar el menú principal",
+        "mainmenuCalendar": "Error al cargar el calendario del menú principal",
+        "calendar": "Error al cargar el calendario",
+        "calendarDelete": "Error al eliminar el evento",
+        "alertMissingToken": "Error: Token faltante.",
+        "alertSystemError": "Error: Error del sistema.",
+        "alertUserNotFound": "Error: Usuario no encontrado.",
+        "uploadResult": "Error al cargar",
+        "result": "Error al cargar el resultado",
+        "question": "Error al cargar la pregunta",
+        "process": "Error al cargar el proceso",
+        "editInfoFail": "Error en la actualización",
+        "calendarProcess": "Error al cargar el proceso",
+        "calendarStep": "Error al cargar el paso",
+        "calendarAdd": "Error al agregar el evento",
+        "calendarEdit": "Error al editar el evento"
     }
     
 }

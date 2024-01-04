@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ScrollView, ToastAndroid } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import axios from "axios";
 
@@ -67,6 +67,7 @@ function MainMenu({ navigation, route }: { navigation: any, route: any }) {
                         break;
                 }
             }).catch(err => {
+                ToastAndroid.show(t("error.mainmenu"), ToastAndroid.SHORT);
                 console.log(err)
             });
     }
@@ -148,6 +149,7 @@ function MainMenu({ navigation, route }: { navigation: any, route: any }) {
         }).catch((error) => {
             setItems([]);
             setIsLoadingCalendarAgendaList(false);
+            ToastAndroid.show(t("error.mainmenuCalendar"), ToastAndroid.SHORT);
             console.error("Error axios get calendar : ", error.response);
         });
     }
@@ -204,6 +206,7 @@ function MainMenu({ navigation, route }: { navigation: any, route: any }) {
         }
         if (done === false) {
             getLanguage();
+            // getDarkMode();
             setDone(true);
         }
 

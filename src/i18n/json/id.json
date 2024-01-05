@@ -108,6 +108,7 @@
             "edit": {
                 "title": "Edit/Hapus acara",
                 "button": "Edit",
+                "updated": "Acara berhasil diperbarui",
                 "ok": "OK"
             },
             "delete": {

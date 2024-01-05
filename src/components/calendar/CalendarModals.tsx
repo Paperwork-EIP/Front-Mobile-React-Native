@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Modal, Text, Alert, useColorScheme, StyleProp, ViewStyle, ToastAndroid } from 'react-native';
+import { View, Modal, Text, Alert, StyleProp, ViewStyle, ToastAndroid } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Picker } from '@react-native-picker/picker';
 import DatePicker from 'react-native-date-picker';
@@ -14,28 +14,6 @@ import { getItem } from "../../services/Storage";
 
 import { calendar_modal } from '../../../styles/components/calendar/calendar_modal';
 import { loading_component } from '../../../styles/components/loading_component';
-
-interface CalendarModalProps {
-    title: string;
-    processTitle: string;
-    stepDescription: string;
-    date: string;
-    modalVisible: boolean;
-    setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-interface CalendarActionsModalProps {
-    title: string;
-    userProcessId: number
-    stepId: number;
-    modalVisible: boolean;
-    setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-interface CalendarAddModaProps {
-    modalVisible: boolean;
-    setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
-}
 
 function CalendarItemModal(props: any) {
     const hour = props.title.split('-')[0];
@@ -122,22 +100,24 @@ function CalendarActionsModal(props: any) {
                 'user_process_id': props.userProcessId,
                 'step_id': props.stepId,
                 'date': convertedDate
-            }).then((response) => {
+            }).then(() => {
                 setIsLoading(false);
                 Alert.alert(
                     t('calendar.modal.edit.title'),
-                    response.data.message,
+                    t('calendar.modal.edit.updated'),
                     [
                         {
                             text: t('calendar.modal.edit.ok'),
-                            onPress: () => props.setModalVisible(!props.modalVisible)
+                            onPress: () => {
+                                props.setModalVisible(!props.modalVisible);
+                            }
                         }
                     ]
                 );
             }).catch((error) => {
                 setIsLoading(false);
                 ToastAndroid.show(t('error.calendarEdit'), ToastAndroid.SHORT);
-                console.log(error.message);
+                console.error(error.message);
             });
         }
     }
@@ -159,11 +139,11 @@ function CalendarActionsModal(props: any) {
                         onPress: async () => {
                             setIsLoading(true);
                             await axios.get(`${url}/calendar/delete?user_process_id=${props.userProcessId}&step_id=${props.stepId}`)
-                                .then((response) => {
+                                .then(() => {
                                     setIsLoading(false);
                                     Alert.alert(
+                                        t('calendar.modal.delete.title'),
                                         t('calendar.modal.delete.success'),
-                                        response.data.message,
                                         [
                                             {
                                                 text: t('calendar.modal.delete.ok'),
@@ -276,9 +256,7 @@ function CalendarAddModal(props: any) {
                 'user_process_id': selectedUserProcessId,
                 'step_id': selectedStepId,
                 'date': convertedDate
-            }).then((response) => {
-                console.log(response.status);
-                console.log("user_process_id = " + selectedUserProcessId + " step_id = " + selectedStepId + " date = " + convertedDate)
+            }).then(() => {
                 setIsLoading(false);
                 Alert.alert(
                     t('calendar.modal.add.title'),
@@ -293,7 +271,7 @@ function CalendarAddModal(props: any) {
             }).catch((error) => {
                 setIsLoading(false);
                 ToastAndroid.show(t('error.calendarAdd'), ToastAndroid.SHORT);
-                console.log(error.response.data);
+                console.error(error.response.data);
             });
         }
     }
@@ -395,14 +373,14 @@ function CalendarAddModal(props: any) {
                         }).catch((error) => {
                             setIsLoading(false);
                             ToastAndroid.show(t('error.calendarStep'), ToastAndroid.SHORT);
-                            console.log(error.response.data);
+                            console.error(error.response.data);
                         })
                     }
                 }
             }).catch((error) => {
                 setIsLoading(false);
                 ToastAndroid.show(t('error.calendarProcess'), ToastAndroid.SHORT);
-                console.log(error);
+                console.error(error);
             });
         }
     }

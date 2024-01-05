@@ -108,6 +108,7 @@
             "edit": {
                 "title": "Ereignis bearbeiten/löschen",
                 "button": "Bearbeiten",
+                "updated": "Ereignis erfolgreich aktualisiert",
                 "ok": "OK"
             },
             "delete": {

@@ -8,7 +8,7 @@ const edit = StyleSheet.create({
         backgroundColor: lightBackgroundColor,
         alignItems: 'center',
         justifyContent: 'center',
-        // paddingTop: 50
+        paddingHorizontal: 10
     },
     containerDark: {
         width: '100%',
@@ -16,7 +16,7 @@ const edit = StyleSheet.create({
         backgroundColor: darkBackgroundColor,
         alignItems: 'center',
         justifyContent: 'center',
-        // paddingTop: 50
+        paddingHorizontal: 10
     },
     homebtn: {
         flexDirection: 'row',
@@ -50,19 +50,16 @@ const edit = StyleSheet.create({
         height: '20%',
         alignItems: 'center',
         justifyContent: 'center',
-        // backgroundColor: 'green',
     },
     modifPicture: {
         width: '100%',
         height: '100%',
         alignItems: 'center',
-        // backgroundColor: 'red',
     },
     profilePicture: {
         width: '80%',
         height: '60%',
         marginTop: 30,
-        // backgroundColor: '#000000',
         borderRadius: 100,
     },
     input: {
@@ -80,7 +77,7 @@ const edit = StyleSheet.create({
         backgroundColor: darkSecondaryBackgroundColor,
         color: darkTextColor,
         borderColor: darkTextColor,
-        borderWidth: 2,
+        borderWidth: 0,
         marginBottom: 12,
         paddingVertical: 10,
         paddingHorizontal: 15,
@@ -116,7 +113,7 @@ const edit = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 15,
         borderRadius: 15,
-        borderWidth: 2,
+        borderWidth: 0,
         borderColor: darkTextColor,
         color: darkSecondaryBackgroundColor,
 
@@ -173,8 +170,8 @@ const edit = StyleSheet.create({
         backgroundColor: darkSecondaryBackgroundColor,
         borderRadius: 8,
     },
-    dropdownTxtStyle: { color: lightTextColor, textAlign: 'left' },
-    dropdownTxtStyleDark: { color: darkTextColor, textAlign: 'left' },
+    dropdownTxtStyle: { color: lightTextColor, textAlign: 'left', fontSize: 16 },
+    dropdownTxtStyleDark: { color: darkTextColor, textAlign: 'left', fontSize: 16 },
     dropdown1DropdownStyle: { backgroundColor: '#EFEFEF', borderWidth: 2, borderRadius: 10 },
     dropdown1DropdownStyleDark: { backgroundColor: darkSecondaryBackgroundColor, borderWidth: 2, borderRadius: 10 },
     dropdownRowStyle: { backgroundColor: 'white', borderBottomColor: '#C5C5C5' },

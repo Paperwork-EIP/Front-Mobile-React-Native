@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
-import { /*Alert,*/ Modal, View, Image, TextInput, Text, TouchableHighlight, TouchableOpacity, ScrollView, ImageStyle, ToastAndroid } from "react-native";
+import { Modal, View, Image, TextInput, Text, TouchableHighlight, TouchableOpacity, ScrollView, ImageStyle, ToastAndroid } from "react-native";
 import { useTranslation } from 'react-i18next';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-
-import { useRoute } from '@react-navigation/native';
 
 import { getItem } from "../services/Storage";
 
@@ -29,10 +26,9 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
     const [password, setPassword] = React.useState('');
     const [hidePassword, setHidePassword] = React.useState(true);
 
-    // User informations
     const [usernameEdit, setUsername] = React.useState("");
     const [nameEdit, setName] = React.useState("");
-    // const [firstnameEdit, setFirstname] = React.useState("");
+    const [firstnameEdit, setFirstname] = React.useState("");
     const [languageEdit, setLanguage] = React.useState("");
     const [ageEdit, setAge] = React.useState("");
     const [emailEdit, setEmail] = React.useState("");
@@ -76,9 +72,9 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
         setAge(text);
     }
 
-    // function handleFirstnameChange(text: React.SetStateAction<string>) {
-    //     setFirstname(text);
-    // }
+    function handleFirstnameChange(text: React.SetStateAction<string>) {
+        setFirstname(text);
+    }
 
     function handleNameChange(text: React.SetStateAction<string>) {
         setName(text);
@@ -104,7 +100,7 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
         const checkAndAssignPicture = (newValue: string, oldValue: string, paramName: string) => {
             var path = '../..'
             newValue = path.concat(newValue);
-            if (newValue.length > 0 && oldValue !== newValue) {
+            if (newValue.length > 5 && oldValue !== newValue) {
                 Object.assign(parameters, { [paramName]: profilePictureEdit });
                 isAnyNewValue = true;
             }
@@ -112,7 +108,7 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
 
         checkAndAssign(usernameEdit, userInfo?.username, 'username');
         checkAndAssign(nameEdit, userInfo?.name, 'name');
-        // checkAndAssign(firstnameEdit, userInfo?.firstname, 'firstname');
+        checkAndAssign(firstnameEdit, userInfo?.firstname, 'firstname');
         checkAndAssign(languageEdit, userInfo?.language, 'language');
         checkAndAssign(ageEdit, userInfo?.age, 'age');
         checkAndAssign(emailEdit, userInfo?.email, 'new_email');
@@ -140,23 +136,21 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
                 i18n.changeLanguage("ko");
                 break;
             default:
-                i18n.changeLanguage("en");
                 break;
         }
 
         if (isAnyNewValue) {
-            axios.post(`${url}/user/modifyDatas`, parameters)
-                .then(res => {
+            await axios.post(`${url}/user/modifyDatas`, parameters)
+                .then(() => {
                     ToastAndroid.show(t("profile.editInfo.updatedSuccess"), ToastAndroid.SHORT);
                     navigation.goBack();
                 })
                 .catch(err => {
-                    console.log(err);
+                    console.error(err);
                     ToastAndroid.show(t('error.editInfoFail'), ToastAndroid.SHORT);
                 });
         } else {
             ToastAndroid.show(t("profile.editInfo.noChange"), ToastAndroid.SHORT);
-            console.log('no change');
         }
     };
 
@@ -336,14 +330,14 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
                         
                     </TouchableHighlight>
                 </View>
-                <ScrollView >
+                <ScrollView>
                     <TextInput
                         style={colorMode === 'light' ? edit.input : edit.inputDark}
                         onChangeText={handleUsernameChange}
                         value={usernameEdit}
                         placeholder={userInfo?.username}
                         placeholderTextColor={colorMode === 'light' ? '#454545' : '#cecece'}
-                        // inputMode="Username"
+                        inputMode="text"
                         testID="usernameInput"
                     />
                     <TextInput
@@ -357,21 +351,20 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
                     />
                     <SelectDropdown
                         data={languageValue}
-                        onSelect={(selectedItem, index) => {
-                            console.log("selectitem " + selectedItem)
+                        onSelect={(selectedItem) => {
                             setLanguage(selectedItem);
                         }}
                         defaultButtonText={t('profile.editInfo.selectLanguage')}
-                        buttonTextAfterSelection={(selectedItem, index) => {
+                        buttonTextAfterSelection={(selectedItem) => {
                             return selectedItem;
                         }}
-                        rowTextForSelection={(item, index) => {
+                        rowTextForSelection={(item) => {
                             return item;
                         }}
                         buttonStyle={colorMode === 'light' ? edit.dropdownStyle : edit.dropdownStyleDark}
                         buttonTextStyle={colorMode === 'light' ? edit.dropdownTxtStyle : edit.dropdownTxtStyleDark}
                         renderDropdownIcon={isOpened => {
-                            return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={colorMode === 'light' ? '#454545' : '#cecece'} size={18} />;
+                            return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={colorMode === 'light' ? '#454545' : '#cecece'} size={16} />;
                         }}
                         dropdownIconPosition={'right'}
                         dropdownStyle={colorMode === 'light' ? edit.dropdown1DropdownStyle : edit.dropdown1DropdownStyleDark}
@@ -399,43 +392,44 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
                         value={addressEdit}
                         placeholder={userInfo?.address === null ? t('profile.editInfo.address') : userInfo?.address}
                         placeholderTextColor={colorMode === 'light' ? '#454545' : '#cecece'}
-                        inputMode="email"
-                        testID="emailInput"
+                        inputMode="text"
+                        testID="addressInput"
                     />
                     <TextInput
                         style={colorMode === 'light' ? edit.input : edit.inputDark}
                         onChangeText={handleAgeChange}
                         value={ageEdit}
-                        placeholder={userInfo?.age === null ? t('profile.editInfo.age') : userInfo?.age}
+                        placeholder={userInfo?.age === null ? t('profile.editInfo.age') : userInfo?.age.toString()}
                         placeholderTextColor={colorMode === 'light' ? '#454545' : '#cecece'}
-                        inputMode="email"
-                        testID="emailInput"
+                        inputMode="numeric"
+                        testID="ageInput"
                     />
-                    {/* <TextInput
-                        style={edit.input}
+                    <TextInput
+                        style={colorMode === 'light' ? edit.input : edit.inputDark}
                         onChangeText={handleFirstnameChange}
                         value={firstnameEdit}
-                        placeholder={userInfo?.firstname === null ? "firstname" : userInfo?.firstname}
-                        inputMode="email"
-                        testID="emailInput"
-                    /> */}
+                        placeholder={userInfo?.firstname === null ? t('profile.editInfo.firstname') : userInfo?.firstname}
+                        placeholderTextColor={colorMode === 'light' ? '#454545' : '#cecece'}
+                        inputMode="text"
+                        testID="firstnameInput"
+                    />
                     <TextInput
                         style={colorMode === 'light' ? edit.input : edit.inputDark}
                         onChangeText={handleNameChange}
                         value={nameEdit}
                         placeholder={userInfo?.name === null ? t('profile.editInfo.name') : userInfo?.name}
                         placeholderTextColor={colorMode === 'light' ? '#454545' : '#cecece'}
-                        inputMode="email"
-                        testID="emailInput"
+                        inputMode="text"
+                        testID="nameInput"
                     />
                     <TextInput
                         style={colorMode === 'light' ? edit.input : edit.inputDark}
                         onChangeText={handlePhonenumberChange}
                         value={phonenumberEdit}
-                        placeholder={userInfo?.phonenumber === null ? t('profile.editInfo.phoneNumber') : userInfo?.phonenumber}
+                        placeholder={userInfo?.phonenumber === null ? t('profile.editInfo.phoneNumber') : userInfo?.phonenumber.toString()}
                         placeholderTextColor={colorMode === 'light' ? '#454545' : '#cecece'}
-                        inputMode="email"
-                        testID="emailInput"
+                        inputMode="tel"
+                        testID="phoneNumberInput"
                     />
                 </ScrollView>
                 <LongHorizontalButton

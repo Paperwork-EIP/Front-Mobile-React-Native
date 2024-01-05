@@ -25,7 +25,8 @@ function ForgotPassword({ navigation, route }: { navigation: any, route: any }) 
     }
 
     const handleSubmit = async () => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emailRegex = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
         if (!emailRegex.test(email)) {
             setError(t("Invalid email address"));
             return;
@@ -33,12 +34,10 @@ function ForgotPassword({ navigation, route }: { navigation: any, route: any }) 
 
         try {
         await axios.get(process.env.EXPO_PUBLIC_BASE_URL + '/user/sendResetPasswordEmail', { params: { email: email } });
-            ToastAndroid.show('An error occur', ToastAndroid.SHORT);
-            //toast t('login.emailSent');
+            ToastAndroid.show(t('login.emailSent'), ToastAndroid.SHORT);
             console.log("email sent");
         } catch (error) {
-            ToastAndroid.show('An error occur', ToastAndroid.SHORT);
-            //toast t('login.emailFail');
+            ToastAndroid.show(t('login.emailFail'), ToastAndroid.SHORT);
             console.error(error);
         }
     };

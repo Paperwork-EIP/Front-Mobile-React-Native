@@ -5,6 +5,10 @@ import Language from './Languages.js';
 
 import en from './json/en.json';
 import fr from './json/fr.json';
+import de from './json/de.json';
+import es from './json/es.json';
+import id from './json/id.json';
+import ko from './json/ko.json';
 
 let defaultLanguage = Language.EN;
 
@@ -14,6 +18,18 @@ const resources = {
     },
     fr: {
         translation: fr
+    },
+    de: {
+        translation: de
+    },
+    es: {
+        translation: es
+    },
+    id: {
+        translation: id
+    },
+    ko: {
+        translation: ko
     }
 };
 

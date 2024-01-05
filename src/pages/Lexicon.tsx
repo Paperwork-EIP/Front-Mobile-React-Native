@@ -6,6 +6,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 function Lexicon({ navigation, route }: { navigation: any, route: any }) {
   const { t, i18n } = useTranslation();
+  const colorMode = route.params.colorMode;
 
   function changeLanguage(language: string | undefined) {
       i18n.changeLanguage(language);
@@ -49,7 +50,7 @@ function Lexicon({ navigation, route }: { navigation: any, route: any }) {
   };
 
   return (
-    <ScrollView style={lexicon.container}>
+    <ScrollView style={colorMode === 'light' ?  lexicon.container : lexicon.containerDark}>
     <View>
         <TouchableOpacity
             style={lexicon.homebtn}
@@ -60,15 +61,15 @@ function Lexicon({ navigation, route }: { navigation: any, route: any }) {
       <View style={lexicon.content}>
         <Image source={require('../../assets/images/lexicon/Lexicon-icon.png')} style={lexicon.faqImage} />
         {faqs.map((faq, index) => (
-          <View key={index} style={lexicon.faqContainer}>
+          <View key={index} style={colorMode === 'light' ? lexicon.faqContainer : lexicon.faqContainerDark}>
             <TouchableOpacity onPress={() => toggleFAQ(index)}>
-              <View style={lexicon.faqHeader}>
-                <Text style={lexicon.faqQuestion}>{faq.question}</Text>
+              <View style={colorMode === 'light' ? lexicon.faqHeader : lexicon.faqHeaderDark}>
+                <Text style={colorMode === 'light' ? lexicon.faqQuestion : lexicon.faqQuestionDark}>{faq.question}</Text>
               </View>
             </TouchableOpacity>
             {expandedIndex === index && (
               <>
-                <Text style={lexicon.faqAnswer}>{faq.answer}</Text>
+                <Text style={colorMode === 'light' ? lexicon.faqAnswer : lexicon.faqAnswerDark}>{faq.answer}</Text>
                 <TouchableOpacity onPress={() => Linking.openURL(faq.link)}>
                   <Image source={faq.image} style={lexicon.faqImage} />
                 </TouchableOpacity>

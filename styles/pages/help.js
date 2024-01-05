@@ -1,10 +1,22 @@
 import { StyleSheet } from "react-native";
+import {
+  lightTextColor,
+  lightBackgroundColor,
+  darkTextColor,
+  darkBackgroundColor,
+  darkSecondaryBackgroundColor,
+} from '../colors';
 
 const help = StyleSheet.create({
 container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#F7F7F7',
+    backgroundColor: lightBackgroundColor,
+  },
+  containerDark: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: darkBackgroundColor,
   },
   content: {
     marginBottom: 16,
@@ -19,21 +31,22 @@ container: {
       letterSpacing: 1,
     },
     homebtn: {
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'left',
-          marginBottom: "5%",
-          marginTop: "5%",
-
-          text: {
-              color: 'black',
-              fontSize: 24,
-              fontWeight: 'bold'
-          }
-      },
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'left',
+      marginBottom: "5%",
+      marginTop: "5%",
+  },
   faqContainer: {
     marginBottom: 24,
     backgroundColor: '#FFF',
+    borderRadius: 8,
+    elevation: 2,
+    padding: 16,
+  },
+  faqContainerDark: {
+    marginBottom: 24,
+    backgroundColor: darkSecondaryBackgroundColor,
     borderRadius: 8,
     elevation: 2,
     padding: 16,
@@ -45,12 +58,21 @@ container: {
   },
   faqQuestion: {
     fontSize: 20,
-    color: '#333',
+    color: lightTextColor,
+  },
+  faqQuestionDark: {
+    fontSize: 20,
+    color: darkTextColor,
   },
   faqAnswer: {
     marginTop: 12,
     fontSize: 16,
     color: '#666',
+  },
+  faqAnswerDark: {
+    marginTop: 12,
+    fontSize: 16,
+    color: darkTextColor,
   },
   faqImage: {
     width: '50%',

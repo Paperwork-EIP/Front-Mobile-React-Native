@@ -1,6 +1,10 @@
 const Language = {
     EN: "en",
-    FR: "fr"
+    FR: "fr",
+    DE: "de",
+    ES: "es",
+    ID: "id",
+    KO: "ko",
 };
 
 export default Language;

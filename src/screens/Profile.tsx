@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Image, Text, TouchableOpacity, useColorScheme } from "react-native";
+import { View, Image, Text, TouchableOpacity, useColorScheme, ToastAndroid } from "react-native";
 import { useTranslation } from 'react-i18next';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import axios from "axios";
@@ -27,7 +27,8 @@ function Profile({ navigation, route }: { navigation: any, route: any }) {
     const [email, setEmail] = React.useState("");
     const [address, setAddress] = React.useState("");
     const [phonenumber, setPhonenumber] = React.useState("");
-    const [profilePicture, setProfilePicture] = React.useState(require('../../assets/avatar/NoAvatar.png'));
+    const [profilePicture, setProfilePicture] = React.useState(require('../../assets/avatar/no_avatar.png'));
+    const [profilePictureTemp, setProfilePictureTemp] = React.useState('../../assets/avatar/no_avatar.png');
 
     const [isLoading, setIsLoading] = useState(true);
     const [userProcessInfo, setUserProcessInfo]: any = useState([]);
@@ -78,9 +79,9 @@ function Profile({ navigation, route }: { navigation: any, route: any }) {
         const userProcessTmp = [];
         for (let j = 0; j < response.data.response.length; j++) {
             if (response.data.response[j]['pourcentage'] != null)
-                userProcessTmp.push({ process: response.data.response[j]['userProcess'].title, percentage: response.data.response[j]['pourcentage'] });
+                userProcessTmp.push({ process: response.data.response[j]['userProcess'].title, stocked_title: response.data.response[j]['userProcess'].stocked_title, percentage: response.data.response[j]['pourcentage'] });
             else
-                userProcessTmp.push({ process: response.data.response[j]['userProcess'].title, percentage: 0 });
+                userProcessTmp.push({ process: response.data.response[j]['userProcess'].title, stocked_title: response.data.response[j]['userProcess'].stocked_title, percentage: 0 });
         }
         setUserProcessInfo(userProcessTmp);
     }
@@ -98,45 +99,52 @@ function Profile({ navigation, route }: { navigation: any, route: any }) {
                 setEmail(res.data.email);
                 setAddress(res.data.address);
                 setPhonenumber(res.data.number_phone);
-
-                if (res.data.profile_picture != null) {
-                    getImagesFromAssetsByFilename(res.data.profile_picture);
-                }
+                getImagesFromAssetsByFilename(res.data.profile_picture);
                 setIsLoading(false);
             }).catch(err => {
                 setIsLoading(false);
+                ToastAndroid.show(t("error.profile"), ToastAndroid.SHORT);
                 console.log(err)
             });
     }
 
     function getImagesFromAssetsByFilename(filename: string) {
         switch (filename) {
-            case '/assets/avatar/Avatar01.png':
-                setProfilePicture(require('../../assets/avatar/Avatar01.png'));
+            case '/assets/avatar/avatar01.png':
+                setProfilePictureTemp('/assets/avatar/avatar01.png');
+                setProfilePicture(require('../../assets/avatar/avatar01.png'));
                 break;
-            case '/assets/avatar/Avatar02.png':
-                setProfilePicture(require('../../assets/avatar/Avatar02.png'));
+            case '/assets/avatar/avatar02.png':
+                setProfilePictureTemp('/assets/avatar/avatar02.png');
+                setProfilePicture(require('../../assets/avatar/avatar02.png'));
                 break;
-            case '/assets/avatar/Avatar03.png':
-                setProfilePicture(require('../../assets/avatar/Avatar03.png'));
+            case '/assets/avatar/avatar03.png':
+                setProfilePictureTemp('/assets/avatar/avatar03.png');
+                setProfilePicture(require('../../assets/avatar/avatar03.png'));
                 break;
-            case '/assets/avatar/Avatar04.png':
-                setProfilePicture(require('../../assets/avatar/Avatar04.png'));
+            case '/assets/avatar/avatar04.png':
+                setProfilePictureTemp('/assets/avatar/avatar04.png');
+                setProfilePicture(require('../../assets/avatar/avatar04.png'));
                 break;
-            case '/assets/avatar/Avatar05.png':
-                setProfilePicture(require('../../assets/avatar/Avatar05.png'));
+            case '/assets/avatar/avatar05.png':
+                setProfilePictureTemp('/assets/avatar/avatar05.png');
+                setProfilePicture(require('../../assets/avatar/avatar05.png'));
                 break;
-            case '/assets/avatar/Avatar06.png':
-                setProfilePicture(require('../../assets/avatar/Avatar06.png'));
+            case '/assets/avatar/avatar06.png':
+                setProfilePictureTemp('/assets/avatar/avatar06.png');
+                setProfilePicture(require('../../assets/avatar/avatar06.png'));
                 break;
-            case '/assets/avatar/Avatar07.png':
-                setProfilePicture(require('../../assets/avatar/Avatar07.png'));
+            case '/assets/avatar/avatar07.png':
+                setProfilePictureTemp('/assets/avatar/avatar07.png');
+                setProfilePicture(require('../../assets/avatar/avatar07.png'));
                 break;
-            case '/assets/avatar/Avatar08.png':
-                setProfilePicture(require('../../assets/avatar/Avatar08.png'));
+            case '/assets/avatar/avatar08.png':
+                setProfilePictureTemp('/assets/avatar/avatar08.png');
+                setProfilePicture(require('../../assets/avatar/avatar08.png'));
                 break;
             default:
-                setProfilePicture(require('../../assets/avatar/NoAvatar.png'));
+                setProfilePictureTemp('/assets/avatar/no_avatar.png');
+                setProfilePicture(require('../../assets/avatar/no_avatar.png'));
                 break;
         }
     }
@@ -151,14 +159,21 @@ function Profile({ navigation, route }: { navigation: any, route: any }) {
             email: email,
             address: address,
             phonenumber: phonenumber,
-            profilePicture: profilePicture
+            profilePicture: profilePictureTemp,
         })
     }
+    function goToResultPage(processStockedTittle: any) {
+        navigation.navigate("Result", {processStockedTittle: processStockedTittle});
+    };
+
 
     useEffect(() => {
-        getUserInfo();
-        getProcess();
-    }, [items]);
+        let interval = setInterval(() => {
+            getUserInfo();
+            getProcess();
+        }, 3000);
+        return () => clearInterval(interval);        
+    }, []);
 
     return (
         <View style={colorMode === 'light' ? profile.container : profile.containerDark}>
@@ -175,7 +190,7 @@ function Profile({ navigation, route }: { navigation: any, route: any }) {
                                 />
                             </View>
                             <View style={profile.profileTexts}>
-                                <Text style={colorMode === 'light' ? profile.profileText : profile.profileTextDark}>{firstname ? firstname : t('profile.noInfo')} </ Text>
+                                <Text style={colorMode === 'light' ? profile.profileText : profile.profileTextDark}>{firstname ? firstname : null} </ Text>
                                 <Text style={colorMode === 'light' ? profile.profileText : profile.profileTextDark}>{name ? name : t('profile.noInfo')} </ Text>
                             </View>
                             <View style={profile.profileTexts}>
@@ -221,32 +236,35 @@ function Profile({ navigation, route }: { navigation: any, route: any }) {
                                 <Text style={colorMode === 'light' ? profile.title : profile.titleDark}>{t('profile.ongoingProcess')}</ Text>
                                 {
                                     userProcessInfo.length > 0 ?
-                                        <View style={colorMode === 'light' ? profile.info : profile.infoDark}>
+                                        <View style={colorMode === 'light' ? profile.info : profile.infoDark}>                                             
                                             {
                                                 userProcessInfo.map((item: any, index: number) => (
                                                     <View key={index}>
-                                                        <View style={profile.textsInfo}>
-                                                            <View style={profile.leftPartInfo}>
-                                                                <Text style={colorMode === 'light' ? profile.leftPartInfoText : profile.leftPartInfoTextDark}>
-                                                                    {index + 1}.
-                                                                </Text>
-                                                                <Text style={colorMode === 'light' ? profile.leftPartInfoText : profile.leftPartInfoTextDark}>
-                                                                    {item.process}
-                                                                </Text>
-                                                            </View>
-                                                            <View style={profile.rightPartInfo}>
-                                                                <Text style={colorMode === 'light' ? profile.rightPartInfoText : profile.rightPartInfoTextDark}>
-                                                                    {item.percentage}%
-                                                                </Text>
-                                                            </View>
-                                                        </ View>
-                                                        {
-                                                            index + 1 !== userProcessInfo.length &&
-                                                            <View style={profile.line} />
-                                                        }
+                                                        <TouchableOpacity onPress={() => goToResultPage(item.stocked_title)}>
+                                                            <View style={profile.textsInfo}>
+                                                                <View style={profile.leftPartInfo}>
+                                                                    <Text style={colorMode === 'light' ? profile.leftPartInfoText : profile.leftPartInfoTextDark}>
+                                                                        {index + 1}.
+                                                                    </Text>
+                                                                    <Text style={colorMode === 'light' ? profile.leftPartInfoText : profile.leftPartInfoTextDark}>
+                                                                        {item.process}
+                                                                    </Text>
+                                                                </View>
+                                                                <View style={profile.rightPartInfo}>
+                                                                    <Text style={colorMode === 'light' ? profile.rightPartInfoText : profile.rightPartInfoTextDark}>
+                                                                        {item.percentage}%
+                                                                    </Text>
+                                                                </View>
+                                                            </ View>
+                                                            {
+                                                                index + 1 !== userProcessInfo.length &&
+                                                                <View style={profile.line} />
+                                                            }
+                                                        </TouchableOpacity> 
                                                     </View>
                                                 ))
                                             }
+                                                           
                                         </View>
                                         :
                                         <View style={profile.noProcess}>

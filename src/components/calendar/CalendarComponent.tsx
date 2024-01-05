@@ -19,7 +19,7 @@ function CalendarComponent(props: any) {
 
     const { t, i18n } = useTranslation();
 
-    LocaleConfig.locales['fr'] = {
+    LocaleConfig.locales[i18n.language] = {
         monthNames: [
             t('calendar.months.january'),
             t('calendar.months.february'),
@@ -69,7 +69,7 @@ function CalendarComponent(props: any) {
         today: t('calendar.today')
     };
 
-    LocaleConfig.locales['en'] = LocaleConfig.locales['fr'];
+    LocaleConfig.locales[i18n.language] = LocaleConfig.locales['fr'];
 
     function itemPressed(item: any) {
         if (itemModalData !== item) {
@@ -104,7 +104,7 @@ function CalendarComponent(props: any) {
         if (props.items.length === 0) {
             return (
                 <View style={props.styleEmpty}>
-                    <Text style={props.styleEmptyText}>No event planned</Text>
+                    <Text style={props.styleEmptyText}>{t("calendar.noEvent")}</Text>
                 </View>
             );
         } else {
@@ -128,6 +128,7 @@ function CalendarComponent(props: any) {
 
         return (
             <CalendarItemModal
+                colorMode={colorMode}
                 modalVisible={itemModalVisible}
                 setModalVisible={setItemModalVisible}
                 title={title}
@@ -145,6 +146,7 @@ function CalendarComponent(props: any) {
 
         return (
             <CalendarActionsModal
+                colorMode={colorMode}
                 title={title}
                 userProcessId={userProcessId}
                 stepId={stepId}
@@ -157,6 +159,7 @@ function CalendarComponent(props: any) {
     function displayAddModal() {
         return (
             <CalendarAddModal
+                colorMode={colorMode}
                 modalVisible={addModalVisible}
                 setModalVisible={setAddModalVisible}
             />

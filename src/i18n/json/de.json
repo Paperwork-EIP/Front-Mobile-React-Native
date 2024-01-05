@@ -1,0 +1,281 @@
+{
+    "language": "de",
+    "login": {
+        "title": "Willkommen!",
+        "username": "Benutzername",
+        "password": "Passwort",
+        "button": "Anmelden",
+        "forgot": "Passwort vergessen?",
+        "google": "Google",
+        "facebook": "Facebook",
+        "noAccount": "Noch kein Konto?",
+        "register": "Registrieren",
+        "emailSent": "E-Mail erfolgreich gesendet!",
+        "emailFail": "Fehler beim Senden der Bestätigungs-E-Mail",
+        "error": {
+            "title": "Fehler",
+            "message": "Ungültige E-Mail oder Passwort",
+            "empty": "Bitte füllen Sie alle Felder aus",
+            "somethingWrong": "Etwas ist schief gelaufen, bitte versuchen Sie es später erneut",
+            "button": "OK"
+        }
+    },
+    "register": {
+        "title": "Mach mit!",
+        "username": "Benutzername",
+        "password": "Passwort",
+        "confirm": "Passwort bestätigen",
+        "button": "Konto erstellen",
+        "google": "Google",
+        "facebook": "Facebook",
+        "alreadyHaveAccount": "Bereits einen Account?",
+        "login": "Anmelden",
+        "error": {
+            "title": "Fehler",
+            "message": "Ungültiger Benutzername, E-Mail oder Passwort",
+            "accountAlreadyExists": "Dieser Account existiert bereits",
+            "empty": "Bitte füllen Sie alle Felder aus",
+            "somethingWrong": "Etwas ist schief gelaufen, bitte versuchen Sie es später erneut",
+            "button": "OK"
+        }
+    },
+    "calendar": {
+        "today": "Heute",
+        "days": {
+            "monday": "Montag",
+            "tuesday": "Dienstag",
+            "wednesday": "Mittwoch",
+            "thursday": "Donnerstag",
+            "friday": "Freitag",
+            "saturday": "Samstag",
+            "sunday": "Sonntag",
+            "short": {
+                "monday": "Mo",
+                "tuesday": "Di",
+                "wednesday": "Mi",
+                "thursday": "Do",
+                "friday": "Fr",
+                "saturday": "Sa",
+                "sunday": "So"
+            }
+        },
+        "months": {
+            "january": "Januar",
+            "february": "Februar",
+            "march": "März",
+            "april": "April",
+            "may": "Mai",
+            "june": "Juni",
+            "july": "Juli",
+            "august": "August",
+            "september": "September",
+            "october": "Oktober",
+            "november": "November",
+            "december": "Dezember",
+            "short": {
+                "january": "Jan",
+                "february": "Feb",
+                "march": "Mär",
+                "april": "Apr",
+                "may": "Mai",
+                "june": "Jun",
+                "july": "Jul",
+                "august": "Aug",
+                "september": "Sep",
+                "october": "Okt",
+                "november": "Nov",
+                "december": "Dez"
+            }
+        },
+        "modal": {
+            "title": "Ereignis hinzufügen",
+            "name": "Name",
+            "description": "Beschreibung",
+            "date": "Datum",
+            "hour": "Stunde",
+            "add": {
+                "title": "Ereignis hinzufügen",
+                "message": "Ereignis erfolgreich hinzugefügt",
+                "button": "Hinzufügen",
+                "ok": "OK",
+                "process": {
+                    "title": "Prozess auswählen"
+                },
+                "step": {
+                    "title": "Schritt auswählen"
+                }
+            },
+            "edit": {
+                "title": "Ereignis bearbeiten/löschen",
+                "button": "Bearbeiten",
+                "ok": "OK"
+            },
+            "delete": {
+                "title": "Löschen",
+                "message": "Sind Sie sicher, dass Sie dieses Ereignis löschen möchten?",
+                "success": "Ereignis erfolgreich gelöscht",
+                "cancel": "Abbrechen",
+                "button": "Löschen",
+                "ok": "OK"
+            },
+            "error": {
+                "title": "Fehler",
+                "message": "Bitte füllen Sie alle Felder aus",
+                "button": "OK"
+            }
+        },
+        "error": {
+            "title": "Fehler",
+            "message": "Etwas ist schief gelaufen, bitte versuchen Sie es später erneut",
+            "button": "OK"
+        },
+        "noEvent": "keine Veranstaltung geplant"
+    },
+    "processidea": {
+        "pagetitle": "Neue Prozessidee",
+        "title": "Titel",
+        "description": "Beschreibung",
+        "content": "Inhalt",
+        "submit": "Abschicken",
+        "helpTitle": "Titel des Dokuments.",
+        "errorTitle": "Titel ist erforderlich.",
+        "helpDescription": "Kurzbeschreibung des Dokuments.",
+        "errorDescription": "Beschreibung ist erforderlich.",
+        "helpContent": "Beschreibung des Dokuments.",
+        "errorContent": "Inhalt ist erforderlich.",
+        "wSuccess": "Erfolg",
+        "success": "Ihre Prozessidee wurde erfolgreich übermittelt!",
+        "wFail": "Fehler",
+        "fail": "Es ist ein Problem aufgetreten... Bitte versuchen Sie es später erneut"
+    },
+    "settings": {
+        "pageTitle": "Einstellungen",
+        "darkMode": "Dunkelmodus",
+        "version": "Version",
+        "disconnect": "Abmelden",
+        "deleteAccount": "Konto löschen",
+        "delete": "Löschen",
+        "cancel": "Abbrechen",
+        "confirm": "Bestätigen",
+        "deleteAccountSuccess": "Konto erfolgreich gelöscht",
+        "alertUserNotFound": "Fehler: Benutzer nicht gefunden.",
+        "alertSystemError": "Fehler: Systemfehler.",
+        "alertMissingToken": "Fehler: Token fehlt.",
+        "deleteAccountQuestion": "Sind Sie sicher, dass Sie Ihr Konto löschen möchten?",
+        "restartMessage": "Die Anwendung wird neu gestartet, um die Änderungen zu übernehmen."
+    },
+    "help": {
+        "textLexicon": "Brauchen Sie eine Erklärung für einen Begriff?",
+        "buttonLexicon": "Hier klicken!",
+        "question1": "Wie aktualisiere ich persönliche Informationen?",
+        "answer1": "Um Ihre persönlichen Informationen zu aktualisieren, gehen Sie zur Profilseite, indem Sie auf das untenstehende Bild klicken.\nVon dieser Seite aus können Sie:\n- Ihr Profilbild aktualisieren, indem Sie den Bildlink Ihrer Wahl im Feld 'Profilbild-Link' eingeben,\n- Ihren Benutzernamen mit dem Feld 'Benutzername' ändern,\n- Ihre gemeinsame E-Mail-Adresse mit dem Feld 'E-Mail' aktualisieren,\n- Schließlich Ihr Passwort ändern, indem Sie das neue Passwort zweimal eingeben.",
+        "question2": "Wie füge ich einen Prozess hinzu?",
+        "answer2": "Um neue Prozesse hinzuzufügen, gehen Sie zur Quizseite, indem Sie auf das untenstehende Bild klicken.\nVon dieser Seite aus können Sie einen Prozess aus den verfügbaren Optionen auswählen.\nNachdem Sie einen Prozess ausgewählt haben, müssen Sie Fragen zu Ihrem Fortschritt im Prozess beantworten (Besitz notwendiger Dokumente, Eignung für den Fortschritt im Prozess usw.).\nNach Abschluss der Fragephase werden Sie zu einer Seite weitergeleitet, die alle Informationen zum laufenden Prozess zusammenfasst, und Sie können bei Bedarf Ereignisse im Kalender hinzufügen.",
+        "question3": "Wie füge ich ein Ereignis zum Kalender hinzu?",
+        "answer3": "Um Ereignisse im Zusammenhang mit Prozessen hinzuzufügen, gehen Sie zur Kalenderseite, indem Sie auf das untenstehende Bild klicken.\nVom Kalender aus können Sie vorhandene Ereignisse anzeigen und neue hinzufügen.\nKlicken Sie einfach auf das Datum, an dem Sie ein Ereignis hinzufügen möchten.\nKlicken Sie dann auf die Schaltfläche 'Ein Ereignis hinzufügen'. Sie müssen die Uhrzeit des Ereignisses, den mit dem Ereignis verbundenen Prozess aus der Liste der laufenden Prozesse und schließlich den Schritt des Prozesses angeben. Klicken Sie abschließend auf 'Senden', sobald alle Details ausgefüllt sind, um das Ereignis zu erstellen.",
+        "question4": "Wie lösche oder ändere ich ein Ereignis im Kalender?",
+        "answer4": "Um Ereignisse im Zusammenhang mit Prozessen zu ändern oder zu löschen, gehen Sie zur Kalenderseite, indem Sie auf das untenstehende Bild klicken.\nVom Kalender aus können Sie vorhandene Ereignisse anzeigen und diese ändern oder löschen.\nKlicken Sie einfach auf das Datum, für das Sie das Ereignis ändern möchten.\nKlicken Sie dann auf die Schaltfläche 'Ereignis bearbeiten/löschen'. Für eine Änderung müssen Sie die neue Uhrzeit oder den neuen Schritt eingeben, den Sie Ihrem Ereignis zuweisen möchten, und auf die Schaltfläche 'Senden' klicken, um die Änderungen zu speichern. Alternativ können Sie direkt auf die Schaltfläche 'Ereignis löschen' klicken, um das Ereignis zu löschen.",
+        "question5": "Ich finde den Prozess, den ich in der Liste der verfügbaren Prozesse benötige, nicht. Was soll ich tun?",
+        "answer5": "Wenn Sie den Prozess, den Sie starten möchten, nicht in der Liste der verfügbaren Prozesse finden können, haben Sie die Möglichkeit, uns dies über die Seite 'Idee für einen Prozess' mit dem untenstehenden Bild mitzuteilen.\nGeben Sie den Titel, die Beschreibung und den Inhalt des gewünschten Prozesses an, drücken Sie die Schaltfläche 'Senden' und wir erhalten Ihre Anfrage. Sie können uns auch über die Schaltfläche 'Kontakt' unten auf dieser Seite kontaktieren, indem Sie eine E-Mail an paperwork_2024@labeip.epitech.eu senden.",
+        "question6": "Wie kann ich meine persönlichen Informationen ändern?",
+        "answer6": "Um Ihre persönlichen Informationen zu ändern, gehen Sie zur Seite 'Einstellungen', auf der Sie:\n- Ein Profilbild auswählen können,\n- Ihren Namen ändern können,\n- Ihren Nachnamen ändern können,\n- Ihr Alter ändern können,\n- Die Anwendungssprache ändern können,\n- Ihre E-Mail-Adresse ändern können,\n- Ihre Postanschrift ändern können,\n- Ihre Telefonnummer ändern können,\n- Und schließlich Ihr Passwort ändern können.",
+        "question7": "Was soll ich tun, wenn ich einen der auf der Website verwendeten Fachbegriffe nicht verstehe?",
+        "answer7": "Die Seite 'Lexikon', auf der die Definitionen von Fachbegriffen aufgeführt sind, ist verfügbar, indem Sie auf das untenstehende Bild klicken!"
+    },
+    "mainmenu": {
+        "title": "Ihr Paperwork-Bereich",
+        "ascending": "Aufsteigend",
+        "descending": "Absteigend",
+        "newProcessButton": "Neuer Prozess",
+        "calendar": "Kalender",
+        "applied": "Beantragt",
+        "left": "Übrig",
+        "nothing": "Nichts zu zeigen",
+        "process": "Prozess",
+        "noProcess": "Kein Prozess",
+        "events": "Ereignisse",
+        "needHelp": "Brauchen Sie Hilfe?",
+        "help": "Hilfe",
+        "lexicon": "Lexikon",
+        "today": "Heute"
+    },
+    "lexicon": {
+        "textHelp": "Frage zu den Funktionen von Paperwork?",
+        "buttonHelp": "Hier klicken!",
+        "question1": "Vitalkarte",
+        "answer1": "Krankenversicherungspolicen decken in der Regel eine Vielzahl von medizinischen Ausgaben ab, wie Krankenhausaufenthalte, chirurgische Eingriffe, verschreibungspflichtige Medikamente, Labortests und Arztbesuche. Einige Policen können auch spezialisierte Behandlungen wie Zahn-, Augen- oder psychische Gesundheitsversorgung abdecken.",
+        "question2": "Reisepass",
+        "answer2": "Ein Reisepass ist ein Reisedokument, das von einer Regierung an ihre Bürger für internationale Reisen ausgestellt wird. Es ist ein offizieller Identitäts- und Staatsbürgernachweis, der es dem Passinhaber ermöglicht, in ausländische Länder ein- und auszureisen und bei Bedarf Unterstützung und Schutz von seiner Regierung im Ausland zu beantragen.",
+        "question3": "Visum",
+        "answer3": "Ein Visum ist ein offizielles Dokument oder eine Bescheinigung, die in einen Reisepass eingetragen ist und es dem Passinhaber ermöglicht, für einen bestimmten Zeitraum und zu einem bestimmten Zweck in ein ausländisches Land einzureisen, dort zu bleiben oder auszureisen. Ziel eines Visums ist es, die Einreise und den Aufenthalt von ausländischen Besuchern in einem Land zu regeln und zu kontrollieren.",
+        "question4": "Wohnsitznachweis",
+        "answer4": "Ein Wohnsitznachweis ist ein Dokument, das Ihren Wohnort bestätigt. Er wird oft als Identifikationsnachweis benötigt, wenn Sie ein Bankkonto eröffnen, einen Kredit beantragen oder einen behördlichen Ausweis erhalten müssen. Ein Wohnsitznachweis kann viele Formen annehmen, enthält aber in der Regel Ihren Namen, Ihre Adresse und ein Datum."
+    },
+    "profile": {
+        "personnalInfo": "Persönliche Informationen",
+        "edit": "Bearbeiten",
+        "noInfo": "Keine Informationen",
+        "ongoingProcess": "Laufender Prozess",
+        "noProcess": "Kein laufender Prozess",
+        "username": "Benutzername",
+        "firstname": "Vorname",
+        "name": "Name",
+        "language": "Sprache",
+        "age": "Alter",
+        "email": "E-Mail",
+        "address": "Adresse",
+        "phoneNumber": "Telefonnummer",
+        "editInfo": {
+            "title": "Ihre Informationen bearbeiten",
+            "address": "Adresse",
+            "age": "Alter",
+            "name": "Name",
+            "phoneNumber": "Telefonnummer",
+            "submit": "Absenden",
+            "selectLanguage": "Sprache auswählen",
+            "picture": "Wählen Sie einen Avatar aus",
+            "noChange": "Es gibt keine Änderung",
+            "updatedSuccess": "Ihre Informationen wurden erfolgreich aktualisiert"
+        }
+    },
+    "header": {
+        "navigationQuestion": "Wählen Sie, wohin Sie navigieren möchten:",
+        "homePage": "Startseite",
+        "profilePage": "Profil",
+        "settingsPage": "Einstellungen"
+    },
+    "quizzpage": {
+        "start": "Start",
+        "select": "Prozess auswählen",
+        "yes": "Ja",
+        "no": "Nein",
+        "toDo": "Zu erledigen",
+        "done": "Erledigt",
+        "uploadResult": "Erfolgreich hochgeladen"
+    },
+    "forgotPassword": {
+        "title": "Passwort vergessen?\n",
+        "placeholder": "E-Mail\n",
+        "submit": "Absenden",
+        "back": "Zurück"
+    },
+    "error": {
+        "profile": "Fehler beim Laden des Profils",
+        "mainmenu": "Fehler beim Laden des Hauptmenüs",
+        "mainmenuCalendar": "Fehler beim Laden des Hauptmenü-Kalenders",
+        "calendar": "Fehler beim Laden des Kalenders",
+        "calendarDelete": "Fehler beim Löschen des Ereignisses",
+        "alertMissingToken": "Fehler: Fehlendes Token.",
+        "alertSystemError": "Fehler: Systemfehler.",
+        "alertUserNotFound": "Fehler: Benutzer nicht gefunden.",
+        "uploadResult": "Fehler beim Hochladen",
+        "result": "Fehler beim Laden des Ergebnisses",
+        "question": "Fehler beim Laden der Frage",
+        "process": "Fehler beim Laden des Prozesses",
+        "editInfoFail": "Aktualisierung fehlgeschlagen",
+        "calendarProcess": "Fehler beim Laden des Prozesses",
+        "calendarStep": "Fehler beim Laden des Schritts",
+        "calendarAdd": "Fehler beim Hinzufügen des Ereignisses",
+        "calendarEdit": "Fehler beim Bearbeiten des Ereignisses"
+    }
+}

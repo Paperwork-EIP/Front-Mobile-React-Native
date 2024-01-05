@@ -85,9 +85,6 @@ function Login({ navigation, route }: { navigation: any, route: any }) {
 
                 console.log("<--------------------------->");
                 console.log('Login check token : ', checkToken);
-                console.log('Login check userEmail : ', userEmail);
-                console.log('Login check userPassword : ', userPassword);
-                console.log('Login check user : ', checkUser);
                 console.log("<--------------------------->");
 
                 if (checkToken && checkUser && userEmail && userPassword) {
@@ -136,10 +133,7 @@ function Login({ navigation, route }: { navigation: any, route: any }) {
 
             console.log("<--------------------------->");
             console.log('Login start token : ', token);
-            console.log('Login start userEmail : ', userEmail);
-            console.log('Login start userPassword : ', userPassword);
-            console.log('Login start user : ', checkUser);
-            console.log('Login start oauth : ', oauth);
+            console.log("i18n.language: ", i18n.language);
             console.log("<--------------------------->");
 
             if (token && oauth) {
@@ -168,7 +162,7 @@ function Login({ navigation, route }: { navigation: any, route: any }) {
                 </View>
                 <View style={login.content}>
                     <View style={login.form}>
-                        <Text style={colorMode === 'light' ? login.title : login.titleDark} >{t('login.title')}</Text>
+                        <Text style={colorMode === 'light' ? login.title : login.titleDark}>{t('login.title')}</Text>
                         <TextInput
                             style={colorMode === 'light' ? login.input : login.inputDark}
                             placeholderTextColor={colorMode === 'light' ? login.placeholder.color : login.placeholderDark.color}
@@ -236,6 +230,10 @@ function Login({ navigation, route }: { navigation: any, route: any }) {
                             >
                                 <Picker.Item label="English" value="en" />
                                 <Picker.Item label="Français" value="fr" />
+                                <Picker.Item label="Español" value="es" />
+                                <Picker.Item label="Deutsche" value="de" />
+                                <Picker.Item label="bahasa Indonesia" value="id" />
+                                <Picker.Item label="한국인" value="ko" />
                             </Picker>
                         </View>
                     </View>

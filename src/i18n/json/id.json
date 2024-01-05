@@ -1,0 +1,281 @@
+{
+    "language": "id",
+    "login": {
+        "title": "Selamat datang!",
+        "username": "Nama Pengguna",
+        "password": "Kata Sandi",
+        "button": "Masuk",
+        "forgot": "Lupa kata sandi?",
+        "google": "Google",
+        "facebook": "Facebook",
+        "noAccount": "Belum punya akun?",
+        "register": "Daftar",
+        "emailSent": "Email berhasil dikirim!",
+        "emailFail": "Gagal mengirim email verifikasi",
+        "error": {
+            "title": "Kesalahan",
+            "message": "Email atau kata sandi tidak valid",
+            "empty": "Harap isi semua bidang",
+            "somethingWrong": "Ada yang salah, harap coba lagi nanti",
+            "button": "OK"
+        }
+    },
+    "register": {
+        "title": "Bergabunglah!",
+        "username": "Nama Pengguna",
+        "password": "Kata Sandi",
+        "confirm": "Konfirmasi Kata Sandi",
+        "button": "Buat akun Anda",
+        "google": "Google",
+        "facebook": "Facebook",
+        "alreadyHaveAccount": "Sudah punya akun?",
+        "login": "Masuk",
+        "error": {
+            "title": "Kesalahan",
+            "message": "Nama pengguna, email, atau kata sandi tidak valid",
+            "accountAlreadyExists": "Akun ini sudah ada",
+            "empty": "Harap isi semua bidang",
+            "somethingWrong": "Ada yang salah, harap coba lagi nanti",
+            "button": "OK"
+        }
+    },
+    "calendar": {
+        "today": "Hari Ini",
+        "days": {
+            "monday": "Senin",
+            "tuesday": "Selasa",
+            "wednesday": "Rabu",
+            "thursday": "Kamis",
+            "friday": "Jumat",
+            "saturday": "Sabtu",
+            "sunday": "Minggu",
+            "short": {
+                "monday": "Sen",
+                "tuesday": "Sel",
+                "wednesday": "Rab",
+                "thursday": "Kam",
+                "friday": "Jum",
+                "saturday": "Sab",
+                "sunday": "Min"
+            }
+        },
+        "months": {
+            "january": "Januari",
+            "february": "Februari",
+            "march": "Maret",
+            "april": "April",
+            "may": "Mei",
+            "june": "Juni",
+            "july": "Juli",
+            "august": "Agustus",
+            "september": "September",
+            "october": "Oktober",
+            "november": "November",
+            "december": "Desember",
+            "short": {
+                "january": "Jan",
+                "february": "Feb",
+                "march": "Mar",
+                "april": "Apr",
+                "may": "Mei",
+                "june": "Jun",
+                "july": "Jul",
+                "august": "Ags",
+                "september": "Sep",
+                "october": "Okt",
+                "november": "Nov",
+                "december": "Des"
+            }
+        },
+        "modal": {
+            "title": "Tambahkan acara",
+            "name": "Nama",
+            "description": "Deskripsi",
+            "date": "Tanggal",
+            "hour": "Jam",
+            "add": {
+                "title": "Tambah acara",
+                "message": "Acara berhasil ditambahkan",
+                "button": "Tambahkan",
+                "ok": "OK",
+                "process": {
+                    "title": "Pilih proses"
+                },
+                "step": {
+                    "title": "Pilih langkah"
+                }
+            },
+            "edit": {
+                "title": "Edit/Hapus acara",
+                "button": "Edit",
+                "ok": "OK"
+            },
+            "delete": {
+                "title": "Hapus",
+                "message": "Apakah Anda yakin ingin menghapus acara ini?",
+                "success": "Acara berhasil dihapus",
+                "cancel": "Batal",
+                "button": "Hapus",
+                "ok": "OK"
+            },
+            "error": {
+                "title": "Kesalahan",
+                "message": "Harap isi semua bidang",
+                "button": "OK"
+            }
+        },
+        "error": {
+            "title": "Kesalahan",
+            "message": "Ada yang salah, harap coba lagi nanti",
+            "button": "OK"
+        },
+        "noEvent": "tidak ada acara yang direncanakan"
+    },
+    "processidea": {
+        "pagetitle": "Ide Proses Baru",
+        "title": "Judul",
+        "description": "Deskripsi",
+        "content": "Konten",
+        "submit": "Kirim",
+        "helpTitle": "Judul dokumen.",
+        "errorTitle": "Judul diperlukan.",
+        "helpDescription": "Deskripsi singkat dokumen.",
+        "errorDescription": "Deskripsi diperlukan.",
+        "helpContent": "Deskripsi dokumen.",
+        "errorContent": "Konten diperlukan.",
+        "wSuccess": "Sukses",
+        "success": "Ide proses Anda telah berhasil disampaikan!",
+        "wFail": "Kesalahan",
+        "fail": "Ada masalah... Harap coba lagi nanti"
+    },
+    "settings": {
+        "pageTitle": "Pengaturan",
+        "darkMode": "Mode Gelap",
+        "version": "Versi",
+        "disconnect": "Keluar",
+        "deleteAccount": "Hapus Akun",
+        "delete": "Hapus",
+        "cancel": "Batal",
+        "confirm": "Konfirmasi",
+        "deleteAccountSuccess": "Akun berhasil dihapus",
+        "alertUserNotFound": "Kesalahan: Pengguna tidak ditemukan.",
+        "alertSystemError": "Kesalahan: Kesalahan sistem.",
+        "alertMissingToken": "Kesalahan: Token hilang.",
+        "deleteAccountQuestion": "Apakah Anda yakin ingin menghapus akun Anda?",
+        "restartMessage": "Aplikasi akan dijalankan ulang untuk menerapkan perubahan."
+    },
+    "help": {
+        "textLexicon": "Butuh penjelasan untuk suatu istilah?",
+        "buttonLexicon": "Klik di sini!",
+        "question1": "Bagaimana cara memperbarui informasi pribadi?",
+        "answer1": "Untuk memperbarui informasi pribadi Anda, pergi ke halaman Profil dengan mengklik gambar di bawah ini.\nDari halaman ini, Anda dapat:\n- Memperbarui gambar profil Anda dengan memasukkan tautan gambar pilihan Anda di kolom 'Tautan gambar profil',\n- Mengubah nama pengguna menggunakan kolom 'Nama pengguna',\n- Memperbarui alamat email bersama Anda dengan kolom 'Email',\n- Terakhir, mengganti kata sandi Anda dengan memasukkan kata sandi baru dua kali.",
+        "question2": "Bagaimana cara menambahkan suatu proses?",
+        "answer2": "Untuk menambahkan proses baru, pergi ke halaman Kuis dengan mengklik gambar di bawah ini.\nDari halaman ini, Anda dapat memilih proses dari opsi yang tersedia.\nSetelah memilih proses, Anda perlu menjawab pertanyaan tentang kemajuan Anda dalam proses (kepemilikan dokumen yang diperlukan, kelayakan untuk kemajuan proses, dll.).\nSetelah fase pertanyaan selesai, Anda akan diarahkan ke halaman yang mengumpulkan semua informasi tentang proses yang sedang berlangsung, dan Anda dapat menambahkan peristiwa terkait di kalender jika diperlukan.",
+        "question3": "Bagaimana cara menambahkan suatu acara ke kalender?",
+        "answer3": "Untuk menambahkan acara terkait proses, pergi ke halaman Kalender dengan mengklik gambar di bawah ini.\nDari kalender, Anda dapat melihat acara yang sudah ada dan menambahkan yang baru.\nCaranya cukup klik tanggal di mana Anda ingin menambahkan acara.\nKemudian klik tombol 'Tambah Acara'. Anda perlu memberikan waktu acara, proses yang terkait dengan acara dari daftar proses yang sedang berlangsung, dan langkah dari proses tersebut. Terakhir, klik 'Kirim' setelah semua detail diisi untuk membuat acara.",
+        "question4": "Bagaimana cara menghapus atau mengubah suatu acara di kalender?",
+        "answer4": "Untuk mengubah atau menghapus acara terkait proses, pergi ke halaman Kalender dengan mengklik gambar di bawah ini.\nDari kalender, Anda dapat melihat acara yang sudah ada dan mengubah atau menghapusnya.\nCaranya cukup klik tanggal di mana Anda ingin mengubah acara tersebut.\nKemudian klik tombol 'Edit/Hapus Acara'. Untuk mengubah, Anda perlu memasukkan waktu atau langkah baru yang ingin Anda berikan pada acara Anda dan klik tombol 'Kirim' untuk menyimpan perubahan. Sebagai alternatif, Anda dapat langsung mengklik tombol 'Hapus Acara' untuk menghapus acara tersebut.",
+        "question5": "Saya tidak dapat menemukan proses yang saya butuhkan dalam daftar proses yang tersedia. Apa yang harus saya lakukan?",
+        "answer5": "Jika Anda tidak dapat menemukan proses yang ingin Anda luncurkan dalam daftar proses yang tersedia, Anda dapat memberi tahu kami melalui halaman Ide Proses dengan mengklik gambar di bawah ini.\nBerikan judul, deskripsi, dan konten dari proses yang diinginkan, tekan tombol 'Kirim', dan kami akan menerima permintaan Anda. Anda juga dapat menghubungi kami melalui tombol kontak di bagian bawah halaman ini dengan mengirim email ke paperwork_2024@labeip.epitech.eu.",
+        "question6": "Bagaimana cara mengubah informasi pribadi saya?",
+        "answer6": "Untuk mengubah informasi pribadi Anda, pergi ke halaman Pengaturan, di mana Anda dapat:\n- Memilih gambar profil,\n- Mengubah nama Anda,\n- Mengubah nama belakang Anda,\n- Mengubah usia Anda,\n- Mengubah bahasa aplikasi Anda,\n- Mengubah alamat email Anda,\n- Mengubah alamat pos Anda,\n- Mengubah nomor telepon Anda,\n- Dan terakhir, mengubah kata sandi Anda.",
+        "question7": "Apa yang harus saya lakukan jika saya tidak memahami salah satu istilah teknis yang digunakan di situs web ini?",
+        "answer7": "Halaman Leksikon, yang mencantumkan definisi istilah teknis, tersedia dengan mengklik gambar di bawah ini!"
+    },
+    "mainmenu": {
+        "title": "Area Paperwork Anda",
+        "ascending": "Menaik",
+        "descending": "Menurun",
+        "newProcessButton": "Proses Baru",
+        "calendar": "Kalender",
+        "applied": "Diproses",
+        "left": "Sisa",
+        "nothing": "Tidak Ada yang Ditampilkan",
+        "process": "Proses",
+        "noProcess": "Tidak Ada Proses",
+        "events": "Acara",
+        "needHelp": "Butuh Bantuan?",
+        "help": "Bantuan",
+        "lexicon": "Kamus Istilah",
+        "today": "Hari Ini"
+    },
+    "lexicon": {
+        "textHelp": "Pertanyaan tentang fitur-fitur Paperwork?",
+        "buttonHelp": "Klik di Sini!",
+        "question1": "Kartu Vital",
+        "answer1": "Policies asuransi kesehatan umumnya mencakup berbagai biaya medis, seperti rawat inap, tindakan bedah, obat resep, tes laboratorium, dan kunjungan dokter. Beberapa kebijakan mungkin juga mencakup perawatan khusus seperti perawatan gigi, penglihatan, atau kesehatan mental.",
+        "question2": "Paspor",
+        "answer2": "Paspor adalah dokumen perjalanan yang dikeluarkan oleh pemerintah kepada warganya untuk tujuan perjalanan internasional. Ini adalah bukti identitas dan kewarganegaraan resmi yang memungkinkan pemegang paspor masuk dan keluar dari negara asing, serta meminta bantuan dan perlindungan dari pemerintah mereka saat berada di luar negeri.",
+        "question3": "Visa",
+        "answer3": "Visa adalah dokumen atau endorsem resmi yang ditempatkan di paspor dan memungkinkan pemegang paspor untuk masuk, tinggal, atau keluar dari negara asing untuk jangka waktu dan tujuan tertentu. Tujuan visa adalah untuk mengatur dan mengendalikan masuk dan tinggal pengunjung asing di suatu negara.",
+        "question4": "Bukti Tempat Tinggal",
+        "answer4": "Bukti alamat adalah dokumen yang memverifikasi tempat tinggal Anda. Ini sering diperlukan sebagai bentuk identifikasi ketika Anda perlu membuka rekening bank, mengajukan kredit, atau mendapatkan kartu identitas yang dikeluarkan pemerintah. Bukti alamat bisa dalam berbagai bentuk, tetapi biasanya mencakup nama Anda, alamat, dan tanggal."
+    },
+    "profile": {
+        "personnalInfo": "Informasi Pribadi",
+        "edit": "Edit",
+        "noInfo": "Tidak Ada Informasi",
+        "ongoingProcess": "Proses Berlangsung",
+        "noProcess": "Tidak Ada Proses Berlangsung",
+        "username": "Nama Pengguna",
+        "firstname": "Nama Depan",
+        "name": "Nama",
+        "language": "Bahasa",
+        "age": "Usia",
+        "email": "Surel",
+        "address": "Alamat",
+        "phoneNumber": "Nomor Telepon",
+        "editInfo": {
+            "title": "Edit Informasi Anda",
+            "address": "Alamat",
+            "age": "Usia",
+            "name": "Nama",
+            "phoneNumber": "Nomor Telepon",
+            "submit": "Kirim",
+            "selectLanguage": "Pilih Bahasa",
+            "picture": "Pilih avatar",
+            "noChange": "Tidak ada perubahan",
+            "updatedSuccess": "Informasi Anda berhasil diperbarui"
+        }
+    },
+    "header": {
+        "navigationQuestion": "Pilih tempat Anda ingin navigasi:",
+        "homePage": "Beranda",
+        "profilePage": "Profil",
+        "settingsPage": "Pengaturan"
+    },
+    "quizzpage": {
+        "start": "Mulai",
+        "select": "Pilih Proses",
+        "yes": "Ya",
+        "no": "Tidak",
+        "toDo": "Belum Selesai",
+        "done": "Selesai",
+        "uploadResult": "Berhasil mengunggah"
+    },
+    "forgotPassword": {
+        "title": "Lupa Kata Sandi?\n",
+        "placeholder": "Surel\n",
+        "submit": "Kirim",
+        "back": "Kembali"
+    },
+    "error": {
+        "profile": "Kesalahan saat memuat profil",
+        "mainmenu": "Kesalahan saat memuat menu utama",
+        "mainmenuCalendar": "Kesalahan saat memuat kalendar menu utama",
+        "calendar": "Kesalahan saat memuat kalendar",
+        "calendarDelete": "Kesalahan saat menghapus acara",
+        "alertMissingToken": "Kesalahan: Token tidak ditemukan.",
+        "alertSystemError": "Kesalahan: Kesalahan sistem.",
+        "alertUserNotFound": "Kesalahan: Pengguna tidak ditemukan.",
+        "uploadResult": "Kesalahan saat mengunggah",
+        "result": "Kesalahan saat memuat hasil",
+        "question": "Kesalahan saat memuat pertanyaan",
+        "process": "Kesalahan saat memuat proses",
+        "editInfoFail": "Pembaruan gagal",
+        "calendarProcess": "Kesalahan saat memuat proses",
+        "calendarStep": "Kesalahan saat memuat langkah",
+        "calendarAdd": "Kesalahan saat menambah acara",
+        "calendarEdit": "Kesalahan saat mengedit acara"
+    }
+}

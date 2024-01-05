@@ -5,7 +5,15 @@ const quizzQuestion = StyleSheet.create({
     container: {
         width: '100%',
         height: '100%',
-        backgroundColor: '#fff',
+        backgroundColor: lightBackgroundColor,
+        alignItems: 'center',
+        justifyContent: 'center',
+        // paddingTop: 50
+    },
+    containerDark: {
+        width: '100%',
+        height: '100%',
+        backgroundColor: darkBackgroundColor,
         alignItems: 'center',
         justifyContent: 'center',
         // paddingTop: 50
@@ -20,7 +28,14 @@ const quizzQuestion = StyleSheet.create({
     text: {
         fontSize: 18,
         fontWeight: 'bold',
-        color: 'black',
+        color: lightTextColor,
+        marginTop: 15,
+        marginLeft: 5
+    },
+    textDark: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: darkTextColor,
         marginTop: 15,
         marginLeft: 5
     },

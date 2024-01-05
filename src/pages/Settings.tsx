@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { TouchableOpacity, View, Text, Switch, Modal, NativeModules, Alert } from "react-native";
+import { TouchableOpacity, View, Text, Switch, Modal, NativeModules, Alert,     Button, ToastAndroid } from "react-native";
 import { useTranslation } from 'react-i18next';
 import axios from "axios";
-
+import Ionicons from '@expo/vector-icons/Ionicons';
 import DisconnectButton from "../components/DisconnectButton";
-import LongHorizontalButton from "../components/LongHorizontalButton";
+import LongIconButton from "../components/LongIconButton";
 
 import { deleteItemAndRedirectTo, getItem } from "../services/Storage";
 import { setColorModeInLocalStorage } from "../services/Parameters";
@@ -20,6 +20,7 @@ function Settings({ navigation, route }: { navigation: any, route: any }) {
     const [isConfirmationVisible, setConfirmationVisible] = useState(false);
 
     const colorMode = route.params.colorMode;
+    const iconSize = 24;
 
     const setColorModeCallback = useCallback(async (color: string) => {
         await setColorModeInLocalStorage(color);
@@ -58,13 +59,7 @@ function Settings({ navigation, route }: { navigation: any, route: any }) {
     });
 
     useEffect(() => {
-        axios.get(`${api}/user/getbytoken`, { params: { token: token } })
-            .then(res => {
-                setLanguage(res.data.language);
-            }).catch(err => {
-                console.log(err)
-            });
-    }, [token]);
+    }, []);
 
     function changeLanguage(language: string | undefined) {
         i18n.changeLanguage(language);
@@ -78,17 +73,20 @@ function Settings({ navigation, route }: { navigation: any, route: any }) {
             }
         }).then(res => {
             console.log(res.data);
-            alert(t('settings.deleteAccountSuccess'))
+            Alert.alert(
+                t('settings.pageTitle'),
+                t('settings.deleteAccountSuccess'),
+            );
             deleteItemAndRedirectTo(navigation, '@loginToken', 'Login');
-            window.location.reload();
+            NativeModules.DevSettings.reload();
         }).catch(err => {
             console.log(err)
             if (err.response.status === 400) {
-                toast.error(t('settings.alertMissingToken'));
+                ToastAndroid.show(t('error.alertMissingToken'), ToastAndroid.SHORT);
             } else if (err.response.status === 404) {
-                toast.error(t('settings.alertUserNotFound'));
+                ToastAndroid.show(t('error.alertUserNotFound'), ToastAndroid.SHORT);
             } else if (err.response.status === 500) {
-                toast.error(t('settings.alertSystemError'));
+                ToastAndroid.show(t('error.alertSystemError'), ToastAndroid.SHORT);
             }
         });
     };
@@ -101,45 +99,40 @@ function Settings({ navigation, route }: { navigation: any, route: any }) {
         <>
             <View style={colorMode === 'dark' ? settingsDark.container : settingsLight.container}>
                 <View style={colorMode === 'dark' ? settingsDark.content : settingsLight.content}>
+                <Text
+                    style={colorMode === 'dark' ? settingsDark.pageTitle : settingsLight.pageTitle}
+                    testID="darkModeText"
+                >{t('settings.pageTitle')}</Text>
                     <View style={colorMode === 'dark' ? settingsDark.settingsContainer : settingsLight.settingsContainer}>
                         <View style={colorMode === 'dark' ? settingsDark.section : settingsLight.section}>
-                            <Text
-                                style={colorMode === 'dark' ? settingsDark.title : settingsLight.title}
-                                testID="darkModeText"
-                            >{t('settings.darkMode')}</Text>
-                            <Switch
-                                value={colorMode === 'dark'}
-                                onValueChange={toggleDarkMode}
-                                testID="darkModeSwitch"
+                            <LongIconButton
+                              title={colorMode === 'dark' ? t('settings.lightMode') : t('settings.darkMode')}
+                              styleButton={colorMode === 'dark' ? settingsDark.darkButton : settingsLight.darkButton}
+                              styleText={colorMode === 'dark' ? settingsDark.darkButton.text : settingsLight.darkButton.text}
+                              onPress={toggleDarkMode}
+                              testID="darkModeButton"
+                              iconName={colorMode === 'dark' ? "sunny-outline" : "moon-outline"}
+                              light={colorMode === 'dark' ? false : true}
                             />
-                        </View>
-                        <View style={colorMode === 'dark' ? settingsDark.lineBetween : settingsLight.lineBetween}></View>
-                        <View style={colorMode === 'dark' ? settingsDark.section : settingsLight.section}>
-                            <Text
-                                style={colorMode === 'dark' ? settingsDark.title : settingsLight.title}
-                                testID="disconnectText"
-                            >{t('settings.disconnect')}</Text>
                             <DisconnectButton
                                 styleButton={colorMode === 'dark' ? settingsDark.disconnectButton : settingsLight.disconnectButton}
                                 styleText={colorMode === 'dark' ? settingsDark.disconnectButton.text : settingsLight.disconnectButton.text}
                                 navigation={navigation}
-                                text="Disconnect"
+                                text={t('settings.disconnect')}
                                 testID="disconnectButton"
+                                iconName="power"
+                                light={colorMode === 'dark' ? true : false}
                             />
-                        </View>
-                        <View style={colorMode === 'dark' ? settingsDark.lineBetween : settingsLight.lineBetween}></View>
-                        <View style={colorMode === 'dark' ? settingsDark.section : settingsLight.section}>
-                            <Text
-                                style={colorMode === 'dark' ? settingsDark.title : settingsLight.title}
-                                testID="deleteAccountText"
-                            >{t('settings.deleteAccount')}</Text>
-                            <LongHorizontalButton
-                                title={t('settings.delete')}
+                            <LongIconButton
+                                title={t('settings.deleteAccount')}
                                 styleButton={colorMode === 'dark' ? settingsDark.button : settingsLight.button}
                                 styleText={colorMode === 'dark' ? settingsDark.button.text : settingsLight.button.text}
                                 onPress={() => setConfirmationVisible(true)}
                                 testID="deleteAccountButton"
+                                iconName="trash"
+                                light={colorMode === 'dark' ? true : false}
                             />
+
                             <Modal
                                 animationType="slide"
                                 transparent={true}
@@ -155,7 +148,7 @@ function Settings({ navigation, route }: { navigation: any, route: any }) {
                                             style={colorMode === 'dark' ? settingsDark.modal.text : settingsLight.modal.text}
                                             testID="deleteAccountQuestion"
                                         >{t('settings.deleteAccountQuestion')}</Text>
-                                        <View style={colorMode === 'dark' ? settingsDark.section : settingsLight.section}>
+                                        <View style={colorMode === 'dark' ? settingsDark.sectionModal : settingsLight.sectionModal}>
                                             <TouchableOpacity
                                                 style={colorMode === 'dark' ? settingsDark.cancelButton : settingsLight.cancelButton}
                                                 onPress={handleCancel}

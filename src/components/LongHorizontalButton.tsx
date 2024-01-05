@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 
 interface Props {
     onPress: () => void;
@@ -16,7 +16,7 @@ const LongHorizontalButton: React.FC<Props> = ({ onPress, title, styleButton, st
             onPress={onPress}
             testID={testID}
         >
-            <Text style={styleText}>{title}</Text>
+                   <Text style={styleText}>{title}</Text>
         </TouchableOpacity>
     );
 }

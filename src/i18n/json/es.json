@@ -1,0 +1,282 @@
+{
+    "language": "es",
+    "login": {
+        "title": "¡Bienvenido!",
+        "username": "Nombre de usuario",
+        "password": "Contraseña",
+        "button": "Iniciar sesión",
+        "forgot": "¿Olvidaste la contraseña?",
+        "google": "Google",
+        "facebook": "Facebook",
+        "noAccount": "¿No tienes una cuenta?",
+        "register": "Registrarse",
+        "emailSent": "¡Correo electrónico enviado con éxito!",
+        "emailFail": "Error al enviar el correo electrónico de verificación",
+        "error": {
+            "title": "Error",
+            "message": "Correo electrónico o contraseña no válidos",
+            "empty": "Por favor, complete todos los campos",
+            "somethingWrong": "Algo salió mal, por favor inténtalo de nuevo más tarde",
+            "button": "OK"
+        }
+    },
+    "register": {
+        "title": "¡Únete a nosotros!",
+        "username": "Nombre de usuario",
+        "password": "Contraseña",
+        "confirm": "Confirmar contraseña",
+        "button": "Crear tu cuenta",
+        "google": "Google",
+        "facebook": "Facebook",
+        "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+        "login": "Iniciar sesión",
+        "error": {
+            "title": "Error",
+            "message": "Nombre de usuario, correo electrónico o contraseña no válidos",
+            "accountAlreadyExists": "Esta cuenta ya existe",
+            "empty": "Por favor, complete todos los campos",
+            "somethingWrong": "Algo salió mal, por favor inténtalo de nuevo más tarde",
+            "button": "OK"
+        }
+    },
+    "calendar": {
+        "today": "Hoy",
+        "days": {
+            "monday": "Lunes",
+            "tuesday": "Martes",
+            "wednesday": "Miércoles",
+            "thursday": "Jueves",
+            "friday": "Viernes",
+            "saturday": "Sábado",
+            "sunday": "Domingo",
+            "short": {
+                "monday": "Lun",
+                "tuesday": "Mar",
+                "wednesday": "Mié",
+                "thursday": "Jue",
+                "friday": "Vie",
+                "saturday": "Sáb",
+                "sunday": "Dom"
+            }
+        },
+        "months": {
+            "january": "Enero",
+            "february": "Febrero",
+            "march": "Marzo",
+            "april": "Abril",
+            "may": "Mayo",
+            "june": "Junio",
+            "july": "Julio",
+            "august": "Agosto",
+            "september": "Septiembre",
+            "october": "Octubre",
+            "november": "Noviembre",
+            "december": "Diciembre",
+            "short": {
+                "january": "Ene",
+                "february": "Feb",
+                "march": "Mar",
+                "april": "Abr",
+                "may": "May",
+                "june": "Jun",
+                "july": "Jul",
+                "august": "Ago",
+                "september": "Sep",
+                "october": "Oct",
+                "november": "Nov",
+                "december": "Dic"
+            }
+        },
+        "modal": {
+            "title": "Agregar un evento",
+            "name": "Nombre",
+            "description": "Descripción",
+            "date": "Fecha",
+            "hour": "Hora",
+            "add": {
+                "title": "Agregar evento",
+                "message": "Evento agregado exitosamente",
+                "button": "Agregar",
+                "ok": "OK",
+                "process": {
+                    "title": "Selecciona un proceso"
+                },
+                "step": {
+                    "title": "Selecciona un paso"
+                }
+            },
+            "edit": {
+                "title": "Editar / Eliminar evento",
+                "button": "Editar",
+                "ok": "OK"
+            },
+            "delete": {
+                "title": "Eliminar",
+                "message": "¿Estás seguro de que deseas eliminar este evento?",
+                "success": "Evento eliminado exitosamente",
+                "cancel": "Cancelar",
+                "button": "Eliminar",
+                "ok": "OK"
+            },
+            "error": {
+                "title": "Error",
+                "message": "Por favor, complete todos los campos",
+                "button": "OK"
+            }
+        },
+        "error": {
+            "title": "Error",
+            "message": "Algo salió mal, por favor inténtalo de nuevo más tarde",
+            "button": "OK"
+        },
+        "noEvent": "ningún evento planeado"
+    },
+    "processidea": {
+        "pagetitle": "Nueva idea de proceso",
+        "title": "Título",
+        "description": "Descripción",
+        "content": "Contenido",
+        "submit": "Enviar",
+        "helpTitle": "Título del documento.",
+        "errorTitle": "Se requiere el título.",
+        "helpDescription": "Breve descripción del documento.",
+        "errorDescription": "Se requiere la descripción.",
+        "helpContent": "Descripción detallada del documento.",
+        "errorContent": "Se requiere el contenido.",
+        "wSuccess": "Éxito",
+        "success": "¡Tu idea de proceso se ha enviado con éxito!",
+        "wFail": "Error",
+        "fail": "Ocurrió algún problema... Por favor, inténtalo de nuevo más tarde"
+    },
+    "settings": {
+        "pageTitle": "Configuración",
+        "darkMode": "Modo oscuro",
+        "version": "Versión",
+        "disconnect": "Desconectar",
+        "deleteAccount": "Eliminar cuenta",
+        "delete": "Eliminar",
+        "cancel": "Cancelar",
+        "confirm": "Confirmar",
+        "deleteAccountSuccess": "Cuenta eliminada con éxito",
+        "alertUserNotFound": "Error: Usuario no encontrado.",
+        "alertSystemError": "Error: Error del sistema.",
+        "alertMissingToken": "Error: Token faltante.",
+        "deleteAccountQuestion": "¿Estás seguro de que deseas eliminar tu cuenta?",
+        "restartMessage": "La aplicación se reiniciará para aplicar los cambios."
+    },
+    "help": {
+        "textLexicon": "¿Necesita que se explique un término?",
+        "buttonLexicon": "¡Haga clic aquí!",
+        "question1": "¿Cómo actualizo la información personal?",
+        "answer1": "Para actualizar su información personal, vaya a la página de Perfil haciendo clic en la imagen de abajo.\nDesde esta página, puede:\n- Actualizar su foto de perfil ingresando el enlace de la imagen que prefiera en el campo 'Enlace de la foto de perfil',\n- Modificar su nombre de usuario usando el campo 'Nombre de usuario',\n- Actualizar su dirección de correo electrónico compartida usando el campo 'Correo electrónico',\n- Finalmente, cambiar su contraseña ingresando la nueva contraseña dos veces.",
+        "question2": "¿Cómo agrego un proceso?",
+        "answer2": "Para agregar nuevos procesos, vaya a la página de Quiz haciendo clic en la imagen de abajo.\nDesde esta página, puede elegir un proceso de las opciones disponibles.\nUna vez que haya seleccionado un proceso, deberá responder preguntas sobre su progreso en el proceso (posesión de documentos necesarios, elegibilidad para el avance del proceso, etc.).\nUna vez completada la fase de preguntas, será redirigido a una página que recopila toda la información sobre el proceso en curso, y podrá agregar eventos relacionados en el calendario si es necesario.",
+        "question3": "¿Cómo agrego un evento al calendario?",
+        "answer3": "Para agregar eventos relacionados con procesos, vaya a la página del Calendario haciendo clic en la imagen de abajo.\nDesde el calendario, puede ver eventos existentes y agregar nuevos.\nPara hacer esto, simplemente haga clic en la fecha en la que desea agregar un evento.\nLuego haga clic en el botón 'Agregar un evento'. Deberá proporcionar la hora del evento, el proceso asociado al evento de la lista de procesos en curso y, finalmente, el paso del proceso. Finalmente, haga clic en 'Enviar' una vez que todos los detalles estén completos para crear el evento.",
+        "question4": "¿Cómo elimino o modifico un evento en el calendario?",
+        "answer4": "Para modificar o eliminar eventos relacionados con procesos, vaya a la página del Calendario haciendo clic en la imagen de abajo.\nDesde el calendario, puede ver eventos existentes y modificarlos o eliminarlos.\nPara hacer esto, simplemente haga clic en la fecha para la cual desea modificar el evento.\nLuego haga clic en el botón 'Editar/Eliminar un evento'. Para la modificación, deberá ingresar la nueva hora o paso que desea asignar a su evento y hacer clic en el botón 'Enviar' para guardar los cambios. Alternativamente, puede hacer clic directamente en el botón 'Eliminar evento' para eliminar el evento.",
+        "question5": "No puedo encontrar el proceso que necesito en la lista de procesos disponibles. ¿Qué debo hacer?",
+        "answer5": "Si no puede encontrar el proceso que desea iniciar en la lista de procesos disponibles, tiene la opción de informarnos a través de la página de Idea de Proceso haciendo clic en la imagen de abajo.\nProporcione el título, la descripción y el contenido del proceso deseado, presione el botón 'Enviar', y recibiremos su solicitud. También puede ponerse en contacto con nosotros a través del botón de contacto en la parte inferior de esta página enviando un correo electrónico a paperwork_2024@labeip.epitech.eu.",
+        "question6": "¿Cómo puedo modificar mi información personal?",
+        "answer6": "Para modificar su información personal, vaya a la página de Configuración, donde puede:\n- Elegir una foto de perfil,\n- Modificar su nombre,\n- Modificar su apellido,\n- Modificar su edad,\n- Modificar el idioma de la aplicación,\n- Modificar su dirección de correo electrónico,\n- Modificar su dirección postal,\n- Modificar su número de teléfono,\n- Y finalmente, modificar su contraseña.",
+        "question7": "¿Qué debo hacer si no entiendo alguno de los términos técnicos utilizados en el sitio web?",
+        "answer7": "La página de Lexicon, que enumera las definiciones de los términos técnicos, está disponible haciendo clic en la imagen de abajo!"
+    },
+    "mainmenu": {
+        "title": "Tu Espacio de Paperwork",
+        "ascending": "Ascendente",
+        "descending": "Descendente",
+        "newProcessButton": "Nuevo Proceso",
+        "calendar": "Calendario",
+        "applied": "Aplicado",
+        "left": "Pendiente",
+        "nothing": "Nada que Mostrar",
+        "process": "Proceso",
+        "noProcess": "Sin proceso",
+        "events": "Eventos",
+        "needHelp": "¿Necesitas Ayuda?",
+        "help": "Ayuda",
+        "lexicon": "Glosario",
+        "today": "Hoy"
+    },
+    "lexicon": {
+        "textHelp": "¿Preguntas sobre las funciones de Paperwork?",
+        "buttonHelp": "¡Haz clic aquí!",
+        "question1": "Tarjeta Vital",
+        "answer1": "Las pólizas de seguro médico suelen cubrir una amplia gama de gastos médicos, como hospitalización, procedimientos quirúrgicos, medicamentos recetados, pruebas de laboratorio y visitas al médico. Algunas pólizas también pueden cubrir tratamientos especializados como atención dental, ocular o de salud mental.",
+        "question2": "Pasaporte",
+        "answer2": "Un pasaporte es un documento de viaje emitido por un gobierno a sus ciudadanos con el propósito de viajar internacionalmente. Es una prueba oficial de identidad y ciudadanía que permite al titular del pasaporte entrar y salir de países extranjeros, y solicitar asistencia y protección de su gobierno mientras está en el extranjero.",
+        "question3": "Visa",
+        "answer3": "Una visa es un documento oficial o endoso colocado en un pasaporte que permite al titular del pasaporte ingresar, permanecer o salir de un país extranjero por un período específico y con un propósito específico. El propósito de una visa es regular y controlar la entrada y estancia de visitantes extranjeros en un país.",
+        "question4": "Comprobante de Residencia",
+        "answer4": "Un comprobante de domicilio es un documento que verifica dónde vives. A menudo se requiere como forma de identificación cuando necesitas abrir una cuenta bancaria, solicitar crédito o obtener una tarjeta de identificación emitida por el gobierno. Un comprobante de domicilio puede tomar muchas formas, pero generalmente incluye tu nombre, tu dirección y una fecha."
+    },
+    "profile": {
+        "personnalInfo": "Información Personal",
+        "edit": "Editar",
+        "noInfo": "Sin Información",
+        "ongoingProcess": "Proceso en Curso",
+        "noProcess": "Sin Proceso en Curso",
+        "username": "Nombre de Usuario",
+        "firstname": "Nombre",
+        "name": "Apellido",
+        "language": "Idioma",
+        "age": "Edad",
+        "email": "Correo Electrónico",
+        "address": "Dirección",
+        "phoneNumber": "Número de Teléfono",
+        "editInfo": {
+            "title" : "Editar tus Informaciones",
+            "address": "Dirección",
+            "age": "Edad",
+            "name": "Apellido",
+            "phoneNumber": "Número de Teléfono",
+            "submit": "Enviar",
+            "selectLanguage": "Seleccionar Idioma",
+            "picture": "Elija un avatar",
+            "noChange": "No hay cambios",
+            "updatedSuccess": "Tus informaciones se han actualizado con éxito"
+        }
+    },
+    "header": {
+        "navigationQuestion": "Elige dónde deseas navegar:",
+        "homePage": "Inicio",
+        "profilePage": "Perfil",
+        "settingsPage": "Configuración"
+    },
+    "quizzpage": {
+        "start": "Iniciar",
+        "select": "Seleccionar un Proceso",
+        "yes": "Sí",
+        "no": "No",
+        "toDo": "Por Hacer",
+        "done": "Hecho",
+        "uploadResult": "Carga exitosa"
+    },
+    "forgotPassword": {
+        "title": "¿Olvidaste tu Contraseña?\n",
+        "placeholder": "Correo Electrónico\n",
+        "submit": "Enviar",
+        "back": "Volver"
+    },
+    "error": {
+        "profile": "Error al cargar el perfil",
+        "mainmenu": "Error al cargar el menú principal",
+        "mainmenuCalendar": "Error al cargar el calendario del menú principal",
+        "calendar": "Error al cargar el calendario",
+        "calendarDelete": "Error al eliminar el evento",
+        "alertMissingToken": "Error: Token faltante.",
+        "alertSystemError": "Error: Error del sistema.",
+        "alertUserNotFound": "Error: Usuario no encontrado.",
+        "uploadResult": "Error al cargar",
+        "result": "Error al cargar el resultado",
+        "question": "Error al cargar la pregunta",
+        "process": "Error al cargar el proceso",
+        "editInfoFail": "Error en la actualización",
+        "calendarProcess": "Error al cargar el proceso",
+        "calendarStep": "Error al cargar el paso",
+        "calendarAdd": "Error al agregar el evento",
+        "calendarEdit": "Error al editar el evento"
+    }
+    
+}

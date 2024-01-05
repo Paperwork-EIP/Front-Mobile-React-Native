@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ScrollView, ToastAndroid } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import axios from "axios";
 
@@ -19,10 +19,16 @@ function MainMenu({ navigation, route }: { navigation: any, route: any }) {
 
     const colorMode = route.params.colorMode;
 
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+    
+    const [done, setDone] = React.useState(false);
 
     function goToQuizzPage() {
         navigation.navigate("QuizzPage");
+    };
+
+    function goToResultPage(processStockedTittle: any) {
+        navigation.navigate("Result", {processStockedTittle: processStockedTittle});
     };
 
     function goToLexiconPage() {
@@ -33,15 +39,48 @@ function MainMenu({ navigation, route }: { navigation: any, route: any }) {
         navigation.navigate("Help");
     };
 
+    async function getLanguage() {
+        const token = await getItem('@loginToken');
+        axios.get(`${url}/user/getbytoken`, { params: { token: token } })
+            .then(res => {
+                switch(res.data.language) {
+                    case 'english':
+                      i18n.changeLanguage('en');
+                      break;
+                    case 'french':
+                      i18n.changeLanguage('fr');
+                      break;
+                    case 'spanish':
+                        i18n.changeLanguage('es');
+                        break;
+                    case 'german':
+                        i18n.changeLanguage('de');
+                        break;
+                    case 'indonesian':
+                        i18n.changeLanguage('id');
+                        break;
+                    case 'korean':
+                        i18n.changeLanguage('ko');
+                        break;
+                    default:
+                        i18n.changeLanguage('en');
+                        break;
+                }
+            }).catch(err => {
+                ToastAndroid.show(t("error.mainmenu"), ToastAndroid.SHORT);
+                console.log(err)
+            });
+    }
+
     async function getProcess(token: string) {
         const response = await axios.get(`${url}/userProcess/getUserProcesses?user_token=${token}`);
 
         const userProcessTmp = [];
         for (let j = 0; j < response.data.response.length; j++) {
             if (response.data.response[j]['pourcentage'] != null)
-                userProcessTmp.push({ process: response.data.response[j]['userProcess'].title, percentage: response.data.response[j]['pourcentage'] });
+                userProcessTmp.push({ process: response.data.response[j]['userProcess'].title, stocked_title: response.data.response[j]['userProcess'].stocked_title, percentage: response.data.response[j]['pourcentage'] });
             else
-                userProcessTmp.push({ process: response.data.response[j]['userProcess'].title, percentage: 0 });
+                userProcessTmp.push({ process: response.data.response[j]['userProcess'].title, stocked_title: response.data.response[j]['userProcess'].stocked_title, percentage: 0 });
         }
         setUserProcessInfo(userProcessTmp);
         setIsLoadingProcessList(false);
@@ -63,6 +102,21 @@ function MainMenu({ navigation, route }: { navigation: any, route: any }) {
 
         return listColor[index];
     }
+
+    function getPercentageClass(percentage: number) {
+        if (percentage <= 25) {
+            return "#FC6976";
+        }
+        else if (percentage <= 50) {
+            return "#fc9f69";
+        }
+        else if (percentage <= 75) {
+            return "#29c9c6";
+        }
+        else {
+            return "#29C9B3";
+        }
+    };
 
     async function updateItems(token: string) {
         await axios.get(`${url}/calendar/getAll?token=${token}`).then((response) => {
@@ -95,6 +149,7 @@ function MainMenu({ navigation, route }: { navigation: any, route: any }) {
         }).catch((error) => {
             setItems([]);
             setIsLoadingCalendarAgendaList(false);
+            ToastAndroid.show(t("error.mainmenuCalendar"), ToastAndroid.SHORT);
             console.error("Error axios get calendar : ", error.response);
         });
     }
@@ -112,10 +167,23 @@ function MainMenu({ navigation, route }: { navigation: any, route: any }) {
     function displayProcessList() {
         if (userProcessInfo.length > 0) {
             return userProcessInfo.map((item: any, index: number) => (
-                <View key={index} style={mainmenu.processContainer}>
-                    <Text style={colorMode === 'light' ? mainmenu.processName : mainmenu.processNameDark}>{item.process}:</Text>
-                    <Text style={colorMode === 'light' ? mainmenu.processPercentage : mainmenu.processPercentageDark}>{`${item.percentage}%`}</Text>
-                </View>
+                <TouchableOpacity key={index} onPress={() => goToResultPage(item.stocked_title)}>
+                    <View style={mainmenu.processContainer}>
+                        <Text style={colorMode === 'light' ? mainmenu.processName : mainmenu.processNameDark}>{item.process}:</Text>
+                        <View style={colorMode === 'light' ? mainmenu.progressContainer : mainmenu.progressContainerDark}>
+                            <View style={[{height: '100%', backgroundColor: getPercentageClass(item.percentage)},
+                            // mainmenu.progressValue,
+                                    { width: `${item.percentage}%` },
+                                    // getPercentageClass(item.percentage),
+                                ]}
+                            >
+                                
+                            </View>
+                        </View>
+                        <Text style={colorMode === 'light' ? mainmenu.processPercentage : mainmenu.processPercentageDark}>{`${item.percentage}%`}</Text>
+                    </View>
+                </TouchableOpacity>
+
             ))
         } else {
             return (
@@ -136,9 +204,14 @@ function MainMenu({ navigation, route }: { navigation: any, route: any }) {
                 getLoginToken();
             }, 5000);
         }
+        if (done === false) {
+            getLanguage();
+            // getDarkMode();
+            setDone(true);
+        }
 
         return () => clearInterval(interval);
-    }, [items]);
+    }, [items, done]);
 
     return (
         <View style={colorMode === 'light' ? mainmenu.container : mainmenu.containerDark}>
@@ -173,7 +246,7 @@ function MainMenu({ navigation, route }: { navigation: any, route: any }) {
                         />
                 }
             </View>
-            <View style={colorMode === 'light' ? mainmenu.sectionContainerFlex1 : mainmenu.sectionContainerDarkFlex1}>
+            <View style={colorMode === 'light' ? mainmenu.sectionContainerFlex3 : mainmenu.sectionContainerDarkFlex3}>
                 <Text style={colorMode === 'light' ? mainmenu.title : mainmenu.titleDark}>{t('mainmenu.needHelp')}</Text>
                 <View style={mainmenu.buttonContainerWrapper}>
                     <View style={colorMode === 'light' ? mainmenu.buttonContainer : mainmenu.buttonContainerDark}>

@@ -43,7 +43,7 @@ const calendar_items = StyleSheet.create({
         button: {
             padding: 5,
             borderRadius: 5,
-            backgroundColor: '#FC6976',
+            backgroundColor: '#29C9B3',
         }
     },
 });

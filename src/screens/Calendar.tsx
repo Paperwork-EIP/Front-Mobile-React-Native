@@ -12,7 +12,7 @@ import { loading_component } from "../../styles/components/loading_component";
 
 import { useTranslation } from 'react-i18next';
 
-function Calendar({ route }: { navigation: any, route: any }) {
+function Calendar({ route }: { route: any }) {
     const [items, setItems] = useState<any>([]);
     const [token, setToken] = useState('');
     const [markedDatesState, setMarkedDatesState] = useState<any>({});

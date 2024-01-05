@@ -28,7 +28,7 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
 
     const [usernameEdit, setUsername] = React.useState("");
     const [nameEdit, setName] = React.useState("");
-    const [firstnameEdit, setFirstname] = React.useState("");
+    const [firstnameEdit, setFirstnameEdit] = React.useState("");
     const [languageEdit, setLanguage] = React.useState("");
     const [ageEdit, setAge] = React.useState("");
     const [emailEdit, setEmail] = React.useState("");
@@ -73,7 +73,7 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
     }
 
     function handleFirstnameChange(text: React.SetStateAction<string>) {
-        setFirstname(text);
+        setFirstnameEdit(text);
     }
 
     function handleNameChange(text: React.SetStateAction<string>) {

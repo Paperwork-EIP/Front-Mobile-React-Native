@@ -108,6 +108,7 @@
             "edit": {
                 "title": "Ereignis bearbeiten/löschen",
                 "button": "Bearbeiten",
+                "updated": "Ereignis erfolgreich aktualisiert",
                 "ok": "OK"
             },
             "delete": {
@@ -151,6 +152,7 @@
     "settings": {
         "pageTitle": "Einstellungen",
         "darkMode": "Dunkelmodus",
+        "lightMode": "Lichtmodus",
         "version": "Version",
         "disconnect": "Abmelden",
         "deleteAccount": "Konto löschen",

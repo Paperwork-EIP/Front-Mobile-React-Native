@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useColorScheme, View, ToastAndroid } from "react-native";
+import { View, ToastAndroid } from "react-native";
 import axios from "axios";
 
 import CalendarComponent from "../components/calendar/CalendarComponent";
@@ -12,7 +12,7 @@ import { loading_component } from "../../styles/components/loading_component";
 
 import { useTranslation } from 'react-i18next';
 
-function Calendar({ navigation, route }: { navigation: any, route: any }) {
+function Calendar({ route }: { route: any }) {
     const [items, setItems] = useState<any>([]);
     const [token, setToken] = useState('');
     const [markedDatesState, setMarkedDatesState] = useState<any>({});
@@ -135,15 +135,16 @@ function Calendar({ navigation, route }: { navigation: any, route: any }) {
     useEffect(() => {
         let interval: any;
 
-        if (!token || items.length === 0) {
+        if (!token) {
             getLoginToken();
         } else {
             interval = setInterval(() => {
                 getLoginToken();
+                setDotMarkedDates();
             }, 3000);
         }
         return () => clearInterval(interval);
-    }, []);
+    }, [isLoading, token, markedDatesState, items]);
 
     return (
         <View style={colorMode === 'light' ? calendar.container : calendar.containerDark}>

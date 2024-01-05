@@ -182,6 +182,7 @@
     "settings": {
         "pageTitle": "Paramètres",
         "darkMode": "Mode sombre",
+        "lightMode": "Mode clair",
         "version": "Version",
         "disconnect": "Déconnexion",
         "deleteAccount": "Supprimer le compte",

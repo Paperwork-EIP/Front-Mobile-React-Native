@@ -152,6 +152,7 @@
     "settings": {
         "pageTitle": "설정",
         "darkMode": "다크 모드",
+        "lightMode": "조명 모드",
         "version": "버전",
         "disconnect": "연결 해제",
         "deleteAccount": "계정 삭제",

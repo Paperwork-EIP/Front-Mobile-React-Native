@@ -103,6 +103,7 @@ function CalendarComponent(props: any) {
 
         return (
             <CalendarItemModal
+                colorMode={colorMode}
                 modalVisible={itemModalVisible}
                 setModalVisible={setItemModalVisible}
                 title={title}
@@ -120,6 +121,7 @@ function CalendarComponent(props: any) {
 
         return (
             <CalendarActionsModal
+                colorMode={colorMode}
                 title={title}
                 userProcessId={userProcessId}
                 stepId={stepId}

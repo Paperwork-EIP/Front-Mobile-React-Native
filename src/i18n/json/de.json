@@ -152,6 +152,7 @@
     "settings": {
         "pageTitle": "Einstellungen",
         "darkMode": "Dunkelmodus",
+        "lightMode": "Lichtmodus",
         "version": "Version",
         "disconnect": "Abmelden",
         "deleteAccount": "Konto löschen",

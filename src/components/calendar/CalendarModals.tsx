@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Modal, Text, Alert, useColorScheme, StyleProp, ViewStyle } from 'react-native';
+import { View, Modal, Text, Alert, useColorScheme, StyleProp, ViewStyle, ToastAndroid } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Picker } from '@react-native-picker/picker';
 import DatePicker from 'react-native-date-picker';
@@ -136,6 +136,7 @@ function CalendarActionsModal(props: any) {
                 );
             }).catch((error) => {
                 setIsLoading(false);
+                ToastAndroid.show(t('error.calendarEdit'), ToastAndroid.SHORT);
                 console.log(error.message);
             });
         }
@@ -172,6 +173,7 @@ function CalendarActionsModal(props: any) {
                                     );
                                 }).catch((error) => {
                                     setIsLoading(false);
+                                    ToastAndroid.show(t('error.calendarDelete'), ToastAndroid.SHORT);
                                     console.log(error);
                                 });
                         }
@@ -290,6 +292,7 @@ function CalendarAddModal(props: any) {
                 );
             }).catch((error) => {
                 setIsLoading(false);
+                ToastAndroid.show(t('error.calendarAdd'), ToastAndroid.SHORT);
                 console.log(error.response.data);
             });
         }
@@ -391,12 +394,14 @@ function CalendarAddModal(props: any) {
                             setIsLoading(false);
                         }).catch((error) => {
                             setIsLoading(false);
+                            ToastAndroid.show(t('error.calendarStep'), ToastAndroid.SHORT);
                             console.log(error.response.data);
                         })
                     }
                 }
             }).catch((error) => {
                 setIsLoading(false);
+                ToastAndroid.show(t('error.calendarProcess'), ToastAndroid.SHORT);
                 console.log(error);
             });
         }

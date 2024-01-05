@@ -10,6 +10,8 @@
         "facebook": "Facebook",
         "noAccount": "Noch kein Konto?",
         "register": "Registrieren",
+        "emailSent": "E-Mail erfolgreich gesendet!",
+        "emailFail": "Fehler beim Senden der Bestätigungs-E-Mail",
         "error": {
             "title": "Fehler",
             "message": "Ungültige E-Mail oder Passwort",
@@ -230,7 +232,10 @@
             "name": "Name",
             "phoneNumber": "Telefonnummer",
             "submit": "Absenden",
-            "selectLanguage": "Sprache auswählen"
+            "selectLanguage": "Sprache auswählen",
+            "picture": "Wählen Sie einen Avatar aus",
+            "noChange": "Es gibt keine Änderung",
+            "updatedSuccess": "Ihre Informationen wurden erfolgreich aktualisiert"
         }
     },
     "header": {
@@ -245,12 +250,32 @@
         "yes": "Ja",
         "no": "Nein",
         "toDo": "Zu erledigen",
-        "done": "Erledigt"
+        "done": "Erledigt",
+        "uploadResult": "Erfolgreich hochgeladen"
     },
     "forgotPassword": {
         "title": "Passwort vergessen?\n",
         "placeholder": "E-Mail\n",
         "submit": "Absenden",
         "back": "Zurück"
+    },
+    "error": {
+        "profile": "Fehler beim Laden des Profils",
+        "mainmenu": "Fehler beim Laden des Hauptmenüs",
+        "mainmenuCalendar": "Fehler beim Laden des Hauptmenü-Kalenders",
+        "calendar": "Fehler beim Laden des Kalenders",
+        "calendarDelete": "Fehler beim Löschen des Ereignisses",
+        "alertMissingToken": "Fehler: Fehlendes Token.",
+        "alertSystemError": "Fehler: Systemfehler.",
+        "alertUserNotFound": "Fehler: Benutzer nicht gefunden.",
+        "uploadResult": "Fehler beim Hochladen",
+        "result": "Fehler beim Laden des Ergebnisses",
+        "question": "Fehler beim Laden der Frage",
+        "process": "Fehler beim Laden des Prozesses",
+        "editInfoFail": "Aktualisierung fehlgeschlagen",
+        "calendarProcess": "Fehler beim Laden des Prozesses",
+        "calendarStep": "Fehler beim Laden des Schritts",
+        "calendarAdd": "Fehler beim Hinzufügen des Ereignisses",
+        "calendarEdit": "Fehler beim Bearbeiten des Ereignisses"
     }
 }

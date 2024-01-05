@@ -10,6 +10,8 @@
         "facebook": "Facebook",
         "noAccount": "Belum punya akun?",
         "register": "Daftar",
+        "emailSent": "Email berhasil dikirim!",
+        "emailFail": "Gagal mengirim email verifikasi",
         "error": {
             "title": "Kesalahan",
             "message": "Email atau kata sandi tidak valid",
@@ -230,7 +232,10 @@
             "name": "Nama",
             "phoneNumber": "Nomor Telepon",
             "submit": "Kirim",
-            "selectLanguage": "Pilih Bahasa"
+            "selectLanguage": "Pilih Bahasa",
+            "picture": "Pilih avatar",
+            "noChange": "Tidak ada perubahan",
+            "updatedSuccess": "Informasi Anda berhasil diperbarui"
         }
     },
     "header": {
@@ -245,12 +250,32 @@
         "yes": "Ya",
         "no": "Tidak",
         "toDo": "Belum Selesai",
-        "done": "Selesai"
+        "done": "Selesai",
+        "uploadResult": "Berhasil mengunggah"
     },
     "forgotPassword": {
         "title": "Lupa Kata Sandi?\n",
         "placeholder": "Surel\n",
         "submit": "Kirim",
         "back": "Kembali"
+    },
+    "error": {
+        "profile": "Kesalahan saat memuat profil",
+        "mainmenu": "Kesalahan saat memuat menu utama",
+        "mainmenuCalendar": "Kesalahan saat memuat kalendar menu utama",
+        "calendar": "Kesalahan saat memuat kalendar",
+        "calendarDelete": "Kesalahan saat menghapus acara",
+        "alertMissingToken": "Kesalahan: Token tidak ditemukan.",
+        "alertSystemError": "Kesalahan: Kesalahan sistem.",
+        "alertUserNotFound": "Kesalahan: Pengguna tidak ditemukan.",
+        "uploadResult": "Kesalahan saat mengunggah",
+        "result": "Kesalahan saat memuat hasil",
+        "question": "Kesalahan saat memuat pertanyaan",
+        "process": "Kesalahan saat memuat proses",
+        "editInfoFail": "Pembaruan gagal",
+        "calendarProcess": "Kesalahan saat memuat proses",
+        "calendarStep": "Kesalahan saat memuat langkah",
+        "calendarAdd": "Kesalahan saat menambah acara",
+        "calendarEdit": "Kesalahan saat mengedit acara"
     }
 }

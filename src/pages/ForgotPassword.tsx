@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useTranslation } from 'react-i18next';
-import { View, Image, TextInput, Text, TouchableOpacity } from "react-native";
+import { View, Image, TextInput, Text, ToastAndroid } from "react-native";
 import ClickTextButtonWithDescription from "../components/ClickTextButtonWithDescription";
 import LongHorizontalButton from "../components/LongHorizontalButton";
 import axios from "axios";
@@ -33,9 +33,11 @@ function ForgotPassword({ navigation, route }: { navigation: any, route: any }) 
 
         try {
         await axios.get(process.env.EXPO_PUBLIC_BASE_URL + '/user/sendResetPasswordEmail', { params: { email: email } });
+            ToastAndroid.show('An error occur', ToastAndroid.SHORT);
             //toast t('login.emailSent');
             console.log("email sent");
         } catch (error) {
+            ToastAndroid.show('An error occur', ToastAndroid.SHORT);
             //toast t('login.emailFail');
             console.error(error);
         }

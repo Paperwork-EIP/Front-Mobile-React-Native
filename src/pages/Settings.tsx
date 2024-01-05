@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { TouchableOpacity, View, Text, Switch, Modal, NativeModules, Alert } from "react-native";
+import { TouchableOpacity, View, Text, Switch, Modal, NativeModules, Alert,     Button, ToastAndroid } from "react-native";
 import { useTranslation } from 'react-i18next';
 import axios from "axios";
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -73,17 +73,20 @@ function Settings({ navigation, route }: { navigation: any, route: any }) {
             }
         }).then(res => {
             console.log(res.data);
-            alert(t('settings.deleteAccountSuccess'))
+            Alert.alert(
+                t('settings.pageTitle'),
+                t('settings.deleteAccountSuccess'),
+            );
             deleteItemAndRedirectTo(navigation, '@loginToken', 'Login');
-            window.location.reload();
+            NativeModules.DevSettings.reload();
         }).catch(err => {
             console.log(err)
             if (err.response.status === 400) {
-                toast.error(t('settings.alertMissingToken'));
+                ToastAndroid.show(t('error.alertMissingToken'), ToastAndroid.SHORT);
             } else if (err.response.status === 404) {
-                toast.error(t('settings.alertUserNotFound'));
+                ToastAndroid.show(t('error.alertUserNotFound'), ToastAndroid.SHORT);
             } else if (err.response.status === 500) {
-                toast.error(t('settings.alertSystemError'));
+                ToastAndroid.show(t('error.alertSystemError'), ToastAndroid.SHORT);
             }
         });
     };

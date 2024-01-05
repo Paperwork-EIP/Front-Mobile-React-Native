@@ -10,6 +10,8 @@
         "facebook": "Facebook",
         "noAccount": "Don't have an account ?",
         "register": "Sign Up",
+        "emailSent": "Email sent successfully!",
+        "emailFail": "Failure to send the verification email",
         "error": {
             "title": "Error",
             "message": "Invalid email or password",
@@ -158,9 +160,6 @@
         "cancel": "Cancel",
         "confirm": "Confirm",
         "deleteAccountSuccess": "Account successfully delete",
-        "alertUserNotFound": "Error: User not found.",
-        "alertSystemError": "Error: System error.",
-        "alertMissingToken": "Error: Missing token.",
         "deleteAccountQuestion": "Are you sure you want to delete your account?",
         "restartMessage": "The application will restart to apply the changes."
     },
@@ -233,7 +232,9 @@
             "phoneNumber": "Phone number",
             "submit": "Submit",
             "selectLanguage": "Select language",
-            "picture":"Choose an avatar"
+            "picture":"Choose an avatar",
+            "noChange": "There is no change",
+            "updatedSuccess": "Your informations have been updated with success"
         }
     },
     "header": {
@@ -248,12 +249,32 @@
         "yes": "Yes",
         "no": "No",
         "toDo": "To do",
-        "done": "Done"
+        "done": "Done",
+        "uploadResult": "Upload successfully"
     },
     "forgotPassword": {
         "title": "Forgot Password ?\n",
         "placeholder": "Email\n",
         "submit": "Submit",
         "back": "Back"
+    },
+    "error": {
+        "profile": "Error while loading profile",
+        "mainmenu": "Error while loading main menu",
+        "mainmenuCalendar": "Error while loading main menu calendar",
+        "calendar": "Error while loading calendar",
+        "calendarDelete": "Error while deleting event",
+        "alertMissingToken": "Error: Missing token.",
+        "alertSystemError": "Error: System error.",
+        "alertUserNotFound": "Error: User not found.",
+        "uploadResult": "Error while uploading",
+        "result": "Error while loading result",
+        "question": "Error while loading question",
+        "process": "Error while loading process",
+        "editInfoFail": "Update failed",
+        "calendarProcess": "Error while loading process",
+        "calendarStep": "Error while loading step",
+        "calendarAdd": "Error while adding event",
+        "calendarEdit": "Error while editing event"
     }
 }

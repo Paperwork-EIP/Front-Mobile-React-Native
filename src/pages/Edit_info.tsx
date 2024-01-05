@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { /*Alert,*/ Modal, View, Image, TextInput, Text, TouchableHighlight, TouchableOpacity, ScrollView, ImageStyle, ViewStyle } from "react-native";
+import { /*Alert,*/ Modal, View, Image, TextInput, Text, TouchableHighlight, TouchableOpacity, ScrollView, ImageStyle, ToastAndroid } from "react-native";
 import { useTranslation } from 'react-i18next';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -14,6 +14,9 @@ import axios from "axios";
 import HidePasswordButton from "../components/HidePasswordButton";
 import LongHorizontalButton from "../components/LongHorizontalButton";
 import CrossButton from '../components/CrossButton';
+
+import LoadingComponent from "../components/LoadingComponent";
+import { loading_component } from "../../styles/components/loading_component";
 
 import { edit } from "../../styles/pages/edit_info";
 
@@ -36,8 +39,9 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
     const [addressEdit, setAddress] = React.useState("");
     const [phonenumberEdit, setPhonenumber] = React.useState("");
     const [profilePictureEdit, setProfilePictureEdit] = React.useState("");
-    const [profilePictureTemp, setProfilePictureTemp] = React.useState("");
-
+    const [profilePictureTemp, setProfilePictureTemp] = React.useState() as any;
+    
+    const [isLoading, setIsLoading] = React.useState(true);
     const [modalVisible, setModalVisible] = React.useState(false);
     const languageValue = [
         'french',
@@ -143,33 +147,16 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
         if (isAnyNewValue) {
             axios.post(`${url}/user/modifyDatas`, parameters)
                 .then(res => {
+                    ToastAndroid.show(t("profile.editInfo.updatedSuccess"), ToastAndroid.SHORT);
                     navigation.goBack();
                 })
                 .catch(err => {
                     console.log(err);
-                    //         if (err.response && err.response.status) {
-                    //             const { status } = err.response;
-                    //         switch (status) {
-                    //             case 400:
-                    //                 toast.error(translation.alertMissingToken);
-                    //                 break;
-                    //             case 404:
-                    //                 toast.error(translation.alertUserNotFound);
-                    //                 break;
-                    //             case 409:
-                    //                 toast.error(translation.alertUsernameAlreadyUsed);
-                    //                 break;
-                    //             case 500:
-                    //                 toast.error(translation.alertSystemError);
-                    //                 break;
-                    //             default:
-                    //                 break;
-                    //             }
-                    //         }
+                    ToastAndroid.show(t('error.editInfoFail'), ToastAndroid.SHORT);
                 });
         } else {
+            ToastAndroid.show(t("profile.editInfo.noChange"), ToastAndroid.SHORT);
             console.log('no change');
-            //   toast.error(translation.alertNoChange);
         }
     };
 
@@ -234,12 +221,6 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
                 visible={modalVisible}
             >
                 <View style={edit.add.centeredView as any}>
-                    {/* {
-                    isLoading ?
-                        <View style={colorMode === 'light' ? calendar_modal.add.modalView as any : calendar_modal.add.modalViewDark as any}>
-                            <LoadingComponent styleContainer={loading_component.lightContainer} />
-                        </View>
-                        : */}
                     <View style={colorMode === 'light' ? edit.add.modalView as any : edit.add.modalViewDark as any}>
                         <View style={edit.add.modalHeader as any}>
                             <View style={edit.add.modalHeader.containerTitle as any}>
@@ -284,76 +265,53 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
                                 </TouchableOpacity>
                             </View>
                         </View>
-                        {/* <View style={edit.add.modalFooter as any}>
-                            <LongHorizontalButton
-                                title={t('calendar.modal.add.button')}
-                                styleButton={edit.add.modalFooter.buttonEdit}
-                                styleText={edit.add.modalFooter.buttonEdit.text as any}
-                                onPress={closeModal}
-                                testID="add-modal-button"
-                            />
-                        </View> */}
                     </View>
-                    {/* } */}
                 </View>
             </Modal>;
         }
     }
 
-    // Alert.alert(
-    //     'Choose a picture',
-    //     'My Alert Msg',
-    //     [
-    //         {
-    //             text: 'Cancel',
-    //             onPress: () => Alert.alert('Cancel Pressed'),
-    //             style: 'cancel',
-    //         },
-    //         {
-    //             text: 'Submit',
-    //             onPress: () => Alert.alert('Submit Pressed'),
-    //             style: 'cancel',
-    //         },
-    //     ],
-    //     {
-    //         cancelable: true,
-    //         // onDismiss: () =>
-    //         //     Alert.alert(
-    //         //         'This alert was dismissed by tapping outside of the alert dialog.',
-    //         //     ),
-    //     },
-    // );
     function getImagesFromAssetsByFilename(filename: string) {
         switch (filename) {
             case '/assets/avatar/avatar01.png':
                 setProfilePictureTemp(require('../../assets/avatar/avatar01.png'));
+                setIsLoading(false);
                 break;
             case '/assets/avatar/avatar02.png':
                 setProfilePictureTemp(require('../../assets/avatar/avatar02.png'));
+                setIsLoading(false);
                 break;
             case '/assets/avatar/avatar03.png':
                 setProfilePictureTemp(require('../../assets/avatar/avatar03.png'));
+                setIsLoading(false);
                 break;
             case '/assets/avatar/avatar04.png':
                 setProfilePictureTemp(require('../../assets/avatar/avatar04.png'));
+                setIsLoading(false);
                 break;
             case '/assets/avatar/avatar05.png':
                 setProfilePictureTemp(require('../../assets/avatar/avatar05.png'));
+                setIsLoading(false);
                 break;
             case '/assets/avatar/avatar06.png':
                 setProfilePictureTemp(require('../../assets/avatar/avatar06.png'));
+                setIsLoading(false);
                 break;
             case '/assets/avatar/avatar07.png':
                 setProfilePictureTemp(require('../../assets/avatar/avatar07.png'));
+                setIsLoading(false);
                 break;
             case '/assets/avatar/avatar08.png':
                 setProfilePictureTemp(require('../../assets/avatar/avatar08.png'));
+                setIsLoading(false);
                 break;
             case '/assets/avatar/no_avatar.png':
                 setProfilePictureTemp(require('../../assets/avatar/no_avatar.png'));
+                setIsLoading(false);
                 break;
             default:
                 setProfilePictureTemp(require('../../assets/avatar/no_avatar.png'));
+                setIsLoading(false);
                 break;
         }
     }
@@ -370,12 +328,10 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
                 <View style={edit.center}>
                     <TouchableHighlight style={edit.modifPicture} onPress={() => { setModalVisible(!modalVisible) }}>
                         {
+                            isLoading ?
+                            <LoadingComponent styleContainer={loading_component.lightContainer} />
+                            :
                             <Image source={profilePictureTemp as any} style={edit.profilePicture as ImageStyle} />
-                            // profilePictureEdit === "" ? 
-                            // <Image source={userInfo?.profilePicture === null ? require('../../assets/avatar/no_avatar.png') : userInfo?.profilePicture}
-                            // style={edit.profilePicture as ImageStyle} />
-                            // : 
-                            // <Image source={profilePictureTemp as any} style={edit.profilePicture as ImageStyle} />
                         }
                         
                     </TouchableHighlight>

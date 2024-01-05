@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 
 import { getItem } from "../services/Storage";
-import { View } from 'react-native';
+import { View, ToastAndroid } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown'
 import { useTranslation } from 'react-i18next';
 
@@ -97,6 +97,7 @@ function QuizzPage({ navigation, route }: { navigation: any, route: any }) {
                 }
                 setPosts(procedures);
             }).catch(err => {
+                ToastAndroid.show(t('error.process'), ToastAndroid.SHORT);
                 console.log(err)
             });
     }

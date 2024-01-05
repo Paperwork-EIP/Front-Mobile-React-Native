@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useColorScheme, View } from "react-native";
+import { useColorScheme, View, ToastAndroid } from "react-native";
 import axios from "axios";
 
 import CalendarComponent from "../components/calendar/CalendarComponent";
@@ -10,6 +10,8 @@ import { getItem } from "../services/Storage";
 import { calendar, brightRed } from "../../styles/screen/calendar";
 import { loading_component } from "../../styles/components/loading_component";
 
+import { useTranslation } from 'react-i18next';
+
 function Calendar({ navigation, route }: { navigation: any, route: any }) {
     const [items, setItems] = useState<any>([]);
     const [token, setToken] = useState('');
@@ -19,6 +21,8 @@ function Calendar({ navigation, route }: { navigation: any, route: any }) {
     const colorMode = route.params.colorMode;
     const selectedDotColor = brightRed;
     const url = process.env.EXPO_PUBLIC_BASE_URL;
+
+    const { t } = useTranslation();
 
     let markedDates: any = {};
 
@@ -64,6 +68,7 @@ function Calendar({ navigation, route }: { navigation: any, route: any }) {
         }).catch((error) => {
             setItems([]);
             setIsLoading(false);
+            ToastAndroid.show(t('error.uploadResult'), ToastAndroid.SHORT);
             console.error("Error axios get calendar : ", error.response);
         });
     }
@@ -120,6 +125,7 @@ function Calendar({ navigation, route }: { navigation: any, route: any }) {
                 }).then(() => {
                     console.log("Delete calendar item");
                 }).catch(err => {
+                    ToastAndroid.show(t("error.calendarDelete"), ToastAndroid.SHORT);
                     console.error(err);
                 })
             }

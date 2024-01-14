@@ -5,7 +5,7 @@ async function getItem(value: string) {
     try {
         return await AsyncStorage.getItem(value);
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 }
 
@@ -13,7 +13,7 @@ async function storeItem(value: string, token: string) {
     try {
         await AsyncStorage.setItem(value, token);
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 }
 
@@ -26,7 +26,7 @@ async function saveUserData(name: string, firstName: string, familyName: string,
         await storeItem('@userId', id);
         await storeItem('@userPicture', picture);                    
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 }
 
@@ -48,7 +48,7 @@ async function getUserData() {
             picture: picture
         };
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 }
 
@@ -61,7 +61,7 @@ async function deleteItemAndRedirectTo(navigation: any, value: string, route: st
             routes: [{ name: route }],
         });
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 }
 
@@ -69,7 +69,7 @@ async function removeItem(value: string) {
     try {
         await AsyncStorage.removeItem(value);
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 }
 

@@ -14,7 +14,6 @@ import { loading_component } from "../../styles/components/loading_component";
 function Profile({ navigation, route }: { navigation: any, route: any }) {
 
     const url = process.env.EXPO_PUBLIC_BASE_URL;
-    const [items, setItems] = useState<any>([]);
 
     const { t } = useTranslation();
 
@@ -104,7 +103,7 @@ function Profile({ navigation, route }: { navigation: any, route: any }) {
             }).catch(err => {
                 setIsLoading(false);
                 ToastAndroid.show(t("error.profile"), ToastAndroid.SHORT);
-                console.log(err)
+                console.error(err)
             });
     }
 

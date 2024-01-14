@@ -68,7 +68,7 @@ function MainMenu({ navigation, route }: { navigation: any, route: any }) {
                 }
             }).catch(err => {
                 ToastAndroid.show(t("error.mainmenu"), ToastAndroid.SHORT);
-                console.log(err)
+                console.error(err)
             });
     }
 

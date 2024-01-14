@@ -231,6 +231,7 @@
             "title": "Ihre Informationen bearbeiten",
             "address": "Adresse",
             "age": "Alter",
+            "firstname": "Vorname",
             "name": "Name",
             "phoneNumber": "Telefonnummer",
             "submit": "Absenden",
@@ -253,7 +254,8 @@
         "no": "Nein",
         "toDo": "Zu erledigen",
         "done": "Erledigt",
-        "uploadResult": "Erfolgreich hochgeladen"
+        "uploadResult": "Erfolgreich hochgeladen",
+        "chooseProcess":"Wählen Sie einen Prozess"
     },
     "forgotPassword": {
         "title": "Passwort vergessen?\n",

@@ -229,6 +229,7 @@
             "title" : "Edit your informations",
             "address": "Address",
             "age": "Age",
+            "firstname": "Firstname",
             "name": "Name",
             "phoneNumber": "Phone number",
             "submit": "Submit",
@@ -251,7 +252,8 @@
         "no": "No",
         "toDo": "To do",
         "done": "Done",
-        "uploadResult": "Upload successfully"
+        "uploadResult": "Upload successfully",
+        "chooseProcess":"Choose a process"
     },
     "forgotPassword": {
         "title": "Forgot Password ?\n",

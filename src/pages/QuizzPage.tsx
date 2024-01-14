@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 // Utils Import
 import axios from "axios";
 
-import { getItem } from "../services/Storage";
 import { View, ToastAndroid } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown'
 import { useTranslation } from 'react-i18next';
@@ -98,7 +97,7 @@ function QuizzPage({ navigation, route }: { navigation: any, route: any }) {
                 setPosts(procedures);
             }).catch(err => {
                 ToastAndroid.show(t('error.process'), ToastAndroid.SHORT);
-                console.log(err)
+                console.error(err)
             });
     }
 
@@ -111,7 +110,7 @@ function QuizzPage({ navigation, route }: { navigation: any, route: any }) {
         if(processStockedTittle!)
             goToQuestion();
         else
-            console.log(processStockedTittle);
+            ToastAndroid.show(t('quizzpage.chooseProcess'), ToastAndroid.SHORT);
     }                     
 
     return (
@@ -127,7 +126,7 @@ function QuizzPage({ navigation, route }: { navigation: any, route: any }) {
             buttonTextAfterSelection={(selectedItem, index) => {
               return selectedItem;
             }}
-            rowTextForSelection={(item, index) => {
+            rowTextForSelection={(item) => {
               return item;
             }}
             buttonStyle={colorMode === 'light' ? quizzPage.dropdownStyle : quizzPage.dropdownStyleDark}

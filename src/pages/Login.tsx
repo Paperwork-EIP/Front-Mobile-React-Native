@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, View, Image, TextInput, Text, StyleProp, ViewStyle } from "react-native";
+import { View, Image, TextInput, Text, StyleProp, ViewStyle, ToastAndroid } from "react-native";
 import { useTranslation } from 'react-i18next';
 import { Picker } from "@react-native-picker/picker";
 import axios from "axios";
@@ -55,7 +55,6 @@ function Login({ navigation, route }: { navigation: any, route: any }) {
     }
 
     async function getDatas(email: string, password: string) {
-        console.log('Connecting...');
         setIsLoading(true);
 
         await axios.post(process.env.EXPO_PUBLIC_BASE_URL + '/user/login', {
@@ -83,23 +82,12 @@ function Login({ navigation, route }: { navigation: any, route: any }) {
                 const userPassword = await getItem('@userPassword');
                 const checkUser = await getItem('@user');
 
-                console.log("<--------------------------->");
-                console.log('Login check token : ', checkToken);
-                console.log("<--------------------------->");
-
                 if (checkToken && checkUser && userEmail && userPassword) {
                     redirectToConnectedPage();
-                    console.log('Connected with email and password');
                 }
             } else {
                 setIsLoading(false);
-                Alert.alert(
-                    t('login.error.title'),
-                    t('login.error.message'),
-                    [
-                        { text: t('login.error.button') }
-                    ]
-                );
+                ToastAndroid.show(t('login.error.message'), ToastAndroid.SHORT);
             }
         }
         ).catch(function (error) {
@@ -112,15 +100,8 @@ function Login({ navigation, route }: { navigation: any, route: any }) {
         if (email && password) {
             setIsLoading(true);
             await getDatas(email, password);
-        } else {
-            Alert.alert(
-                t('login.error.title'),
-                t('login.error.empty'),
-                [
-                    { text: t('login.error.button') }
-                ]
-            );
-        }
+        } else 
+            ToastAndroid.show(t('login.error.empty'), ToastAndroid.SHORT);
     }
 
     useEffect(() => {
@@ -131,15 +112,9 @@ function Login({ navigation, route }: { navigation: any, route: any }) {
             const checkUser = await getUserData();
             const oauth = await getItem('@oauth');
 
-            console.log("<--------------------------->");
-            console.log('Login start token : ', token);
-            console.log("i18n.language: ", i18n.language);
-            console.log("<--------------------------->");
-
             if (token && oauth) {
                 if (checkUser?.email && checkUser?.firstName && checkUser?.id && checkUser?.name) {
                     redirectToConnectedPage();
-                    console.log('Connected with' + oauth);
                 }
             } else if (userEmail && userPassword) {
                 await getDatas(userEmail, userPassword);

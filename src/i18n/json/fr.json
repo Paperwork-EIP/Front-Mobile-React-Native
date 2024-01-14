@@ -231,6 +231,7 @@
             "title" : "Modifier vos informations",
             "address": "Adresse",
             "age": "Age",
+            "firstname": "Prénom",
             "name": "Noms",
             "phoneNumber": "Numéro de téléphone",
             "submit": "Envoyé",
@@ -253,7 +254,8 @@
         "no": "Non",
         "toDo": "À faire",
         "done": "Fait",
-        "uploadResult": "Resultat envoyé"
+        "uploadResult": "Resultat envoyé",
+        "chooseProcess":"Choisissez une procédure"
     },
     "forgotPassword": {
         "title": "Mot de passe oublié ?\n",

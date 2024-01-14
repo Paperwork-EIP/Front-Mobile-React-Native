@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, StyleProp, TouchableOpacity, ViewStyle } from "react-native";
+import { Image, TouchableOpacity } from "react-native";
 import Entypo from "react-native-vector-icons/Entypo";
 
 import { hide_password_button } from "../../styles/components/hide_password_button.js";

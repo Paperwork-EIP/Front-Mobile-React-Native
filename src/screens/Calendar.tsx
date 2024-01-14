@@ -122,8 +122,6 @@ function Calendar({ route }: { route: any }) {
 
             if (eventDate < threeDays) {
                 axios.get(`${url}/calendar/delete?user_process_id=${item.userProcessId}&step_id=${item.stepId}`, {
-                }).then(() => {
-                    console.log("Delete calendar item");
                 }).catch(err => {
                     ToastAndroid.show(t("error.calendarDelete"), ToastAndroid.SHORT);
                     console.error(err);

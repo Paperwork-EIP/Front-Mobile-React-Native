@@ -19,7 +19,7 @@ import { useRoute } from '@react-navigation/native';
 
 function Result({ navigation, route }: { navigation: any, route: any }) {
 
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     const url = process.env.EXPO_PUBLIC_BASE_URL;
     const processSelected = useRoute().params
     const [stepsAnswer, setStepsAnswer] = useState([]);
@@ -38,7 +38,7 @@ function Result({ navigation, route }: { navigation: any, route: any }) {
                 setIsLoading(false);
             }).catch(err => {
                 ToastAndroid.show(t('error.result'), ToastAndroid.SHORT);
-                console.log(err);
+                console.error(err);
             });
     }
 
@@ -74,10 +74,9 @@ function Result({ navigation, route }: { navigation: any, route: any }) {
             questions: newStepsAnswer
         }).then(res => {
             ToastAndroid.show(t('quizzpage.uploadResult'), ToastAndroid.SHORT);
-            console.log(res.data.response);
         }).catch(err => {
             ToastAndroid.show(t('error.uploadResult'), ToastAndroid.SHORT);
-            console.log(err)
+            console.error(err)
         })
         navigation.navigate('Home');
     }

@@ -102,18 +102,8 @@ function CalendarActionsModal(props: any) {
                 'date': convertedDate
             }).then(() => {
                 setIsLoading(false);
-                Alert.alert(
-                    t('calendar.modal.edit.title'),
-                    t('calendar.modal.edit.updated'),
-                    [
-                        {
-                            text: t('calendar.modal.edit.ok'),
-                            onPress: () => {
-                                props.setModalVisible(!props.modalVisible);
-                            }
-                        }
-                    ]
-                );
+                ToastAndroid.show(t('calendar.modal.edit.updated'), ToastAndroid.SHORT);
+                props.setModalVisible(!props.modalVisible);
             }).catch((error) => {
                 setIsLoading(false);
                 ToastAndroid.show(t('error.calendarEdit'), ToastAndroid.SHORT);
@@ -141,20 +131,12 @@ function CalendarActionsModal(props: any) {
                             await axios.get(`${url}/calendar/delete?user_process_id=${props.userProcessId}&step_id=${props.stepId}`)
                                 .then(() => {
                                     setIsLoading(false);
-                                    Alert.alert(
-                                        t('calendar.modal.delete.title'),
-                                        t('calendar.modal.delete.success'),
-                                        [
-                                            {
-                                                text: t('calendar.modal.delete.ok'),
-                                                onPress: () => props.setModalVisible(!props.modalVisible)
-                                            }
-                                        ]
-                                    );
+                                    ToastAndroid.show(t('calendar.modal.delete.success'), ToastAndroid.SHORT);
+                                    props.setModalVisible(!props.modalVisible);
                                 }).catch((error) => {
                                     setIsLoading(false);
                                     ToastAndroid.show(t('error.calendarDelete'), ToastAndroid.SHORT);
-                                    console.log(error);
+                                    console.error(error);
                                 });
                         }
                     }
@@ -258,16 +240,8 @@ function CalendarAddModal(props: any) {
                 'date': convertedDate
             }).then(() => {
                 setIsLoading(false);
-                Alert.alert(
-                    t('calendar.modal.add.title'),
-                    t('calendar.modal.add.message'),
-                    [
-                        {
-                            text: t('calendar.modal.add.ok'),
-                            onPress: () => props.setModalVisible(!props.modalVisible)
-                        }
-                    ]
-                );
+                ToastAndroid.show(t('calendar.modal.add.message'), ToastAndroid.SHORT);
+                props.setModalVisible(!props.modalVisible);
             }).catch((error) => {
                 setIsLoading(false);
                 ToastAndroid.show(t('error.calendarAdd'), ToastAndroid.SHORT);

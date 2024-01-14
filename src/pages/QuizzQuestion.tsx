@@ -11,7 +11,6 @@ import { quizzQuestion } from "../../styles/pages/quizzQuestion";
 import LongHorizontalButton from "../components/LongHorizontalButton";
 
 import { Text, View, ToastAndroid } from 'react-native';
-import { exists, use } from 'i18next';
 
 function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) {
 
@@ -27,7 +26,6 @@ function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) 
     const [answer, setAnswer] = useState([{}]);
     const [update, setUpdate] = React.useState(false);
 
-    const [test, setTest] = useState([{}]);
     const [underAnswer, setUnderAnswer] = useState([{}]);
     const [nextUnder, setNextUnder] = useState(-1);
 
@@ -49,7 +47,7 @@ function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) 
             });
         }).catch(err => {
             ToastAndroid.show(t('error.process'), ToastAndroid.SHORT);
-            console.log(err)
+            console.error(err)
         });
     }
 
@@ -89,7 +87,7 @@ function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) 
             setQuestions(res.data.questions);
         }).catch(err => {
             ToastAndroid.show(t('error.question'), ToastAndroid.SHORT);
-            console.log(err)
+            console.error(err)
         });
 
         
@@ -111,7 +109,7 @@ function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) 
                     navigation.navigate("Result", {processStockedTittle: processSelected?.processStockedTittle});
                 }).catch(err => {
                     ToastAndroid.show(t('error.uploadResult'), ToastAndroid.SHORT);
-                    console.log(err)
+                    console.error(err)
                 });
     }
     async function updateProcess( responseTemp: any) {
@@ -123,7 +121,7 @@ function QuizzQuestion({ navigation, route } : { navigation: any, route: any }) 
                     navigation.navigate("Result", {processStockedTittle: processSelected?.processStockedTittle});
                 }).catch(err => {
                     ToastAndroid.show(t('error.uploadResult'), ToastAndroid.SHORT);
-                    console.log(err)
+                    console.error(err)
                 });
     }
 

@@ -133,7 +133,16 @@ const mainmenu = StyleSheet.create({
   processName: {
     fontSize: 14,
     fontWeight: '400',
+    width: '35%',
     color: lightTextColor,
+    overflow: 'hidden',
+  },
+  processNameDark: {
+    fontSize: 14,
+    fontWeight: '400',
+    width: '35%',
+    color: darkTextColor,
+    overflow: 'hidden',
   },
   progressContainer: {
     width: '40%',
@@ -145,7 +154,7 @@ const mainmenu = StyleSheet.create({
     overflow: 'hidden',
   },
   progressContainerDark: {
-    width: '50%',
+    width: '40%',
     height: 10,
     backgroundColor: 'grey',
     // borderWidth: 1,
@@ -156,11 +165,6 @@ const mainmenu = StyleSheet.create({
   processPercentage: {
     fontSize: 16,
     color: lightTextColor,
-  },
-  processNameDark: {
-    fontSize: 14,
-    fontWeight: '400',
-    color: darkTextColor,
   },
   processPercentageDark: {
     fontSize: 16,

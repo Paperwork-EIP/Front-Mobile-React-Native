@@ -130,7 +130,7 @@
             "message": "Ada yang salah, harap coba lagi nanti",
             "button": "OK"
         },
-        "noEvent": "tidak ada acara yang direncanakan"
+        "noEvent": "Tidak ada acara yang direncanakan"
     },
     "processidea": {
         "pagetitle": "Ide Proses Baru",

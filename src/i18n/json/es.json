@@ -130,7 +130,7 @@
             "message": "Algo salió mal, por favor inténtalo de nuevo más tarde",
             "button": "OK"
         },
-        "noEvent": "ningún evento planeado"
+        "noEvent": "Ningún evento planeado"
     },
     "processidea": {
         "pagetitle": "Nueva idea de proceso",

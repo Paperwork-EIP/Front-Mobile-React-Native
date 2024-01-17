@@ -130,7 +130,7 @@
             "message": "Etwas ist schief gelaufen, bitte versuchen Sie es später erneut",
             "button": "OK"
         },
-        "noEvent": "keine Veranstaltung geplant"
+        "noEvent": "Keine Veranstaltung geplant"
     },
     "processidea": {
         "pagetitle": "Neue Prozessidee",

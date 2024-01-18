@@ -4,21 +4,21 @@ import { Text, TouchableOpacity } from "react-native";
 interface Props {
     onPress: () => void;
     title: string;
-    styleButton: object;
-    styleText: object;
     testID: string;
+    styleButton: any;
+    styleTitle: any;
 }
 
-const LongHorizontalButton: React.FC<Props> = ({ onPress, title, styleButton, styleText, testID }) => {
+const ClickTextButton: React.FC<Props> = ({ onPress, title, testID, styleButton, styleTitle }) => {
     return (
         <TouchableOpacity
             style={styleButton}
             onPress={onPress}
             testID={testID}
         >
-                   <Text style={styleText}>{title}</Text>
+            <Text style={styleTitle}>{title}</Text>
         </TouchableOpacity>
     );
 }
 
-export default LongHorizontalButton;
+export default ClickTextButton;

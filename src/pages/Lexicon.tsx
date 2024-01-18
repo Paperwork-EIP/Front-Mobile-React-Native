@@ -5,14 +5,11 @@ import { lexicon } from "../../styles/pages/lexicon";
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 function Lexicon({ navigation, route }: { navigation: any, route: any }) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const colorMode = route.params.colorMode;
 
-  function changeLanguage(language: string | undefined) {
-      i18n.changeLanguage(language);
-  };
 
-  const [faqs, setFaqs] = useState([
+  const [ faqs ] = useState([
       {
         question: t('lexicon.question1'),
         answer: t('lexicon.answer1'),

@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -8,7 +8,6 @@ import MainMenu from "../screens/MainMenu";
 import Profile from "../screens/Profile";
 
 import { home } from "../../styles/pages/home.js";
-import { profile } from "../../styles/screen/profile.js";
 
 function SwitchTabIcon(route: any, focused: boolean, color: string, size: number) {
     switch (route.name) {
@@ -41,7 +40,7 @@ function SwitchTabIcon(route: any, focused: boolean, color: string, size: number
     }
 }
 
-function Home({ navigation, route }: { navigation: any, route: any }) {
+function Home({ route }: { route: any }) {
     const Tab = createBottomTabNavigator();
     const colorMode = route.params.colorMode;
 

@@ -5,14 +5,11 @@ import { useTranslation } from 'react-i18next';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 function Help({ navigation, route }: { navigation: any, route: any }) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const colorMode = route.params.colorMode;
 
-  function changeLanguage(language: string | undefined) {
-      i18n.changeLanguage(language);
-  };
 
-  const [faqs, setFaqs] = useState([
+  const [faqs] = useState([
       {
           question: t('help.question1'),
           answer: t('help.answer1'),

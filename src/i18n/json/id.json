@@ -130,7 +130,7 @@
             "message": "Ada yang salah, harap coba lagi nanti",
             "button": "OK"
         },
-        "noEvent": "tidak ada acara yang direncanakan"
+        "noEvent": "Tidak ada acara yang direncanakan"
     },
     "processidea": {
         "pagetitle": "Ide Proses Baru",
@@ -231,6 +231,7 @@
             "title": "Edit Informasi Anda",
             "address": "Alamat",
             "age": "Usia",
+            "firstname": "Nama Depan",
             "name": "Nama",
             "phoneNumber": "Nomor Telepon",
             "submit": "Kirim",
@@ -253,7 +254,8 @@
         "no": "Tidak",
         "toDo": "Belum Selesai",
         "done": "Selesai",
-        "uploadResult": "Berhasil mengunggah"
+        "uploadResult": "Berhasil mengunggah",
+        "chooseProcess":"Pilih sebuah proses"
     },
     "forgotPassword": {
         "title": "Lupa Kata Sandi?\n",

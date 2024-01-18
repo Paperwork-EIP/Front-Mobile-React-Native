@@ -44,13 +44,8 @@ function GoogleAuthButton({ navigation }: { navigation: any }) {
                 const checkOauth = await getItem('@oauth');
                 const checkToken = await getItem('@loginToken');
 
-                console.log('Google check user data : ', checkUserData);
-                console.log('Google check oauth : ', checkOauth);
-                console.log('Google check token : ', checkToken);
-
                 if (checkToken && checkUserData && checkOauth) {
                     redirectToConnectedPage();
-                    console.log('Google connected');
                 }
             }).catch((error) => {
                 AlertErrorSomethingWrong(error, t);
@@ -59,9 +54,8 @@ function GoogleAuthButton({ navigation }: { navigation: any }) {
     }
 
     async function getUserInfo(accessToken: string, idToken: string) {
-        console.log('Google connecting...');
         if (!accessToken) {
-            console.log('Google : No access token');
+            console.error('Google : No access token');
             return;
         }
         try {
@@ -71,8 +65,6 @@ function GoogleAuthButton({ navigation }: { navigation: any }) {
                 }
             }).then(async (response) => {
                 const user = response.data;
-
-                console.log('Google user : ', user);
 
                 if (user) {
                     await getTokens(accessToken, idToken, user);

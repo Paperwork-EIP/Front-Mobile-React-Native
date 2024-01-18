@@ -68,7 +68,7 @@ function MainMenu({ navigation, route }: { navigation: any, route: any }) {
                 }
             }).catch(err => {
                 ToastAndroid.show(t("error.mainmenu"), ToastAndroid.SHORT);
-                console.log(err)
+                console.error(err)
             });
     }
 
@@ -172,9 +172,7 @@ function MainMenu({ navigation, route }: { navigation: any, route: any }) {
                         <Text style={colorMode === 'light' ? mainmenu.processName : mainmenu.processNameDark}>{item.process}:</Text>
                         <View style={colorMode === 'light' ? mainmenu.progressContainer : mainmenu.progressContainerDark}>
                             <View style={[{height: '100%', backgroundColor: getPercentageClass(item.percentage)},
-                            // mainmenu.progressValue,
                                     { width: `${item.percentage}%` },
-                                    // getPercentageClass(item.percentage),
                                 ]}
                             >
                                 

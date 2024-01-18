@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert, View, Image, TextInput, Text, StyleProp, ViewStyle } from "react-native";
+import { View, Image, TextInput, Text, StyleProp, ViewStyle, ToastAndroid } from "react-native";
 import { useTranslation } from 'react-i18next';
 import { Picker } from "@react-native-picker/picker";
 import axios from "axios";
@@ -75,46 +75,21 @@ function Register({ navigation, route }: { navigation: any, route: any }) {
                 }
                 else {
                     setIsLoading(false);
-                    Alert.alert(
-                        t('register.error.title'),
-                        t('register.error.somethingWrong'),
-                        [
-                            { text: t('register.error.button') }
-                        ]
-                    );
+                    ToastAndroid.show(t('register.error.somethingWrong'), ToastAndroid.SHORT);
                 }
             }
             ).catch(function (error) {
                 setIsLoading(false);
                 if (error.response.status === 409) {
-                    Alert.alert(
-                        t('register.error.title'),
-                        t('register.error.accountAlreadyExists'),
-                        [
-                            { text: t('register.error.button') }
-                        ]
-                    );
+                    ToastAndroid.show(t('register.error.accountAlreadyExists'), ToastAndroid.SHORT);
                 }
                 else {
-                    Alert.alert(
-                        t('register.error.title'),
-                        t('register.error.message'),
-                        [
-                            { text: t('register.error.button') }
-                        ]
-                    );
+                    ToastAndroid.show(t('register.error.message'), ToastAndroid.SHORT);
                 }
             });
 
-        } else {
-            Alert.alert(
-                t('register.error.title'),
-                t('register.error.empty'),
-                [
-                    { text: t('register.error.button') }
-                ]
-            );
-        }
+        } else 
+            ToastAndroid.show(t('register.error.empty'), ToastAndroid.SHORT);
     }
 
     return (

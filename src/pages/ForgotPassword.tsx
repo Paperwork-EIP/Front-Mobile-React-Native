@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { View, Image, TextInput, Text, ToastAndroid } from "react-native";
-import ClickTextButtonWithDescription from "../components/ClickTextButtonWithDescription";
+import ClickTextButton from "../components/ClickTextButton";
 import LongHorizontalButton from "../components/LongHorizontalButton";
 import axios from "axios";
 
 import { forgotPassword } from "../../styles/pages/forgotPassword";
 
 function ForgotPassword({ navigation, route }: { navigation: any, route: any }) {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
     const [email, setEmail] = useState("");
     const [error, setError] = useState("");
@@ -34,8 +34,7 @@ function ForgotPassword({ navigation, route }: { navigation: any, route: any }) 
 
         try {
         await axios.get(process.env.EXPO_PUBLIC_BASE_URL + '/user/sendResetPasswordEmail', { params: { email: email } });
-            ToastAndroid.show(t('login.emailSent'), ToastAndroid.SHORT);
-            console.log("email sent");
+            setSuccess(t('login.emailSent'));
         } catch (error) {
             ToastAndroid.show(t('login.emailFail'), ToastAndroid.SHORT);
             console.error(error);
@@ -67,12 +66,11 @@ function ForgotPassword({ navigation, route }: { navigation: any, route: any }) 
                 />
             </View>
             <View style={forgotPassword.center}>
-                <ClickTextButtonWithDescription
+                <ClickTextButton
                     title={t("forgotPassword.back")}
                     onPress={redirectToLogin}
                     styleButton={forgotPassword.bottom.returnToLogin}
-                    styleTitle={colorMode === 'light' ? forgotPassword.bottom.returnToLogin.text as StyleProp<ViewStyle> : forgotPassword.bottom.returnToLogin.textDark as StyleProp<ViewStyle>}
-                    styleDescriptionText={forgotPassword.bottom.returnToLogin.forgotPassword}
+                    styleTitle={colorMode === 'light' ? forgotPassword.bottom.returnToLogin.text : forgotPassword.bottom.returnToLogin.textDark}
                     testID="returnToLoginButton"
                 />
             </View>

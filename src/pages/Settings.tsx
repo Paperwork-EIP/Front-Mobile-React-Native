@@ -1,8 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { TouchableOpacity, View, Text, Switch, Modal, NativeModules, Alert,     Button, ToastAndroid } from "react-native";
+import { TouchableOpacity, View, Text, Modal, NativeModules, Alert, ToastAndroid } from "react-native";
 import { useTranslation } from 'react-i18next';
 import axios from "axios";
-import Ionicons from '@expo/vector-icons/Ionicons';
 import DisconnectButton from "../components/DisconnectButton";
 import LongIconButton from "../components/LongIconButton";
 
@@ -35,7 +34,6 @@ function Settings({ navigation, route }: { navigation: any, route: any }) {
                     text: "Ok",
                     onPress: async () => {
                         await setColorModeCallback(colorMode === 'dark' ? 'light' : 'dark').then(() => {
-                            console.log("Color mode changed to " + colorMode);
                             NativeModules.DevSettings.reload();
                         });
                     }
@@ -61,26 +59,18 @@ function Settings({ navigation, route }: { navigation: any, route: any }) {
     useEffect(() => {
     }, []);
 
-    function changeLanguage(language: string | undefined) {
-        i18n.changeLanguage(language);
-    };
-
     const handleConfirm = () => {
         setConfirmationVisible(false);
         axios.get(`${api}/user/delete`, {
             params: {
                 token: token,
             }
-        }).then(res => {
-            console.log(res.data);
-            Alert.alert(
-                t('settings.pageTitle'),
-                t('settings.deleteAccountSuccess'),
-            );
+        }).then(() => {
+            ToastAndroid.show(t('settings.deleteAccountSuccess'), ToastAndroid.SHORT);
             deleteItemAndRedirectTo(navigation, '@loginToken', 'Login');
             NativeModules.DevSettings.reload();
         }).catch(err => {
-            console.log(err)
+            console.error(err)
             if (err.response.status === 400) {
                 ToastAndroid.show(t('error.alertMissingToken'), ToastAndroid.SHORT);
             } else if (err.response.status === 404) {

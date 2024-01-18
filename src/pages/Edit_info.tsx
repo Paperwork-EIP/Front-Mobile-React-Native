@@ -91,9 +91,7 @@ function Edit_info({ navigation, route }: { navigation: any, route: any }) {
         let isAnyNewValue = false;
 
         const checkAndAssign = (newValue: string, oldValue: string, paramName: string) => {
-            console.log("new value " + newValue.length + " old value " + oldValue);
             if (newValue.length > 0 && oldValue !== newValue) {
-                console.log("yes");
                 Object.assign(parameters, { [paramName]: newValue });
                 isAnyNewValue = true;
             }

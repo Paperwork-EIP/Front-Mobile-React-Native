@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {  Alert, View, TextInput, Text } from "react-native";
+import { View, TextInput, Text, ToastAndroid } from "react-native";
 import { useTranslation } from 'react-i18next';
 import axios from "axios";
 
@@ -9,14 +9,13 @@ import { getItem } from "../services/Storage";
 
 function ProcessIdea({ navigation, route }: { navigation: any, route: any }) {
 
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [content, setContent] = useState("");
     const [errors, setErrors] = useState({ title: '', description: '', content: '' });
 
-    const [language, setLanguage] = useState("");
     const [token, setToken] = useState('');
 
     const api = process.env.EXPO_PUBLIC_BASE_URL;
@@ -59,46 +58,22 @@ function ProcessIdea({ navigation, route }: { navigation: any, route: any }) {
         setErrors(newErrors);
 
         if (doWeHaveError == true)
-            console.log("there is some errors");
+            ToastAndroid.show(t('processidea.fail'), ToastAndroid.SHORT);
         else {
             axios.post(`${api}/processProposal/add`, {
                 title: title,
                 description: description,
                 content: content,
                 user_token: token
-            }).then(res => {
-                Alert.alert(
-                  t('processidea.wSuccess'),
-                  t('processidea.success'),
-                  [
-                    {
-                      text: 'OK',
-                      onPress: () => console.log('OK Pressed')
-                    }
-                  ],
-                  { cancelable: false }
-                );
+            }).then(() => {
+                ToastAndroid.show(t('processidea.success'), ToastAndroid.SHORT);
                 navigation.navigate('Home')
             }).catch(err => {
-                console.log("err = " + err);
-                Alert.alert(
-                  t('processidea.wFail'),
-                  t('processidea.fail'),
-                  [
-                    {
-                      text: 'OK',
-                      onPress: () => console.log('OK Pressed')
-                    }
-                  ],
-                  { cancelable: false }
-                );
+                console.error("err = " + err);
+                ToastAndroid.show(t('processidea.fail'), ToastAndroid.SHORT);
             })
         }
     }
-
-    function changeLanguage(language: string | undefined) {
-        i18n.changeLanguage(language);
-    };
 
     return (
         <>

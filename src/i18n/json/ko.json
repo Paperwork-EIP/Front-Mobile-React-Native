@@ -231,6 +231,7 @@
             "title" : "정보 편집",
             "address": "주소",
             "age": "나이",
+            "firstname": "이름",
             "name": "이름",
             "phoneNumber": "전화 번호",
             "submit": "제출",
@@ -253,7 +254,8 @@
         "no": "아니요",
         "toDo": "해야 할 일",
         "done": "완료됨",
-        "uploadResult": "성공적으로 업로드됨"
+        "uploadResult": "성공적으로 업로드됨",
+        "chooseProcess":"프로세스를 선택하세요"
     },
     "forgotPassword": {
         "title": "비밀번호를 잊으셨나요?\n",

@@ -130,7 +130,7 @@
             "message": "Algo salió mal, por favor inténtalo de nuevo más tarde",
             "button": "OK"
         },
-        "noEvent": "ningún evento planeado"
+        "noEvent": "Ningún evento planeado"
     },
     "processidea": {
         "pagetitle": "Nueva idea de proceso",
@@ -231,6 +231,7 @@
             "title" : "Editar tus Informaciones",
             "address": "Dirección",
             "age": "Edad",
+            "firstname": "Nombre",
             "name": "Apellido",
             "phoneNumber": "Número de Teléfono",
             "submit": "Enviar",
@@ -253,7 +254,8 @@
         "no": "No",
         "toDo": "Por Hacer",
         "done": "Hecho",
-        "uploadResult": "Carga exitosa"
+        "uploadResult": "Carga exitosa",
+        "chooseProcess":"Elige un proceso"
     },
     "forgotPassword": {
         "title": "¿Olvidaste tu Contraseña?\n",

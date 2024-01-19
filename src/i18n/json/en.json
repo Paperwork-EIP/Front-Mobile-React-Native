@@ -129,6 +129,7 @@
         "error": {
             "title": "Error",
             "message": "Something went wrong, please try again later",
+            "processfirst": "Please create a process first",
             "button": "OK"
         },
         "noEvent": "No event planned"

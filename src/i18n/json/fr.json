@@ -128,6 +128,7 @@
         "error": {
             "title": "Erreur",
             "message": "Une erreur est survenue, veuillez réessayer plus tard",
+            "processfirst": "Veuillez d'abord créer une procédure",
             "button": "OK"
         },
         "noEvent": "Pas d'événement plannifié"

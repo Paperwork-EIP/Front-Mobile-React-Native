@@ -128,6 +128,7 @@
         "error": {
             "title": "Kesalahan",
             "message": "Ada yang salah, harap coba lagi nanti",
+            "processfirst": "Silakan buat proses terlebih dahulu",
             "button": "OK"
         },
         "noEvent": "Tidak ada acara yang direncanakan"

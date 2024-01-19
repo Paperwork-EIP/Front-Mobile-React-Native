@@ -318,7 +318,6 @@ function CalendarAddModal(props: any) {
         if (token) {
             await axios.get(`${url}/userProcess/getUserProcesses?user_token=${token}`).then(async (response) => {
                 const userProcesses = response.data.response;
-
                 if (userProcesses.length > 0) {
                     for (const userProcess of userProcesses) {
                         const processTitle = userProcess.userProcess.stocked_title;
@@ -350,6 +349,11 @@ function CalendarAddModal(props: any) {
                             console.error(error.response.data);
                         })
                     }
+                }
+                else {
+                    setIsLoading(false);
+                    ToastAndroid.show(t('calendar.error.processfirst'), ToastAndroid.SHORT);
+                    closeModal();
                 }
             }).catch((error) => {
                 setIsLoading(false);

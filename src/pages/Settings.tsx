@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { TouchableOpacity, View, Text, Modal, NativeModules, Alert, ToastAndroid } from "react-native";
 import { useTranslation } from 'react-i18next';
 import axios from "axios";
+import RNRestart from 'react-native-restart';
 import DisconnectButton from "../components/DisconnectButton";
 import LongIconButton from "../components/LongIconButton";
 
@@ -11,15 +12,13 @@ import { setColorModeInLocalStorage } from "../services/Parameters";
 import { settingsLight, settingsDark } from "../../styles/pages/settings.js";
 
 function Settings({ navigation, route }: { navigation: any, route: any }) {
-    const { t, i18n } = useTranslation();
-    const [language, setLanguage] = useState("");
+    const { t } = useTranslation();
     const [token, setToken] = useState('');
     const api = process.env.EXPO_PUBLIC_BASE_URL;
 
     const [isConfirmationVisible, setConfirmationVisible] = useState(false);
 
     const colorMode = route.params.colorMode;
-    const iconSize = 24;
 
     const setColorModeCallback = useCallback(async (color: string) => {
         await setColorModeInLocalStorage(color);
@@ -34,7 +33,7 @@ function Settings({ navigation, route }: { navigation: any, route: any }) {
                     text: "Ok",
                     onPress: async () => {
                         await setColorModeCallback(colorMode === 'dark' ? 'light' : 'dark').then(() => {
-                            NativeModules.DevSettings.reload();
+                            RNRestart.restart();
                         });
                     }
                 }
@@ -68,7 +67,7 @@ function Settings({ navigation, route }: { navigation: any, route: any }) {
         }).then(() => {
             ToastAndroid.show(t('settings.deleteAccountSuccess'), ToastAndroid.SHORT);
             deleteItemAndRedirectTo(navigation, '@loginToken', 'Login');
-            NativeModules.DevSettings.reload();
+            RNRestart.restart();
         }).catch(err => {
             console.error(err)
             if (err.response.status === 400) {
